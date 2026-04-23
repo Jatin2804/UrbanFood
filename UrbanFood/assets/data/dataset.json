@@ -1,0 +1,4681 @@
+{
+  "users": [
+    {
+      "id": "user_001",
+      "name": "Aarav Sharma",
+      "email": "aarav.sharma@gmail.com",
+      "phone": "+91 82632 56846",
+      "pin": "9108"
+    },
+    {
+      "id": "user_002",
+      "name": "Priya Patel",
+      "email": "priya.patel@gmail.com",
+      "phone": "+91 98882 08918",
+      "pin": "7514"
+    },
+    {
+      "id": "user_003",
+      "name": "Rohan Mehta",
+      "email": "rohan.mehta@gmail.com",
+      "phone": "+91 75507 69942",
+      "pin": "9105"
+    },
+    {
+      "id": "user_004",
+      "name": "Ananya Gupta",
+      "email": "ananya.gupta@gmail.com",
+      "phone": "+91 76713 98380",
+      "pin": "7759"
+    },
+    {
+      "id": "user_005",
+      "name": "Vikram Singh",
+      "email": "vikram.singh@gmail.com",
+      "phone": "+91 95398 99277",
+      "pin": "4599"
+    },
+    {
+      "id": "user_006",
+      "name": "Sneha Reddy",
+      "email": "sneha.reddy@gmail.com",
+      "phone": "+91 79406 37802",
+      "pin": "3100"
+    },
+    {
+      "id": "user_007",
+      "name": "Arjun Nair",
+      "email": "arjun.nair@gmail.com",
+      "phone": "+91 98793 68406",
+      "pin": "4307"
+    },
+    {
+      "id": "user_008",
+      "name": "Kavya Iyer",
+      "email": "kavya.iyer@gmail.com",
+      "phone": "+91 97225 00180",
+      "pin": "6364"
+    },
+    {
+      "id": "user_009",
+      "name": "Rahul Verma",
+      "email": "rahul.verma@gmail.com",
+      "phone": "+91 90301 15676",
+      "pin": "8397"
+    },
+    {
+      "id": "user_010",
+      "name": "Diya Joshi",
+      "email": "diya.joshi@gmail.com",
+      "phone": "+91 86937 52385",
+      "pin": "3717"
+    },
+    {
+      "id": "user_011",
+      "name": "Aditya Kapoor",
+      "email": "aditya.kapoor@gmail.com",
+      "phone": "+91 94617 42184",
+      "pin": "3326"
+    },
+    {
+      "id": "user_012",
+      "name": "Meera Bhat",
+      "email": "meera.bhat@gmail.com",
+      "phone": "+91 91170 22565",
+      "pin": "9968"
+    },
+    {
+      "id": "user_013",
+      "name": "Karan Malhotra",
+      "email": "karan.malhotra@gmail.com",
+      "phone": "+91 75647 56446",
+      "pin": "7321"
+    },
+    {
+      "id": "user_014",
+      "name": "Ishita Desai",
+      "email": "ishita.desai@gmail.com",
+      "phone": "+91 98752 53843",
+      "pin": "9523"
+    },
+    {
+      "id": "user_015",
+      "name": "Nikhil Rao",
+      "email": "nikhil.rao@gmail.com",
+      "phone": "+91 78867 55573",
+      "pin": "3351"
+    },
+    {
+      "id": "user_016",
+      "name": "Pooja Kulkarni",
+      "email": "pooja.kulkarni@gmail.com",
+      "phone": "+91 85685 88930",
+      "pin": "8447"
+    },
+    {
+      "id": "user_017",
+      "name": "Siddharth Menon",
+      "email": "siddharth.menon@gmail.com",
+      "phone": "+91 70921 24338",
+      "pin": "5936"
+    },
+    {
+      "id": "user_018",
+      "name": "Riya Chopra",
+      "email": "riya.chopra@gmail.com",
+      "phone": "+91 96803 66313",
+      "pin": "9147"
+    },
+    {
+      "id": "user_019",
+      "name": "Amit Tiwari",
+      "email": "amit.tiwari@gmail.com",
+      "phone": "+91 82046 42080",
+      "pin": "8094"
+    },
+    {
+      "id": "user_020",
+      "name": "Nandini Pillai",
+      "email": "nandini.pillai@gmail.com",
+      "phone": "+91 74301 69300",
+      "pin": "7114"
+    }
+  ],
+  "dishes": [
+    {
+      "id": "dish_001",
+      "name": "Butter Chicken",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1603894584373-5ac82b2ae498?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1603894584373-5ac82b2ae598?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 4.8,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_011",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_008",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_001",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 4.7
+        }
+      ],
+      "addedDate": "2024-07-13",
+      "price": 320,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_002",
+      "name": "Paneer Tikka Masala",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a741?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a841?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.5,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Surprisingly good! Did not expect this quality.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_005",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_004",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_018",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_019",
+          "comment": "Fresh ingredients, you can really tell the difference.",
+          "rating": 4.3
+        }
+      ],
+      "addedDate": "2024-07-02",
+      "price": 280,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_003",
+      "name": "Dal Makhani",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.7,
+      "feedback": [
+        {
+          "userId": "user_012",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_013",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_011",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_004",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_007",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 3.8
+        }
+      ],
+      "addedDate": "2025-11-23",
+      "price": 220,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_004",
+      "name": "Chicken Biryani",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f108?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f208?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4.5,
+      "feedback": [
+        {
+          "userId": "user_017",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 3
+        },
+        {
+          "userId": "user_016",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 3.4
+        }
+      ],
+      "addedDate": "2024-07-23",
+      "price": 350,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_005",
+      "name": "Palak Paneer",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1601050690597-df0568f71050?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1601050690597-df0568f71150?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.2,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_016",
+          "comment": "Good portion size, great value for money.",
+          "rating": 4
+        }
+      ],
+      "addedDate": "2024-09-14",
+      "price": 240,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_006",
+      "name": "Mutton Rogan Josh",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1545247181-516773cae754?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1545247181-516773cae854?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1545247181-516773cae954?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.4,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_002",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_012",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_016",
+          "comment": "My kids absolutely loved this dish!",
+          "rating": 5
+        }
+      ],
+      "addedDate": "2025-11-24",
+      "price": 420,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_007",
+      "name": "Chole Bhature",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1626132647523-66068394d31c?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1626132647523-66068394d31c?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1626132647523-66068394d31c?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_008",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 3
+        }
+      ],
+      "addedDate": "2025-07-30",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_008",
+      "name": "Egg Curry",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 3.4,
+      "feedback": [
+        {
+          "userId": "user_004",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_001",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.5
+        }
+      ],
+      "addedDate": "2024-11-20",
+      "price": 200,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_009",
+      "name": "Rajma Chawal",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.6,
+      "feedback": [
+        {
+          "userId": "user_014",
+          "comment": "Perfect way to end a meal.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_005",
+          "comment": "Fresh ingredients, you can really tell the difference.",
+          "rating": 3.9
+        }
+      ],
+      "addedDate": "2025-07-24",
+      "price": 190,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_010",
+      "name": "Kadai Chicken",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_006",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_018",
+          "comment": "Great for sharing with friends and family.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_005",
+          "comment": "Perfect way to end a meal.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_007",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_001",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 3.5
+        }
+      ],
+      "addedDate": "2025-04-19",
+      "price": 310,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_011",
+      "name": "Malai Kofta",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574484284002-952d92456975?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1574484284002-952d92457075?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1574484284002-952d92457175?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_015",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_013",
+          "comment": "Great texture and seasoning. Really impressed.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_016",
+          "comment": "Slightly overcooked, but still enjoyable.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_017",
+          "comment": "Slightly overcooked, but still enjoyable.",
+          "rating": 4.1
+        }
+      ],
+      "addedDate": "2025-11-04",
+      "price": 260,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_012",
+      "name": "Fish Curry",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1626777552726-4a6b54c97e146?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1626777552726-4a6b54c97e246?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_011",
+          "comment": "Could use a bit more seasoning but overall solid.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_013",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_001",
+          "comment": "Good portion size, great value for money.",
+          "rating": 4.9
+        }
+      ],
+      "addedDate": "2024-08-20",
+      "price": 340,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_013",
+      "name": "Paneer Butter Masala",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 4.6,
+      "feedback": [
+        {
+          "userId": "user_008",
+          "comment": "Surprisingly good! Did not expect this quality.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_011",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_003",
+          "comment": "Just the right amount of sweetness.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_007",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_020",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 4.8
+        }
+      ],
+      "addedDate": "2025-03-19",
+      "price": 270,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_014",
+      "name": "Hyderabadi Dum Biryani",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1589302168068-964664d93dc100?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1589302168068-964664d93dc200?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "Perfect way to end a meal.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_016",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_010",
+          "comment": "Smooth and refreshing, loved every sip.",
+          "rating": 3
+        },
+        {
+          "userId": "user_017",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 4.7
+        }
+      ],
+      "addedDate": "2024-09-28",
+      "price": 380,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_015",
+      "name": "Aloo Gobi",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 4.7,
+      "feedback": [
+        {
+          "userId": "user_014",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_001",
+          "comment": "Excellent quality, restaurant-level at home.",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_005",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_019",
+          "comment": "Could be a bit spicier, but overall good.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_013",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 4.8
+        }
+      ],
+      "addedDate": "2025-03-07",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_016",
+      "name": "Chicken Tikka Masala",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a741?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1565557623262-b51c2513a841?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 3.5,
+      "feedback": [
+        {
+          "userId": "user_015",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3
+        },
+        {
+          "userId": "user_002",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_016",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_004",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2024-11-23",
+      "price": 330,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_017",
+      "name": "Baingan Bharta",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574484284002-952d92456975?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1574484284002-952d92457075?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1574484284002-952d92457175?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_011",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 4
+        },
+        {
+          "userId": "user_001",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_002",
+          "comment": "Perfect way to end a meal.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2024-09-15",
+      "price": 200,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_018",
+      "name": "Prawn Masala",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1626777552726-4a6b54c97e146?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1626777552726-4a6b54c97e246?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_001",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_020",
+          "comment": "Surprisingly good! Did not expect this quality.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_004",
+          "comment": "Great for sharing with friends and family.",
+          "rating": 3.9
+        }
+      ],
+      "addedDate": "2024-07-21",
+      "price": 450,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_019",
+      "name": "Margherita Pizza",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d102?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d202?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_010",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_013",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 3
+        }
+      ],
+      "addedDate": "2024-12-27",
+      "price": 350,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_020",
+      "name": "Grilled Chicken Pasta",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a109?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a209?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.2,
+      "feedback": [
+        {
+          "userId": "user_004",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_015",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_013",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_007",
+          "comment": "Would be better with less salt, but I still enjoyed it.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_011",
+          "comment": "Perfect way to end a meal.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2024-11-23",
+      "price": 320,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_021",
+      "name": "Spaghetti Bolognese",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1622973536968-3ead9e780960?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1622973536968-3ead9e781060?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1622973536968-3ead9e781160?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 5,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "Really fresh and well-prepared.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_001",
+          "comment": "Good portion size, great value for money.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_008",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_005",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 3.4
+        }
+      ],
+      "addedDate": "2025-07-07",
+      "price": 340,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_022",
+      "name": "Mushroom Risotto",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1476124369491-e7addf5db471?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1476124369491-e7addf5db571?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 3,
+      "feedback": [
+        {
+          "userId": "user_005",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_004",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_015",
+          "comment": "Great for sharing with friends and family.",
+          "rating": 4.3
+        }
+      ],
+      "addedDate": "2025-04-12",
+      "price": 380,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_023",
+      "name": "Thai Green Curry",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 4.3,
+      "feedback": [
+        {
+          "userId": "user_008",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_012",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_002",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2024-12-19",
+      "price": 360,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_024",
+      "name": "Pad Thai Noodles",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 5,
+      "feedback": [
+        {
+          "userId": "user_012",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_013",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_020",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 3.5
+        }
+      ],
+      "addedDate": "2025-10-05",
+      "price": 300,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_025",
+      "name": "Penne Arrabiata",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1563379926898-05f4575a45d108?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1563379926898-05f4575a45d208?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_015",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 4
+        },
+        {
+          "userId": "user_016",
+          "comment": "Perfect way to end a meal.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_020",
+          "comment": "Would be better with less salt, but I still enjoyed it.",
+          "rating": 3
+        },
+        {
+          "userId": "user_003",
+          "comment": "Great texture and seasoning. Really impressed.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2025-01-30",
+      "price": 290,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_026",
+      "name": "Paneer Tikka",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d108?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d208?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 3.7,
+      "feedback": [
+        {
+          "userId": "user_004",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_015",
+          "comment": "Excellent quality, restaurant-level at home.",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_002",
+          "comment": "I've ordered this five times now. Consistently great.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_008",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 3
+        }
+      ],
+      "addedDate": "2024-12-19",
+      "price": 220,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_027",
+      "name": "Chicken Seekh Kebab",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f100?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f200?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.1,
+      "feedback": [
+        {
+          "userId": "user_014",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_003",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_008",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2025-10-20",
+      "price": 260,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_028",
+      "name": "Samosa",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1601050690597-df0568f71050?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1601050690597-df0568f71150?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4.7,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Smooth and refreshing, loved every sip.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_006",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_008",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_010",
+          "comment": "Would be better with less salt, but I still enjoyed it.",
+          "rating": 5
+        },
+        {
+          "userId": "user_016",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 4.3
+        }
+      ],
+      "addedDate": "2025-01-24",
+      "price": 120,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_029",
+      "name": "Onion Bhaji",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b109?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b209?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_008",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_005",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_014",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 4.7
+        }
+      ],
+      "addedDate": "2025-10-29",
+      "price": 140,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_030",
+      "name": "Tandoori Chicken",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "Smooth and refreshing, loved every sip.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_009",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_020",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_017",
+          "comment": "Slightly overcooked, but still enjoyable.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_011",
+          "comment": "Perfect way to end a meal.",
+          "rating": 5
+        }
+      ],
+      "addedDate": "2025-03-24",
+      "price": 300,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_031",
+      "name": "Hara Bhara Kebab",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d108?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d208?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.1,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_001",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_010",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 4
+        },
+        {
+          "userId": "user_019",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_007",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 4.6
+        }
+      ],
+      "addedDate": "2025-06-19",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_032",
+      "name": "Chicken Lollipop",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1562967914-608f82629710?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1562967914-608f82629810?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1562967914-608f82629910?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.3,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_010",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_019",
+          "comment": "Smooth and refreshing, loved every sip.",
+          "rating": 4
+        },
+        {
+          "userId": "user_003",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_011",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2024-07-24",
+      "price": 280,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_033",
+      "name": "Aloo Tikki",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1606491956689-2ea866880049?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1606491956689-2ea866880149?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1606491956689-2ea866880249?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.1,
+      "feedback": [
+        {
+          "userId": "user_008",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_019",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_004",
+          "comment": "Good portion size, great value for money.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_011",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_020",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 4
+        }
+      ],
+      "addedDate": "2024-11-10",
+      "price": 130,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_034",
+      "name": "Fish Finger",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f158?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f258?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4,
+      "feedback": [
+        {
+          "userId": "user_015",
+          "comment": "Great texture and seasoning. Really impressed.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_001",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 4.2
+        }
+      ],
+      "addedDate": "2025-12-27",
+      "price": 290,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_035",
+      "name": "Spring Rolls",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1548507200-2e58118a8494?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1548507200-2e58118a8594?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1548507200-2e58118a8694?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "Great for sharing with friends and family.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_008",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 4.6
+        }
+      ],
+      "addedDate": "2025-06-25",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_036",
+      "name": "Bruschetta",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.2,
+      "feedback": [
+        {
+          "userId": "user_019",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_009",
+          "comment": "I've ordered this five times now. Consistently great.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_003",
+          "comment": "The best version I've tried outside of a restaurant.",
+          "rating": 3.4
+        }
+      ],
+      "addedDate": "2025-06-16",
+      "price": 200,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_037",
+      "name": "Chicken Wings",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1608039829572-9b9d0d396595?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1608039829572-9b9d0d396695?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1608039829572-9b9d0d396795?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_004",
+          "comment": "Fresh ingredients, you can really tell the difference.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_020",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4
+        },
+        {
+          "userId": "user_013",
+          "comment": "My kids absolutely loved this dish!",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_009",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 4.2
+        }
+      ],
+      "addedDate": "2024-11-01",
+      "price": 320,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_038",
+      "name": "Stuffed Mushrooms",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc936?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc1036?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.4,
+      "feedback": [
+        {
+          "userId": "user_015",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_014",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_016",
+          "comment": "Just the right amount of sweetness.",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_005",
+          "comment": "Surprisingly good! Did not expect this quality.",
+          "rating": 3.1
+        }
+      ],
+      "addedDate": "2025-06-20",
+      "price": 250,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_039",
+      "name": "Prawn Tempura",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd162?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd262?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 4,
+      "feedback": [
+        {
+          "userId": "user_004",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_019",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 4.1
+        }
+      ],
+      "addedDate": "2025-01-25",
+      "price": 350,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_040",
+      "name": "Dahi Kebab",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d108?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d208?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4.7,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "Excellent quality, restaurant-level at home.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_015",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_002",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 4.4
+        }
+      ],
+      "addedDate": "2025-12-10",
+      "price": 190,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_041",
+      "name": "Mutton Shammi Kebab",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f100?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f200?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 4.3,
+      "feedback": [
+        {
+          "userId": "user_018",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_002",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_014",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_012",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 3.3
+        },
+        {
+          "userId": "user_015",
+          "comment": "The best version I've tried outside of a restaurant.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2024-11-01",
+      "price": 310,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_042",
+      "name": "Corn Cheese Balls",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1548507200-2e58118a8494?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1548507200-2e58118a8594?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1548507200-2e58118a8694?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Good portion size, great value for money.",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_015",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 5
+        },
+        {
+          "userId": "user_008",
+          "comment": "Could use a bit more seasoning but overall solid.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_020",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.4
+        }
+      ],
+      "addedDate": "2025-10-07",
+      "price": 200,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_043",
+      "name": "Garlic Bread",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1619535860434-ba1d8fa12536?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1619535860434-ba1d8fa12636?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1619535860434-ba1d8fa12736?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.2,
+      "feedback": [
+        {
+          "userId": "user_012",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_016",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 5
+        }
+      ],
+      "addedDate": "2024-09-12",
+      "price": 150,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_044",
+      "name": "Pani Puri",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b109?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b209?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.7,
+      "feedback": [
+        {
+          "userId": "user_006",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_003",
+          "comment": "Best I've had in a while, highly recommend!",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_009",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 3.8
+        }
+      ],
+      "addedDate": "2024-06-10",
+      "price": 100,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_045",
+      "name": "Chilli Chicken",
+      "type": "starter",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1562967914-608f82629710?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1562967914-608f82629810?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1562967914-608f82629910?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.6,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_010",
+          "comment": "I've ordered this five times now. Consistently great.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_002",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 3.4
+        }
+      ],
+      "addedDate": "2024-11-25",
+      "price": 270,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_046",
+      "name": "Classic Chicken Burger",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 3,
+      "feedback": [
+        {
+          "userId": "user_006",
+          "comment": "Could be a bit spicier, but overall good.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_003",
+          "comment": "Not bad, but I've had better elsewhere.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_011",
+          "comment": "Fresh ingredients, you can really tell the difference.",
+          "rating": 4
+        },
+        {
+          "userId": "user_019",
+          "comment": "Perfect way to end a meal.",
+          "rating": 5
+        },
+        {
+          "userId": "user_016",
+          "comment": "Perfect way to end a meal.",
+          "rating": 4.2
+        }
+      ],
+      "addedDate": "2024-12-04",
+      "price": 180,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_047",
+      "name": "Veggie Wrap",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_010",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_015",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_014",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_001",
+          "comment": "Perfect way to end a meal.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_002",
+          "comment": "I've ordered this five times now. Consistently great.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2025-08-17",
+      "price": 150,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_048",
+      "name": "French Fries",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1573080496219-bb080dd4f977?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1573080496219-bb080dd4f1077?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.6,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "My kids absolutely loved this dish!",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_011",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_017",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_012",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_002",
+          "comment": "Smooth and refreshing, loved every sip.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2024-10-27",
+      "price": 120,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_049",
+      "name": "Chicken Shawarma",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1529006557810-274b9b2fc883?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1529006557810-274b9b2fc983?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 4.7,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "Really fresh and well-prepared.",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_009",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_013",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_004",
+          "comment": "Good portion size, great value for money.",
+          "rating": 3.5
+        }
+      ],
+      "addedDate": "2024-07-31",
+      "price": 170,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_050",
+      "name": "Paneer Frankie",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "Not bad, but I've had better elsewhere.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_003",
+          "comment": "Great texture and seasoning. Really impressed.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_017",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 3.5
+        }
+      ],
+      "addedDate": "2025-02-21",
+      "price": 140,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_051",
+      "name": "Veg Cheese Pizza",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d102?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d202?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 5,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Would be better with less salt, but I still enjoyed it.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_012",
+          "comment": "Could be a bit spicier, but overall good.",
+          "rating": 5
+        },
+        {
+          "userId": "user_016",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 3.1
+        }
+      ],
+      "addedDate": "2025-01-07",
+      "price": 250,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_052",
+      "name": "Chicken Momos",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 3.9,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "Slightly overcooked, but still enjoyable.",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_004",
+          "comment": "The best version I've tried outside of a restaurant.",
+          "rating": 3.8
+        }
+      ],
+      "addedDate": "2025-07-21",
+      "price": 160,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_053",
+      "name": "Veg Momos",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_008",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_015",
+          "comment": "Not bad, but I've had better elsewhere.",
+          "rating": 4.1
+        }
+      ],
+      "addedDate": "2025-06-19",
+      "price": 130,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_054",
+      "name": "Hot Dog",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1612392062126-5cc76074c52f?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1612392062126-5cc76074c52f?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1612392062126-5cc76074c52f?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_020",
+          "comment": "Just the right amount of sweetness.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_016",
+          "comment": "Could use a bit more seasoning but overall solid.",
+          "rating": 4.6
+        }
+      ],
+      "addedDate": "2025-07-17",
+      "price": 150,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_055",
+      "name": "Vada Pav",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1606491956689-2ea866880049?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1606491956689-2ea866880149?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1606491956689-2ea866880249?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 4.6,
+      "feedback": [
+        {
+          "userId": "user_004",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_012",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 3.3
+        },
+        {
+          "userId": "user_003",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 4.6
+        }
+      ],
+      "addedDate": "2025-04-09",
+      "price": 100,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_056",
+      "name": "Dosa Masala",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1630383249896-424e482df921?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1630383249896-424e482df1021?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1630383249896-424e482df1121?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 3.4,
+      "feedback": [
+        {
+          "userId": "user_018",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_015",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_005",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_013",
+          "comment": "Slightly overcooked, but still enjoyable.",
+          "rating": 4.3
+        }
+      ],
+      "addedDate": "2025-01-16",
+      "price": 160,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_057",
+      "name": "Pav Bhaji",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1606491956689-2ea866880049?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1606491956689-2ea866880149?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1606491956689-2ea866880249?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_019",
+          "comment": "I've ordered this five times now. Consistently great.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_010",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_008",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_004",
+          "comment": "I've ordered this five times now. Consistently great.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_001",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.4
+        }
+      ],
+      "addedDate": "2024-10-24",
+      "price": 170,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_058",
+      "name": "Egg Roll",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 3.2,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_002",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.6
+        }
+      ],
+      "addedDate": "2024-09-20",
+      "price": 130,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_059",
+      "name": "Cheese Burst Pizza",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d102?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d202?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.6,
+      "feedback": [
+        {
+          "userId": "user_010",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_004",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2025-04-04",
+      "price": 400,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_060",
+      "name": "Crispy Chicken Taco",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.6,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3
+        },
+        {
+          "userId": "user_012",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_015",
+          "comment": "Slightly overcooked, but still enjoyable.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2025-01-04",
+      "price": 200,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_061",
+      "name": "Cold Coffee",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1461023058943-07fcbe16d835?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1461023058943-07fcbe16d935?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 4
+        },
+        {
+          "userId": "user_017",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_001",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 4.7
+        }
+      ],
+      "addedDate": "2024-12-11",
+      "price": 150,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_062",
+      "name": "Masala Chai",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 3.5,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_013",
+          "comment": "Not bad, but I've had better elsewhere.",
+          "rating": 3.9
+        }
+      ],
+      "addedDate": "2025-06-29",
+      "price": 100,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_063",
+      "name": "Mango Lassi",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f105?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f205?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.6,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Perfect way to end a meal.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_014",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 3
+        }
+      ],
+      "addedDate": "2024-11-09",
+      "price": 130,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_064",
+      "name": "Fresh Lime Soda",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1513558161293-cdaf765ed93d?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1513558161293-cdaf765ed93d?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1513558161293-cdaf765ed93d?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 5,
+      "feedback": [
+        {
+          "userId": "user_020",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_013",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 3.8
+        }
+      ],
+      "addedDate": "2024-07-07",
+      "price": 110,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_065",
+      "name": "Strawberry Milkshake",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc799?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc899?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_005",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 4
+        }
+      ],
+      "addedDate": "2024-09-18",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_066",
+      "name": "Green Tea",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1556881286-fc6915169721?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1556881286-fc6915169821?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1556881286-fc6915169921?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.3,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_006",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_005",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 4.7
+        }
+      ],
+      "addedDate": "2025-05-08",
+      "price": 120,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_067",
+      "name": "Oreo Shake",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc799?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc899?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 4.6,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_010",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 4.2
+        }
+      ],
+      "addedDate": "2024-09-29",
+      "price": 200,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_068",
+      "name": "Watermelon Juice",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd138?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd238?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_012",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_009",
+          "comment": "The best version I've tried outside of a restaurant.",
+          "rating": 4
+        },
+        {
+          "userId": "user_010",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_003",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_004",
+          "comment": "Great for sharing with friends and family.",
+          "rating": 3.3
+        }
+      ],
+      "addedDate": "2024-10-03",
+      "price": 130,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_069",
+      "name": "Cappuccino",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "Surprisingly good! Did not expect this quality.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_017",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_004",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 3.6
+        }
+      ],
+      "addedDate": "2025-05-14",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_070",
+      "name": "Mojito",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1513558161293-cdaf765ed93d?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1513558161293-cdaf765ed93d?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1513558161293-cdaf765ed93d?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 3.7,
+      "feedback": [
+        {
+          "userId": "user_002",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_014",
+          "comment": "Good portion size, great value for money.",
+          "rating": 3
+        }
+      ],
+      "addedDate": "2025-12-28",
+      "price": 170,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_071",
+      "name": "Iced Americano",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1461023058943-07fcbe16d835?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1461023058943-07fcbe16d935?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_008",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4
+        }
+      ],
+      "addedDate": "2025-10-23",
+      "price": 200,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_072",
+      "name": "Thandai",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f105?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f205?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.9,
+      "feedback": [
+        {
+          "userId": "user_006",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_003",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_018",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 3.9
+        }
+      ],
+      "addedDate": "2024-08-18",
+      "price": 140,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_073",
+      "name": "Butter Milk",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f105?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f205?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Not bad, but I've had better elsewhere.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_002",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_006",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_009",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_005",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2025-02-08",
+      "price": 100,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_074",
+      "name": "Espresso",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "Fresh ingredients, you can really tell the difference.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_002",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_017",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_011",
+          "comment": "Just the right amount of sweetness.",
+          "rating": 4
+        }
+      ],
+      "addedDate": "2024-11-20",
+      "price": 150,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_075",
+      "name": "Hot Chocolate",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 4.2,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "My kids absolutely loved this dish!",
+          "rating": 3.4
+        },
+        {
+          "userId": "user_001",
+          "comment": "Great texture and seasoning. Really impressed.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_015",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.5
+        }
+      ],
+      "addedDate": "2025-04-16",
+      "price": 190,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_076",
+      "name": "Gulab Jamun",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1666190020070-9c500e8e10a4?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1666190020070-9c500e8e10a104?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1666190020070-9c500e8e10a204?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "The best version I've tried outside of a restaurant.",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_009",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 3.2
+        },
+        {
+          "userId": "user_011",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4
+        }
+      ],
+      "addedDate": "2025-10-18",
+      "price": 150,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_077",
+      "name": "Rasgulla",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Best I've had in a while, highly recommend!",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_012",
+          "comment": "The best version I've tried outside of a restaurant.",
+          "rating": 4.8
+        }
+      ],
+      "addedDate": "2025-07-31",
+      "price": 140,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_078",
+      "name": "Chocolate Brownie",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 5,
+      "feedback": [
+        {
+          "userId": "user_010",
+          "comment": "Great for sharing with friends and family.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_003",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 3.7
+        }
+      ],
+      "addedDate": "2025-09-16",
+      "price": 200,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_079",
+      "name": "Rasmalai",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.5,
+      "feedback": [
+        {
+          "userId": "user_005",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_001",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_017",
+          "comment": "Just the right amount of sweetness.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_008",
+          "comment": "Tasted amazing, perfectly spiced.",
+          "rating": 5
+        },
+        {
+          "userId": "user_009",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 4.4
+        }
+      ],
+      "addedDate": "2024-09-11",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_080",
+      "name": "Tiramisu",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1571877227200-a0d98ea607e109?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1571877227200-a0d98ea607e209?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 3.7,
+      "feedback": [
+        {
+          "userId": "user_020",
+          "comment": "Great for sharing with friends and family.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_004",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 4.5
+        }
+      ],
+      "addedDate": "2025-02-25",
+      "price": 350,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_081",
+      "name": "Kulfi Falooda",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f105?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1527661591475-527312dd65f205?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.4,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_014",
+          "comment": "Could use a bit more seasoning but overall solid.",
+          "rating": 3.3
+        }
+      ],
+      "addedDate": "2024-10-25",
+      "price": 170,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_082",
+      "name": "Jalebi",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1601050690597-df0568f71050?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1601050690597-df0568f71150?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4.3,
+      "feedback": [
+        {
+          "userId": "user_004",
+          "comment": "Excellent quality, restaurant-level at home.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_014",
+          "comment": "Could be a bit spicier, but overall good.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_020",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4.7
+        }
+      ],
+      "addedDate": "2025-05-13",
+      "price": 120,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_083",
+      "name": "Chocolate Lava Cake",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.9,
+      "feedback": [
+        {
+          "userId": "user_017",
+          "comment": "Smooth and refreshing, loved every sip.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_013",
+          "comment": "My kids absolutely loved this dish!",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_002",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 4.2
+        }
+      ],
+      "addedDate": "2025-08-10",
+      "price": 300,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_084",
+      "name": "Mango Cheesecake",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1567171466295-4afa63d45416?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1567171466295-4afa63d45516?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1567171466295-4afa63d45616?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 4.1,
+      "feedback": [
+        {
+          "userId": "user_020",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_008",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_015",
+          "comment": "Best I've had in a while, highly recommend!",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_012",
+          "comment": "The aroma alone was worth the order. Tasted heavenly.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_006",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 4.9
+        }
+      ],
+      "addedDate": "2025-04-01",
+      "price": 280,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_085",
+      "name": "Gajar Ka Halwa",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574484284002-952d92456975?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1574484284002-952d92457075?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1574484284002-952d92457175?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.6,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_004",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 3.8
+        }
+      ],
+      "addedDate": "2024-12-08",
+      "price": 160,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_086",
+      "name": "Kheer",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574484284002-952d92456975?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1574484284002-952d92457075?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1574484284002-952d92457175?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.5,
+      "feedback": [
+        {
+          "userId": "user_001",
+          "comment": "Could use a bit more seasoning but overall solid.",
+          "rating": 4.9
+        },
+        {
+          "userId": "user_012",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_019",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_011",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_018",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 3.9
+        }
+      ],
+      "addedDate": "2025-11-03",
+      "price": 140,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_087",
+      "name": "Ice Cream Sundae",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 3.4,
+      "feedback": [
+        {
+          "userId": "user_019",
+          "comment": "Would be better with less salt, but I still enjoyed it.",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_017",
+          "comment": "Just the right amount of sweetness.",
+          "rating": 4.8
+        }
+      ],
+      "addedDate": "2025-09-13",
+      "price": 220,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_088",
+      "name": "Panna Cotta",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1488477181946-6428a291877?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1488477181946-6428a291977?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 3.9,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Absolutely loved it! Will order again.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_016",
+          "comment": "Good portion size, great value for money.",
+          "rating": 3.3
+        }
+      ],
+      "addedDate": "2024-07-11",
+      "price": 320,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_089",
+      "name": "Moong Dal Halwa",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574484284002-952d92456975?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1574484284002-952d92457075?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1574484284002-952d92457175?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 4.2,
+      "feedback": [
+        {
+          "userId": "user_011",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 4.1
+        },
+        {
+          "userId": "user_006",
+          "comment": "The best version I've tried outside of a restaurant.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_013",
+          "comment": "Perfectly balanced flavors, loved every bite.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_017",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 4.3
+        },
+        {
+          "userId": "user_012",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 3.9
+        }
+      ],
+      "addedDate": "2025-03-03",
+      "price": 180,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_090",
+      "name": "Fruit Trifle",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1488477181946-6428a291877?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1488477181946-6428a291977?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 3.3,
+      "feedback": [
+        {
+          "userId": "user_003",
+          "comment": "Just the right amount of sweetness.",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_006",
+          "comment": "The spice level was perfect, not too mild not too hot.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_005",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4.1
+        }
+      ],
+      "addedDate": "2025-12-01",
+      "price": 250,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_091",
+      "name": "Keema Pav",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_013",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 4
+        },
+        {
+          "userId": "user_018",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_019",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_005",
+          "comment": "Could eat this every single day and never get bored.",
+          "rating": 4.2
+        }
+      ],
+      "addedDate": "2025-12-06",
+      "price": 230,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_092",
+      "name": "Shahi Paneer",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.2,
+      "feedback": [
+        {
+          "userId": "user_007",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 4.8
+        },
+        {
+          "userId": "user_006",
+          "comment": "Authentic taste, just like street food in Delhi.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_020",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 3.6
+        },
+        {
+          "userId": "user_005",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 3.3
+        },
+        {
+          "userId": "user_004",
+          "comment": "Would have loved more sauce, but the base was delicious.",
+          "rating": 4.1
+        }
+      ],
+      "addedDate": "2025-07-17",
+      "price": 260,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_093",
+      "name": "Lamb Shanks",
+      "type": "main course",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1545247181-516773cae754?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1545247181-516773cae854?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1545247181-516773cae954?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 4.5,
+      "feedback": [
+        {
+          "userId": "user_012",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 3.3
+        },
+        {
+          "userId": "user_001",
+          "comment": "Smooth and refreshing, loved every sip.",
+          "rating": 5
+        },
+        {
+          "userId": "user_005",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 4
+        },
+        {
+          "userId": "user_002",
+          "comment": "Best I've had in a while, highly recommend!",
+          "rating": 4.2
+        },
+        {
+          "userId": "user_004",
+          "comment": "A bit pricey but totally worth the experience.",
+          "rating": 3.3
+        }
+      ],
+      "addedDate": "2024-08-05",
+      "price": 490,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_094",
+      "name": "Veggie Supreme Pizza",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d102?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1574071318508-1cdbab80d202?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4.4,
+      "feedback": [
+        {
+          "userId": "user_006",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_008",
+          "comment": "Not bad, but I've had better elsewhere.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_019",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2025-12-14",
+      "price": 380,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_095",
+      "name": "Chicken Fried Rice",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=1200&h=800&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800&h=1200&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800&h=800&fit=crop&auto=format&q=80"
+      ],
+      "ratings": 3.4,
+      "feedback": [
+        {
+          "userId": "user_014",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 3.7
+        },
+        {
+          "userId": "user_005",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.5
+        }
+      ],
+      "addedDate": "2025-02-19",
+      "price": 220,
+      "nonVeg": true
+    },
+    {
+      "id": "dish_096",
+      "name": "Hakka Noodles",
+      "type": "fast food",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=1200&h=800&fit=crop&auto=format&q=80&sharp=15",
+        "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&h=1200&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=800&h=800&fit=crop&auto=format&q=80&sat=-20"
+      ],
+      "ratings": 3.8,
+      "feedback": [
+        {
+          "userId": "user_004",
+          "comment": "Good portion size, great value for money.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_010",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_011",
+          "comment": "Very filling and satisfying. Great lunch option.",
+          "rating": 4.4
+        },
+        {
+          "userId": "user_019",
+          "comment": "Surprisingly good! Did not expect this quality.",
+          "rating": 4
+        },
+        {
+          "userId": "user_016",
+          "comment": "Perfect comfort food for a rainy day.",
+          "rating": 3.4
+        }
+      ],
+      "addedDate": "2025-10-15",
+      "price": 190,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_097",
+      "name": "Phirni",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1574484284002-952d92456975?w=1200&h=800&fit=crop&auto=format&q=80",
+        "https://images.unsplash.com/photo-1574484284002-952d92457075?w=800&h=1200&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1574484284002-952d92457175?w=800&h=800&fit=crop&auto=format&q=80&bright=5"
+      ],
+      "ratings": 3.5,
+      "feedback": [
+        {
+          "userId": "user_008",
+          "comment": "Crispy on the outside, juicy inside. Perfect!",
+          "rating": 3.8
+        },
+        {
+          "userId": "user_011",
+          "comment": "Slightly overcooked, but still enjoyable.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_017",
+          "comment": "A bit too oily for my taste, but flavors were on point.",
+          "rating": 4.4
+        }
+      ],
+      "addedDate": "2025-04-30",
+      "price": 130,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_098",
+      "name": "Banana Split",
+      "type": "dessert",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1200&h=800&fit=crop&auto=format&q=80&sat=-20",
+        "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=1200&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=800&fit=crop&auto=format&q=80&con=10"
+      ],
+      "ratings": 4.8,
+      "feedback": [
+        {
+          "userId": "user_015",
+          "comment": "Fresh ingredients, you can really tell the difference.",
+          "rating": 3
+        },
+        {
+          "userId": "user_016",
+          "comment": "A little underwhelming compared to expectations.",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_003",
+          "comment": "Presentation was beautiful and taste was even better.",
+          "rating": 4.7
+        },
+        {
+          "userId": "user_018",
+          "comment": "Great texture and seasoning. Really impressed.",
+          "rating": 3
+        }
+      ],
+      "addedDate": "2024-08-22",
+      "price": 240,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_099",
+      "name": "Rose Milk",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=1200&h=800&fit=crop&auto=format&q=80&bright=5",
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc799?w=800&h=1200&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1572490122747-3968b75cc899?w=800&h=800&fit=crop&auto=format&q=80&blur=50"
+      ],
+      "ratings": 4.8,
+      "feedback": [
+        {
+          "userId": "user_009",
+          "comment": "Not bad, but I've had better elsewhere.",
+          "rating": 3.9
+        },
+        {
+          "userId": "user_017",
+          "comment": "Rich and creamy, every spoonful was a delight.",
+          "rating": 3.3
+        },
+        {
+          "userId": "user_001",
+          "comment": "My go-to dish from this place. Never disappoints.",
+          "rating": 3.3
+        },
+        {
+          "userId": "user_002",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 3.3
+        },
+        {
+          "userId": "user_011",
+          "comment": "Really fresh and well-prepared.",
+          "rating": 3.2
+        }
+      ],
+      "addedDate": "2025-11-24",
+      "price": 120,
+      "nonVeg": false
+    },
+    {
+      "id": "dish_100",
+      "name": "Filter Coffee",
+      "type": "beverage",
+      "bannerImages": [
+        "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=1200&h=800&fit=crop&auto=format&q=80&con=10",
+        "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&h=1200&fit=crop&auto=format&q=80&blur=50",
+        "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=800&h=800&fit=crop&auto=format&q=80&sharp=15"
+      ],
+      "ratings": 4.2,
+      "feedback": [
+        {
+          "userId": "user_014",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 4.6
+        },
+        {
+          "userId": "user_005",
+          "comment": "Melt-in-your-mouth goodness. Absolutely divine.",
+          "rating": 3.5
+        },
+        {
+          "userId": "user_011",
+          "comment": "Reminded me of homemade food. So nostalgic!",
+          "rating": 3.1
+        },
+        {
+          "userId": "user_006",
+          "comment": "Decent, nothing extraordinary but satisfying.",
+          "rating": 4.5
+        },
+        {
+          "userId": "user_009",
+          "comment": "Nice and light, perfect for a quick meal.",
+          "rating": 3.4
+        }
+      ],
+      "addedDate": "2025-10-12",
+      "price": 110,
+      "nonVeg": false
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "order_001",
+      "userId": "user_013",
+      "dishes": [
+        {
+          "dishId": "dish_053",
+          "name": "Veg Momos",
+          "price": 130
+        },
+        {
+          "dishId": "dish_052",
+          "name": "Chicken Momos",
+          "price": 160
+        },
+        {
+          "dishId": "dish_077",
+          "name": "Rasgulla",
+          "price": 140
+        },
+        {
+          "dishId": "dish_072",
+          "name": "Thandai",
+          "price": 140
+        },
+        {
+          "dishId": "dish_002",
+          "name": "Paneer Tikka Masala",
+          "price": 280
+        }
+      ],
+      "totalOrderPrice": 850,
+      "date": "2026-04-12",
+      "success": true,
+      "type": "takeaway",
+      "userFeedback": [
+        {
+          "comment": "One item was missing, but the rest was good.",
+          "rating": 4.3
+        },
+        {
+          "comment": "Portions were generous, very happy with this order.",
+          "rating": 3.1
+        },
+        {
+          "comment": "Smooth ordering experience and tasty food.",
+          "rating": 3.1
+        }
+      ]
+    },
+    {
+      "orderId": "order_002",
+      "userId": "user_012",
+      "dishes": [
+        {
+          "dishId": "dish_001",
+          "name": "Butter Chicken",
+          "price": 320
+        },
+        {
+          "dishId": "dish_009",
+          "name": "Rajma Chawal",
+          "price": 190
+        }
+      ],
+      "totalOrderPrice": 510,
+      "date": "2026-02-19",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Took longer than expected but food quality was great.",
+          "rating": 3.8
+        },
+        {
+          "comment": "Fast service and the food was absolutely delicious.",
+          "rating": 3.4
+        },
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 4
+        }
+      ]
+    },
+    {
+      "orderId": "order_003",
+      "userId": "user_014",
+      "dishes": [
+        {
+          "dishId": "dish_054",
+          "name": "Hot Dog",
+          "price": 150
+        },
+        {
+          "dishId": "dish_001",
+          "name": "Butter Chicken",
+          "price": 320
+        },
+        {
+          "dishId": "dish_074",
+          "name": "Espresso",
+          "price": 150
+        },
+        {
+          "dishId": "dish_097",
+          "name": "Phirni",
+          "price": 130
+        }
+      ],
+      "totalOrderPrice": 750,
+      "date": "2026-03-28",
+      "success": true,
+      "type": "takeaway",
+      "userFeedback": [
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 3.5
+        },
+        {
+          "comment": "Portions were generous, very happy with this order.",
+          "rating": 4.3
+        }
+      ]
+    },
+    {
+      "orderId": "order_004",
+      "userId": "user_019",
+      "dishes": [
+        {
+          "dishId": "dish_066",
+          "name": "Green Tea",
+          "price": 120
+        },
+        {
+          "dishId": "dish_006",
+          "name": "Mutton Rogan Josh",
+          "price": 420
+        }
+      ],
+      "totalOrderPrice": 540,
+      "date": "2026-01-12",
+      "success": true,
+      "type": "takeaway",
+      "userFeedback": [
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 5
+        },
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 3.9
+        }
+      ]
+    },
+    {
+      "orderId": "order_005",
+      "userId": "user_020",
+      "dishes": [
+        {
+          "dishId": "dish_082",
+          "name": "Jalebi",
+          "price": 120
+        },
+        {
+          "dishId": "dish_031",
+          "name": "Hara Bhara Kebab",
+          "price": 180
+        }
+      ],
+      "totalOrderPrice": 300,
+      "date": "2026-02-13",
+      "success": false,
+      "type": "takeaway",
+      "userFeedback": [
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.2
+        },
+        {
+          "comment": "Loved the variety, all dishes were flavorful.",
+          "rating": 4.5
+        },
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 4.2
+        }
+      ]
+    },
+    {
+      "orderId": "order_006",
+      "userId": "user_009",
+      "dishes": [
+        {
+          "dishId": "dish_093",
+          "name": "Lamb Shanks",
+          "price": 490
+        },
+        {
+          "dishId": "dish_002",
+          "name": "Paneer Tikka Masala",
+          "price": 280
+        },
+        {
+          "dishId": "dish_007",
+          "name": "Chole Bhature",
+          "price": 180
+        },
+        {
+          "dishId": "dish_047",
+          "name": "Veggie Wrap",
+          "price": 150
+        }
+      ],
+      "totalOrderPrice": 1100,
+      "date": "2026-03-14",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.6
+        },
+        {
+          "comment": "Fast service and the food was absolutely delicious.",
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "orderId": "order_007",
+      "userId": "user_009",
+      "dishes": [
+        {
+          "dishId": "dish_045",
+          "name": "Chilli Chicken",
+          "price": 270
+        },
+        {
+          "dishId": "dish_020",
+          "name": "Grilled Chicken Pasta",
+          "price": 320
+        },
+        {
+          "dishId": "dish_080",
+          "name": "Tiramisu",
+          "price": 350
+        }
+      ],
+      "totalOrderPrice": 940,
+      "date": "2026-03-27",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Fast service and the food was absolutely delicious.",
+          "rating": 3.2
+        },
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 4.1
+        },
+        {
+          "comment": "Quick delivery, everything was hot and fresh.",
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "orderId": "order_008",
+      "userId": "user_001",
+      "dishes": [
+        {
+          "dishId": "dish_045",
+          "name": "Chilli Chicken",
+          "price": 270
+        },
+        {
+          "dishId": "dish_076",
+          "name": "Gulab Jamun",
+          "price": 150
+        },
+        {
+          "dishId": "dish_016",
+          "name": "Chicken Tikka Masala",
+          "price": 330
+        }
+      ],
+      "totalOrderPrice": 750,
+      "date": "2026-02-18",
+      "success": true,
+      "type": "takeaway",
+      "userFeedback": [
+        {
+          "comment": "The dine-in experience was lovely and relaxing.",
+          "rating": 4
+        },
+        {
+          "comment": "Loved the variety, all dishes were flavorful.",
+          "rating": 4.3
+        },
+        {
+          "comment": "Took longer than expected but food quality was great.",
+          "rating": 5
+        }
+      ]
+    },
+    {
+      "orderId": "order_009",
+      "userId": "user_017",
+      "dishes": [
+        {
+          "dishId": "dish_040",
+          "name": "Dahi Kebab",
+          "price": 190
+        },
+        {
+          "dishId": "dish_051",
+          "name": "Veg Cheese Pizza",
+          "price": 250
+        },
+        {
+          "dishId": "dish_049",
+          "name": "Chicken Shawarma",
+          "price": 170
+        },
+        {
+          "dishId": "dish_025",
+          "name": "Penne Arrabiata",
+          "price": 290
+        }
+      ],
+      "totalOrderPrice": 900,
+      "date": "2026-04-07",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Staff was very friendly and helpful during dine-in.",
+          "rating": 3.4
+        },
+        {
+          "comment": "Quick delivery, everything was hot and fresh.",
+          "rating": 4.2
+        },
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 3.4
+        }
+      ]
+    },
+    {
+      "orderId": "order_010",
+      "userId": "user_015",
+      "dishes": [
+        {
+          "dishId": "dish_096",
+          "name": "Hakka Noodles",
+          "price": 190
+        },
+        {
+          "dishId": "dish_076",
+          "name": "Gulab Jamun",
+          "price": 150
+        },
+        {
+          "dishId": "dish_003",
+          "name": "Dal Makhani",
+          "price": 220
+        },
+        {
+          "dishId": "dish_060",
+          "name": "Crispy Chicken Taco",
+          "price": 200
+        },
+        {
+          "dishId": "dish_091",
+          "name": "Keema Pav",
+          "price": 230
+        }
+      ],
+      "totalOrderPrice": 990,
+      "date": "2026-02-02",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "The dine-in experience was lovely and relaxing.",
+          "rating": 4.6
+        },
+        {
+          "comment": "Great value combo. Will definitely reorder.",
+          "rating": 3.7
+        }
+      ]
+    },
+    {
+      "orderId": "order_011",
+      "userId": "user_013",
+      "dishes": [
+        {
+          "dishId": "dish_010",
+          "name": "Kadai Chicken",
+          "price": 310
+        },
+        {
+          "dishId": "dish_065",
+          "name": "Strawberry Milkshake",
+          "price": 180
+        },
+        {
+          "dishId": "dish_087",
+          "name": "Ice Cream Sundae",
+          "price": 220
+        },
+        {
+          "dishId": "dish_006",
+          "name": "Mutton Rogan Josh",
+          "price": 420
+        }
+      ],
+      "totalOrderPrice": 1130,
+      "date": "2026-04-13",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Everything was perfect. 10/10 experience!",
+          "rating": 4.5
+        },
+        {
+          "comment": "The dine-in experience was lovely and relaxing.",
+          "rating": 4
+        },
+        {
+          "comment": "Great value combo. Will definitely reorder.",
+          "rating": 3.9
+        }
+      ]
+    },
+    {
+      "orderId": "order_012",
+      "userId": "user_002",
+      "dishes": [
+        {
+          "dishId": "dish_010",
+          "name": "Kadai Chicken",
+          "price": 310
+        },
+        {
+          "dishId": "dish_042",
+          "name": "Corn Cheese Balls",
+          "price": 200
+        }
+      ],
+      "totalOrderPrice": 510,
+      "date": "2026-04-07",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Great value combo. Will definitely reorder.",
+          "rating": 4.7
+        },
+        {
+          "comment": "Packaging was excellent, no spills at all.",
+          "rating": 3.3
+        }
+      ]
+    },
+    {
+      "orderId": "order_013",
+      "userId": "user_015",
+      "dishes": [
+        {
+          "dishId": "dish_046",
+          "name": "Classic Chicken Burger",
+          "price": 180
+        },
+        {
+          "dishId": "dish_051",
+          "name": "Veg Cheese Pizza",
+          "price": 250
+        },
+        {
+          "dishId": "dish_012",
+          "name": "Fish Curry",
+          "price": 340
+        },
+        {
+          "dishId": "dish_014",
+          "name": "Hyderabadi Dum Biryani",
+          "price": 380
+        },
+        {
+          "dishId": "dish_082",
+          "name": "Jalebi",
+          "price": 120
+        }
+      ],
+      "totalOrderPrice": 1270,
+      "date": "2026-03-23",
+      "success": false,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Loved the variety, all dishes were flavorful.",
+          "rating": 3.4
+        },
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 3.8
+        },
+        {
+          "comment": "Smooth ordering experience and tasty food.",
+          "rating": 3.3
+        }
+      ]
+    },
+    {
+      "orderId": "order_014",
+      "userId": "user_018",
+      "dishes": [
+        {
+          "dishId": "dish_060",
+          "name": "Crispy Chicken Taco",
+          "price": 200
+        },
+        {
+          "dishId": "dish_010",
+          "name": "Kadai Chicken",
+          "price": 310
+        },
+        {
+          "dishId": "dish_025",
+          "name": "Penne Arrabiata",
+          "price": 290
+        },
+        {
+          "dishId": "dish_011",
+          "name": "Malai Kofta",
+          "price": 260
+        }
+      ],
+      "totalOrderPrice": 1060,
+      "date": "2026-01-06",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Quick delivery, everything was hot and fresh.",
+          "rating": 4.7
+        },
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.8
+        },
+        {
+          "comment": "One item was missing, but the rest was good.",
+          "rating": 3.8
+        }
+      ]
+    },
+    {
+      "orderId": "order_015",
+      "userId": "user_003",
+      "dishes": [
+        {
+          "dishId": "dish_008",
+          "name": "Egg Curry",
+          "price": 200
+        },
+        {
+          "dishId": "dish_087",
+          "name": "Ice Cream Sundae",
+          "price": 220
+        },
+        {
+          "dishId": "dish_007",
+          "name": "Chole Bhature",
+          "price": 180
+        }
+      ],
+      "totalOrderPrice": 600,
+      "date": "2026-03-12",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 3.4
+        },
+        {
+          "comment": "Great value combo. Will definitely reorder.",
+          "rating": 4.9
+        },
+        {
+          "comment": "Smooth ordering experience and tasty food.",
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "orderId": "order_016",
+      "userId": "user_017",
+      "dishes": [
+        {
+          "dishId": "dish_068",
+          "name": "Watermelon Juice",
+          "price": 130
+        },
+        {
+          "dishId": "dish_019",
+          "name": "Margherita Pizza",
+          "price": 350
+        },
+        {
+          "dishId": "dish_032",
+          "name": "Chicken Lollipop",
+          "price": 280
+        },
+        {
+          "dishId": "dish_050",
+          "name": "Paneer Frankie",
+          "price": 140
+        }
+      ],
+      "totalOrderPrice": 900,
+      "date": "2026-02-15",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 3.6
+        },
+        {
+          "comment": "Loved the variety, all dishes were flavorful.",
+          "rating": 3.9
+        }
+      ]
+    },
+    {
+      "orderId": "order_017",
+      "userId": "user_018",
+      "dishes": [
+        {
+          "dishId": "dish_088",
+          "name": "Panna Cotta",
+          "price": 320
+        },
+        {
+          "dishId": "dish_082",
+          "name": "Jalebi",
+          "price": 120
+        }
+      ],
+      "totalOrderPrice": 440,
+      "date": "2026-01-17",
+      "success": false,
+      "type": "takeaway",
+      "userFeedback": [
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.5
+        },
+        {
+          "comment": "Everything was perfect. 10/10 experience!",
+          "rating": 3.4
+        },
+        {
+          "comment": "Fast service and the food was absolutely delicious.",
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "orderId": "order_018",
+      "userId": "user_012",
+      "dishes": [
+        {
+          "dishId": "dish_020",
+          "name": "Grilled Chicken Pasta",
+          "price": 320
+        },
+        {
+          "dishId": "dish_040",
+          "name": "Dahi Kebab",
+          "price": 190
+        },
+        {
+          "dishId": "dish_005",
+          "name": "Palak Paneer",
+          "price": 240
+        },
+        {
+          "dishId": "dish_041",
+          "name": "Mutton Shammi Kebab",
+          "price": 310
+        },
+        {
+          "dishId": "dish_022",
+          "name": "Mushroom Risotto",
+          "price": 380
+        }
+      ],
+      "totalOrderPrice": 1440,
+      "date": "2026-04-16",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 3.7
+        },
+        {
+          "comment": "Smooth ordering experience and tasty food.",
+          "rating": 4.7
+        }
+      ]
+    },
+    {
+      "orderId": "order_019",
+      "userId": "user_015",
+      "dishes": [
+        {
+          "dishId": "dish_085",
+          "name": "Gajar Ka Halwa",
+          "price": 160
+        },
+        {
+          "dishId": "dish_003",
+          "name": "Dal Makhani",
+          "price": 220
+        },
+        {
+          "dishId": "dish_002",
+          "name": "Paneer Tikka Masala",
+          "price": 280
+        },
+        {
+          "dishId": "dish_029",
+          "name": "Onion Bhaji",
+          "price": 140
+        },
+        {
+          "dishId": "dish_020",
+          "name": "Grilled Chicken Pasta",
+          "price": 320
+        }
+      ],
+      "totalOrderPrice": 1120,
+      "date": "2026-03-16",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Portions were generous, very happy with this order.",
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "orderId": "order_020",
+      "userId": "user_011",
+      "dishes": [
+        {
+          "dishId": "dish_088",
+          "name": "Panna Cotta",
+          "price": 320
+        },
+        {
+          "dishId": "dish_001",
+          "name": "Butter Chicken",
+          "price": 320
+        },
+        {
+          "dishId": "dish_013",
+          "name": "Paneer Butter Masala",
+          "price": 270
+        },
+        {
+          "dishId": "dish_048",
+          "name": "French Fries",
+          "price": 120
+        },
+        {
+          "dishId": "dish_050",
+          "name": "Paneer Frankie",
+          "price": 140
+        }
+      ],
+      "totalOrderPrice": 1170,
+      "date": "2026-03-12",
+      "success": false,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Staff was very friendly and helpful during dine-in.",
+          "rating": 4.8
+        },
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.3
+        }
+      ]
+    },
+    {
+      "orderId": "order_021",
+      "userId": "user_011",
+      "dishes": [
+        {
+          "dishId": "dish_065",
+          "name": "Strawberry Milkshake",
+          "price": 180
+        },
+        {
+          "dishId": "dish_016",
+          "name": "Chicken Tikka Masala",
+          "price": 330
+        },
+        {
+          "dishId": "dish_025",
+          "name": "Penne Arrabiata",
+          "price": 290
+        },
+        {
+          "dishId": "dish_021",
+          "name": "Spaghetti Bolognese",
+          "price": 340
+        },
+        {
+          "dishId": "dish_046",
+          "name": "Classic Chicken Burger",
+          "price": 180
+        }
+      ],
+      "totalOrderPrice": 1320,
+      "date": "2026-04-03",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Loved the variety, all dishes were flavorful.",
+          "rating": 3.7
+        },
+        {
+          "comment": "Great value combo. Will definitely reorder.",
+          "rating": 3.5
+        }
+      ]
+    },
+    {
+      "orderId": "order_022",
+      "userId": "user_009",
+      "dishes": [
+        {
+          "dishId": "dish_014",
+          "name": "Hyderabadi Dum Biryani",
+          "price": 380
+        },
+        {
+          "dishId": "dish_066",
+          "name": "Green Tea",
+          "price": 120
+        },
+        {
+          "dishId": "dish_072",
+          "name": "Thandai",
+          "price": 140
+        },
+        {
+          "dishId": "dish_098",
+          "name": "Banana Split",
+          "price": 240
+        }
+      ],
+      "totalOrderPrice": 880,
+      "date": "2026-04-18",
+      "success": false,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 3.9
+        },
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "orderId": "order_023",
+      "userId": "user_014",
+      "dishes": [
+        {
+          "dishId": "dish_052",
+          "name": "Chicken Momos",
+          "price": 160
+        },
+        {
+          "dishId": "dish_015",
+          "name": "Aloo Gobi",
+          "price": 180
+        },
+        {
+          "dishId": "dish_022",
+          "name": "Mushroom Risotto",
+          "price": 380
+        },
+        {
+          "dishId": "dish_099",
+          "name": "Rose Milk",
+          "price": 120
+        }
+      ],
+      "totalOrderPrice": 840,
+      "date": "2026-04-11",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 3.9
+        },
+        {
+          "comment": "One item was missing, but the rest was good.",
+          "rating": 3.2
+        }
+      ]
+    },
+    {
+      "orderId": "order_024",
+      "userId": "user_005",
+      "dishes": [
+        {
+          "dishId": "dish_068",
+          "name": "Watermelon Juice",
+          "price": 130
+        },
+        {
+          "dishId": "dish_088",
+          "name": "Panna Cotta",
+          "price": 320
+        },
+        {
+          "dishId": "dish_078",
+          "name": "Chocolate Brownie",
+          "price": 200
+        },
+        {
+          "dishId": "dish_066",
+          "name": "Green Tea",
+          "price": 120
+        },
+        {
+          "dishId": "dish_095",
+          "name": "Chicken Fried Rice",
+          "price": 220
+        }
+      ],
+      "totalOrderPrice": 990,
+      "date": "2026-04-19",
+      "success": false,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Great value combo. Will definitely reorder.",
+          "rating": 4.5
+        },
+        {
+          "comment": "The dine-in experience was lovely and relaxing.",
+          "rating": 4.7
+        },
+        {
+          "comment": "Packaging was excellent, no spills at all.",
+          "rating": 3.7
+        }
+      ]
+    },
+    {
+      "orderId": "order_025",
+      "userId": "user_020",
+      "dishes": [
+        {
+          "dishId": "dish_066",
+          "name": "Green Tea",
+          "price": 120
+        },
+        {
+          "dishId": "dish_023",
+          "name": "Thai Green Curry",
+          "price": 360
+        },
+        {
+          "dishId": "dish_059",
+          "name": "Cheese Burst Pizza",
+          "price": 400
+        },
+        {
+          "dishId": "dish_011",
+          "name": "Malai Kofta",
+          "price": 260
+        },
+        {
+          "dishId": "dish_092",
+          "name": "Shahi Paneer",
+          "price": 260
+        }
+      ],
+      "totalOrderPrice": 1400,
+      "date": "2026-01-09",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "orderId": "order_026",
+      "userId": "user_002",
+      "dishes": [
+        {
+          "dishId": "dish_061",
+          "name": "Cold Coffee",
+          "price": 150
+        },
+        {
+          "dishId": "dish_086",
+          "name": "Kheer",
+          "price": 140
+        }
+      ],
+      "totalOrderPrice": 290,
+      "date": "2026-04-09",
+      "success": false,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Takeaway was packed neatly, food was still warm.",
+          "rating": 4
+        },
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "orderId": "order_027",
+      "userId": "user_017",
+      "dishes": [
+        {
+          "dishId": "dish_008",
+          "name": "Egg Curry",
+          "price": 200
+        },
+        {
+          "dishId": "dish_054",
+          "name": "Hot Dog",
+          "price": 150
+        },
+        {
+          "dishId": "dish_023",
+          "name": "Thai Green Curry",
+          "price": 360
+        }
+      ],
+      "totalOrderPrice": 710,
+      "date": "2026-03-31",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Packaging was excellent, no spills at all.",
+          "rating": 3.3
+        },
+        {
+          "comment": "Everything was perfect. 10/10 experience!",
+          "rating": 4
+        }
+      ]
+    },
+    {
+      "orderId": "order_028",
+      "userId": "user_003",
+      "dishes": [
+        {
+          "dishId": "dish_022",
+          "name": "Mushroom Risotto",
+          "price": 380
+        },
+        {
+          "dishId": "dish_006",
+          "name": "Mutton Rogan Josh",
+          "price": 420
+        },
+        {
+          "dishId": "dish_037",
+          "name": "Chicken Wings",
+          "price": 320
+        },
+        {
+          "dishId": "dish_082",
+          "name": "Jalebi",
+          "price": 120
+        }
+      ],
+      "totalOrderPrice": 1240,
+      "date": "2026-02-18",
+      "success": true,
+      "type": "cashOnDelivery",
+      "userFeedback": [
+        {
+          "comment": "Great value combo. Will definitely reorder.",
+          "rating": 3.9
+        },
+        {
+          "comment": "Smooth ordering experience and tasty food.",
+          "rating": 3.8
+        }
+      ]
+    },
+    {
+      "orderId": "order_029",
+      "userId": "user_010",
+      "dishes": [
+        {
+          "dishId": "dish_077",
+          "name": "Rasgulla",
+          "price": 140
+        },
+        {
+          "dishId": "dish_008",
+          "name": "Egg Curry",
+          "price": 200
+        },
+        {
+          "dishId": "dish_038",
+          "name": "Stuffed Mushrooms",
+          "price": 250
+        },
+        {
+          "dishId": "dish_065",
+          "name": "Strawberry Milkshake",
+          "price": 180
+        }
+      ],
+      "totalOrderPrice": 770,
+      "date": "2026-04-21",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Quick delivery, everything was hot and fresh.",
+          "rating": 3.7
+        },
+        {
+          "comment": "Everything was perfect. 10/10 experience!",
+          "rating": 4.9
+        },
+        {
+          "comment": "Portions were generous, very happy with this order.",
+          "rating": 3.9
+        }
+      ]
+    },
+    {
+      "orderId": "order_030",
+      "userId": "user_013",
+      "dishes": [
+        {
+          "dishId": "dish_007",
+          "name": "Chole Bhature",
+          "price": 180
+        },
+        {
+          "dishId": "dish_092",
+          "name": "Shahi Paneer",
+          "price": 260
+        },
+        {
+          "dishId": "dish_014",
+          "name": "Hyderabadi Dum Biryani",
+          "price": 380
+        },
+        {
+          "dishId": "dish_015",
+          "name": "Aloo Gobi",
+          "price": 180
+        },
+        {
+          "dishId": "dish_022",
+          "name": "Mushroom Risotto",
+          "price": 380
+        }
+      ],
+      "totalOrderPrice": 1380,
+      "date": "2026-04-21",
+      "success": true,
+      "type": "dinein",
+      "userFeedback": [
+        {
+          "comment": "Would prefer better packaging for delivery.",
+          "rating": 4.5
+        },
+        {
+          "comment": "Staff was very friendly and helpful during dine-in.",
+          "rating": 3.3
+        },
+        {
+          "comment": "Packaging was excellent, no spills at all.",
+          "rating": 3.1
+        }
+      ]
+    }
+  ]
+}
