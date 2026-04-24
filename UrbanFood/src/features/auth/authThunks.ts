@@ -6,7 +6,6 @@ import {
 } from "../../services/apiService";
 import { User } from "./authTypes";
 
-// Simple in-memory storage for web/development
 const storage = {
   data: {} as Record<string, string>,
   async getItem(key: string): Promise<string | null> {
@@ -20,7 +19,6 @@ const storage = {
   },
 };
 
-// Try to use AsyncStorage, fallback to in-memory
 let AsyncStorage: typeof storage;
 try {
   AsyncStorage = require("@react-native-async-storage/async-storage").default;
@@ -29,7 +27,6 @@ try {
   AsyncStorage = storage;
 }
 
-// LOGIN
 export const loginUser = createAsyncThunk<
   { user: User; token: string },
   { email: string; pin: string },
@@ -64,7 +61,6 @@ export const loginUser = createAsyncThunk<
   }
 });
 
-// SIGNUP
 export const signupUser = createAsyncThunk<
   { user: User; token: string },
   Omit<User, "id">,
@@ -109,7 +105,6 @@ export const signupUser = createAsyncThunk<
   }
 });
 
-// LOGOUT
 export const logoutUser = createAsyncThunk(
   "auth/logout",
   async () => {
@@ -120,7 +115,6 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
-// CHECK AUTH STATUS
 export const checkAuthStatus = createAsyncThunk<
   { user: User; token: string } | null
 >("auth/checkStatus", async () => {

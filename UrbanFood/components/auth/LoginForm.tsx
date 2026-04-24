@@ -1,16 +1,16 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import {
-  Brand,
-  Colors,
-  Radius,
-  Shadows,
-  Spacing,
-  Typography,
+    Brand,
+    Colors,
+    Radius,
+    Shadows,
+    Spacing,
+    Typography,
 } from "@/constants/theme";
 import {
-  selectAuthError,
-  selectAuthLoading,
+    selectAuthError,
+    selectAuthLoading,
 } from "@/src/features/auth/authSlice";
 import { loginUser } from "@/src/features/auth/authThunks";
 import { AppDispatch } from "@/src/store";
@@ -18,13 +18,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  ActivityIndicator,
-  Alert,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useColorScheme,
+    ActivityIndicator,
+    Alert,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    View,
+    useColorScheme,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -60,7 +60,6 @@ const LoginForm = () => {
 
   return (
     <View style={styles.container}>
-      {/* Email */}
       <ThemedView
         variant="surfaceSecondary"
         style={[styles.inputContainer, { borderColor: theme.border }]}
@@ -82,7 +81,6 @@ const LoginForm = () => {
         />
       </ThemedView>
 
-      {/* PIN */}
       <ThemedView
         variant="surfaceSecondary"
         style={[styles.inputContainer, { borderColor: theme.border }]}
@@ -115,7 +113,6 @@ const LoginForm = () => {
         </TouchableOpacity>
       </ThemedView>
 
-      {/* Button */}
       <TouchableOpacity
         style={[styles.button, loading && styles.buttonDisabled]}
         onPress={handleLogin}

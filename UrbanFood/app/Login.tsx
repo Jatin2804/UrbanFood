@@ -3,23 +3,23 @@ import SignupForm from "@/components/auth/SignupForm";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import {
-  Brand,
-  Colors,
-  Radius,
-  Shadows,
-  Spacing,
-  Typography,
+    Brand,
+    Colors,
+    Radius,
+    Shadows,
+    Spacing,
+    Typography,
 } from "@/constants/theme";
 import React, { useState } from "react";
 import {
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  useColorScheme,
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+    useColorScheme,
 } from "react-native";
 
 const Login = () => {
@@ -38,7 +38,6 @@ const Login = () => {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Logo */}
           <View style={styles.logoContainer}>
             <View
               style={[
@@ -59,12 +58,10 @@ const Login = () => {
             </ThemedText>
           </View>
 
-          {/* Form */}
           <View style={styles.formContainer}>
             {isLogin ? <LoginForm /> : <SignupForm />}
           </View>
 
-          {/* Toggle */}
           <View style={styles.toggleContainer}>
             <ThemedText type="caption">
               {isLogin

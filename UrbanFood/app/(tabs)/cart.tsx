@@ -1,7 +1,6 @@
-import { Text, View } from 'react-native'
-import React, { Component } from 'react'
-import { ThemedView } from '@/components/themed-view'
 import { ThemedText } from '@/components/themed-text'
+import { ThemedView } from '@/components/themed-view'
+import React, { Component } from 'react'
 
 export class cart extends Component {
   render() {

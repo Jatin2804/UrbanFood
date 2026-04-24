@@ -3,8 +3,6 @@ import { Dish } from "../features/dishes/dishesType";
 import { encodeBase64 } from "../utils/ base64";
 import { githubApi, rawApi } from "./apiClient";
 
-// ─── DISHES ───────────────────────────────────────────────────────────────────
-
 export const fetchDishesAPI = async (): Promise<Dish[]> => {
   try {
     const res = await rawApi.get("/dishes.json");
@@ -43,24 +41,19 @@ export const updateDishesAPI = async (updatedData: Dish[], sha: string) => {
   return res.data;
 };
 
-// ─── USERS ────────────────────────────────────────────────────────────────────
-
 export const fetchUsersAPI = async (): Promise<User[]> => {
   try {
     const res = await rawApi.get("/users.json");
     
     let data = res.data;
     
-    // If it's a string, parse it
     if (typeof data === 'string') {
-      // Fix incomplete JSON (missing opening brace)
       if (data.trim().startsWith('"users":')) {
         data = '{' + data + '}';
       }
       data = JSON.parse(data);
     }
     
-    // Handle different response formats
     if (Array.isArray(data)) {
       console.log("✅ Fetched users:", data.length);
       return data;

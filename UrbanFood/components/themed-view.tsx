@@ -5,7 +5,6 @@ import { View, type ViewProps } from 'react-native';
 export type ThemedViewProps = ViewProps & {
   lightColor?: string;
   darkColor?: string;
-  /** Use 'surface' for cards/modals, default is page background */
   variant?: 'background' | 'surface' | 'surfaceSecondary';
 };
 

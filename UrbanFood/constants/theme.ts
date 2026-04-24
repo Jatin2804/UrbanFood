@@ -1,10 +1,9 @@
 import { Platform } from 'react-native';
 
-// ─── Brand Colors ─────────────────────────────────────────────────────────────
 export const Brand = {
-  primary: '#FF6B35',       // main orange
-  primaryLight: '#FF8C5A',  // hover / lighter
-  primaryFaded: '#FFE8DF',  // tinted backgrounds
+  primary: '#FF6B35',
+  primaryLight: '#FF8C5A',
+  primaryFaded: '#FFE8DF',
   primaryDisabled: '#FFB399',
 
   error: '#FF3B30',
@@ -13,42 +12,33 @@ export const Brand = {
   info: '#4A90E2',
 };
 
-// ─── Light Theme ──────────────────────────────────────────────────────────────
 const light = {
-  // backgrounds
   background: '#F8F9FA',
   surface: '#FFFFFF',
   surfaceSecondary: '#F2F2F2',
 
-  // text
   textPrimary: '#1A1A1A',
   textSecondary: '#555555',
   textTertiary: '#999999',
   textInverse: '#FFFFFF',
 
-  // borders
   border: '#E5E5E5',
   borderFocus: '#FF6B35',
 
-  // inputs
   inputBackground: '#F5F5F5',
   inputText: '#1A1A1A',
   placeholder: '#AAAAAA',
 
-  // icons
   icon: '#555555',
   iconMuted: '#AAAAAA',
 
-  // tab bar
   tint: Brand.primary,
   tabIconDefault: '#AAAAAA',
   tabIconSelected: Brand.primary,
 
-  // shadows
   shadow: '#000000',
 };
 
-// ─── Dark Theme ───────────────────────────────────────────────────────────────
 const dark = {
   background: '#121212',
   surface: '#1E1E1E',
@@ -78,7 +68,6 @@ const dark = {
 
 export const Colors = { light, dark };
 
-// ─── Typography ───────────────────────────────────────────────────────────────
 export const Typography = {
   h1: { fontSize: 32, fontWeight: '700' as const, letterSpacing: -0.5 },
   h2: { fontSize: 24, fontWeight: '700' as const },
@@ -92,7 +81,6 @@ export const Typography = {
   small: { fontSize: 12, fontWeight: '400' as const },
 };
 
-// ─── Spacing ──────────────────────────────────────────────────────────────────
 export const Spacing = {
   xs: 4,
   sm: 8,
@@ -102,7 +90,6 @@ export const Spacing = {
   xxl: 48,
 };
 
-// ─── Radius ───────────────────────────────────────────────────────────────────
 export const Radius = {
   sm: 8,
   md: 12,
@@ -111,7 +98,6 @@ export const Radius = {
   full: 999,
 };
 
-// ─── Shadows ──────────────────────────────────────────────────────────────────
 export const Shadows = {
   sm: {
     shadowColor: '#000',
@@ -143,7 +129,6 @@ export const Shadows = {
   },
 };
 
-// ─── Fonts ────────────────────────────────────────────────────────────────────
 export const Fonts = Platform.select({
   ios: {
     sans: 'system-ui',

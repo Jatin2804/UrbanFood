@@ -79,7 +79,6 @@ const Account = () => {
     <ThemedView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
 
-        {/* ── Header ── */}
         <ThemedView variant="surface" style={styles.header}>
           <View style={styles.avatar}>
             <ThemedText lightColor="#fff" darkColor="#fff" style={styles.avatarText}>
@@ -90,7 +89,6 @@ const Account = () => {
           <ThemedText type="caption">{user.email}</ThemedText>
         </ThemedView>
 
-        {/* ── Info Card ── */}
         <ThemedView variant="surface" style={styles.card}>
           <View style={styles.infoRow}>
             <View style={[styles.infoIconBox, { backgroundColor: Brand.primaryFaded }]}>
@@ -113,7 +111,6 @@ const Account = () => {
           </View>
         </ThemedView>
 
-        {/* ── Menu ── */}
         <ThemedView variant="surface" style={styles.card}>
           {MENU_ITEMS.map((item, index) => (
             <View key={item.label}>
@@ -133,7 +130,6 @@ const Account = () => {
           ))}
         </ThemedView>
 
-        {/* ── Logout ── */}
         <TouchableOpacity
           style={[styles.logoutButton, { borderColor: Brand.error, backgroundColor: theme.surface }]}
           onPress={handleLogout}
