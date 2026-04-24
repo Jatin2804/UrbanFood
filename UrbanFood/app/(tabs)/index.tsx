@@ -6,6 +6,7 @@ import { Brand, Colors, Radius, Shadows, Spacing } from "@/constants/theme";
 import restaurantInfo from "@/src/data/restaurantInfo";
 import { selectCurrentUser } from "@/src/features/auth/authSlice";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import {
   ScrollView,
@@ -76,6 +77,7 @@ const Home = () => {
         <RestaurantCard />
 
         <TouchableOpacity
+          onPress={() => router.replace("/(tabs)/explore")}
           style={[
             styles.searchBar,
             {
