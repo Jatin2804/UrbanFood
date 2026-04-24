@@ -3,15 +3,16 @@ import RestaurantCard from "@/components/home/RestaurantCard";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Brand, Colors, Radius, Shadows, Spacing } from "@/constants/theme";
+import restaurantInfo from "@/src/data/restaurantInfo";
 import { selectCurrentUser } from "@/src/features/auth/authSlice";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -34,7 +35,7 @@ const Home = () => {
           <TouchableOpacity style={styles.locationRow} activeOpacity={0.7}>
             <Ionicons name="location" size={16} color={Brand.primary} />
             <ThemedText style={styles.locationText}>
-              ITI Layout, Bengaluru
+              {restaurantInfo.location}
             </ThemedText>
             <Ionicons
               name="chevron-down"
@@ -105,7 +106,6 @@ const Home = () => {
             <Ionicons name="options-outline" size={16} color={Brand.primary} />
           </View>
         </TouchableOpacity>
-
       </ScrollView>
     </ThemedView>
   );
