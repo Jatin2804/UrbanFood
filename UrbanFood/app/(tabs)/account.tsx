@@ -1,10 +1,11 @@
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
-import { logoutUser } from '@/src/features/auth/authThunks';
+import { checkAuthStatus, logoutUser } from '@/src/features/auth/authThunks';
 import { AppDispatch } from '@/src/store';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
+    ActivityIndicator,
     Alert,
     ScrollView,
     StyleSheet,
@@ -18,6 +19,18 @@ const Account = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const user = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    // If user is not in store, try to restore from storage
+    if (!user) {
+      dispatch(checkAuthStatus()).then((result) => {
+        // If still no user after check, go to login
+        if (!checkAuthStatus.fulfilled.match(result) || !result.payload) {
+          router.replace('/Login');
+        }
+      });
+    }
+  }, []);
 
   const getInitials = (name: string) => {
     return name
@@ -48,8 +61,8 @@ const Account = () => {
 
   if (!user) {
     return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#FF6B35" />
       </View>
     );
   }
@@ -153,6 +166,12 @@ export default Account;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f8f9fa',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#f8f9fa',
   },
   header: {
