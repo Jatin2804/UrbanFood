@@ -29,7 +29,7 @@ const Splash = () => {
         } else {
           router.replace("/Login");
         }
-      }, 2000);
+      }, 4000);
     };
 
     init();
