@@ -8,7 +8,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { store } from '@/src/store';
 
 export const unstable_settings = {
-  initialRouteName: 'Splash',
+  initialRouteName: 'index',
 };
 
 export default function RootLayout() {
@@ -18,6 +18,7 @@ export default function RootLayout() {
     <Provider store={store}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="Splash" options={{ headerShown: false }} />
           <Stack.Screen name="Login" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

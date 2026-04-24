@@ -1,160 +1,163 @@
 import LoginForm from "@/components/auth/LoginForm";
 import SignupForm from "@/components/auth/SignupForm";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import {
+  Brand,
+  Colors,
+  Radius,
+  Shadows,
+  Spacing,
+  Typography,
+} from "@/constants/theme";
 import React, { useState } from "react";
 import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
+  ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
+  useColorScheme,
 } from "react-native";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const scheme = useColorScheme() ?? "light";
+  const theme = Colors[scheme];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ThemedView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
-        <View style={styles.content}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           {/* Logo */}
           <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/logo.png")}
-              style={styles.logo}
-            />
-            <Text style={styles.title}>Urban Food</Text>
-            <Text style={styles.subtitle}>
+            <View
+              style={[
+                styles.logoWrapper,
+                { backgroundColor: Brand.primaryFaded },
+              ]}
+            >
+              <Image
+                source={require("../assets/images/logo.png")}
+                style={styles.logo}
+              />
+            </View>
+            <ThemedText type="title" style={styles.title}>
+              Urban Food
+            </ThemedText>
+            <ThemedText type="caption" style={styles.subtitle}>
               {isLogin ? "Welcome back!" : "Create your account"}
-            </Text>
+            </ThemedText>
           </View>
 
-          {/* Form Pills */}
-          <View style={styles.pillContainer}>
-            <TouchableOpacity
-              style={[styles.pill, isLogin && styles.pillActive]}
-              onPress={() => setIsLogin(true)}
-            >
-              <Text style={[styles.pillText, isLogin && styles.pillTextActive]}>
-                Login
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.pill, !isLogin && styles.pillActive]}
-              onPress={() => setIsLogin(false)}
-            >
-              <Text
-                style={[styles.pillText, !isLogin && styles.pillTextActive]}
-              >
-                Sign Up
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* Forms */}
+          {/* Form */}
           <View style={styles.formContainer}>
             {isLogin ? <LoginForm /> : <SignupForm />}
           </View>
 
-          {/* Toggle Text */}
+          {/* Toggle */}
           <View style={styles.toggleContainer}>
-            <Text style={styles.toggleText}>
+            <ThemedText type="caption">
               {isLogin
                 ? "Don't have an account? "
                 : "Already have an account? "}
-            </Text>
-            <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
-              <Text style={styles.toggleLink}>
+            </ThemedText>
+            <TouchableOpacity
+              onPress={() => setIsLogin(!isLogin)}
+              activeOpacity={0.7}
+            >
+              <ThemedText
+                type="caption"
+                lightColor={Brand.primary}
+                darkColor={Brand.primary}
+                style={styles.toggleLink}
+              >
                 {isLogin ? "Sign Up" : "Login"}
-              </Text>
+              </ThemedText>
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </ThemedView>
   );
 };
 
 export default Login;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  keyboardView: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
+  container: { flex: 1 },
+  keyboardView: { flex: 1 },
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.xl,
     justifyContent: "center",
   },
   logoContainer: {
     alignItems: "center",
-    marginBottom: 40,
+    marginBottom: Spacing.xl,
+  },
+  logoWrapper: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: Spacing.md,
+    ...Shadows.primary,
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 16,
+    width: 72,
+    height: 72,
+    borderRadius: 36,
   },
   title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 8,
+    marginBottom: Spacing.xs,
   },
   subtitle: {
-    fontSize: 16,
-    color: "#666",
+    textAlign: "center",
   },
   pillContainer: {
     flexDirection: "row",
-    backgroundColor: "#f5f5f5",
-    borderRadius: 12,
+    borderRadius: Radius.md,
     padding: 4,
-    marginBottom: 30,
+    marginBottom: Spacing.lg,
   },
   pill: {
     flex: 1,
     paddingVertical: 12,
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: Radius.sm,
   },
   pillActive: {
-    backgroundColor: "#FF6B35",
+    backgroundColor: Brand.primary,
+    ...Shadows.primary,
   },
   pillText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#666",
+    ...Typography.bodySemiBold,
   },
   pillTextActive: {
     color: "#fff",
   },
   formContainer: {
-    marginBottom: 20,
+    marginBottom: Spacing.md,
   },
   toggleContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
-  },
-  toggleText: {
-    fontSize: 14,
-    color: "#666",
+    marginTop: Spacing.md,
   },
   toggleLink: {
-    fontSize: 14,
-    color: "#FF6B35",
     fontWeight: "600",
   },
 });

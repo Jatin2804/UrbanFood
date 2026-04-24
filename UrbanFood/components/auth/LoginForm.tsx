@@ -1,95 +1,137 @@
-import { selectAuthError, selectAuthLoading } from '@/src/features/auth/authSlice';
-import { loginUser } from '@/src/features/auth/authThunks';
-import { AppDispatch } from '@/src/store';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
 import {
-    ActivityIndicator,
-    Alert,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+  Brand,
+  Colors,
+  Radius,
+  Shadows,
+  Spacing,
+  Typography,
+} from "@/constants/theme";
+import {
+  selectAuthError,
+  selectAuthLoading,
+} from "@/src/features/auth/authSlice";
+import { loginUser } from "@/src/features/auth/authThunks";
+import { AppDispatch } from "@/src/store";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [pin, setPin] = useState('');
+  const [email, setEmail] = useState("");
+  const [pin, setPin] = useState("");
   const [showPin, setShowPin] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const loading = useSelector(selectAuthLoading);
   const error = useSelector(selectAuthError);
+  const scheme = useColorScheme() ?? "light";
+  const theme = Colors[scheme];
 
   const handleLogin = async () => {
     if (!email || !pin) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert("Error", "Please fill in all fields");
       return;
     }
-
     if (pin.length !== 4) {
-      Alert.alert('Error', 'PIN must be 4 digits');
+      Alert.alert("Error", "PIN must be 4 digits");
       return;
     }
 
     const result = await dispatch(loginUser({ email, pin }));
-    
     if (loginUser.fulfilled.match(result)) {
-      router.replace('/(tabs)');
+      router.replace("/(tabs)");
     } else {
-      Alert.alert('Login Failed', error || 'Invalid credentials');
+      Alert.alert("Login Failed", error || "Invalid credentials");
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <Ionicons name="mail-outline" size={20} color="#666" style={styles.icon} />
+      {/* Email */}
+      <ThemedView
+        variant="surfaceSecondary"
+        style={[styles.inputContainer, { borderColor: theme.border }]}
+      >
+        <Ionicons
+          name="mail-outline"
+          size={20}
+          color={theme.icon}
+          style={styles.icon}
+        />
         <TextInput
-          style={styles.input}
+          style={[styles.input, { color: theme.inputText }]}
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
           autoCapitalize="none"
-          placeholderTextColor="#999"
+          placeholderTextColor={theme.placeholder}
         />
-      </View>
+      </ThemedView>
 
-      <View style={styles.inputContainer}>
-        <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.icon} />
+      {/* PIN */}
+      <ThemedView
+        variant="surfaceSecondary"
+        style={[styles.inputContainer, { borderColor: theme.border }]}
+      >
+        <Ionicons
+          name="lock-closed-outline"
+          size={20}
+          color={theme.icon}
+          style={styles.icon}
+        />
         <TextInput
-          style={styles.input}
+          style={[styles.input, { color: theme.inputText }]}
           placeholder="4-Digit PIN"
           value={pin}
           onChangeText={setPin}
           keyboardType="number-pad"
           maxLength={4}
           secureTextEntry={!showPin}
-          placeholderTextColor="#999"
+          placeholderTextColor={theme.placeholder}
         />
-        <TouchableOpacity onPress={() => setShowPin(!showPin)}>
-          <Ionicons 
-            name={showPin ? "eye-outline" : "eye-off-outline"} 
-            size={20} 
-            color="#666" 
+        <TouchableOpacity
+          onPress={() => setShowPin(!showPin)}
+          activeOpacity={0.7}
+        >
+          <Ionicons
+            name={showPin ? "eye-outline" : "eye-off-outline"}
+            size={20}
+            color={theme.icon}
           />
         </TouchableOpacity>
-      </View>
+      </ThemedView>
 
+      {/* Button */}
       <TouchableOpacity
         style={[styles.button, loading && styles.buttonDisabled]}
         onPress={handleLogin}
         disabled={loading}
+        activeOpacity={0.85}
       >
         {loading ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <Text style={styles.buttonText}>Login</Text>
+          <ThemedText
+            lightColor="#fff"
+            darkColor="#fff"
+            style={styles.buttonText}
+          >
+            Login
+          </ThemedText>
         )}
       </TouchableOpacity>
     </View>
@@ -99,47 +141,36 @@ const LoginForm = () => {
 export default LoginForm;
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
+  container: { width: "100%" },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    marginBottom: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: Radius.md,
+    paddingHorizontal: Spacing.md,
+    marginBottom: Spacing.md,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
   },
-  icon: {
-    marginRight: 10,
-  },
+  icon: { marginRight: Spacing.sm },
   input: {
     flex: 1,
-    height: 50,
-    fontSize: 16,
-    color: '#333',
+    height: 52,
+    ...Typography.body,
   },
   button: {
-    backgroundColor: '#FF6B35',
-    borderRadius: 12,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    shadowColor: '#FF6B35',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    backgroundColor: Brand.primary,
+    borderRadius: Radius.md,
+    height: 52,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: Spacing.sm,
+    ...Shadows.primary,
   },
   buttonDisabled: {
-    backgroundColor: '#FFB399',
+    backgroundColor: Brand.primaryDisabled,
+    shadowOpacity: 0,
+    elevation: 0,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    ...Typography.h4,
   },
 });

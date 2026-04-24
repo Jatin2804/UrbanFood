@@ -1,3 +1,6 @@
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Brand, Colors, Radius, Shadows, Spacing, Typography } from '@/constants/theme';
 import { selectAuthError, selectAuthLoading } from '@/src/features/auth/authSlice';
 import { signupUser } from '@/src/features/auth/authThunks';
 import { AppDispatch } from '@/src/store';
@@ -9,10 +12,9 @@ import {
     Alert,
     ScrollView,
     StyleSheet,
-    Text,
     TextInput,
     TouchableOpacity,
-    View,
+    useColorScheme
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -28,30 +30,16 @@ const SignupForm = () => {
   const router = useRouter();
   const loading = useSelector(selectAuthLoading);
   const error = useSelector(selectAuthError);
+  const scheme = useColorScheme() ?? 'light';
+  const theme = Colors[scheme];
 
   const handleSignup = async () => {
-    if (!name || !email || !phone || !pin || !confirmPin) {
-      Alert.alert('Error', 'Please fill in all fields');
-      return;
-    }
-
-    if (pin.length !== 4) {
-      Alert.alert('Error', 'PIN must be 4 digits');
-      return;
-    }
-
-    if (pin !== confirmPin) {
-      Alert.alert('Error', 'PINs do not match');
-      return;
-    }
-
-    if (!phone.startsWith('+91')) {
-      Alert.alert('Error', 'Phone number must start with +91');
-      return;
-    }
+    if (!name || !email || !phone || !pin || !confirmPin) { Alert.alert('Error', 'Please fill in all fields'); return; }
+    if (pin.length !== 4) { Alert.alert('Error', 'PIN must be 4 digits'); return; }
+    if (pin !== confirmPin) { Alert.alert('Error', 'PINs do not match'); return; }
+    if (!phone.startsWith('+91')) { Alert.alert('Error', 'Phone number must start with +91'); return; }
 
     const result = await dispatch(signupUser({ name, email, phone, pin }));
-    
     if (signupUser.fulfilled.match(result)) {
       Alert.alert('Success', 'Account created successfully!');
       router.replace('/(tabs)');
@@ -60,89 +48,48 @@ const SignupForm = () => {
     }
   };
 
+  const Field = ({ icon, placeholder, value, onChangeText, keyboardType = 'default', maxLength, secureTextEntry = false, rightElement }: any) => (
+    <ThemedView variant="surfaceSecondary" style={[styles.inputContainer, { borderColor: theme.border }]}>
+      <Ionicons name={icon} size={20} color={theme.icon} style={styles.icon} />
+      <TextInput
+        style={[styles.input, { color: theme.inputText }]}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        maxLength={maxLength}
+        secureTextEntry={secureTextEntry}
+        autoCapitalize="none"
+        placeholderTextColor={theme.placeholder}
+      />
+      {rightElement}
+    </ThemedView>
+  );
+
+  const EyeToggle = () => (
+    <TouchableOpacity onPress={() => setShowPin(!showPin)} activeOpacity={0.7}>
+      <Ionicons name={showPin ? 'eye-outline' : 'eye-off-outline'} size={20} color={theme.icon} />
+    </TouchableOpacity>
+  );
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.inputContainer}>
-        <Ionicons name="person-outline" size={20} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          value={name}
-          onChangeText={setName}
-          placeholderTextColor="#999"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Ionicons name="mail-outline" size={20} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          placeholderTextColor="#999"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Ionicons name="call-outline" size={20} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Phone (+91 XXXXX XXXXX)"
-          value={phone}
-          onChangeText={setPhone}
-          keyboardType="phone-pad"
-          placeholderTextColor="#999"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="4-Digit PIN"
-          value={pin}
-          onChangeText={setPin}
-          keyboardType="number-pad"
-          maxLength={4}
-          secureTextEntry={!showPin}
-          placeholderTextColor="#999"
-        />
-        <TouchableOpacity onPress={() => setShowPin(!showPin)}>
-          <Ionicons 
-            name={showPin ? "eye-outline" : "eye-off-outline"} 
-            size={20} 
-            color="#666" 
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Ionicons name="lock-closed-outline" size={20} color="#666" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm PIN"
-          value={confirmPin}
-          onChangeText={setConfirmPin}
-          keyboardType="number-pad"
-          maxLength={4}
-          secureTextEntry={!showPin}
-          placeholderTextColor="#999"
-        />
-      </View>
+      <Field icon="person-outline"      placeholder="Full Name"              value={name}       onChangeText={setName} />
+      <Field icon="mail-outline"        placeholder="Email"                  value={email}      onChangeText={setEmail}      keyboardType="email-address" />
+      <Field icon="call-outline"        placeholder="Phone (+91 XXXXX XXXXX)" value={phone}     onChangeText={setPhone}      keyboardType="phone-pad" />
+      <Field icon="lock-closed-outline" placeholder="4-Digit PIN"            value={pin}        onChangeText={setPin}        keyboardType="number-pad" maxLength={4} secureTextEntry={!showPin} rightElement={<EyeToggle />} />
+      <Field icon="lock-closed-outline" placeholder="Confirm PIN"            value={confirmPin} onChangeText={setConfirmPin} keyboardType="number-pad" maxLength={4} secureTextEntry={!showPin} />
 
       <TouchableOpacity
         style={[styles.button, loading && styles.buttonDisabled]}
         onPress={handleSignup}
         disabled={loading}
+        activeOpacity={0.85}
       >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>Sign Up</Text>
-        )}
+        {loading
+          ? <ActivityIndicator color="#fff" />
+          : <ThemedText lightColor="#fff" darkColor="#fff" style={styles.buttonText}>Create Account</ThemedText>
+        }
       </TouchableOpacity>
     </ScrollView>
   );
@@ -151,47 +98,37 @@ const SignupForm = () => {
 export default SignupForm;
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
+  container: { width: '100%' },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    marginBottom: 15,
+    borderRadius: Radius.md,
+    paddingHorizontal: Spacing.md,
+    marginBottom: Spacing.md,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
   },
-  icon: {
-    marginRight: 10,
-  },
+  icon: { marginRight: Spacing.sm },
   input: {
     flex: 1,
-    height: 50,
-    fontSize: 16,
-    color: '#333',
+    height: 52,
+    ...Typography.body,
   },
   button: {
-    backgroundColor: '#FF6B35',
-    borderRadius: 12,
-    height: 50,
+    backgroundColor: Brand.primary,
+    borderRadius: Radius.md,
+    height: 52,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
-    shadowColor: '#FF6B35',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    marginTop: Spacing.sm,
+    marginBottom: Spacing.lg,
+    ...Shadows.primary,
   },
   buttonDisabled: {
-    backgroundColor: '#FFB399',
+    backgroundColor: Brand.primaryDisabled,
+    shadowOpacity: 0,
+    elevation: 0,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    ...Typography.h4,
   },
 });

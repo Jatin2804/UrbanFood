@@ -1,3 +1,6 @@
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Brand, Colors, Radius, Shadows, Spacing, Typography } from '@/constants/theme';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import { checkAuthStatus, logoutUser } from '@/src/features/auth/authThunks';
 import { AppDispatch } from '@/src/store';
@@ -9,22 +12,37 @@ import {
     Alert,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View,
+    useColorScheme,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+type MenuItem = {
+  icon: keyof typeof Ionicons.glyphMap;
+  label: string;
+  iconBg: string;
+  iconColor: string;
+};
+
+const MENU_ITEMS: MenuItem[] = [
+  { icon: 'receipt-outline',     label: 'My Orders',      iconBg: Brand.primaryFaded, iconColor: Brand.primary  },
+  { icon: 'heart-outline',       label: 'Favourites',     iconBg: '#FFF4E5',          iconColor: Brand.warning  },
+  { icon: 'location-outline',    label: 'Addresses',      iconBg: '#E5F4FF',          iconColor: Brand.info     },
+  { icon: 'settings-outline',    label: 'Settings',       iconBg: '#F0E5FF',          iconColor: '#8B5CF6'      },
+  { icon: 'help-circle-outline', label: 'Help & Support', iconBg: '#E5FFE5',          iconColor: Brand.success  },
+];
 
 const Account = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const user = useSelector(selectCurrentUser);
+  const scheme = useColorScheme() ?? 'light';
+  const theme = Colors[scheme];
 
   useEffect(() => {
-    // If user is not in store, try to restore from storage
     if (!user) {
       dispatch(checkAuthStatus()).then((result) => {
-        // If still no user after check, go to login
         if (!checkAuthStatus.fulfilled.match(result) || !result.payload) {
           router.replace('/Login');
         }
@@ -32,285 +50,168 @@ const Account = () => {
     }
   }, []);
 
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
-  };
+  const getInitials = (name: string) =>
+    name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 
   const handleLogout = () => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Logout',
-          style: 'destructive',
-          onPress: async () => {
-            await dispatch(logoutUser());
-            router.replace('/Login');
-          },
+    Alert.alert('Logout', 'Are you sure you want to logout?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Logout',
+        style: 'destructive',
+        onPress: async () => {
+          await dispatch(logoutUser());
+          router.replace('/Login');
         },
-      ]
-    );
+      },
+    ]);
   };
 
   if (!user) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#FF6B35" />
-      </View>
+      <ThemedView style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={Brand.primary} />
+      </ThemedView>
     );
   }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.avatarContainer}>
+    <ThemedView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+
+        {/* ── Header ── */}
+        <ThemedView variant="surface" style={styles.header}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>{getInitials(user.name)}</Text>
+            <ThemedText lightColor="#fff" darkColor="#fff" style={styles.avatarText}>
+              {getInitials(user.name)}
+            </ThemedText>
           </View>
-        </View>
-        <Text style={styles.userName}>{user.name}</Text>
-        <Text style={styles.userEmail}>{user.email}</Text>
-      </View>
+          <ThemedText type="subtitle" style={styles.userName}>{user.name}</ThemedText>
+          <ThemedText type="caption">{user.email}</ThemedText>
+        </ThemedView>
 
-      {/* User Info Card */}
-      <View style={styles.card}>
-        <View style={styles.infoRow}>
-          <Ionicons name="mail-outline" size={20} color="#666" />
-          <Text style={styles.infoLabel}>Email</Text>
-          <Text style={styles.infoValue}>{user.email}</Text>
-        </View>
-        <View style={styles.divider} />
-        <View style={styles.infoRow}>
-          <Ionicons name="call-outline" size={20} color="#666" />
-          <Text style={styles.infoLabel}>Phone</Text>
-          <Text style={styles.infoValue}>{user.phone}</Text>
-        </View>
-      </View>
-
-      {/* Menu Options */}
-      <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <View style={[styles.menuIconContainer, { backgroundColor: '#FFE5E5' }]}>
-              <Ionicons name="receipt-outline" size={24} color="#FF6B35" />
+        {/* ── Info Card ── */}
+        <ThemedView variant="surface" style={styles.card}>
+          <View style={styles.infoRow}>
+            <View style={[styles.infoIconBox, { backgroundColor: Brand.primaryFaded }]}>
+              <Ionicons name="mail-outline" size={18} color={Brand.primary} />
             </View>
-            <Text style={styles.menuText}>My Orders</Text>
+            <View style={styles.infoTextBox}>
+              <ThemedText type="small" style={{ color: theme.textTertiary }}>Email</ThemedText>
+              <ThemedText type="defaultSemiBold">{user.email}</ThemedText>
+            </View>
           </View>
-          <Ionicons name="chevron-forward" size={20} color="#999" />
+          <View style={[styles.divider, { backgroundColor: theme.border }]} />
+          <View style={styles.infoRow}>
+            <View style={[styles.infoIconBox, { backgroundColor: Brand.primaryFaded }]}>
+              <Ionicons name="call-outline" size={18} color={Brand.primary} />
+            </View>
+            <View style={styles.infoTextBox}>
+              <ThemedText type="small" style={{ color: theme.textTertiary }}>Phone</ThemedText>
+              <ThemedText type="defaultSemiBold">{user.phone}</ThemedText>
+            </View>
+          </View>
+        </ThemedView>
+
+        {/* ── Menu ── */}
+        <ThemedView variant="surface" style={styles.card}>
+          {MENU_ITEMS.map((item, index) => (
+            <View key={item.label}>
+              <TouchableOpacity style={styles.menuItem} activeOpacity={0.7}>
+                <View style={styles.menuLeft}>
+                  <View style={[styles.menuIconBox, { backgroundColor: item.iconBg }]}>
+                    <Ionicons name={item.icon} size={22} color={item.iconColor} />
+                  </View>
+                  <ThemedText type="defaultSemiBold">{item.label}</ThemedText>
+                </View>
+                <Ionicons name="chevron-forward" size={18} color={theme.iconMuted} />
+              </TouchableOpacity>
+              {index < MENU_ITEMS.length - 1 && (
+                <View style={[styles.divider, { backgroundColor: theme.border, marginLeft: 60 }]} />
+              )}
+            </View>
+          ))}
+        </ThemedView>
+
+        {/* ── Logout ── */}
+        <TouchableOpacity
+          style={[styles.logoutButton, { borderColor: Brand.error, backgroundColor: theme.surface }]}
+          onPress={handleLogout}
+          activeOpacity={0.8}
+        >
+          <Ionicons name="log-out-outline" size={22} color={Brand.error} />
+          <ThemedText lightColor={Brand.error} darkColor={Brand.error} style={styles.logoutText}>
+            Logout
+          </ThemedText>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <View style={[styles.menuIconContainer, { backgroundColor: '#FFF4E5' }]}>
-              <Ionicons name="heart-outline" size={24} color="#FFA500" />
-            </View>
-            <Text style={styles.menuText}>Favourites</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#999" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <View style={[styles.menuIconContainer, { backgroundColor: '#E5F4FF' }]}>
-              <Ionicons name="location-outline" size={24} color="#4A90E2" />
-            </View>
-            <Text style={styles.menuText}>Addresses</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#999" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <View style={[styles.menuIconContainer, { backgroundColor: '#F0E5FF' }]}>
-              <Ionicons name="settings-outline" size={24} color="#8B5CF6" />
-            </View>
-            <Text style={styles.menuText}>Settings</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#999" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <View style={styles.menuLeft}>
-            <View style={[styles.menuIconContainer, { backgroundColor: '#E5FFE5' }]}>
-              <Ionicons name="help-circle-outline" size={24} color="#10B981" />
-            </View>
-            <Text style={styles.menuText}>Help & Support</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#999" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Logout Button */}
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Ionicons name="log-out-outline" size={24} color="#FF3B30" />
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
-
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Version 1.0.0</Text>
-      </View>
-    </ScrollView>
+        <ThemedText type="small" style={styles.version}>Version 1.0.0</ThemedText>
+      </ScrollView>
+    </ThemedView>
   );
 };
 
 export default Account;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f8f9fa',
-  },
+  container: { flex: 1 },
+  scrollContent: { paddingBottom: Spacing.xl },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+
   header: {
-    backgroundColor: '#fff',
-    paddingTop: 60,
-    paddingBottom: 30,
+    paddingTop: 56,
+    paddingBottom: Spacing.xl,
     alignItems: 'center',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  avatarContainer: {
-    marginBottom: 16,
+    borderBottomLeftRadius: Radius.xl,
+    borderBottomRightRadius: Radius.xl,
+    marginBottom: Spacing.md,
+    ...Shadows.md,
   },
   avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#FF6B35',
+    width: 88,
+    height: 88,
+    borderRadius: 44,
+    backgroundColor: Brand.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 4,
-    borderColor: '#fff',
-    shadowColor: '#FF6B35',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    marginBottom: Spacing.md,
+    ...Shadows.primary,
   },
-  avatarText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  userName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
-  },
-  userEmail: {
-    fontSize: 14,
-    color: '#666',
-  },
+  avatarText: { fontSize: 32, fontWeight: '700' },
+  userName: { marginBottom: 4 },
+
   card: {
-    backgroundColor: '#fff',
-    margin: 16,
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
+    marginHorizontal: Spacing.md,
+    marginBottom: Spacing.md,
+    borderRadius: Radius.lg,
+    paddingHorizontal: Spacing.md,
+    ...Shadows.sm,
   },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
+
+  infoRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: Spacing.md },
+  infoIconBox: {
+    width: 36, height: 36, borderRadius: Radius.sm,
+    justifyContent: 'center', alignItems: 'center', marginRight: Spacing.md,
   },
-  infoLabel: {
-    fontSize: 16,
-    color: '#666',
-    marginLeft: 12,
-    flex: 1,
-  },
-  infoValue: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '500',
-  },
-  divider: {
-    height: 1,
-    backgroundColor: '#f0f0f0',
-  },
-  menuContainer: {
-    backgroundColor: '#fff',
-    marginHorizontal: 16,
-    borderRadius: 16,
-    padding: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
+  infoTextBox: { flex: 1 },
+  divider: { height: 1 },
+
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 16,
-    paddingHorizontal: 12,
+    flexDirection: 'row', alignItems: 'center',
+    justifyContent: 'space-between', paddingVertical: Spacing.md,
   },
-  menuLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  menuLeft: { flexDirection: 'row', alignItems: 'center' },
+  menuIconBox: {
+    width: 44, height: 44, borderRadius: Radius.md,
+    justifyContent: 'center', alignItems: 'center', marginRight: Spacing.md,
   },
-  menuIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  menuText: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '500',
-  },
+
   logoutButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    marginHorizontal: 16,
-    marginTop: 16,
-    marginBottom: 8,
-    paddingVertical: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#FF3B30',
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    marginHorizontal: Spacing.md, marginBottom: Spacing.md,
+    paddingVertical: Spacing.md, borderRadius: Radius.lg,
+    borderWidth: 1.5, gap: Spacing.sm, ...Shadows.sm,
   },
-  logoutText: {
-    fontSize: 16,
-    color: '#FF3B30',
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-  footer: {
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  footerText: {
-    fontSize: 12,
-    color: '#999',
-  },
+  logoutText: { ...Typography.bodySemiBold },
+  version: { textAlign: 'center', paddingBottom: Spacing.md },
 });
