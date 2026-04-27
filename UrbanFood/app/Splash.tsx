@@ -1,18 +1,18 @@
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Brand, Colors, Shadows } from "@/constants/theme";
-import { checkAuthStatus } from "@/src/features/auth/authThunks";
-import { fetchDishes } from "@/src/features/dishes/dishesThunk";
-import { AppDispatch } from "@/src/store";
-import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
-import { Image, StyleSheet, useColorScheme, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Brand, Colors, Shadows } from '@/constants/theme';
+import { checkAuthStatus } from '@/src/features/auth/authThunks';
+import { fetchDishes } from '@/src/features/dishes/dishesThunk';
+import { AppDispatch } from '@/src/store';
+import { useRouter } from 'expo-router';
+import React, { useEffect } from 'react';
+import { Image, StyleSheet, useColorScheme, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 const Splash = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
 
   useEffect(() => {
     const init = async () => {
@@ -26,7 +26,7 @@ const Splash = () => {
         authResult.payload !== null;
 
       setTimeout(() => {
-        router.replace(isLoggedIn ? "/(tabs)" : "/Login");
+        router.replace(isLoggedIn ? '/(tabs)' : '/Login');
       }, 4000);
     };
 
@@ -37,7 +37,7 @@ const Splash = () => {
     <ThemedView style={styles.container}>
       <View style={styles.logoWrapper}>
         <Image
-          source={require("../assets/images/logo.png")}
+          source={require('../assets/images/logo.png')}
           style={styles.logo}
         />
       </View>
@@ -67,16 +67,16 @@ export default Splash;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logoWrapper: {
     width: 120,
     height: 120,
     borderRadius: 60,
     backgroundColor: Brand.primaryFaded,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 24,
     ...Shadows.primary,
   },
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   dotsContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 8,
   },
   dot: {

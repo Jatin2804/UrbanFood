@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchDishes, updateDishes } from "./dishesThunk";
-import { DishesState } from "./dishesType";
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchDishes, updateDishes } from './dishesThunk';
+import { DishesState } from './dishesType';
 
 const initialState: DishesState = {
   dishes: [],
@@ -10,7 +10,7 @@ const initialState: DishesState = {
 };
 
 const dishesSlice = createSlice({
-  name: "dishes",
+  name: 'dishes',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

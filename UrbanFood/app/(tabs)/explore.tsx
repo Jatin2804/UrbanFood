@@ -1,66 +1,66 @@
-import AddToCartButton from "@/components/cart/AddToCartButton";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
+import AddToCartButton from '@/components/cart/AddToCartButton';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import {
-    Brand,
-    Colors,
-    Radius,
-    Shadows,
-    Spacing,
-    Typography,
-} from "@/constants/theme";
-import { Dish } from "@/src/features/dishes/dishesType";
-import { RootState } from "@/src/store/rootReducer";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+  Brand,
+  Colors,
+  Radius,
+  Shadows,
+  Spacing,
+  Typography,
+} from '@/constants/theme';
+import { Dish } from '@/src/features/dishes/dishesType';
+import { RootState } from '@/src/store/rootReducer';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
-    ActivityIndicator,
-    Animated,
-    Dimensions,
-    FlatList,
-    Image,
-    Modal,
-    PanResponder,
-    Pressable,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    useColorScheme,
-    View,
-} from "react-native";
-import { useSelector } from "react-redux";
+  ActivityIndicator,
+  Animated,
+  Dimensions,
+  FlatList,
+  Image,
+  Modal,
+  PanResponder,
+  Pressable,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
+import { useSelector } from 'react-redux';
 
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const SHEET_HEIGHT = 400;
 
-type SortOption = "none" | "low_high" | "high_low" | "top_rated";
-type VegFilter = "all" | "veg" | "nonveg";
+type SortOption = 'none' | 'low_high' | 'high_low' | 'top_rated';
+type VegFilter = 'all' | 'veg' | 'nonveg';
 
 const SORT_OPTIONS: {
   key: SortOption;
   label: string;
   icon: keyof typeof Ionicons.glyphMap;
 }[] = [
-  { key: "none", label: "Default", icon: "apps-outline" },
-  { key: "low_high", label: "Price: Low to High", icon: "arrow-up-outline" },
-  { key: "high_low", label: "Price: High to Low", icon: "arrow-down-outline" },
-  { key: "top_rated", label: "Top Rated", icon: "star-outline" },
+  { key: 'none', label: 'Default', icon: 'apps-outline' },
+  { key: 'low_high', label: 'Price: Low to High', icon: 'arrow-up-outline' },
+  { key: 'high_low', label: 'Price: High to Low', icon: 'arrow-down-outline' },
+  { key: 'top_rated', label: 'Top Rated', icon: 'star-outline' },
 ];
 
 const CATEGORY_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
-  All: "grid-outline",
-  "main course": "restaurant-outline",
-  starter: "leaf-outline",
-  "fast food": "fast-food-outline",
-  beverage: "cafe-outline",
-  dessert: "ice-cream-outline",
+  All: 'grid-outline',
+  'main course': 'restaurant-outline',
+  starter: 'leaf-outline',
+  'fast food': 'fast-food-outline',
+  beverage: 'cafe-outline',
+  dessert: 'ice-cream-outline',
 };
 
-const FALLBACK_IMG = require("../../assets/images/dish.png");
+const FALLBACK_IMG = require('../../assets/images/dish.png');
 
 const DishCard = ({ dish }: { dish: Dish }) => {
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const [imgError, setImgError] = useState(false);
   const router = useRouter();
@@ -73,18 +73,41 @@ const DishCard = ({ dish }: { dish: Dish }) => {
     >
       <ThemedView variant="surface" style={styles.card}>
         <Image
-          source={imgError || !dish.bannerImages?.[0] ? FALLBACK_IMG : { uri: dish.bannerImages[0] }}
+          source={
+            imgError || !dish.bannerImages?.[0]
+              ? FALLBACK_IMG
+              : { uri: dish.bannerImages[0] }
+          }
           style={styles.cardImage}
           resizeMode="cover"
           onError={() => setImgError(true)}
           defaultSource={FALLBACK_IMG}
         />
-        <View style={[styles.vegBadge, { backgroundColor: dish.nonVeg ? "#FFE8E8" : "#E8F8F0" }]}>
-          <View style={[styles.vegDot, { backgroundColor: dish.nonVeg ? Brand.error : Brand.success }]} />
+        <View
+          style={[
+            styles.vegBadge,
+            { backgroundColor: dish.nonVeg ? '#FFE8E8' : '#E8F8F0' },
+          ]}
+        >
+          <View
+            style={[
+              styles.vegDot,
+              { backgroundColor: dish.nonVeg ? Brand.error : Brand.success },
+            ]}
+          />
         </View>
         <View style={styles.cardContent}>
-          <ThemedText style={styles.dishName} numberOfLines={1}>{dish.name}</ThemedText>
-          <ThemedText type="small" style={{ color: theme.textTertiary, textTransform: "capitalize", marginBottom: 6 }}>
+          <ThemedText style={styles.dishName} numberOfLines={1}>
+            {dish.name}
+          </ThemedText>
+          <ThemedText
+            type="small"
+            style={{
+              color: theme.textTertiary,
+              textTransform: 'capitalize',
+              marginBottom: 6,
+            }}
+          >
             {dish.type}
           </ThemedText>
           <View style={styles.cardFooter}>
@@ -92,10 +115,17 @@ const DishCard = ({ dish }: { dish: Dish }) => {
               <ThemedText style={styles.price}>₹{dish.price}</ThemedText>
               <View style={styles.ratingRow}>
                 <Ionicons name="star" size={11} color="#FFB800" />
-                <ThemedText type="small" style={styles.ratingText}>{dish.ratings}</ThemedText>
+                <ThemedText type="small" style={styles.ratingText}>
+                  {dish.ratings}
+                </ThemedText>
               </View>
             </View>
-            <AddToCartButton dishId={dish.id} dishName={dish.name} dishPrice={dish.price} size="sm" />
+            <AddToCartButton
+              dishId={dish.id}
+              dishName={dish.name}
+              dishPrice={dish.price}
+              size="sm"
+            />
           </View>
         </View>
       </ThemedView>
@@ -104,13 +134,13 @@ const DishCard = ({ dish }: { dish: Dish }) => {
 };
 
 const Explore = () => {
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
-  const [query, setQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [vegFilter, setVegFilter] = useState<VegFilter>("all");
-  const [sortBy, setSortBy] = useState<SortOption>("none");
+  const [query, setQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [vegFilter, setVegFilter] = useState<VegFilter>('all');
+  const [sortBy, setSortBy] = useState<SortOption>('none');
   const [sheetVisible, setSheetVisible] = useState(false);
 
   const slideAnim = useRef(new Animated.Value(SHEET_HEIGHT)).current;
@@ -119,7 +149,7 @@ const Explore = () => {
 
   const categories = useMemo(() => {
     const types = Array.from(new Set(dishes.map((d) => d.type)));
-    return ["All", ...types];
+    return ['All', ...types];
   }, [dishes]);
 
   const openSheet = useCallback(() => {
@@ -159,23 +189,23 @@ const Explore = () => {
   ).current;
 
   const activeFiltersCount =
-    (sortBy !== "none" ? 1 : 0) + (vegFilter !== "all" ? 1 : 0);
+    (sortBy !== 'none' ? 1 : 0) + (vegFilter !== 'all' ? 1 : 0);
 
   const filtered = useMemo(() => {
     let result = dishes.filter((d) => {
       const matchesQuery = d.name.toLowerCase().includes(query.toLowerCase());
       const matchesCategory =
-        activeCategory === "All" || d.type === activeCategory;
+        activeCategory === 'All' || d.type === activeCategory;
       const matchesVeg =
-        vegFilter === "all" ? true : vegFilter === "veg" ? !d.nonVeg : d.nonVeg;
+        vegFilter === 'all' ? true : vegFilter === 'veg' ? !d.nonVeg : d.nonVeg;
       return matchesQuery && matchesCategory && matchesVeg;
     });
 
-    if (sortBy === "low_high")
+    if (sortBy === 'low_high')
       result = [...result].sort((a, b) => a.price - b.price);
-    else if (sortBy === "high_low")
+    else if (sortBy === 'high_low')
       result = [...result].sort((a, b) => b.price - a.price);
-    else if (sortBy === "top_rated")
+    else if (sortBy === 'top_rated')
       result = [...result].sort((a, b) => b.ratings - a.ratings);
 
     return result;
@@ -204,7 +234,7 @@ const Explore = () => {
           returnKeyType="search"
         />
         {query.length > 0 && (
-          <TouchableOpacity onPress={() => setQuery("")} activeOpacity={0.7}>
+          <TouchableOpacity onPress={() => setQuery('')} activeOpacity={0.7}>
             <Ionicons
               name="close-circle"
               size={18}
@@ -232,12 +262,12 @@ const Explore = () => {
           <Ionicons
             name="options-outline"
             size={16}
-            color={activeFiltersCount > 0 ? "#fff" : theme.textSecondary}
+            color={activeFiltersCount > 0 ? '#fff' : theme.textSecondary}
           />
           <ThemedText
             style={[
               styles.filterBtnText,
-              { color: activeFiltersCount > 0 ? "#fff" : theme.textSecondary },
+              { color: activeFiltersCount > 0 ? '#fff' : theme.textSecondary },
             ]}
           >
             Filter
@@ -252,13 +282,13 @@ const Explore = () => {
         </TouchableOpacity>
 
         <View style={styles.vegToggleGroup}>
-          {(["all", "veg", "nonveg"] as VegFilter[]).map((v) => {
+          {(['all', 'veg', 'nonveg'] as VegFilter[]).map((v) => {
             const isActive = vegFilter === v;
-            const label = v === "all" ? "All" : v === "veg" ? "Veg" : "Non-Veg";
+            const label = v === 'all' ? 'All' : v === 'veg' ? 'Veg' : 'Non-Veg';
             const color =
-              v === "veg"
+              v === 'veg'
                 ? Brand.success
-                : v === "nonveg"
+                : v === 'nonveg'
                   ? Brand.error
                   : Brand.primary;
             return (
@@ -275,18 +305,18 @@ const Explore = () => {
                 onPress={() => setVegFilter(v)}
                 activeOpacity={0.8}
               >
-                {v !== "all" && (
+                {v !== 'all' && (
                   <View
                     style={[
                       styles.vegDotSmall,
-                      { backgroundColor: isActive ? "#fff" : color },
+                      { backgroundColor: isActive ? '#fff' : color },
                     ]}
                   />
                 )}
                 <ThemedText
                   style={[
                     styles.vegBtnText,
-                    { color: isActive ? "#fff" : theme.textPrimary },
+                    { color: isActive ? '#fff' : theme.textPrimary },
                   ]}
                 >
                   {label}
@@ -305,7 +335,7 @@ const Explore = () => {
         contentContainerStyle={styles.categoriesContainer}
         renderItem={({ item }) => {
           const isActive = item === activeCategory;
-          const icon = CATEGORY_ICONS[item] ?? "ellipse-outline";
+          const icon = CATEGORY_ICONS[item] ?? 'ellipse-outline';
           return (
             <TouchableOpacity
               style={[
@@ -322,12 +352,12 @@ const Explore = () => {
               <Ionicons
                 name={icon}
                 size={16}
-                color={isActive ? "#fff" : theme.textSecondary}
+                color={isActive ? '#fff' : theme.textSecondary}
               />
               <ThemedText
                 style={[
                   styles.categoryText,
-                  { color: isActive ? "#fff" : theme.textPrimary },
+                  { color: isActive ? '#fff' : theme.textPrimary },
                 ]}
               >
                 {capitalize(item)}
@@ -448,11 +478,11 @@ const Explore = () => {
             );
           })}
 
-          {sortBy !== "none" && (
+          {sortBy !== 'none' && (
             <TouchableOpacity
               style={styles.clearBtn}
               onPress={() => {
-                setSortBy("none");
+                setSortBy('none');
                 closeSheet();
               }}
               activeOpacity={0.8}
@@ -482,8 +512,8 @@ const styles = StyleSheet.create({
   headerTitle: { marginBottom: 2 },
 
   searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: Spacing.md,
     marginTop: 60,
     marginBottom: Spacing.sm,
@@ -501,15 +531,15 @@ const styles = StyleSheet.create({
   },
 
   filterRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm,
     gap: Spacing.sm,
   },
   filterBtn: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -518,33 +548,33 @@ const styles = StyleSheet.create({
   },
   filterBtnText: {
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   filterBadge: {
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: "rgba(255,255,255,0.3)",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginLeft: 4,
   },
   filterBadgeText: {
     fontSize: 11,
-    fontWeight: "700",
-    color: "#fff",
+    fontWeight: '700',
+    color: '#fff',
   },
 
   vegToggleGroup: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: Spacing.xs,
   },
   vegBtn: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 6,
     paddingVertical: 10,
     borderRadius: Radius.full,
@@ -557,7 +587,7 @@ const styles = StyleSheet.create({
   },
   vegBtnText: {
     fontSize: 13,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 
   categoriesContainer: {
@@ -566,8 +596,8 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   categoryPill: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -578,14 +608,14 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: '600',
     lineHeight: 16,
   },
 
   centered: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingBottom: Spacing.xxl,
   },
 
@@ -601,46 +631,46 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     borderRadius: Radius.lg,
-    overflow: "hidden",
+    overflow: 'hidden',
     ...Shadows.sm,
   },
-  cardImage: { width: "100%", height: 130 },
+  cardImage: { width: '100%', height: 130 },
   vegBadge: {
-    position: "absolute",
+    position: 'absolute',
     top: Spacing.sm,
     right: Spacing.sm,
     width: 22,
     height: 22,
     borderRadius: 4,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.1)",
+    borderColor: 'rgba(0,0,0,0.1)',
   },
   vegDot: { width: 10, height: 10, borderRadius: 5 },
   cardContent: { padding: Spacing.sm },
-  dishName: { fontSize: 14, fontWeight: "600", marginBottom: 2 },
+  dishName: { fontSize: 14, fontWeight: '600', marginBottom: 2 },
   cardFooter: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     marginTop: 4,
   },
-  price: { fontSize: 15, fontWeight: "700", color: Brand.primary },
+  price: { fontSize: 15, fontWeight: '700', color: Brand.primary },
   ratingRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 4,
     marginTop: 2,
   },
-  ratingText: { fontWeight: "600", color: "#E65100", fontSize: 11 },
+  ratingText: { fontWeight: '600', color: '#E65100', fontSize: 11 },
 
   backdrop: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   sheet: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
@@ -655,18 +685,18 @@ const styles = StyleSheet.create({
     width: 48,
     height: 5,
     borderRadius: 2.5,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 12,
     marginBottom: Spacing.lg,
   },
   sheetTitle: {
     marginBottom: Spacing.md,
     fontSize: 20,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   sheetOption: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: Spacing.md,
     paddingVertical: 14,
     borderBottomWidth: 1,
@@ -675,21 +705,21 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: Radius.md,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sheetOptionText: {
     flex: 1,
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   clearBtn: {
     marginTop: Spacing.lg,
-    alignItems: "center",
+    alignItems: 'center',
     paddingVertical: Spacing.sm,
   },
   clearBtnText: {
     fontSize: 15,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 });

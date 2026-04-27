@@ -1,16 +1,16 @@
-import restaurantInfo from "@/src/data/restaurantInfo";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import restaurantInfo from '@/src/data/restaurantInfo';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-    Dimensions,
-    FlatList,
-    Image,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    StyleSheet,
-    View,
-} from "react-native";
+  Dimensions,
+  FlatList,
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+  View,
+} from 'react-native';
 
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const INTERVAL = 3000;
 
 const BannerCarousel = () => {
@@ -100,7 +100,7 @@ const BannerCarousel = () => {
               {
                 width: i === dotIndex ? 20 : 6,
                 backgroundColor:
-                  i === dotIndex ? "#fff" : "rgba(255,255,255,0.45)",
+                  i === dotIndex ? '#fff' : 'rgba(255,255,255,0.45)',
               },
             ]}
           />
@@ -124,13 +124,13 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
   dots: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 12,
     left: 0,
     right: 0,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 6,
   },
   dot: {

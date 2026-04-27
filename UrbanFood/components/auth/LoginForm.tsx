@@ -1,60 +1,60 @@
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import {
-    Brand,
-    Colors,
-    Radius,
-    Shadows,
-    Spacing,
-    Typography,
-} from "@/constants/theme";
+  Brand,
+  Colors,
+  Radius,
+  Shadows,
+  Spacing,
+  Typography,
+} from '@/constants/theme';
 import {
-    selectAuthError,
-    selectAuthLoading,
-} from "@/src/features/auth/authSlice";
-import { loginUser } from "@/src/features/auth/authThunks";
-import { AppDispatch } from "@/src/store";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import React, { useState } from "react";
+  selectAuthError,
+  selectAuthLoading,
+} from '@/src/features/auth/authSlice';
+import { loginUser } from '@/src/features/auth/authThunks';
+import { AppDispatch } from '@/src/store';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    View,
-    useColorScheme,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [pin, setPin] = useState("");
+  const [email, setEmail] = useState('');
+  const [pin, setPin] = useState('');
   const [showPin, setShowPin] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const loading = useSelector(selectAuthLoading);
   const error = useSelector(selectAuthError);
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
   const handleLogin = async () => {
     if (!email || !pin) {
-      Alert.alert("Error", "Please fill in all fields");
+      Alert.alert('Error', 'Please fill in all fields');
       return;
     }
     if (pin.length !== 4) {
-      Alert.alert("Error", "PIN must be 4 digits");
+      Alert.alert('Error', 'PIN must be 4 digits');
       return;
     }
 
     const result = await dispatch(loginUser({ email, pin }));
     if (loginUser.fulfilled.match(result)) {
-      router.replace("/(tabs)");
+      router.replace('/(tabs)');
     } else {
-      Alert.alert("Login Failed", error || "Invalid credentials");
+      Alert.alert('Login Failed', error || 'Invalid credentials');
     }
   };
 
@@ -106,7 +106,7 @@ const LoginForm = () => {
           activeOpacity={0.7}
         >
           <Ionicons
-            name={showPin ? "eye-outline" : "eye-off-outline"}
+            name={showPin ? 'eye-outline' : 'eye-off-outline'}
             size={20}
             color={theme.icon}
           />
@@ -138,10 +138,10 @@ const LoginForm = () => {
 export default LoginForm;
 
 const styles = StyleSheet.create({
-  container: { width: "100%" },
+  container: { width: '100%' },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: Radius.md,
     paddingHorizontal: Spacing.md,
     marginBottom: Spacing.md,
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
     backgroundColor: Brand.primary,
     borderRadius: Radius.md,
     height: 52,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: Spacing.sm,
     ...Shadows.primary,
   },

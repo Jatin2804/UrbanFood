@@ -5,7 +5,15 @@ import { StyleSheet, Text, type TextProps } from 'react-native';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'caption' | 'small' | 'muted';
+  type?:
+    | 'default'
+    | 'title'
+    | 'defaultSemiBold'
+    | 'subtitle'
+    | 'link'
+    | 'caption'
+    | 'small'
+    | 'muted';
 };
 
 export function ThemedText({
@@ -19,25 +27,30 @@ export function ThemedText({
   const theme = Colors[scheme];
 
   const color =
-    lightColor && scheme === 'light' ? lightColor :
-    darkColor  && scheme === 'dark'  ? darkColor  :
-    type === 'muted'   ? theme.textTertiary  :
-    type === 'caption' ? theme.textSecondary :
-    type === 'link'    ? theme.tint          :
-    theme.textPrimary;
+    lightColor && scheme === 'light'
+      ? lightColor
+      : darkColor && scheme === 'dark'
+        ? darkColor
+        : type === 'muted'
+          ? theme.textTertiary
+          : type === 'caption'
+            ? theme.textSecondary
+            : type === 'link'
+              ? theme.tint
+              : theme.textPrimary;
 
   return (
     <Text
       style={[
         { color },
-        type === 'default'         ? styles.default         : undefined,
+        type === 'default' ? styles.default : undefined,
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'title'           ? styles.title           : undefined,
-        type === 'subtitle'        ? styles.subtitle        : undefined,
-        type === 'caption'         ? styles.caption         : undefined,
-        type === 'small'           ? styles.small           : undefined,
-        type === 'muted'           ? styles.small           : undefined,
-        type === 'link'            ? styles.link            : undefined,
+        type === 'title' ? styles.title : undefined,
+        type === 'subtitle' ? styles.subtitle : undefined,
+        type === 'caption' ? styles.caption : undefined,
+        type === 'small' ? styles.small : undefined,
+        type === 'muted' ? styles.small : undefined,
+        type === 'link' ? styles.link : undefined,
         style,
       ]}
       {...rest}

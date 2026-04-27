@@ -1,6 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { addToCart, clearCart, fetchCart, removeFromCart, updateQuantity } from "./cartThunks";
-import { CartState } from "./cartTypes";
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  addToCart,
+  clearCart,
+  fetchCart,
+  removeFromCart,
+  updateQuantity,
+} from './cartThunks';
+import { CartState } from './cartTypes';
 
 const initialState: CartState = {
   cart: null,
@@ -10,7 +16,7 @@ const initialState: CartState = {
 };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     clearCartState: (state) => {
@@ -30,47 +36,55 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ?? "Failed to load cart";
+        state.error = action.payload ?? 'Failed to load cart';
       })
 
-      .addCase(addToCart.pending, (state) => { state.updating = true; })
+      .addCase(addToCart.pending, (state) => {
+        state.updating = true;
+      })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.updating = false;
         state.cart = action.payload;
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.updating = false;
-        state.error = action.payload ?? "Failed to add item";
+        state.error = action.payload ?? 'Failed to add item';
       })
 
-      .addCase(updateQuantity.pending, (state) => { state.updating = true; })
+      .addCase(updateQuantity.pending, (state) => {
+        state.updating = true;
+      })
       .addCase(updateQuantity.fulfilled, (state, action) => {
         state.updating = false;
         state.cart = action.payload;
       })
       .addCase(updateQuantity.rejected, (state, action) => {
         state.updating = false;
-        state.error = action.payload ?? "Failed to update";
+        state.error = action.payload ?? 'Failed to update';
       })
 
-      .addCase(removeFromCart.pending, (state) => { state.updating = true; })
+      .addCase(removeFromCart.pending, (state) => {
+        state.updating = true;
+      })
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.updating = false;
         state.cart = action.payload;
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         state.updating = false;
-        state.error = action.payload ?? "Failed to remove";
+        state.error = action.payload ?? 'Failed to remove';
       })
 
-      .addCase(clearCart.pending, (state) => { state.updating = true; })
+      .addCase(clearCart.pending, (state) => {
+        state.updating = true;
+      })
       .addCase(clearCart.fulfilled, (state, action) => {
         state.updating = false;
         state.cart = action.payload;
       })
       .addCase(clearCart.rejected, (state, action) => {
         state.updating = false;
-        state.error = action.payload ?? "Failed to clear";
+        state.error = action.payload ?? 'Failed to clear';
       });
   },
 });

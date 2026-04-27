@@ -1,27 +1,27 @@
-import BannerCarousel from "@/components/home/BannerCarousel";
-import RestaurantCard from "@/components/home/RestaurantCard";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Brand, Colors, Radius, Shadows, Spacing } from "@/constants/theme";
-import restaurantInfo from "@/src/data/restaurantInfo";
-import { selectCurrentUser } from "@/src/features/auth/authSlice";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import React from "react";
+import BannerCarousel from '@/components/home/BannerCarousel';
+import RestaurantCard from '@/components/home/RestaurantCard';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Brand, Colors, Radius, Shadows, Spacing } from '@/constants/theme';
+import restaurantInfo from '@/src/data/restaurantInfo';
+import { selectCurrentUser } from '@/src/features/auth/authSlice';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import React from 'react';
 import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   useColorScheme,
   View,
-} from "react-native";
-import { useSelector } from "react-redux";
+} from 'react-native';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const user = useSelector(selectCurrentUser);
-  const firstName = user?.name?.split(" ")[0] ?? "there";
+  const firstName = user?.name?.split(' ')[0] ?? 'there';
 
   return (
     <ThemedView style={styles.container}>
@@ -77,7 +77,7 @@ const Home = () => {
         <RestaurantCard />
 
         <TouchableOpacity
-          onPress={() => router.replace("/(tabs)/explore")}
+          onPress={() => router.replace('/(tabs)/explore')}
           style={[
             styles.searchBar,
             {
@@ -119,9 +119,9 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
 
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: Spacing.md,
     paddingTop: 52,
     paddingBottom: Spacing.md,
@@ -131,24 +131,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   locationRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 4,
   },
   locationText: {
     fontSize: 15,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   notifBtn: {
     width: 42,
     height: 42,
     borderRadius: 21,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginLeft: Spacing.md,
   },
   notifDot: {
-    position: "absolute",
+    position: 'absolute',
     top: 8,
     right: 8,
     width: 8,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: Brand.error,
     borderWidth: 1.5,
-    borderColor: "#fff",
+    borderColor: '#fff',
   },
 
   scrollContent: {
@@ -170,8 +170,8 @@ const styles = StyleSheet.create({
   },
 
   searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: Spacing.md,
     marginBottom: Spacing.md,
     paddingHorizontal: Spacing.md,
@@ -183,8 +183,8 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: Radius.sm,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   sectionHeader: {

@@ -1,36 +1,36 @@
-import LoginForm from "@/components/auth/LoginForm";
-import SignupForm from "@/components/auth/SignupForm";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
+import LoginForm from '@/components/auth/LoginForm';
+import SignupForm from '@/components/auth/SignupForm';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import {
-    Brand,
-    Colors,
-    Radius,
-    Shadows,
-    Spacing,
-    Typography,
-} from "@/constants/theme";
-import React, { useState } from "react";
+  Brand,
+  Colors,
+  Radius,
+  Shadows,
+  Spacing,
+  Typography,
+} from '@/constants/theme';
+import React, { useState } from 'react';
 import {
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    useColorScheme,
-} from "react-native";
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
   return (
     <ThemedView style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}
       >
         <ScrollView
@@ -46,7 +46,7 @@ const Login = () => {
               ]}
             >
               <Image
-                source={require("../assets/images/logo.png")}
+                source={require('../assets/images/logo.png')}
                 style={styles.logo}
               />
             </View>
@@ -54,7 +54,7 @@ const Login = () => {
               Urban Food
             </ThemedText>
             <ThemedText type="caption" style={styles.subtitle}>
-              {isLogin ? "Welcome back!" : "Create your account"}
+              {isLogin ? 'Welcome back!' : 'Create your account'}
             </ThemedText>
           </View>
 
@@ -66,7 +66,7 @@ const Login = () => {
             <ThemedText type="caption">
               {isLogin
                 ? "Don't have an account? "
-                : "Already have an account? "}
+                : 'Already have an account? '}
             </ThemedText>
             <TouchableOpacity
               onPress={() => setIsLogin(!isLogin)}
@@ -78,7 +78,7 @@ const Login = () => {
                 darkColor={Brand.primary}
                 style={styles.toggleLink}
               >
-                {isLogin ? "Sign Up" : "Login"}
+                {isLogin ? 'Sign Up' : 'Login'}
               </ThemedText>
             </TouchableOpacity>
           </View>
@@ -97,18 +97,18 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.xl,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   logoContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: Spacing.xl,
   },
   logoWrapper: {
     width: 90,
     height: 90,
     borderRadius: 45,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: Spacing.md,
     ...Shadows.primary,
   },
@@ -121,10 +121,10 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xs,
   },
   subtitle: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   pillContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderRadius: Radius.md,
     padding: 4,
     marginBottom: Spacing.lg,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   pill: {
     flex: 1,
     paddingVertical: 12,
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: Radius.sm,
   },
   pillActive: {
@@ -143,18 +143,18 @@ const styles = StyleSheet.create({
     ...Typography.bodySemiBold,
   },
   pillTextActive: {
-    color: "#fff",
+    color: '#fff',
   },
   formContainer: {
     marginBottom: Spacing.md,
   },
   toggleContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: Spacing.md,
   },
   toggleLink: {
-    fontWeight: "600",
+    fontWeight: '600',
   },
 });

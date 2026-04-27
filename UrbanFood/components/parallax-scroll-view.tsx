@@ -1,17 +1,17 @@
-import type { PropsWithChildren } from "react";
-import { StyleSheet } from "react-native";
+import type { PropsWithChildren } from 'react';
+import { StyleSheet } from 'react-native';
 import Animated, {
   useAnimatedRef,
   useScrollOffset,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
-import { ThemedView } from "@/components/themed-view";
-import { useThemeColor } from "@/hooks/use-theme-color";
+import { ThemedView } from '@/components/themed-view';
+import { useThemeColor } from '@/hooks/use-theme-color';
 
 type Props = PropsWithChildren<{}>;
 
 export default function ParallaxScrollView({ children }: Props) {
-  const backgroundColor = useThemeColor({}, "background");
+  const backgroundColor = useThemeColor({}, 'background');
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
 
   // (Optional: keep if you want scroll tracking later)

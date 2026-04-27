@@ -1,5 +1,5 @@
-import { Buffer } from "buffer";
+import { Buffer } from 'buffer';
 
 export const encodeBase64 = (data: any): string => {
-  return Buffer.from(JSON.stringify(data)).toString("base64");
+  return Buffer.from(JSON.stringify(data)).toString('base64');
 };

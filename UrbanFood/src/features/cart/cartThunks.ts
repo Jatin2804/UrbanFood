@@ -1,19 +1,19 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-    createCartsFileAPI,
-    fetchCartsAPI,
-    getCartsMeta,
-    updateCartsAPI,
-} from "../../services/apiService";
-import { RootState } from "../../store/rootReducer";
-import { Cart, CartDish } from "./cartTypes";
+  createCartsFileAPI,
+  fetchCartsAPI,
+  getCartsMeta,
+  updateCartsAPI,
+} from '../../services/apiService';
+import { RootState } from '../../store/rootReducer';
+import { Cart, CartDish } from './cartTypes';
 
 const parseData = (data: any): Cart[] => {
   if (!data) return [];
   let parsed = data;
-  if (typeof parsed === "string") {
+  if (typeof parsed === 'string') {
     try {
-      if (parsed.trim().startsWith('"carts":')) parsed = "{" + parsed + "}";
+      if (parsed.trim().startsWith('"carts":')) parsed = '{' + parsed + '}';
       parsed = JSON.parse(parsed);
     } catch {
       return [];
@@ -35,9 +35,10 @@ async function pushToGitHub(cart: Cart) {
     const raw = await fetchCartsAPI();
     const allCarts: Cart[] = parseData(raw);
     const idx = allCarts.findIndex((c) => c.userId === cart.userId);
-    const updated = idx >= 0
-      ? allCarts.map((c, i) => (i === idx ? cart : c))
-      : [...allCarts, cart];
+    const updated =
+      idx >= 0
+        ? allCarts.map((c, i) => (i === idx ? cart : c))
+        : [...allCarts, cart];
 
     const meta = await getCartsMeta();
     if (meta?.sha) {
@@ -54,7 +55,7 @@ export const fetchCart = createAsyncThunk<
   Cart | null,
   string,
   { rejectValue: string }
->("cart/fetch", async (userId, { rejectWithValue }) => {
+>('cart/fetch', async (userId, { rejectWithValue }) => {
   try {
     const raw = await fetchCartsAPI();
     const carts: Cart[] = parseData(raw);
@@ -74,7 +75,7 @@ export const fetchCart = createAsyncThunk<
     await pushToGitHub(newCart);
     return newCart;
   } catch (e: any) {
-    return rejectWithValue(e?.message ?? "Failed to fetch cart");
+    return rejectWithValue(e?.message ?? 'Failed to fetch cart');
   }
 });
 
@@ -82,7 +83,7 @@ export const addToCart = createAsyncThunk<
   Cart,
   { userId: string; dish: CartDish },
   { rejectValue: string; state: RootState }
->("cart/addItem", async ({ userId, dish }, { getState, rejectWithValue }) => {
+>('cart/addItem', async ({ userId, dish }, { getState, rejectWithValue }) => {
   try {
     const current = getState().cart.cart;
 
@@ -101,20 +102,25 @@ export const addToCart = createAsyncThunk<
     let newDishes: CartDish[];
     if (existIdx >= 0) {
       newDishes = cart.dishes.map((d, i) =>
-        i === existIdx ? { ...d, quantity: d.quantity + dish.quantity } : d
+        i === existIdx ? { ...d, quantity: d.quantity + dish.quantity } : d,
       );
     } else {
       newDishes = [...cart.dishes, dish];
     }
 
     const { totalPrice, finalPrice } = computeTotals(newDishes, cart.discount);
-    const updatedCart: Cart = { ...cart, dishes: newDishes, totalPrice, finalPrice };
+    const updatedCart: Cart = {
+      ...cart,
+      dishes: newDishes,
+      totalPrice,
+      finalPrice,
+    };
 
     pushToGitHub(updatedCart);
 
     return updatedCart;
   } catch (e: any) {
-    return rejectWithValue(e?.message ?? "Failed to add item");
+    return rejectWithValue(e?.message ?? 'Failed to add item');
   }
 });
 
@@ -122,55 +128,77 @@ export const updateQuantity = createAsyncThunk<
   Cart,
   { userId: string; dishId: string; quantity: number },
   { rejectValue: string; state: RootState }
->("cart/updateQuantity", async ({ userId, dishId, quantity }, { getState, rejectWithValue }) => {
-  try {
-    const current = getState().cart.cart;
-    if (!current) return rejectWithValue("Cart not found");
+>(
+  'cart/updateQuantity',
+  async ({ userId, dishId, quantity }, { getState, rejectWithValue }) => {
+    try {
+      const current = getState().cart.cart;
+      if (!current) return rejectWithValue('Cart not found');
 
-    const newDishes: CartDish[] =
-      quantity <= 0
-        ? current.dishes.filter((d) => d.dishId !== dishId)
-        : current.dishes.map((d) =>
-            d.dishId === dishId ? { ...d, quantity } : d
-          );
+      const newDishes: CartDish[] =
+        quantity <= 0
+          ? current.dishes.filter((d) => d.dishId !== dishId)
+          : current.dishes.map((d) =>
+              d.dishId === dishId ? { ...d, quantity } : d,
+            );
 
-    const { totalPrice, finalPrice } = computeTotals(newDishes, current.discount);
-    const updatedCart: Cart = { ...current, dishes: newDishes, totalPrice, finalPrice };
+      const { totalPrice, finalPrice } = computeTotals(
+        newDishes,
+        current.discount,
+      );
+      const updatedCart: Cart = {
+        ...current,
+        dishes: newDishes,
+        totalPrice,
+        finalPrice,
+      };
 
-    pushToGitHub(updatedCart);
+      pushToGitHub(updatedCart);
 
-    return updatedCart;
-  } catch (e: any) {
-    return rejectWithValue(e?.message ?? "Failed to update quantity");
-  }
-});
+      return updatedCart;
+    } catch (e: any) {
+      return rejectWithValue(e?.message ?? 'Failed to update quantity');
+    }
+  },
+);
 
 export const removeFromCart = createAsyncThunk<
   Cart,
   { userId: string; dishId: string },
   { rejectValue: string; state: RootState }
->("cart/removeItem", async ({ userId, dishId }, { getState, rejectWithValue }) => {
-  try {
-    const current = getState().cart.cart;
-    if (!current) return rejectWithValue("Cart not found");
+>(
+  'cart/removeItem',
+  async ({ userId, dishId }, { getState, rejectWithValue }) => {
+    try {
+      const current = getState().cart.cart;
+      if (!current) return rejectWithValue('Cart not found');
 
-    const newDishes = current.dishes.filter((d) => d.dishId !== dishId);
-    const { totalPrice, finalPrice } = computeTotals(newDishes, current.discount);
-    const updatedCart: Cart = { ...current, dishes: newDishes, totalPrice, finalPrice };
+      const newDishes = current.dishes.filter((d) => d.dishId !== dishId);
+      const { totalPrice, finalPrice } = computeTotals(
+        newDishes,
+        current.discount,
+      );
+      const updatedCart: Cart = {
+        ...current,
+        dishes: newDishes,
+        totalPrice,
+        finalPrice,
+      };
 
-    pushToGitHub(updatedCart);
+      pushToGitHub(updatedCart);
 
-    return updatedCart;
-  } catch (e: any) {
-    return rejectWithValue(e?.message ?? "Failed to remove item");
-  }
-});
+      return updatedCart;
+    } catch (e: any) {
+      return rejectWithValue(e?.message ?? 'Failed to remove item');
+    }
+  },
+);
 
 export const clearCart = createAsyncThunk<
   Cart,
   string,
   { rejectValue: string; state: RootState }
->("cart/clear", async (userId, { getState, rejectWithValue }) => {
+>('cart/clear', async (userId, { getState, rejectWithValue }) => {
   try {
     const current = getState().cart.cart;
 
@@ -191,6 +219,6 @@ export const clearCart = createAsyncThunk<
 
     return clearedCart;
   } catch (e: any) {
-    return rejectWithValue(e?.message ?? "Failed to clear cart");
+    return rejectWithValue(e?.message ?? 'Failed to clear cart');
   }
 });

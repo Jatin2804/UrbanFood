@@ -1,10 +1,10 @@
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Brand, Colors, Radius, Shadows, Spacing } from "@/constants/theme";
-import restaurantInfo from "@/src/data/restaurantInfo";
-import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { Image, StyleSheet, useColorScheme, View } from "react-native";
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Brand, Colors, Radius, Shadows, Spacing } from '@/constants/theme';
+import restaurantInfo from '@/src/data/restaurantInfo';
+import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { Image, StyleSheet, useColorScheme, View } from 'react-native';
 
 const formatCount = (n: number) =>
   n >= 1000 ? `${(n / 1000).toFixed(1)}k` : `${n}`;
@@ -16,7 +16,7 @@ interface StatItemProps {
 }
 
 const StatItem = ({ icon, value, label }: StatItemProps) => {
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   return (
     <View style={statStyles.item}>
@@ -28,7 +28,7 @@ const StatItem = ({ icon, value, label }: StatItemProps) => {
       <ThemedText style={statStyles.value}>{value}</ThemedText>
       <ThemedText
         type="small"
-        style={{ color: theme.textTertiary, textAlign: "center" }}
+        style={{ color: theme.textTertiary, textAlign: 'center' }}
       >
         {label}
       </ThemedText>
@@ -37,20 +37,20 @@ const StatItem = ({ icon, value, label }: StatItemProps) => {
 };
 
 const statStyles = StyleSheet.create({
-  item: { flex: 1, alignItems: "center", gap: 4 },
+  item: { flex: 1, alignItems: 'center', gap: 4 },
   iconBox: {
     width: 40,
     height: 40,
     borderRadius: Radius.md,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 2,
   },
-  value: { fontSize: 15, fontWeight: "700" },
+  value: { fontSize: 15, fontWeight: '700' },
 });
 
 const RestaurantCard = () => {
-  const scheme = useColorScheme() ?? "light";
+  const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const r = restaurantInfo;
 
@@ -68,7 +68,7 @@ const RestaurantCard = () => {
             <View
               style={[
                 styles.statusBadge,
-                { backgroundColor: r.isOpen ? "#E8F8F0" : "#FFE8E8" },
+                { backgroundColor: r.isOpen ? '#E8F8F0' : '#FFE8E8' },
               ]}
             >
               <View
@@ -82,7 +82,7 @@ const RestaurantCard = () => {
                 lightColor={r.isOpen ? Brand.success : Brand.error}
                 darkColor={r.isOpen ? Brand.success : Brand.error}
               >
-                {r.isOpen ? "Open" : "Closed"}
+                {r.isOpen ? 'Open' : 'Closed'}
               </ThemedText>
             </View>
           </View>
@@ -113,7 +113,7 @@ const RestaurantCard = () => {
           >
             <ThemedText
               type="small"
-              style={{ color: theme.textSecondary, fontWeight: "500" }}
+              style={{ color: theme.textSecondary, fontWeight: '500' }}
             >
               {tag}
             </ThemedText>
@@ -193,15 +193,15 @@ export default RestaurantCard;
 const styles = StyleSheet.create({
   card: {
     borderRadius: Radius.xl,
-    overflow: "hidden",
+    overflow: 'hidden',
     marginHorizontal: Spacing.md,
     marginBottom: Spacing.md,
     padding: Spacing.sm,
   },
 
   header: {
-    flexDirection: "row",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     marginBottom: Spacing.md,
     gap: Spacing.md,
   },
@@ -210,22 +210,22 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     borderWidth: 2,
-    overflow: "hidden",
+    overflow: 'hidden',
     ...Shadows.sm,
   },
-  logo: { width: "100%", height: "100%" },
+  logo: { width: '100%', height: '100%' },
   nameBlock: { flex: 1 },
   nameRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: Spacing.sm,
     marginBottom: 2,
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
   },
   name: { marginBottom: 0 },
   statusBadge: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: Radius.full,
@@ -238,23 +238,23 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 11,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   ratingRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 4,
     marginTop: 4,
   },
   ratingText: {
     fontSize: 13,
-    fontWeight: "700",
-    color: "#E65100",
+    fontWeight: '700',
+    color: '#E65100',
   },
 
   tagsRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 6,
     marginBottom: Spacing.md,
   },
@@ -266,8 +266,8 @@ const styles = StyleSheet.create({
   },
 
   statsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: Radius.lg,
     borderWidth: 1,
     paddingVertical: Spacing.md,
@@ -278,11 +278,11 @@ const styles = StyleSheet.create({
   infoContainer: {
     borderRadius: Radius.lg,
     borderWidth: 1,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   infoRow: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: Spacing.sm,
     paddingHorizontal: Spacing.md,
     paddingVertical: 11,

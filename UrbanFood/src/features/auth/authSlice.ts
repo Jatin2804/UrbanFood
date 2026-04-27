@@ -1,6 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { checkAuthStatus, loginUser, logoutUser, signupUser } from "./authThunks";
-import { AuthState } from "./authTypes";
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  checkAuthStatus,
+  loginUser,
+  logoutUser,
+  signupUser,
+} from './authThunks';
+import { AuthState } from './authTypes';
 
 const initialState: AuthState = {
   user: null,
@@ -11,7 +16,7 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     clearError: (state) => {
@@ -33,7 +38,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Login failed";
+        state.error = action.payload || 'Login failed';
         state.isLoggedIn = false;
       })
 
@@ -50,7 +55,7 @@ const authSlice = createSlice({
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Signup failed";
+        state.error = action.payload || 'Signup failed';
         state.isLoggedIn = false;
       })
 
@@ -81,10 +86,13 @@ const authSlice = createSlice({
 
 export const { clearError } = authSlice.actions;
 
-export const selectIsLoggedIn = (state: { auth: AuthState }) => state.auth.isLoggedIn;
-export const selectCurrentUser = (state: { auth: AuthState }) => state.auth.user;
+export const selectIsLoggedIn = (state: { auth: AuthState }) =>
+  state.auth.isLoggedIn;
+export const selectCurrentUser = (state: { auth: AuthState }) =>
+  state.auth.user;
 export const selectAuthToken = (state: { auth: AuthState }) => state.auth.token;
-export const selectAuthLoading = (state: { auth: AuthState }) => state.auth.loading;
+export const selectAuthLoading = (state: { auth: AuthState }) =>
+  state.auth.loading;
 export const selectAuthError = (state: { auth: AuthState }) => state.auth.error;
 
 export default authSlice.reducer;
