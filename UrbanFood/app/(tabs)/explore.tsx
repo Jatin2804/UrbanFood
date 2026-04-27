@@ -1,31 +1,33 @@
+import AddToCartButton from "@/components/cart/AddToCartButton";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import {
-  Brand,
-  Colors,
-  Radius,
-  Shadows,
-  Spacing,
-  Typography,
+    Brand,
+    Colors,
+    Radius,
+    Shadows,
+    Spacing,
+    Typography,
 } from "@/constants/theme";
 import { Dish } from "@/src/features/dishes/dishesType";
 import { RootState } from "@/src/store/rootReducer";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
-  ActivityIndicator,
-  Animated,
-  Dimensions,
-  FlatList,
-  Image,
-  Modal,
-  PanResponder,
-  Pressable,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    ActivityIndicator,
+    Animated,
+    Dimensions,
+    FlatList,
+    Image,
+    Modal,
+    PanResponder,
+    Pressable,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -61,57 +63,43 @@ const DishCard = ({ dish }: { dish: Dish }) => {
   const scheme = useColorScheme() ?? "light";
   const theme = Colors[scheme];
   const [imgError, setImgError] = useState(false);
+  const router = useRouter();
+
   return (
-    <ThemedView variant="surface" style={styles.card}>
-      <Image
-        source={
-          imgError || !dish.bannerImages?.[0]
-            ? FALLBACK_IMG
-            : { uri: dish.bannerImages[0] }
-        }
-        style={styles.cardImage}
-        resizeMode="cover"
-        onError={() => setImgError(true)}
-        defaultSource={FALLBACK_IMG}
-      />
-      <View
-        style={[
-          styles.vegBadge,
-          { backgroundColor: dish.nonVeg ? "#FFE8E8" : "#E8F8F0" },
-        ]}
-      >
-        <View
-          style={[
-            styles.vegDot,
-            { backgroundColor: dish.nonVeg ? Brand.error : Brand.success },
-          ]}
+    <TouchableOpacity
+      activeOpacity={0.92}
+      onPress={() => router.push(`/dish/${dish.id}`)}
+      style={{ flex: 1 }}
+    >
+      <ThemedView variant="surface" style={styles.card}>
+        <Image
+          source={imgError || !dish.bannerImages?.[0] ? FALLBACK_IMG : { uri: dish.bannerImages[0] }}
+          style={styles.cardImage}
+          resizeMode="cover"
+          onError={() => setImgError(true)}
+          defaultSource={FALLBACK_IMG}
         />
-      </View>
-      <View style={styles.cardContent}>
-        <ThemedText style={styles.dishName} numberOfLines={1}>
-          {dish.name}
-        </ThemedText>
-        <ThemedText
-          type="small"
-          style={{
-            color: theme.textTertiary,
-            textTransform: "capitalize",
-            marginBottom: 6,
-          }}
-        >
-          {dish.type}
-        </ThemedText>
-        <View style={styles.cardFooter}>
-          <ThemedText style={styles.price}>₹{dish.price}</ThemedText>
-          <View style={styles.ratingRow}>
-            <Ionicons name="star" size={12} color="#FFB800" />
-            <ThemedText type="small" style={styles.ratingText}>
-              {dish.ratings}
-            </ThemedText>
+        <View style={[styles.vegBadge, { backgroundColor: dish.nonVeg ? "#FFE8E8" : "#E8F8F0" }]}>
+          <View style={[styles.vegDot, { backgroundColor: dish.nonVeg ? Brand.error : Brand.success }]} />
+        </View>
+        <View style={styles.cardContent}>
+          <ThemedText style={styles.dishName} numberOfLines={1}>{dish.name}</ThemedText>
+          <ThemedText type="small" style={{ color: theme.textTertiary, textTransform: "capitalize", marginBottom: 6 }}>
+            {dish.type}
+          </ThemedText>
+          <View style={styles.cardFooter}>
+            <View>
+              <ThemedText style={styles.price}>₹{dish.price}</ThemedText>
+              <View style={styles.ratingRow}>
+                <Ionicons name="star" size={11} color="#FFB800" />
+                <ThemedText type="small" style={styles.ratingText}>{dish.ratings}</ThemedText>
+              </View>
+            </View>
+            <AddToCartButton dishId={dish.id} dishName={dish.name} dishPrice={dish.price} size="sm" />
           </View>
         </View>
-      </View>
-    </ThemedView>
+      </ThemedView>
+    </TouchableOpacity>
   );
 };
 
@@ -634,7 +622,7 @@ const styles = StyleSheet.create({
   dishName: { fontSize: 14, fontWeight: "600", marginBottom: 2 },
   cardFooter: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "space-between",
     marginTop: 4,
   },
@@ -643,10 +631,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    backgroundColor: "#FFF8E7",
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: Radius.full,
+    marginTop: 2,
   },
   ratingText: { fontWeight: "600", color: "#E65100", fontSize: 11 },
 

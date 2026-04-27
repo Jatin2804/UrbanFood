@@ -10,7 +10,7 @@ import {
 import { checkAuthStatus, loginUser, logoutUser, signupUser } from '../features/auth/authThunks';
 import { AppDispatch } from '../store';
 
-export const useAuth = () => {
+export const useAuth = () => { 
   const dispatch = useDispatch<AppDispatch>();
   
   const isLoggedIn = useSelector(selectIsLoggedIn);

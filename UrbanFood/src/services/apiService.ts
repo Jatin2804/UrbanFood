@@ -6,22 +6,12 @@ import { githubApi, rawApi } from "./apiClient";
 export const fetchDishesAPI = async (): Promise<Dish[]> => {
   try {
     const res = await rawApi.get("/dishes.json");
-    
     let data = res.data;
-    if (typeof data === 'string') {
-      data = JSON.parse(data);
-    }
-    
-    if (Array.isArray(data)) {
-      return data;
-    } else if (data && Array.isArray(data.dishes)) {
-      return data.dishes;
-    } else {
-      console.error("Unexpected dishes format");
-      return [];
-    }
-  } catch (error) {
-    console.error("Error fetching dishes:", error);
+    if (typeof data === "string") data = JSON.parse(data);
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.dishes)) return data.dishes;
+    return [];
+  } catch {
     return [];
   }
 };
@@ -41,31 +31,21 @@ export const updateDishesAPI = async (updatedData: Dish[], sha: string) => {
   return res.data;
 };
 
+export const getDishById = (dishes: Dish[], id: string): Dish | undefined =>
+  dishes.find((d) => d.id === id);
+
 export const fetchUsersAPI = async (): Promise<User[]> => {
   try {
     const res = await rawApi.get("/users.json");
-    
     let data = res.data;
-    
-    if (typeof data === 'string') {
-      if (data.trim().startsWith('"users":')) {
-        data = '{' + data + '}';
-      }
+    if (typeof data === "string") {
+      if (data.trim().startsWith('"users":')) data = "{" + data + "}";
       data = JSON.parse(data);
     }
-    
-    if (Array.isArray(data)) {
-      console.log("✅ Fetched users:", data.length);
-      return data;
-    } else if (data && Array.isArray(data.users)) {
-      console.log("✅ Fetched users:", data.users.length);
-      return data.users;
-    } else {
-      console.error("❌ Unexpected users format");
-      return [];
-    }
-  } catch (error) {
-    console.error("❌ Error fetching users:", error);
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.users)) return data.users;
+    return [];
+  } catch {
     return [];
   }
 };
@@ -81,6 +61,46 @@ export const updateUsersAPI = async (updatedUsers: User[], sha: string) => {
     message: "Update users",
     content,
     sha,
+  });
+  return res.data;
+};
+
+export const getUserById = (users: User[], id: string): User | undefined =>
+  users.find((u) => u.id === id);
+
+export const fetchCartsAPI = async (): Promise<any> => {
+  try {
+    const res = await rawApi.get("/carts.json");
+    return res.data;
+  } catch {
+    return [];
+  }
+};
+
+export const getCartsMeta = async () => {
+  try {
+    const res = await githubApi.get("/carts.json");
+    return res.data;
+  } catch {
+    return null;
+  }
+};
+
+export const updateCartsAPI = async (carts: any[], sha: string) => {
+  const content = encodeBase64({ carts });
+  const res = await githubApi.put("/carts.json", {
+    message: "Update carts",
+    content,
+    sha,
+  });
+  return res.data;
+};
+
+export const createCartsFileAPI = async (carts: any[]) => {
+  const content = encodeBase64({ carts });
+  const res = await githubApi.put("/carts.json", {
+    message: "Create carts",
+    content,
   });
   return res.data;
 };
