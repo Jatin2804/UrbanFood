@@ -1,195 +1,94 @@
 import BannerCarousel from '@/components/home/BannerCarousel';
+import GreetingSection from '@/components/home/GreetingSection';
+import HomeHeader from '@/components/home/HomeHeader';
+import HomeSearchBar from '@/components/home/HomeSearchBar';
 import RestaurantCard from '@/components/home/RestaurantCard';
-import { ThemedText } from '@/components/themed-text';
+import ScrollSection from '@/components/home/ScrollSection';
 import { ThemedView } from '@/components/themed-view';
-import { Brand, Colors, Radius, Shadows, Spacing } from '@/constants/theme';
-import restaurantInfo from '@/src/data/restaurantInfo';
+import { Brand } from '@/constants/theme';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { Dish } from '@/src/features/dishes/dishesType';
+import { RootState } from '@/src/store/rootReducer';
+import { homeStyles as styles } from '@/styles/screens/homeStyles';
+import React, { useMemo } from 'react';
+import { ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
+// Dishes added after this date are considered "new arrivals"
+const NEW_ARRIVAL_CUTOFF = new Date('2025-01-10');
+const TOP_RATED_MIN = 4.5;
+
+const parseDate = (dateStr: string): Date => {
+  // Handles formats: "DD-MM-YYYY", "YYYY-MM-DD", "DD/MM/YYYY"
+  if (!dateStr) return new Date(0);
+  const parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
+  if (parts.length !== 3) return new Date(dateStr);
+  // Detect DD-MM-YYYY vs YYYY-MM-DD by length of first part
+  if (parts[0].length === 4) {
+    return new Date(`${parts[0]}-${parts[1]}-${parts[2]}`);
+  }
+  return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+};
+
 const Home = () => {
-  const scheme = useColorScheme() ?? 'light';
-  const theme = Colors[scheme];
   const user = useSelector(selectCurrentUser);
   const firstName = user?.name?.split(' ')[0] ?? 'there';
+  const dishes = useSelector((state: RootState) => state.dishes.dishes);
+
+  const newArrivals = useMemo<Dish[]>(
+    () =>
+      dishes
+        .filter((d) => parseDate(d.addedDate) > NEW_ARRIVAL_CUTOFF)
+        .sort(
+          (a, b) =>
+            parseDate(b.addedDate).getTime() - parseDate(a.addedDate).getTime(),
+        ),
+    [dishes],
+  );
+
+  const topRated = useMemo<Dish[]>(
+    () =>
+      dishes
+        .filter((d) => d.ratings > TOP_RATED_MIN)
+        .sort((a, b) => b.ratings - a.ratings),
+    [dishes],
+  );
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedView variant="surface" style={styles.header}>
-        <View style={styles.headerLeft}>
-          <ThemedText
-            type="small"
-            style={{ color: theme.textTertiary, marginBottom: 2 }}
-          >
-            DELIVERY TO
-          </ThemedText>
-          <TouchableOpacity style={styles.locationRow} activeOpacity={0.7}>
-            <Ionicons name="location" size={16} color={Brand.primary} />
-            <ThemedText style={styles.locationText}>
-              {restaurantInfo.location}
-            </ThemedText>
-            <Ionicons
-              name="chevron-down"
-              size={14}
-              color={theme.textSecondary}
-            />
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          style={[styles.notifBtn, { backgroundColor: theme.surfaceSecondary }]}
-          activeOpacity={0.7}
-        >
-          <Ionicons
-            name="notifications-outline"
-            size={22}
-            color={theme.textPrimary}
-          />
-          <View style={styles.notifDot} />
-        </TouchableOpacity>
-      </ThemedView>
-
+      <HomeHeader />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
         <BannerCarousel />
-
-        <View style={styles.greeting}>
-          <ThemedText type="title">Hey, {firstName}</ThemedText>
-          <ThemedText
-            type="caption"
-            style={{ color: theme.textSecondary, marginTop: 4 }}
-          >
-            What are you craving today?
-          </ThemedText>
-        </View>
-
+        <GreetingSection firstName={firstName} />
         <RestaurantCard />
+        <HomeSearchBar />
 
-        <TouchableOpacity
-          onPress={() => router.replace('/(tabs)/explore')}
-          style={[
-            styles.searchBar,
-            {
-              backgroundColor: theme.surfaceSecondary,
-              borderColor: theme.border,
-            },
-          ]}
-          activeOpacity={0.8}
-        >
-          <Ionicons
-            name="search-outline"
-            size={20}
-            color={theme.textTertiary}
+        <View style={styles.sectionsWrapper}>
+          <ScrollSection
+            title="New Arrivals"
+            subtitle="Added after Jan 10, 2025"
+            icon="sparkles-outline"
+            iconColor={Brand.primary}
+            iconBg={Brand.primaryFaded}
+            dishes={newArrivals}
+            showNewBadge
           />
-          <ThemedText
-            type="caption"
-            style={{
-              color: theme.placeholder,
-              flex: 1,
-              marginLeft: Spacing.sm,
-            }}
-          >
-            Search dishes, cuisines...
-          </ThemedText>
-          <View
-            style={[styles.filterBtn, { backgroundColor: Brand.primaryFaded }]}
-          >
-            <Ionicons name="options-outline" size={16} color={Brand.primary} />
-          </View>
-        </TouchableOpacity>
+
+          <ScrollSection
+            title="Top Rated"
+            subtitle="Rating above 4.5 ★"
+            icon="star"
+            iconColor="#FFB800"
+            iconBg="#FFF8E7"
+            dishes={topRated}
+          />
+        </View>
       </ScrollView>
     </ThemedView>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: Spacing.md,
-    paddingTop: 52,
-    paddingBottom: Spacing.md,
-    ...Shadows.sm,
-  },
-  headerLeft: {
-    flex: 1,
-  },
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  locationText: {
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  notifBtn: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: Spacing.md,
-  },
-  notifDot: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: Brand.error,
-    borderWidth: 1.5,
-    borderColor: '#fff',
-  },
-
-  scrollContent: {
-    paddingBottom: Spacing.xxl,
-  },
-
-  greeting: {
-    paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.sm,
-    paddingBottom: Spacing.sm,
-  },
-
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: 12,
-    borderRadius: Radius.md,
-    borderWidth: 1,
-  },
-  filterBtn: {
-    width: 30,
-    height: 30,
-    borderRadius: Radius.sm,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  sectionHeader: {
-    paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.sm,
-    paddingBottom: Spacing.sm,
-  },
-});

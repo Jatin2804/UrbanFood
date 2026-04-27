@@ -1,42 +1,27 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import {
-  Brand,
-  Colors,
-  Radius,
-  Shadows,
-  Spacing,
-  Typography,
-} from '@/constants/theme';
-import {
-  selectAuthError,
-  selectAuthLoading,
-} from '@/src/features/auth/authSlice';
-import { loginUser } from '@/src/features/auth/authThunks';
-import { AppDispatch } from '@/src/store';
+import { Colors } from '@/constants/theme';
+import { useAuth } from '@/src/hooks/useAuth';
+import { authFormStyles as styles } from '@/styles/components/authFormStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useColorScheme,
+    ActivityIndicator,
+    Alert,
+    TextInput,
+    TouchableOpacity,
+    View,
+    useColorScheme,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [pin, setPin] = useState('');
   const [showPin, setShowPin] = useState(false);
 
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const loading = useSelector(selectAuthLoading);
-  const error = useSelector(selectAuthError);
+  const { login, loading, error } = useAuth();
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
@@ -50,8 +35,8 @@ const LoginForm = () => {
       return;
     }
 
-    const result = await dispatch(loginUser({ email, pin }));
-    if (loginUser.fulfilled.match(result)) {
+    const result = await login(email, pin);
+    if (result.meta.requestStatus === 'fulfilled') {
       router.replace('/(tabs)');
     } else {
       Alert.alert('Login Failed', error || 'Invalid credentials');
@@ -136,38 +121,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-const styles = StyleSheet.create({
-  container: { width: '100%' },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: Radius.md,
-    paddingHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
-    borderWidth: 1,
-  },
-  icon: { marginRight: Spacing.sm },
-  input: {
-    flex: 1,
-    height: 52,
-    ...Typography.body,
-  },
-  button: {
-    backgroundColor: Brand.primary,
-    borderRadius: Radius.md,
-    height: 52,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: Spacing.sm,
-    ...Shadows.primary,
-  },
-  buttonDisabled: {
-    backgroundColor: Brand.primaryDisabled,
-    shadowOpacity: 0,
-    elevation: 0,
-  },
-  buttonText: {
-    ...Typography.h4,
-  },
-});

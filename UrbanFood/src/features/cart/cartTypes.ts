@@ -3,6 +3,7 @@ export interface CartDish {
   name: string;
   price: number;
   quantity: number;
+  nonVeg?: boolean;
 }
 
 export interface Cart {

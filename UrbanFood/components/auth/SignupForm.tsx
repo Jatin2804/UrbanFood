@@ -1,32 +1,19 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import {
-  Brand,
-  Colors,
-  Radius,
-  Shadows,
-  Spacing,
-  Typography,
-} from '@/constants/theme';
-import {
-  selectAuthError,
-  selectAuthLoading,
-} from '@/src/features/auth/authSlice';
-import { signupUser } from '@/src/features/auth/authThunks';
-import { AppDispatch } from '@/src/store';
+import { Colors } from '@/constants/theme';
+import { useAuth } from '@/src/hooks/useAuth';
+import { authFormStyles as styles } from '@/styles/components/authFormStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  useColorScheme,
+    ActivityIndicator,
+    Alert,
+    ScrollView,
+    TextInput,
+    TouchableOpacity,
+    useColorScheme,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 
 const SignupForm = () => {
   const [name, setName] = useState('');
@@ -36,10 +23,8 @@ const SignupForm = () => {
   const [confirmPin, setConfirmPin] = useState('');
   const [showPin, setShowPin] = useState(false);
 
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const loading = useSelector(selectAuthLoading);
-  const error = useSelector(selectAuthError);
+  const { signup, loading, error } = useAuth();
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
@@ -61,14 +46,24 @@ const SignupForm = () => {
       return;
     }
 
-    const result = await dispatch(signupUser({ name, email, phone, pin }));
-    if (signupUser.fulfilled.match(result)) {
+    const result = await signup({ name, email, phone, pin });
+    if (result.meta.requestStatus === 'fulfilled') {
       Alert.alert('Success', 'Account created successfully!');
       router.replace('/(tabs)');
     } else {
       Alert.alert('Signup Failed', error || 'Could not create account');
     }
   };
+
+  const EyeToggle = () => (
+    <TouchableOpacity onPress={() => setShowPin(!showPin)} activeOpacity={0.7}>
+      <Ionicons
+        name={showPin ? 'eye-outline' : 'eye-off-outline'}
+        size={20}
+        color={theme.icon}
+      />
+    </TouchableOpacity>
+  );
 
   const Field = ({
     icon,
@@ -98,16 +93,6 @@ const SignupForm = () => {
       />
       {rightElement}
     </ThemedView>
-  );
-
-  const EyeToggle = () => (
-    <TouchableOpacity onPress={() => setShowPin(!showPin)} activeOpacity={0.7}>
-      <Ionicons
-        name={showPin ? 'eye-outline' : 'eye-off-outline'}
-        size={20}
-        color={theme.icon}
-      />
-    </TouchableOpacity>
   );
 
   return (
@@ -153,7 +138,7 @@ const SignupForm = () => {
       />
 
       <TouchableOpacity
-        style={[styles.button, loading && styles.buttonDisabled]}
+        style={[styles.button, styles.signupButton, loading && styles.buttonDisabled]}
         onPress={handleSignup}
         disabled={loading}
         activeOpacity={0.85}
@@ -175,39 +160,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
-const styles = StyleSheet.create({
-  container: { width: '100%' },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: Radius.md,
-    paddingHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
-    borderWidth: 1,
-  },
-  icon: { marginRight: Spacing.sm },
-  input: {
-    flex: 1,
-    height: 52,
-    ...Typography.body,
-  },
-  button: {
-    backgroundColor: Brand.primary,
-    borderRadius: Radius.md,
-    height: 52,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: Spacing.sm,
-    marginBottom: Spacing.lg,
-    ...Shadows.primary,
-  },
-  buttonDisabled: {
-    backgroundColor: Brand.primaryDisabled,
-    shadowOpacity: 0,
-    elevation: 0,
-  },
-  buttonText: {
-    ...Typography.h4,
-  },
-});
