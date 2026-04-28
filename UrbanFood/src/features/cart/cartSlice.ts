@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  addToCart,
-  clearCart,
-  fetchCart,
-  removeFromCart,
-  updateQuantity,
+    addToCart,
+    applyOffer,
+    clearCart,
+    fetchCart,
+    removeFromCart,
+    removeOffer,
+    updateQuantity
 } from './cartThunks';
 import { CartState } from './cartTypes';
 
@@ -85,6 +87,30 @@ const cartSlice = createSlice({
       .addCase(clearCart.rejected, (state, action) => {
         state.updating = false;
         state.error = action.payload ?? 'Failed to clear';
+      })
+
+      .addCase(applyOffer.pending, (state) => {
+        state.updating = true;
+      })
+      .addCase(applyOffer.fulfilled, (state, action) => {
+        state.updating = false;
+        state.cart = action.payload;
+      })
+      .addCase(applyOffer.rejected, (state, action) => {
+        state.updating = false;
+        state.error = action.payload ?? 'Failed to apply offer';
+      })
+
+      .addCase(removeOffer.pending, (state) => {
+        state.updating = true;
+      })
+      .addCase(removeOffer.fulfilled, (state, action) => {
+        state.updating = false;
+        state.cart = action.payload;
+      })
+      .addCase(removeOffer.rejected, (state, action) => {
+        state.updating = false;
+        state.error = action.payload ?? 'Failed to remove offer';
       });
   },
 });

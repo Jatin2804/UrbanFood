@@ -30,3 +30,25 @@ export interface MenuItem {
   iconBg: string;
   iconColor: string;
 }
+
+// ── PlaceOrderSheet ───────────────────────────────────────────────────────────
+import { Animated } from 'react-native';
+
+export interface PlaceOrderSheetProps {
+  visible: boolean;
+  slideAnim: Animated.Value;
+  onDineIn: () => void;
+  onCashOnDelivery: () => void;
+  onClose: () => void;
+}
+
+// ── DeliveryStatusCard ────────────────────────────────────────────────────────
+import type { DeliveryStatus } from '../constants/delivery';
+
+export interface DeliveryStatusCardProps {
+  status: DeliveryStatus;
+  eta: number; // minutes remaining
+  partnerName: string;
+  partnerVehicle: string;
+  onRecenter: () => void;
+}

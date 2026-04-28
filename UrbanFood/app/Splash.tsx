@@ -3,6 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { checkAuthStatus } from '@/src/features/auth/authThunks';
 import { fetchDishes } from '@/src/features/dishes/dishesThunk';
+import { useLocation } from '@/src/hooks/useLocation';
 import { AppDispatch } from '@/src/store';
 import { splashStyles as styles } from '@/styles/screens/splashStyles';
 import { useRouter } from 'expo-router';
@@ -14,12 +15,15 @@ const Splash = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const scheme = useColorScheme() ?? 'light';
+  const { requestLocation } = useLocation();
 
   useEffect(() => {
     const init = async () => {
+      // Request location permission early — runs in parallel with auth + dishes
       const [authResult] = await Promise.all([
         dispatch(checkAuthStatus()),
         dispatch(fetchDishes()),
+        requestLocation(),
       ]);
 
       const isLoggedIn =

@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  createCartsFileAPI,
-  fetchCartsAPI,
-  getCartsMeta,
-  updateCartsAPI,
+    createCartsFileAPI,
+    fetchCartsAPI,
+    getCartsMeta,
+    updateCartsAPI,
 } from '../../services/apiService';
 import { RootState } from '../../store/rootReducer';
 import { Cart, CartDish } from './cartTypes';
+import { CART_OFFERS } from '@/src/data/cartOffers';
 
 const parseData = (data: any): Cart[] => {
   if (!data) return [];
@@ -220,5 +221,79 @@ export const clearCart = createAsyncThunk<
     return clearedCart;
   } catch (e: any) {
     return rejectWithValue(e?.message ?? 'Failed to clear cart');
+  }
+});
+
+export const applyOffer = createAsyncThunk<
+  Cart,
+  { userId: string; offerId: string },
+  { rejectValue: string; state: RootState }
+>('cart/applyOffer', async ({ userId, offerId }, { getState, rejectWithValue }) => {
+  try {
+    const current = getState().cart.cart;
+    if (!current) return rejectWithValue('Cart not found');
+
+    const offer = CART_OFFERS.find((o) => o.id === offerId);
+    if (!offer) return rejectWithValue('Offer not found');
+
+    const totalPrice = current.dishes.reduce(
+      (sum, d) => sum + d.price * d.quantity,
+      0,
+    );
+
+    if (totalPrice < offer.minOrderValue) {
+      return rejectWithValue(
+        `Minimum order ₹${offer.minOrderValue} required for this offer`,
+      );
+    }
+
+    const discount =
+      offer.discountType === 'percentage'
+        ? Math.round((totalPrice * offer.discountValue) / 100)
+        : offer.discountValue;
+
+    const finalPrice = Math.max(0, totalPrice - discount);
+
+    const updatedCart: Cart = {
+      ...current,
+      offerId,
+      discount,
+      totalPrice,
+      finalPrice,
+    };
+
+    pushToGitHub(updatedCart);
+    return updatedCart;
+  } catch (e: any) {
+    return rejectWithValue(e?.message ?? 'Failed to apply offer');
+  }
+});
+
+export const removeOffer = createAsyncThunk<
+  Cart,
+  string,
+  { rejectValue: string; state: RootState }
+>('cart/removeOffer', async (userId, { getState, rejectWithValue }) => {
+  try {
+    const current = getState().cart.cart;
+    if (!current) return rejectWithValue('Cart not found');
+
+    const totalPrice = current.dishes.reduce(
+      (sum, d) => sum + d.price * d.quantity,
+      0,
+    );
+
+    const updatedCart: Cart = {
+      ...current,
+      offerId: null,
+      discount: 0,
+      totalPrice,
+      finalPrice: totalPrice,
+    };
+
+    pushToGitHub(updatedCart);
+    return updatedCart;
+  } catch (e: any) {
+    return rejectWithValue(e?.message ?? 'Failed to remove offer');
   }
 });

@@ -1,7 +1,9 @@
 import BannerCarousel from '@/components/home/BannerCarousel';
+import BottomBanner from '@/components/home/BottomBanner';
 import GreetingSection from '@/components/home/GreetingSection';
 import HomeHeader from '@/components/home/HomeHeader';
 import HomeSearchBar from '@/components/home/HomeSearchBar';
+import OfferCarousel from '@/components/home/OfferCarousel';
 import RestaurantCard from '@/components/home/RestaurantCard';
 import ScrollSection from '@/components/home/ScrollSection';
 import { ThemedView } from '@/components/themed-view';
@@ -14,19 +16,14 @@ import React, { useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-// Dishes added after this date are considered "new arrivals"
 const NEW_ARRIVAL_CUTOFF = new Date('2025-01-10');
 const TOP_RATED_MIN = 4.5;
 
 const parseDate = (dateStr: string): Date => {
-  // Handles formats: "DD-MM-YYYY", "YYYY-MM-DD", "DD/MM/YYYY"
   if (!dateStr) return new Date(0);
   const parts = dateStr.includes('-') ? dateStr.split('-') : dateStr.split('/');
   if (parts.length !== 3) return new Date(dateStr);
-  // Detect DD-MM-YYYY vs YYYY-MM-DD by length of first part
-  if (parts[0].length === 4) {
-    return new Date(`${parts[0]}-${parts[1]}-${parts[2]}`);
-  }
+  if (parts[0].length === 4) return new Date(`${parts[0]}-${parts[1]}-${parts[2]}`);
   return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
 };
 
@@ -39,10 +36,7 @@ const Home = () => {
     () =>
       dishes
         .filter((d) => parseDate(d.addedDate) > NEW_ARRIVAL_CUTOFF)
-        .sort(
-          (a, b) =>
-            parseDate(b.addedDate).getTime() - parseDate(a.addedDate).getTime(),
-        ),
+        .sort((a, b) => parseDate(b.addedDate).getTime() - parseDate(a.addedDate).getTime()),
     [dishes],
   );
 
@@ -61,11 +55,19 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
+        {/* Top auto-scrolling restaurant banner */}
         <BannerCarousel />
+
         <GreetingSection firstName={firstName} />
         <RestaurantCard />
+
+        {/* Search bar — taps navigate to Explore */}
         <HomeSearchBar />
 
+        {/* Offer carousel — below search bar */}
+        <OfferCarousel />
+
+        {/* Dish scroll sections */}
         <View style={styles.sectionsWrapper}>
           <ScrollSection
             title="New Arrivals"
@@ -86,6 +88,9 @@ const Home = () => {
             dishes={topRated}
           />
         </View>
+
+        {/* Bottom promotional banner — tap handler empty for now */}
+        <BottomBanner />
       </ScrollView>
     </ThemedView>
   );

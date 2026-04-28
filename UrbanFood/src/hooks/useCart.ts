@@ -2,9 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import {
     addToCart,
+    applyOffer,
     clearCart,
     fetchCart,
     removeFromCart,
+    removeOffer,
     updateQuantity,
 } from '../features/cart/cartThunks';
 import { CartDish } from '../features/cart/cartTypes';
@@ -50,6 +52,16 @@ export const useCart = () => {
     dispatch(clearCart(user.id));
   };
 
+  const handleApplyOffer = (offerId: string) => {
+    if (!user?.id) return Promise.resolve();
+    return dispatch(applyOffer({ userId: user.id, offerId }));
+  };
+
+  const handleRemoveOffer = () => {
+    if (!user?.id) return Promise.resolve();
+    return dispatch(removeOffer(user.id));
+  };
+
   const getItemQuantity = (dishId: string): number =>
     cart?.dishes.find((d) => d.dishId === dishId)?.quantity ?? 0;
 
@@ -65,6 +77,8 @@ export const useCart = () => {
     handleUpdateQuantity,
     handleRemoveFromCart,
     handleClearCart,
+    handleApplyOffer,
+    handleRemoveOffer,
     getItemQuantity,
   };
 };

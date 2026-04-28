@@ -6,12 +6,12 @@ export const bannerCarouselStyles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: 220,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   image: {
     width: SCREEN_WIDTH,
     height: 220,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
   },
   dots: {
     position: 'absolute',
