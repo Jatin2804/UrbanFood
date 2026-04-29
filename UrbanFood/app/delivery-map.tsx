@@ -9,13 +9,10 @@ import {
     RESTAURANT_COORDS,
     STEP_INTERVAL_MS,
 } from '@/src/constants/delivery';
-import {
-    fetchRealRoute,
-    getBearing,
-    LatLng,
-} from '@/src/utils/routeData';
+import { fetchRealRoute, getBearing, LatLng } from '@/src/utils/routeData';
 import { deliveryMapStyles as styles } from '@/styles/screens/deliveryMapStyles';
 import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, {
     useCallback,
@@ -24,14 +21,12 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import {
-    Animated,
-    TouchableOpacity,
-    useColorScheme,
-    View,
-} from 'react-native';
+import { Animated, TouchableOpacity, useColorScheme, View } from 'react-native';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
+
+const isExpoGo = Constants.appOwnership === 'expo';
 
 export default function DeliveryMap() {
   const scheme = useColorScheme() ?? 'light';
@@ -48,27 +43,27 @@ export default function DeliveryMap() {
     [params.userLat, params.userLng],
   );
 
-  // Route state
+  // ── Shared state ────────────────────────────────────────────────────────────
   const [route, setRoute] = useState<LatLng[]>([]);
   const [routeReady, setRouteReady] = useState(false);
   const routeRef = useRef<LatLng[]>([]);
 
-  // Delivery bike state
   const [bikeCoords, setBikeCoords] = useState<LatLng>(RESTAURANT_COORDS);
   const [bearing, setBearing] = useState(0);
 
-  // Status & ETA
   const [status, setStatus] = useState<DeliveryStatus>('Order Placed');
   const [eta, setEta] = useState(INITIAL_ETA_MINUTES);
   const [isDelivered, setIsDelivered] = useState(false);
 
-  // Refs
-  const webViewRef = useRef<WebView>(null);
   const deliveredAnim = useRef(new Animated.Value(0)).current;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startTimeRef = useRef<number>(0);
 
-  // Fetch route on mount
+  // Refs — one per map type, only the active one gets used
+  const mapRef = useRef<MapView>(null);
+  const webViewRef = useRef<WebView>(null);
+
+  // ── Fetch route ─────────────────────────────────────────────────────────────
   useEffect(() => {
     let isMounted = true;
 
@@ -85,9 +80,7 @@ export default function DeliveryMap() {
         }
       } catch (error) {
         console.error('❌ Failed to fetch route:', error);
-        if (isMounted) {
-          setRouteReady(true);
-        }
+        if (isMounted) setRouteReady(true);
       }
     };
 
@@ -95,15 +88,23 @@ export default function DeliveryMap() {
 
     return () => {
       isMounted = false;
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [userCoords.latitude, userCoords.longitude]);
 
-  // Update bike position on map
+  // ── Fit MapView to route (Expo Go only) ─────────────────────────────────────
   useEffect(() => {
-    if (webViewRef.current && routeReady) {
+    if (isExpoGo && routeReady && route.length > 0 && mapRef.current) {
+      mapRef.current.fitToCoordinates(route, {
+        edgePadding: { top: 80, right: 40, bottom: 300, left: 40 },
+        animated: true,
+      });
+    }
+  }, [routeReady, route]);
+
+  // ── Update bike position in WebView (standalone only) ───────────────────────
+  useEffect(() => {
+    if (!isExpoGo && webViewRef.current && routeReady) {
       const script = `
         if (window.updateBikePosition) {
           window.updateBikePosition(${bikeCoords.latitude}, ${bikeCoords.longitude}, ${bearing});
@@ -114,11 +115,9 @@ export default function DeliveryMap() {
     }
   }, [bikeCoords, bearing, routeReady]);
 
-  // Start delivery simulation
+  // ── Delivery simulation (shared) ────────────────────────────────────────────
   useEffect(() => {
-    if (!routeReady || isDelivered || routeRef.current.length === 0) {
-      return;
-    }
+    if (!routeReady || isDelivered || routeRef.current.length === 0) return;
 
     console.log('🚴 Starting delivery simulation...');
     startTimeRef.current = Date.now();
@@ -127,24 +126,18 @@ export default function DeliveryMap() {
     intervalRef.current = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
       const progress = Math.min(elapsed / DELIVERY_DURATION_MS, 1);
-
-      // Calculate current position on route
       const currentIndex = Math.floor(progress * totalSteps);
 
       if (progress >= 1 || currentIndex >= totalSteps) {
-        // Delivery completed
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
         }
-
         console.log('✅ Delivery completed!');
         setIsDelivered(true);
         setStatus('Delivered');
         setEta(0);
         setBikeCoords(routeRef.current[totalSteps]);
-
-        // Animate delivery completion
         deliveredAnim.setValue(0);
         Animated.spring(deliveredAnim, {
           toValue: 1,
@@ -154,7 +147,6 @@ export default function DeliveryMap() {
         return;
       }
 
-      // Update bike position
       const newPos = routeRef.current[currentIndex];
       const newBearing =
         currentIndex > 0
@@ -164,7 +156,6 @@ export default function DeliveryMap() {
       setBikeCoords(newPos);
       setBearing(newBearing);
 
-      // Update status based on progress
       let newStatus: DeliveryStatus;
       if (progress >= 0.75) newStatus = 'Arriving Soon';
       else if (progress >= 0.3) newStatus = 'Out for Delivery';
@@ -173,12 +164,10 @@ export default function DeliveryMap() {
 
       setStatus(newStatus);
 
-      // Update ETA (countdown from 2 minutes)
       const remainingSeconds = Math.ceil(
         (DELIVERY_DURATION_MS - elapsed) / 1000,
       );
-      const remainingMinutes = Math.max(0, Math.ceil(remainingSeconds / 60));
-      setEta(remainingMinutes);
+      setEta(Math.max(0, Math.ceil(remainingSeconds / 60)));
     }, STEP_INTERVAL_MS);
 
     return () => {
@@ -189,23 +178,32 @@ export default function DeliveryMap() {
     };
   }, [routeReady, isDelivered, deliveredAnim]);
 
-  // Recenter map
+  // ── Recenter (each map type handles it differently) ─────────────────────────
   const handleRecenter = useCallback(() => {
-    if (webViewRef.current) {
-      const script = `
-        if (window.recenterMap) {
-          window.recenterMap();
-        }
-        true;
-      `;
-      webViewRef.current.injectJavaScript(script);
+    if (isExpoGo) {
+      if (mapRef.current && route.length > 0) {
+        mapRef.current.fitToCoordinates(route, {
+          edgePadding: { top: 80, right: 40, bottom: 300, left: 40 },
+          animated: true,
+        });
+      }
+    } else {
+      if (webViewRef.current) {
+        const script = `
+          if (window.recenterMap) { window.recenterMap(); }
+          true;
+        `;
+        webViewRef.current.injectJavaScript(script);
+      }
     }
-  }, []);
+  }, [route]);
 
-  // Generate HTML for Leaflet map
+  // ── Leaflet HTML (standalone only) ──────────────────────────────────────────
   const mapHTML = useMemo(() => {
-    const routeCoords = route.map(c => `[${c.latitude}, ${c.longitude}]`).join(',');
-    
+    if (isExpoGo) return '';
+    const routeCoords = route
+      .map((c) => `[${c.latitude}, ${c.longitude}]`)
+      .join(',');
     return `
 <!DOCTYPE html>
 <html>
@@ -221,90 +219,114 @@ export default function DeliveryMap() {
 <body>
   <div id="map"></div>
   <script>
-    // Initialize map
-    const map = L.map('map', {
-      zoomControl: false,
-      attributionControl: false
-    }).setView([${RESTAURANT_COORDS.latitude}, ${RESTAURANT_COORDS.longitude}], 14);
+    const map = L.map('map', { zoomControl: false, attributionControl: false })
+      .setView([${RESTAURANT_COORDS.latitude}, ${RESTAURANT_COORDS.longitude}], 14);
 
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19
-    }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-    // Restaurant marker
     const restaurantIcon = L.divIcon({
-      html: '<div style="background: ${Brand.primary}; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"><span style="color: white; font-size: 20px;">🍽️</span></div>',
-      className: '',
-      iconSize: [40, 40],
-      iconAnchor: [20, 20]
+      html: '<div style="background:${Brand.primary};width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)"><span style="color:white;font-size:20px">🍽️</span></div>',
+      className: '', iconSize: [40,40], iconAnchor: [20,20]
     });
     L.marker([${RESTAURANT_COORDS.latitude}, ${RESTAURANT_COORDS.longitude}], { icon: restaurantIcon }).addTo(map);
 
-    // User marker
     const userIcon = L.divIcon({
-      html: '<div style="background: #4A90E2; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"><span style="color: white; font-size: 20px;">🏠</span></div>',
-      className: '',
-      iconSize: [40, 40],
-      iconAnchor: [20, 20]
+      html: '<div style="background:#4A90E2;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)"><span style="color:white;font-size:20px">🏠</span></div>',
+      className: '', iconSize: [40,40], iconAnchor: [20,20]
     });
     L.marker([${userCoords.latitude}, ${userCoords.longitude}], { icon: userIcon }).addTo(map);
 
-    // Route polyline
     let routeLine = null;
     const routeCoords = [${routeCoords}];
     if (routeCoords.length > 0) {
-      routeLine = L.polyline(routeCoords, {
-        color: '${Brand.success}',
-        weight: 4,
-        opacity: 0.8
-      }).addTo(map);
-      
-      // Fit map to show route
+      routeLine = L.polyline(routeCoords, { color: '${Brand.success}', weight: 4, opacity: 0.8 }).addTo(map);
       map.fitBounds(routeLine.getBounds(), { padding: [50, 50] });
     }
 
-    // Bike marker
     const bikeIcon = L.divIcon({
-      html: '<div style="background: ${Brand.success}; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"><span style="color: white; font-size: 22px;">🚴</span></div>',
-      className: '',
-      iconSize: [44, 44],
-      iconAnchor: [22, 22]
+      html: '<div style="background:${Brand.success};width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)"><span style="color:white;font-size:22px">🚴</span></div>',
+      className: '', iconSize: [44,44], iconAnchor: [22,22]
     });
     let bikeMarker = L.marker([${RESTAURANT_COORDS.latitude}, ${RESTAURANT_COORDS.longitude}], { icon: bikeIcon }).addTo(map);
 
-    // Update bike position function
     window.updateBikePosition = function(lat, lng, bearing) {
-      if (bikeMarker) {
-        bikeMarker.setLatLng([lat, lng]);
-      }
+      if (bikeMarker) bikeMarker.setLatLng([lat, lng]);
     };
-
-    // Recenter map function
     window.recenterMap = function() {
-      if (routeLine) {
-        map.fitBounds(routeLine.getBounds(), { padding: [50, 50] });
-      }
+      if (routeLine) map.fitBounds(routeLine.getBounds(), { padding: [50, 50] });
     };
   </script>
 </body>
-</html>
-    `;
+</html>`;
   }, [route, userCoords]);
 
+  // ── Render ───────────────────────────────────────────────────────────────────
   return (
     <View style={styles.container}>
-      {/* OpenStreetMap via WebView */}
-      <WebView
-        ref={webViewRef}
-        source={{ html: mapHTML }}
-        style={styles.map}
-        javaScriptEnabled={true}
-        domStorageEnabled={true}
-        startInLoadingState={true}
-        scalesPageToFit={true}
-        scrollEnabled={false}
-      />
+      {/* MAP — react-native-maps on Expo Go, Leaflet/WebView on standalone */}
+      {isExpoGo ? (
+        <MapView
+          ref={mapRef}
+          style={styles.map}
+          initialRegion={{
+            latitude: (RESTAURANT_COORDS.latitude + userCoords.latitude) / 2,
+            longitude: (RESTAURANT_COORDS.longitude + userCoords.longitude) / 2,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          }}
+        >
+          <Marker
+            coordinate={RESTAURANT_COORDS}
+            title="Restaurant"
+            description="Urban Food"
+            anchor={{ x: 0.5, y: 0.5 }}
+          >
+            <Ionicons name="restaurant" size={32} color={Brand.primary} />
+          </Marker>
+
+          {!isDelivered && (
+            <Marker
+              coordinate={bikeCoords}
+              title="Delivery Partner"
+              description={DELIVERY_PARTNER.name}
+              anchor={{ x: 0.5, y: 0.5 }}
+              flat
+              rotation={bearing}
+            >
+              <Ionicons name="bicycle" size={32} color={Brand.success} />
+            </Marker>
+          )}
+
+          <Marker
+            coordinate={userCoords}
+            title="Delivery Location"
+            description="Your address"
+            anchor={{ x: 0.5, y: 0.5 }}
+          >
+            <Ionicons name="location" size={32} color="#4A90E2" />
+          </Marker>
+
+          {route.length > 1 && (
+            <Polyline
+              coordinates={route}
+              strokeColor={Brand.success}
+              strokeWidth={4}
+              lineDashPattern={[1]}
+            />
+          )}
+        </MapView>
+      ) : (
+        <WebView
+          ref={webViewRef}
+          source={{ html: mapHTML }}
+          style={styles.map}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          startInLoadingState={true}
+          scalesPageToFit={true}
+          scrollEnabled={false}
+        />
+      )}
 
       {/* Top bar */}
       <SafeAreaView style={styles.topBar} edges={['top']}>

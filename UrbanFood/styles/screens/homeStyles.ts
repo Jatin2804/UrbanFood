@@ -46,7 +46,7 @@ export const homeStyles = StyleSheet.create({
   },
 
   scrollContent: {
-    paddingBottom: Spacing.xxl,
+    paddingBottom: 100, // Extra padding for cart floating bar
   },
 
   greeting: {

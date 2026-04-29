@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { DELIVERY_FEE } from '@/src/constants/cart';
+import { useCart } from '@/src/hooks/useCart';
 import { useLocation } from '@/src/hooks/useLocation';
 import { RootState } from '@/src/store/rootReducer';
 import { checkoutStyles as styles } from '@/styles/screens/checkoutStyles';
@@ -9,11 +10,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
-    ScrollView,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
@@ -25,6 +26,7 @@ export default function Checkout() {
   const [isConfirming, setIsConfirming] = useState(false);
 
   const cart = useSelector((state: RootState) => state.cart.cart);
+  const { handleClearCart } = useCart();
   const {
     status: locationStatus,
     address: locationAddress,
@@ -46,6 +48,9 @@ export default function Checkout() {
 
     // Fetch current location
     await requestLocation();
+
+    // Clear the cart after order confirmation
+    handleClearCart();
 
     // Small delay to ensure location is fetched
     setTimeout(() => {
@@ -346,8 +351,7 @@ export default function Checkout() {
             style={[
               styles.confirmBtn,
               {
-                opacity:
-                  locationStatus === 'denied' || isConfirming ? 0.5 : 1,
+                opacity: locationStatus === 'denied' || isConfirming ? 0.5 : 1,
               },
             ]}
             onPress={handleConfirmOrder}

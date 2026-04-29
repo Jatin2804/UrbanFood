@@ -1,3 +1,4 @@
+import CartFloatingBar from '@/components/cart/CartFloatingBar';
 import EmptyState from '@/components/common/EmptyState';
 import CategoryList from '@/components/explore/CategoryList';
 import DishCard from '@/components/explore/DishCard';
@@ -125,6 +126,9 @@ const Explore = () => {
         }}
         onClose={closeSheet}
       />
+
+      {/* Cart Floating Bar */}
+      <CartFloatingBar />
     </ThemedView>
   );
 };

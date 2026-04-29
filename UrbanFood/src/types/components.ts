@@ -52,3 +52,8 @@ export interface DeliveryStatusCardProps {
   partnerVehicle: string;
   onRecenter: () => void;
 }
+
+// ── CartFloatingBar ───────────────────────────────────────────────────────────
+export interface CartFloatingBarProps {
+  // No props needed - reads from Redux
+}

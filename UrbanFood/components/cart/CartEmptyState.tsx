@@ -11,14 +11,16 @@ const CartEmptyState = () => {
 
   return (
     <View style={styles.emptyContainer}>
-      <View style={[styles.emptyIconBox, { backgroundColor: Brand.primaryFaded }]}>
+      <View
+        style={[styles.emptyIconBox, { backgroundColor: Brand.primaryFaded }]}
+      >
         <Ionicons name="cart-outline" size={52} color={Brand.primary} />
       </View>
       <ThemedText
         type="subtitle"
         style={{ marginTop: Spacing.lg, marginBottom: 6 }}
       >
-        Your cart is empty
+        Cart is empty
       </ThemedText>
       <ThemedText
         type="caption"
