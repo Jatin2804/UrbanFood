@@ -32,7 +32,11 @@ const EmptyState = ({
       {subtitle && (
         <ThemedText
           type="caption"
-          style={{ color: theme.textTertiary, marginTop: 4, textAlign: 'center' }}
+          style={{
+            color: theme.textTertiary,
+            marginTop: 4,
+            textAlign: 'center',
+          }}
         >
           {subtitle}
         </ThemedText>

@@ -12,12 +12,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    ScrollView,
-    TouchableOpacity,
-    useColorScheme,
-    View
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
@@ -44,7 +44,8 @@ export default function Checkout() {
 
   // Guard: redirect to home if cart is empty
   useEffect(() => {
-    const totalItems = cart?.dishes.reduce((sum, dish) => sum + dish.quantity, 0) ?? 0;
+    const totalItems =
+      cart?.dishes.reduce((sum, dish) => sum + dish.quantity, 0) ?? 0;
     if (totalItems === 0) {
       router.replace('/(tabs)');
     }
@@ -74,9 +75,9 @@ export default function Checkout() {
       await requestLocation();
 
       // Build delivery address
-      const deliveryAddress = [locationAddress, district, city]
-        .filter(Boolean)
-        .join(', ') || 'Address not available';
+      const deliveryAddress =
+        [locationAddress, district, city].filter(Boolean).join(', ') ||
+        'Address not available';
 
       // Calculate estimated delivery time (2 minutes from now)
       const estimatedTime = new Date(

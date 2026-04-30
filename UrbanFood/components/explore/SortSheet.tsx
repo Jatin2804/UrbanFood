@@ -1,17 +1,21 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
-import { SHEET_HEIGHT, SORT_OPTIONS, SortOption } from '@/src/constants/explore';
+import {
+  SHEET_HEIGHT,
+  SORT_OPTIONS,
+  SortOption,
+} from '@/src/constants/explore';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useRef } from 'react';
 import {
-    Animated,
-    Modal,
-    PanResponder,
-    Pressable,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Animated,
+  Modal,
+  PanResponder,
+  Pressable,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 
 interface SortSheetProps {
@@ -44,7 +48,10 @@ const SortSheet = ({
         if (g.dy > 80) {
           onClose();
         } else {
-          Animated.spring(slideAnim, { toValue: 0, useNativeDriver: true }).start();
+          Animated.spring(slideAnim, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
         }
       },
     }),
@@ -109,7 +116,11 @@ const SortSheet = ({
                 {opt.label}
               </ThemedText>
               {isActive && (
-                <Ionicons name="checkmark-circle" size={22} color={Brand.primary} />
+                <Ionicons
+                  name="checkmark-circle"
+                  size={22}
+                  color={Brand.primary}
+                />
               )}
             </TouchableOpacity>
           );

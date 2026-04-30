@@ -18,7 +18,9 @@ const ContactInfoCard = ({ user }: ContactInfoCardProps) => {
   return (
     <ThemedView variant="surface" style={styles.card}>
       <View style={styles.infoRow}>
-        <View style={[styles.infoIconBox, { backgroundColor: Brand.primaryFaded }]}>
+        <View
+          style={[styles.infoIconBox, { backgroundColor: Brand.primaryFaded }]}
+        >
           <Ionicons name="mail-outline" size={18} color={Brand.primary} />
         </View>
         <View style={styles.infoTextBox}>
@@ -32,7 +34,9 @@ const ContactInfoCard = ({ user }: ContactInfoCardProps) => {
       <View style={[styles.divider, { backgroundColor: theme.border }]} />
 
       <View style={styles.infoRow}>
-        <View style={[styles.infoIconBox, { backgroundColor: Brand.primaryFaded }]}>
+        <View
+          style={[styles.infoIconBox, { backgroundColor: Brand.primaryFaded }]}
+        >
           <Ionicons name="call-outline" size={18} color={Brand.primary} />
         </View>
         <View style={styles.infoTextBox}>

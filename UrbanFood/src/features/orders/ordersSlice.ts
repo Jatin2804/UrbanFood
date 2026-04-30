@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-    cancelOrder,
-    createOrder,
-    expireOverdueOrders,
-    fetchOrders,
-    updateOrderStatus,
+  cancelOrder,
+  createOrder,
+  expireOverdueOrders,
+  fetchOrders,
+  updateOrderStatus,
 } from './ordersThunks';
 import { OrdersState } from './ordersTypes';
 
@@ -58,7 +58,9 @@ const ordersSlice = createSlice({
 
         // Preserve local-only orders (not yet on GitHub)
         const fetchedIds = new Set(action.payload.map((o) => o.orderId));
-        const localOnly = state.orders.filter((o) => !fetchedIds.has(o.orderId));
+        const localOnly = state.orders.filter(
+          (o) => !fetchedIds.has(o.orderId),
+        );
 
         state.orders = [...merged, ...localOnly];
       })

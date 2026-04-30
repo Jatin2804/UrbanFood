@@ -19,9 +19,21 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const STATUS_CONFIG = {
-  pending: { color: Brand.warning, icon: 'time-outline' as const, label: 'In Progress' },
-  success: { color: Brand.success, icon: 'checkmark-circle-outline' as const, label: 'Delivered' },
-  failed: { color: Brand.error, icon: 'close-circle-outline' as const, label: 'Cancelled' },
+  pending: {
+    color: Brand.warning,
+    icon: 'time-outline' as const,
+    label: 'In Progress',
+  },
+  success: {
+    color: Brand.success,
+    icon: 'checkmark-circle-outline' as const,
+    label: 'Delivered',
+  },
+  failed: {
+    color: Brand.error,
+    icon: 'close-circle-outline' as const,
+    label: 'Cancelled',
+  },
 };
 
 function OrderCard({ order, theme }: { order: Order; theme: any }) {
@@ -72,7 +84,9 @@ function OrderCard({ order, theme }: { order: Order; theme: any }) {
             {dateStr} · {timeStr}
           </ThemedText>
         </View>
-        <View style={[styles.statusBadge, { backgroundColor: `${cfg.color}18` }]}>
+        <View
+          style={[styles.statusBadge, { backgroundColor: `${cfg.color}18` }]}
+        >
           <Ionicons name={cfg.icon} size={14} color={cfg.color} />
           <ThemedText style={[styles.statusText, { color: cfg.color }]}>
             {cfg.label}
@@ -96,7 +110,8 @@ function OrderCard({ order, theme }: { order: Order; theme: any }) {
         ))}
         {order.dishes.length > 3 && (
           <ThemedText style={[styles.dishItem, { color: theme.textTertiary }]}>
-            +{order.dishes.length - 3} more item{order.dishes.length - 3 > 1 ? 's' : ''}
+            +{order.dishes.length - 3} more item
+            {order.dishes.length - 3 > 1 ? 's' : ''}
           </ThemedText>
         )}
       </View>
@@ -164,7 +179,9 @@ export default function Orders() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
-      <ThemedView style={[styles.container, { backgroundColor: theme.background }]}>
+      <ThemedView
+        style={[styles.container, { backgroundColor: theme.background }]}
+      >
         {/* Header */}
         <View style={[styles.header, { borderBottomColor: theme.border }]}>
           <TouchableOpacity
@@ -174,7 +191,9 @@ export default function Orders() {
           >
             <Ionicons name="arrow-back" size={22} color={theme.textPrimary} />
           </TouchableOpacity>
-          <ThemedText style={[styles.headerTitle, { color: theme.textPrimary }]}>
+          <ThemedText
+            style={[styles.headerTitle, { color: theme.textPrimary }]}
+          >
             My Orders
           </ThemedText>
           <View style={styles.backBtn} />
@@ -183,19 +202,34 @@ export default function Orders() {
         {loading && orders.length === 0 ? (
           <View style={styles.center}>
             <ActivityIndicator size="large" color={Brand.primary} />
-            <ThemedText style={[styles.loadingText, { color: theme.textSecondary }]}>
+            <ThemedText
+              style={[styles.loadingText, { color: theme.textSecondary }]}
+            >
               Loading orders...
             </ThemedText>
           </View>
         ) : sorted.length === 0 ? (
           <View style={styles.center}>
-            <View style={[styles.emptyIcon, { backgroundColor: Brand.primaryFaded }]}>
-              <Ionicons name="receipt-outline" size={48} color={Brand.primary} />
+            <View
+              style={[
+                styles.emptyIcon,
+                { backgroundColor: Brand.primaryFaded },
+              ]}
+            >
+              <Ionicons
+                name="receipt-outline"
+                size={48}
+                color={Brand.primary}
+              />
             </View>
-            <ThemedText style={[styles.emptyTitle, { color: theme.textPrimary }]}>
+            <ThemedText
+              style={[styles.emptyTitle, { color: theme.textPrimary }]}
+            >
               No orders yet
             </ThemedText>
-            <ThemedText style={[styles.emptySubtitle, { color: theme.textSecondary }]}>
+            <ThemedText
+              style={[styles.emptySubtitle, { color: theme.textSecondary }]}
+            >
               Place your first order and track it here!
             </ThemedText>
             <TouchableOpacity

@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import {
-    addToCart,
-    applyOffer,
-    clearCart,
-    fetchCart,
-    removeFromCart,
-    removeOffer,
-    updateQuantity,
+  addToCart,
+  applyOffer,
+  clearCart,
+  fetchCart,
+  removeFromCart,
+  removeOffer,
+  updateQuantity,
 } from '../features/cart/cartThunks';
 import { CartDish } from '../features/cart/cartTypes';
 import { AppDispatch } from '../store';

@@ -65,10 +65,14 @@ async function addTestOrder() {
       });
 
       sha = response.data.sha;
-      const content = Buffer.from(response.data.content, 'base64').toString('utf-8');
+      const content = Buffer.from(response.data.content, 'base64').toString(
+        'utf-8',
+      );
       const parsed = JSON.parse(content);
       existingOrders = parsed.orders || [];
-      console.log(`✅ Found existing orders.json with ${existingOrders.length} orders`);
+      console.log(
+        `✅ Found existing orders.json with ${existingOrders.length} orders`,
+      );
     } catch (error) {
       if (error.response?.status === 404) {
         console.log('📝 orders.json does not exist, will create new file');
@@ -86,7 +90,9 @@ async function addTestOrder() {
 
     // Update or create the file
     const updateData = {
-      message: sha ? 'Add test pending order' : 'Create orders.json with test order',
+      message: sha
+        ? 'Add test pending order'
+        : 'Create orders.json with test order',
       content: encodedContent,
     };
 

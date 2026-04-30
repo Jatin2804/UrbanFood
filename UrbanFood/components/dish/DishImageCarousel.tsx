@@ -4,13 +4,13 @@ import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useRef, useState } from 'react';
 import {
-    Dimensions,
-    FlatList,
-    Image,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    TouchableOpacity,
-    View
+  Dimensions,
+  FlatList,
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 const { width: W } = Dimensions.get('window');
@@ -22,7 +22,11 @@ interface DishImageCarouselProps {
   onBack: () => void;
 }
 
-const DishImageCarousel = ({ images, isNonVeg, onBack }: DishImageCarouselProps) => {
+const DishImageCarousel = ({
+  images,
+  isNonVeg,
+  onBack,
+}: DishImageCarouselProps) => {
   const [activeImg, setActiveImg] = useState(0);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
   const flatRef = useRef<FlatList>(null);
@@ -74,7 +78,11 @@ const DishImageCarousel = ({ images, isNonVeg, onBack }: DishImageCarouselProps)
           )}
         </>
       ) : (
-        <Image source={FALLBACK} style={styles.bannerImage} resizeMode="cover" />
+        <Image
+          source={FALLBACK}
+          style={styles.bannerImage}
+          resizeMode="cover"
+        />
       )}
 
       <TouchableOpacity

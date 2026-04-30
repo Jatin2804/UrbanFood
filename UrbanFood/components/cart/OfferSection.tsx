@@ -46,7 +46,11 @@ const OfferSection = ({ cart, onOpen }: OfferSectionProps) => {
                 ]}
               >
                 <ThemedText
-                  style={{ fontSize: 12, fontWeight: '600', color: Brand.success }}
+                  style={{
+                    fontSize: 12,
+                    fontWeight: '600',
+                    color: Brand.success,
+                  }}
                 >
                   {appliedOffer.code} — saving ₹{cart?.discount}
                 </ThemedText>
@@ -54,11 +58,7 @@ const OfferSection = ({ cart, onOpen }: OfferSectionProps) => {
             )}
           </View>
         </View>
-        <Ionicons
-          name="chevron-forward"
-          size={18}
-          color={theme.textTertiary}
-        />
+        <Ionicons name="chevron-forward" size={18} color={theme.textTertiary} />
       </TouchableOpacity>
     </ThemedView>
   );

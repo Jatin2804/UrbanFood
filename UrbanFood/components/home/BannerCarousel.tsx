@@ -2,12 +2,12 @@ import restaurantInfo from '@/src/data/restaurantInfo';
 import { bannerCarouselStyles as styles } from '@/styles/components/bannerCarouselStyles';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-    Dimensions,
-    FlatList,
-    Image,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    View,
+  Dimensions,
+  FlatList,
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  View,
 } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -23,17 +23,14 @@ const BannerCarousel = () => {
   const isDragging = useRef(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
 
-  const scrollTo = useCallback(
-    (index: number) => {
-      flatListRef.current?.scrollToOffset({
-        offset: index * SCREEN_WIDTH,
-        animated: true,
-      });
-      currentIndex.current = index;
-      setDotIndex(index);
-    },
-    [],
-  );
+  const scrollTo = useCallback((index: number) => {
+    flatListRef.current?.scrollToOffset({
+      offset: index * SCREEN_WIDTH,
+      animated: true,
+    });
+    currentIndex.current = index;
+    setDotIndex(index);
+  }, []);
 
   const startTimer = useCallback(() => {
     if (timer.current) clearInterval(timer.current);

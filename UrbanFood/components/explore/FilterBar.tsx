@@ -35,7 +35,8 @@ const FilterBar = ({
         style={[
           styles.filterBtn,
           {
-            backgroundColor: activeFiltersCount > 0 ? Brand.primary : theme.surface,
+            backgroundColor:
+              activeFiltersCount > 0 ? Brand.primary : theme.surface,
             borderColor: activeFiltersCount > 0 ? Brand.primary : theme.border,
             borderWidth: 1,
           },

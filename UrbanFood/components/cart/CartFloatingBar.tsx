@@ -17,7 +17,8 @@ const CartFloatingBar: React.FC<CartFloatingBarProps> = () => {
   const cart = useSelector((state: RootState) => state.cart.cart);
 
   // Calculate total items
-  const totalItems = cart?.dishes.reduce((sum, dish) => sum + dish.quantity, 0) ?? 0;
+  const totalItems =
+    cart?.dishes.reduce((sum, dish) => sum + dish.quantity, 0) ?? 0;
 
   // Don't show if cart is empty
   if (!cart || totalItems === 0) {

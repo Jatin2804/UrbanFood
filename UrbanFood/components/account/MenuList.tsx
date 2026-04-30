@@ -26,12 +26,18 @@ const MenuList = ({ onItemPress }: MenuListProps) => {
             onPress={() => onItemPress?.(item)}
           >
             <View style={styles.menuLeft}>
-              <View style={[styles.menuIconBox, { backgroundColor: item.iconBg }]}>
+              <View
+                style={[styles.menuIconBox, { backgroundColor: item.iconBg }]}
+              >
                 <Ionicons name={item.icon} size={22} color={item.iconColor} />
               </View>
               <ThemedText type="defaultSemiBold">{item.label}</ThemedText>
             </View>
-            <Ionicons name="chevron-forward" size={18} color={theme.iconMuted} />
+            <Ionicons
+              name="chevron-forward"
+              size={18}
+              color={theme.iconMuted}
+            />
           </TouchableOpacity>
           {index < MENU_ITEMS.length - 1 && (
             <View

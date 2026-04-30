@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-    addToCart,
-    applyOffer,
-    clearCart,
-    fetchCart,
-    removeFromCart,
-    removeOffer,
-    updateQuantity,
+  addToCart,
+  applyOffer,
+  clearCart,
+  fetchCart,
+  removeFromCart,
+  removeOffer,
+  updateQuantity,
 } from './cartThunks';
 import { CartState } from './cartTypes';
 

@@ -26,7 +26,12 @@ const ReviewList = ({ feedback }: ReviewListProps) => {
       {feedback.map((fb, i) => (
         <View key={i}>
           <View style={styles.reviewRow}>
-            <View style={[styles.reviewAvatar, { backgroundColor: Brand.primaryFaded }]}>
+            <View
+              style={[
+                styles.reviewAvatar,
+                { backgroundColor: Brand.primaryFaded },
+              ]}
+            >
               <ThemedText
                 lightColor={Brand.primary}
                 darkColor={Brand.primary}

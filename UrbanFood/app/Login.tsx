@@ -6,12 +6,12 @@ import { Brand } from '@/constants/theme';
 import { loginStyles as styles } from '@/styles/screens/loginStyles';
 import React, { useState } from 'react';
 import {
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    TouchableOpacity,
-    View,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 const Login = () => {

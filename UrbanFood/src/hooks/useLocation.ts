@@ -98,5 +98,13 @@ export function useLocation() {
     }
   }, []);
 
-  return { status, address, coords, city, district, requestLocation, openSettings };
+  return {
+    status,
+    address,
+    coords,
+    city,
+    district,
+    requestLocation,
+    openSettings,
+  };
 }

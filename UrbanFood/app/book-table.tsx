@@ -25,7 +25,9 @@ export default function BookTable() {
           >
             <Ionicons name="arrow-back" size={22} color={theme.textPrimary} />
           </TouchableOpacity>
-          <ThemedText style={[styles.headerTitle, { color: theme.textPrimary }]}>
+          <ThemedText
+            style={[styles.headerTitle, { color: theme.textPrimary }]}
+          >
             Book a Table
           </ThemedText>
           <View style={styles.backBtn} />
@@ -33,13 +35,21 @@ export default function BookTable() {
 
         {/* Empty state */}
         <View style={styles.emptyContainer}>
-          <View style={[styles.iconBox, { backgroundColor: Brand.primaryFaded }]}>
-            <Ionicons name="restaurant-outline" size={48} color={Brand.primary} />
+          <View
+            style={[styles.iconBox, { backgroundColor: Brand.primaryFaded }]}
+          >
+            <Ionicons
+              name="restaurant-outline"
+              size={48}
+              color={Brand.primary}
+            />
           </View>
           <ThemedText style={[styles.emptyTitle, { color: theme.textPrimary }]}>
             Coming Soon
           </ThemedText>
-          <ThemedText style={[styles.emptyDesc, { color: theme.textSecondary }]}>
+          <ThemedText
+            style={[styles.emptyDesc, { color: theme.textSecondary }]}
+          >
             Table booking will be available soon. Stay tuned!
           </ThemedText>
         </View>

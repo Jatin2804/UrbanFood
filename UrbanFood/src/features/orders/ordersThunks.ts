@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-    createOrdersFileAPI,
-    fetchOrdersAPI,
-    getOrdersMeta,
-    updateOrdersAPI,
+  createOrdersFileAPI,
+  fetchOrdersAPI,
+  getOrdersMeta,
+  updateOrdersAPI,
 } from '../../services/apiService';
 import { RootState } from '../../store/rootReducer';
 import { Order } from './ordersTypes';
@@ -46,11 +46,11 @@ export const fetchOrders = createAsyncThunk<
   try {
     const raw = await fetchOrdersAPI();
     const allOrders: Order[] = parseData(raw);
-    
+
     if (userId) {
       return allOrders.filter((order) => order.userId === userId);
     }
-    
+
     return allOrders;
   } catch (e: any) {
     return rejectWithValue(e?.message ?? 'Failed to fetch orders');
@@ -85,38 +85,45 @@ export const updateOrderStatus = createAsyncThunk<
   Order,
   { orderId: string; status: Order['status'] },
   { rejectValue: string; state: RootState }
->('orders/updateStatus', async ({ orderId, status }, { rejectWithValue, getState }) => {
-  try {
-    const raw = await fetchOrdersAPI();
-    const allOrders: Order[] = parseData(raw);
+>(
+  'orders/updateStatus',
+  async ({ orderId, status }, { rejectWithValue, getState }) => {
+    try {
+      const raw = await fetchOrdersAPI();
+      const allOrders: Order[] = parseData(raw);
 
-    const orderIndex = allOrders.findIndex((o) => o.orderId === orderId);
+      const orderIndex = allOrders.findIndex((o) => o.orderId === orderId);
 
-    let updatedOrder: Order;
-    let ordersToSave: Order[];
+      let updatedOrder: Order;
+      let ordersToSave: Order[];
 
-    if (orderIndex !== -1) {
-      // Order exists on GitHub — update it in place
-      updatedOrder = { ...allOrders[orderIndex], status };
-      ordersToSave = allOrders.map((o, i) => (i === orderIndex ? updatedOrder : o));
-    } else {
-      // Order not on GitHub yet (pushToGitHub from createOrder may still be in-flight).
-      // Fall back to Redux state so we can still mark it delivered.
-      const localOrder = getState().orders.orders.find((o) => o.orderId === orderId);
-      if (!localOrder) {
-        return rejectWithValue('Order not found locally or on GitHub');
+      if (orderIndex !== -1) {
+        // Order exists on GitHub — update it in place
+        updatedOrder = { ...allOrders[orderIndex], status };
+        ordersToSave = allOrders.map((o, i) =>
+          i === orderIndex ? updatedOrder : o,
+        );
+      } else {
+        // Order not on GitHub yet (pushToGitHub from createOrder may still be in-flight).
+        // Fall back to Redux state so we can still mark it delivered.
+        const localOrder = getState().orders.orders.find(
+          (o) => o.orderId === orderId,
+        );
+        if (!localOrder) {
+          return rejectWithValue('Order not found locally or on GitHub');
+        }
+        updatedOrder = { ...localOrder, status };
+        // Merge: append the local order (not on GitHub) alongside any existing ones
+        ordersToSave = [...allOrders, updatedOrder];
       }
-      updatedOrder = { ...localOrder, status };
-      // Merge: append the local order (not on GitHub) alongside any existing ones
-      ordersToSave = [...allOrders, updatedOrder];
-    }
 
-    await pushToGitHub(ordersToSave);
-    return updatedOrder;
-  } catch (e: any) {
-    return rejectWithValue(e?.message ?? 'Failed to update order status');
-  }
-});
+      await pushToGitHub(ordersToSave);
+      return updatedOrder;
+    } catch (e: any) {
+      return rejectWithValue(e?.message ?? 'Failed to update order status');
+    }
+  },
+);
 
 export const cancelOrder = createAsyncThunk<
   Order,
@@ -172,7 +179,10 @@ export const expireOverdueOrders = createAsyncThunk<
     if (overdue.length === 0) return [];
 
     const overdueIds = new Set(overdue.map((o) => o.orderId));
-    const expiredOrders: Order[] = overdue.map((o) => ({ ...o, status: 'failed' }));
+    const expiredOrders: Order[] = overdue.map((o) => ({
+      ...o,
+      status: 'failed',
+    }));
 
     // Fetch current GitHub state to build the merged list
     const raw = await fetchOrdersAPI();
@@ -185,7 +195,9 @@ export const expireOverdueOrders = createAsyncThunk<
     );
 
     // Also include local-only overdue orders not yet on GitHub
-    const localOnlyExpired = expiredOrders.filter((o) => !githubIds.has(o.orderId));
+    const localOnlyExpired = expiredOrders.filter(
+      (o) => !githubIds.has(o.orderId),
+    );
 
     await pushToGitHub([...updatedGithub, ...localOnlyExpired]);
 
@@ -194,4 +206,3 @@ export const expireOverdueOrders = createAsyncThunk<
     return rejectWithValue(e?.message ?? 'Failed to expire overdue orders');
   }
 });
-

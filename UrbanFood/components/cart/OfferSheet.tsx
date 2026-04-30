@@ -5,14 +5,14 @@ import { Cart } from '@/src/features/cart/cartTypes';
 import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import React, { useRef } from 'react';
 import {
-    Animated,
-    Modal,
-    PanResponder,
-    Pressable,
-    ScrollView,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Animated,
+  Modal,
+  PanResponder,
+  Pressable,
+  ScrollView,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 
 interface OfferSheetProps {
@@ -49,7 +49,10 @@ const OfferSheet = ({
         if (g.dy > 80) {
           onClose();
         } else {
-          Animated.spring(slideAnim, { toValue: 0, useNativeDriver: true }).start();
+          Animated.spring(slideAnim, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
         }
       },
     }),
@@ -109,7 +112,10 @@ const OfferSheet = ({
                 {/* Title + code pill */}
                 <View style={styles.offerCardHeader}>
                   <ThemedText
-                    style={[styles.offerCardTitle, { color: theme.textPrimary }]}
+                    style={[
+                      styles.offerCardTitle,
+                      { color: theme.textPrimary },
+                    ]}
                   >
                     {offer.title}
                   </ThemedText>
@@ -153,10 +159,7 @@ const OfferSheet = ({
                 {/* Apply / Remove button */}
                 {applied ? (
                   <TouchableOpacity
-                    style={[
-                      styles.removeBtn,
-                      { borderColor: Brand.error },
-                    ]}
+                    style={[styles.removeBtn, { borderColor: Brand.error }]}
                     onPress={onRemove}
                     disabled={applying}
                     activeOpacity={0.8}

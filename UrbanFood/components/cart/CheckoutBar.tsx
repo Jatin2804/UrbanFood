@@ -31,7 +31,11 @@ const CheckoutBar = ({ cart, onPlaceOrder }: CheckoutBarProps) => {
         onPress={onPlaceOrder}
         activeOpacity={0.85}
       >
-        <ThemedText lightColor="#fff" darkColor="#fff" style={styles.placeOrderText}>
+        <ThemedText
+          lightColor="#fff"
+          darkColor="#fff"
+          style={styles.placeOrderText}
+        >
           Place Order
         </ThemedText>
         <Ionicons name="arrow-forward" size={18} color="#fff" />

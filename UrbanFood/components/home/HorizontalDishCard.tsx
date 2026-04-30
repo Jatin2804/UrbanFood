@@ -15,7 +15,10 @@ interface HorizontalDishCardProps {
   showNewBadge?: boolean;
 }
 
-const HorizontalDishCard = ({ dish, showNewBadge = false }: HorizontalDishCardProps) => {
+const HorizontalDishCard = ({
+  dish,
+  showNewBadge = false,
+}: HorizontalDishCardProps) => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const [imgError, setImgError] = useState(false);
@@ -75,7 +78,9 @@ const HorizontalDishCard = ({ dish, showNewBadge = false }: HorizontalDishCardPr
               <ThemedText style={styles.price}>₹{dish.price}</ThemedText>
               <View style={styles.ratingRow}>
                 <Ionicons name="star" size={10} color="#FFB800" />
-                <ThemedText style={styles.ratingText}>{dish.ratings}</ThemedText>
+                <ThemedText style={styles.ratingText}>
+                  {dish.ratings}
+                </ThemedText>
               </View>
             </View>
             <AddToCartButton

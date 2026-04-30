@@ -16,11 +16,11 @@ import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    Animated,
-    ScrollView,
-    useColorScheme,
+  ActivityIndicator,
+  Alert,
+  Animated,
+  ScrollView,
+  useColorScheme,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -113,7 +113,10 @@ const Cart = () => {
   const onApplyOffer = async (offerId: string) => {
     const result = await handleApplyOffer(offerId);
     if (result && 'error' in result && result.error) {
-      Alert.alert('Cannot Apply', (result.payload as string) ?? 'Failed to apply offer');
+      Alert.alert(
+        'Cannot Apply',
+        (result.payload as string) ?? 'Failed to apply offer',
+      );
     } else {
       closeSheet();
     }

@@ -3,10 +3,10 @@ import { exploreStyles as screenStyles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import {
-    TextInput,
-    TouchableOpacity,
-    useColorScheme,
-    View
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 
 interface SearchBarProps {

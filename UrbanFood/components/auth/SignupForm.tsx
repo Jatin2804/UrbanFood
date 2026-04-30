@@ -7,12 +7,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    ScrollView,
-    TextInput,
-    TouchableOpacity,
-    useColorScheme,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
 } from 'react-native';
 
 const SignupForm = () => {
@@ -138,7 +138,11 @@ const SignupForm = () => {
       />
 
       <TouchableOpacity
-        style={[styles.button, styles.signupButton, loading && styles.buttonDisabled]}
+        style={[
+          styles.button,
+          styles.signupButton,
+          loading && styles.buttonDisabled,
+        ]}
         onPress={handleSignup}
         disabled={loading}
         activeOpacity={0.85}

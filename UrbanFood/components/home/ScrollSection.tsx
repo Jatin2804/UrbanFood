@@ -59,9 +59,7 @@ const ScrollSection = ({
           onPress={() => router.replace('/(tabs)/explore')}
           activeOpacity={0.7}
         >
-          <ThemedText
-            style={[styles.seeAll, { color: Brand.primary }]}
-          >
+          <ThemedText style={[styles.seeAll, { color: Brand.primary }]}>
             See all
           </ThemedText>
         </TouchableOpacity>

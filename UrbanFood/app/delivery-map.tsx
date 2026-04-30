@@ -2,12 +2,12 @@ import DeliveryStatusCard from '@/components/delivery/DeliveryStatusCard';
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import {
-    DELIVERY_DURATION_MS,
-    DELIVERY_PARTNER,
-    DeliveryStatus,
-    INITIAL_ETA_MINUTES,
-    RESTAURANT_COORDS,
-    STEP_INTERVAL_MS,
+  DELIVERY_DURATION_MS,
+  DELIVERY_PARTNER,
+  DeliveryStatus,
+  INITIAL_ETA_MINUTES,
+  RESTAURANT_COORDS,
+  STEP_INTERVAL_MS,
 } from '@/src/constants/delivery';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useOrders } from '@/src/hooks/useOrders';
@@ -17,11 +17,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, {
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 import { Animated, TouchableOpacity, useColorScheme, View } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
@@ -38,8 +38,8 @@ export default function DeliveryMap() {
     orderId?: string;
     userLat?: string;
     userLng?: string;
-    orderTime?: string;      // ISO timestamp — when the order was placed
-    estimatedTime?: string;  // ISO timestamp — when it should arrive
+    orderTime?: string; // ISO timestamp — when the order was placed
+    estimatedTime?: string; // ISO timestamp — when it should arrive
   }>();
 
   const { user } = useAuth();
@@ -65,8 +65,6 @@ export default function DeliveryMap() {
   const [status, setStatus] = useState<DeliveryStatus>('Order Placed');
   const [eta, setEta] = useState(INITIAL_ETA_MINUTES);
   const [isDelivered, setIsDelivered] = useState(false);
-
-
 
   const deliveredAnim = useRef(new Animated.Value(0)).current;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -153,7 +151,8 @@ export default function DeliveryMap() {
     let totalDuration = DELIVERY_DURATION_MS; // 2 min default
     let elapsedAtMount = 0;
 
-    const estimatedTimeStr = params.estimatedTime || currentOrder?.estimatedTime;
+    const estimatedTimeStr =
+      params.estimatedTime || currentOrder?.estimatedTime;
     const orderTimeStr = params.orderTime || currentOrder?.orderTime;
 
     if (estimatedTimeStr) {
@@ -259,7 +258,15 @@ export default function DeliveryMap() {
         intervalRef.current = null;
       }
     };
-  }, [routeReady, isDelivered, deliveredAnim, params.estimatedTime, params.orderTime, currentOrder?.estimatedTime, currentOrder?.orderTime]);
+  }, [
+    routeReady,
+    isDelivered,
+    deliveredAnim,
+    params.estimatedTime,
+    params.orderTime,
+    currentOrder?.estimatedTime,
+    currentOrder?.orderTime,
+  ]);
 
   // ── Recenter (each map type handles it differently) ─────────────────────────
   const handleRecenter = useCallback(() => {

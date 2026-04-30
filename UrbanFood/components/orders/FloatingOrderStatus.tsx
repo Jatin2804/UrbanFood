@@ -8,7 +8,12 @@ import { useOrders } from '@/src/hooks/useOrders';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { memo, useCallback } from 'react';
-import { StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 // ── Single order card (inline, not floating) ───────────────────────────────────
 const OrderCard = memo(({ order, theme }: { order: Order; theme: any }) => {
@@ -45,7 +50,9 @@ const OrderCard = memo(({ order, theme }: { order: Order; theme: any }) => {
       activeOpacity={0.8}
     >
       {/* Left: icon */}
-      <View style={[cardStyles.iconBox, { backgroundColor: `${Brand.success}20` }]}>
+      <View
+        style={[cardStyles.iconBox, { backgroundColor: `${Brand.success}20` }]}
+      >
         <Ionicons name="bicycle" size={22} color={Brand.success} />
       </View>
 
@@ -55,7 +62,9 @@ const OrderCard = memo(({ order, theme }: { order: Order; theme: any }) => {
           Order #{shortId}
         </ThemedText>
         <ThemedText style={[cardStyles.eta, { color: Brand.success }]}>
-          {isArriving ? '🎉 Arriving now!' : `⏱ Arriving in ${timeLeft.formatted}`}
+          {isArriving
+            ? '🎉 Arriving now!'
+            : `⏱ Arriving in ${timeLeft.formatted}`}
         </ThemedText>
       </View>
 
@@ -86,7 +95,9 @@ const OrderStatusSection = () => {
     <View style={sectionStyles.wrapper}>
       <View style={sectionStyles.header}>
         <View style={[sectionStyles.dot, { backgroundColor: Brand.success }]} />
-        <ThemedText style={[sectionStyles.heading, { color: theme.textPrimary }]}>
+        <ThemedText
+          style={[sectionStyles.heading, { color: theme.textPrimary }]}
+        >
           Active Orders
         </ThemedText>
       </View>

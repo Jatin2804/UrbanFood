@@ -1,9 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
-import {
-    DELIVERY_STATUSES,
-    STATUS_THRESHOLDS
-} from '@/src/constants/delivery';
+import { DELIVERY_STATUSES, STATUS_THRESHOLDS } from '@/src/constants/delivery';
 import { DeliveryStatusCardProps } from '@/src/types/components';
 import { deliveryStatusCardStyles as styles } from '@/styles/components/deliveryStatusCardStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -24,10 +21,9 @@ const DeliveryStatusCard = ({
   const progress = STATUS_THRESHOLDS[status];
   const isDelivered = status === 'Delivered';
 
-  const etaLabel =
-    isDelivered
-      ? 'Delivered!'
-      : eta <= 1
+  const etaLabel = isDelivered
+    ? 'Delivered!'
+    : eta <= 1
       ? 'Arriving now'
       : `${eta} min away`;
 
@@ -54,7 +50,12 @@ const DeliveryStatusCard = ({
       </ThemedText>
 
       {/* Progress bar */}
-      <View style={[styles.progressTrack, { backgroundColor: theme.surfaceSecondary }]}>
+      <View
+        style={[
+          styles.progressTrack,
+          { backgroundColor: theme.surfaceSecondary },
+        ]}
+      >
         <View style={[styles.progressFill, { width: `${progress * 100}%` }]} />
       </View>
 
@@ -94,10 +95,14 @@ const DeliveryStatusCard = ({
           <Ionicons name="bicycle" size={22} color="#fff" />
         </View>
         <View style={styles.partnerInfo}>
-          <ThemedText style={[styles.partnerName, { color: theme.textPrimary }]}>
+          <ThemedText
+            style={[styles.partnerName, { color: theme.textPrimary }]}
+          >
             {partnerName}
           </ThemedText>
-          <ThemedText style={[styles.partnerVehicle, { color: theme.textSecondary }]}>
+          <ThemedText
+            style={[styles.partnerVehicle, { color: theme.textSecondary }]}
+          >
             {partnerVehicle}
           </ThemedText>
         </View>

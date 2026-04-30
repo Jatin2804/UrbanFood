@@ -1,7 +1,4 @@
-import {
-    ORS_API_KEY,
-    ORS_DIRECTIONS_URL
-} from '@/src/constants/delivery';
+import { ORS_API_KEY, ORS_DIRECTIONS_URL } from '@/src/constants/delivery';
 
 export interface LatLng {
   latitude: number;
@@ -41,7 +38,7 @@ export async function fetchRealRoute(
     }
 
     const json = await res.json();
-    
+
     if (!json.features || !json.features[0] || !json.features[0].geometry) {
       console.warn('Invalid ORS response format, using fallback route');
       return generateRoute(start, end);

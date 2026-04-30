@@ -11,7 +11,12 @@ import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
+import {
+  ScrollView,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 import { useSelector } from 'react-redux';
 
 const DishDetail = () => {
@@ -27,11 +32,18 @@ const DishDetail = () => {
   if (!dish) {
     return (
       <ThemedView style={styles.centered}>
-        <Ionicons name="alert-circle-outline" size={48} color={theme.textTertiary} />
+        <Ionicons
+          name="alert-circle-outline"
+          size={48}
+          color={theme.textTertiary}
+        />
         <ThemedText type="subtitle" style={{ marginTop: Spacing.md }}>
           Dish not found
         </ThemedText>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backBtnFallback}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backBtnFallback}
+        >
           <ThemedText lightColor={Brand.primary} darkColor={Brand.primary}>
             Go back
           </ThemedText>
@@ -67,11 +79,7 @@ const DishDetail = () => {
         </View>
       </ScrollView>
 
-      <DishBottomBar
-        dishId={dish.id}
-        dishName={dish.name}
-        price={dish.price}
-      />
+      <DishBottomBar dishId={dish.id} dishName={dish.name} price={dish.price} />
     </ThemedView>
   );
 };

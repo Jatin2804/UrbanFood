@@ -4,8 +4,8 @@ import { Brand, Colors } from '@/constants/theme';
 import restaurantInfo from '@/src/data/restaurantInfo';
 import { StatItemProps } from '@/src/types/components';
 import {
-    statItemStyles,
-    restaurantCardStyles as styles,
+  statItemStyles,
+  restaurantCardStyles as styles,
 } from '@/styles/components/restaurantCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
@@ -20,7 +20,10 @@ const StatItem = ({ icon, value, label }: StatItemProps) => {
   return (
     <View style={statItemStyles.item}>
       <View
-        style={[statItemStyles.iconBox, { backgroundColor: Brand.primaryFaded }]}
+        style={[
+          statItemStyles.iconBox,
+          { backgroundColor: Brand.primaryFaded },
+        ]}
       >
         <Ionicons name={icon} size={18} color={Brand.primary} />
       </View>
