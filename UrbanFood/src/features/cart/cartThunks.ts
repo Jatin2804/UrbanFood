@@ -14,14 +14,15 @@ const parseData = (data: any): Cart[] => {
   let parsed = data;
   if (typeof parsed === 'string') {
     try {
-      if (parsed.trim().startsWith('"carts":')) parsed = '{' + parsed + '}';
       parsed = JSON.parse(parsed);
     } catch {
       return [];
     }
   }
-  if (Array.isArray(parsed)) return parsed;
+  // Handle { carts: [...] } wrapper (from GitHub storage)
   if (parsed?.carts && Array.isArray(parsed.carts)) return parsed.carts;
+  // Handle plain array
+  if (Array.isArray(parsed)) return parsed;
   return [];
 };
 
@@ -216,7 +217,7 @@ export const clearCart = createAsyncThunk<
           createdAt: new Date().toISOString(),
         };
 
-    pushToGitHub(clearedCart);
+    await pushToGitHub(clearedCart);
 
     return clearedCart;
   } catch (e: any) {

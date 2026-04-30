@@ -9,11 +9,13 @@ import {
     RESTAURANT_COORDS,
     STEP_INTERVAL_MS,
 } from '@/src/constants/delivery';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useOrders } from '@/src/hooks/useOrders';
 import { fetchRealRoute, getBearing, LatLng } from '@/src/utils/routeData';
 import { deliveryMapStyles as styles } from '@/styles/screens/deliveryMapStyles';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, {
     useCallback,
     useEffect,
@@ -32,7 +34,16 @@ export default function DeliveryMap() {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const router = useRouter();
-  const params = useLocalSearchParams<{ userLat?: string; userLng?: string }>();
+  const params = useLocalSearchParams<{
+    orderId?: string;
+    userLat?: string;
+    userLng?: string;
+    orderTime?: string;      // ISO timestamp — when the order was placed
+    estimatedTime?: string;  // ISO timestamp — when it should arrive
+  }>();
+
+  const { user } = useAuth();
+  const { currentOrder, updateStatus } = useOrders(user?.id, true);
 
   // Parse user coordinates
   const userCoords: LatLng = useMemo(
@@ -55,6 +66,8 @@ export default function DeliveryMap() {
   const [eta, setEta] = useState(INITIAL_ETA_MINUTES);
   const [isDelivered, setIsDelivered] = useState(false);
 
+
+
   const deliveredAnim = useRef(new Animated.Value(0)).current;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -63,23 +76,38 @@ export default function DeliveryMap() {
   const mapRef = useRef<MapView>(null);
   const webViewRef = useRef<WebView>(null);
 
+  // ── Handle back navigation (gesture & hardware button) ──────────────────────
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.push('/(tabs)');
+        return true; // Prevent default back behavior
+      };
+
+      // For Android hardware back button
+      const subscription = require('react-native').BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, [router]),
+  );
+
   // ── Fetch route ─────────────────────────────────────────────────────────────
   useEffect(() => {
     let isMounted = true;
 
     const loadRoute = async () => {
       try {
-        console.log('🛣️ Fetching route from OpenRouteService...');
         const routePoints = await fetchRealRoute(RESTAURANT_COORDS, userCoords);
         if (isMounted) {
-          console.log('✅ Route loaded:', routePoints.length, 'points');
           setRoute(routePoints);
           routeRef.current = routePoints;
           setBikeCoords(routePoints[0]);
           setRouteReady(true);
         }
       } catch (error) {
-        console.error('❌ Failed to fetch route:', error);
         if (isMounted) setRouteReady(true);
       }
     };
@@ -115,17 +143,66 @@ export default function DeliveryMap() {
     }
   }, [bikeCoords, bearing, routeReady]);
 
-  // ── Delivery simulation (shared) ────────────────────────────────────────────
+  // ── Delivery simulation (shared, time-synced) ────────────────────────────────
   useEffect(() => {
     if (!routeReady || isDelivered || routeRef.current.length === 0) return;
 
-    console.log('🚴 Starting delivery simulation...');
-    startTimeRef.current = Date.now();
+    // ── Determine the total delivery window from order timestamps ──────────────
+    // Priority: URL params (always set by callers) → currentOrder from Redux.
+    // This makes the map self-contained; it doesn't need Redux orders loaded.
+    let totalDuration = DELIVERY_DURATION_MS; // 2 min default
+    let elapsedAtMount = 0;
+
+    const estimatedTimeStr = params.estimatedTime || currentOrder?.estimatedTime;
+    const orderTimeStr = params.orderTime || currentOrder?.orderTime;
+
+    if (estimatedTimeStr) {
+      const estimatedTs = new Date(estimatedTimeStr).getTime();
+      const now = Date.now();
+
+      if (orderTimeStr) {
+        const orderTs = new Date(orderTimeStr).getTime();
+        totalDuration = Math.max(10000, estimatedTs - orderTs);
+        elapsedAtMount = Math.max(0, now - orderTs);
+      } else {
+        // Fallback: only remaining time known
+        const remainingMs = estimatedTs - now;
+        totalDuration = Math.max(10000, remainingMs);
+        elapsedAtMount = 0;
+      }
+    }
+
+    // Clamp initial progress to [0, 1)
+    const initialProgress = Math.min(elapsedAtMount / totalDuration, 0.999);
     const totalSteps = routeRef.current.length - 1;
+
+    // Place bike at the correct starting position immediately (no flash to origin)
+    const initialIndex = Math.floor(initialProgress * totalSteps);
+    const initialPos = routeRef.current[Math.min(initialIndex, totalSteps)];
+    setBikeCoords(initialPos);
+    if (initialIndex > 0) {
+      setBearing(getBearing(routeRef.current[initialIndex - 1], initialPos));
+    }
+
+    // Set initial status
+    if (initialProgress >= 0.75) setStatus('Arriving Soon');
+    else if (initialProgress >= 0.3) setStatus('Out for Delivery');
+    else if (initialProgress >= 0.15) setStatus('Preparing');
+    else setStatus('Order Placed');
+
+    // Set initial ETA
+    const remainingMs = totalDuration - elapsedAtMount;
+    setEta(Math.max(0, Math.ceil(remainingMs / 60000)));
+
+    // ── Trick: set startTimeRef in the past so interval progress aligns ────────
+    // Instead of starting elapsed from 0, we pretend we started `elapsedAtMount`
+    // ms ago. This way progress = (Date.now() - startTimeRef) / totalDuration
+    // naturally equals initialProgress on the first tick and continues forward.
+    startTimeRef.current = Date.now() - elapsedAtMount;
 
     intervalRef.current = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
-      const progress = Math.min(elapsed / DELIVERY_DURATION_MS, 1);
+      const progress = Math.min(elapsed / totalDuration, 1);
       const currentIndex = Math.floor(progress * totalSteps);
 
       if (progress >= 1 || currentIndex >= totalSteps) {
@@ -133,7 +210,6 @@ export default function DeliveryMap() {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
         }
-        console.log('✅ Delivery completed!');
         setIsDelivered(true);
         setStatus('Delivered');
         setEta(0);
@@ -144,6 +220,16 @@ export default function DeliveryMap() {
           useNativeDriver: true,
           bounciness: 10,
         }).start();
+
+        // Update order status to success
+        const orderToUpdate = params.orderId || currentOrder?.orderId;
+        if (orderToUpdate) {
+          updateStatus(orderToUpdate, 'success').catch((error) => {
+            console.error('Failed to update order status:', error);
+          });
+        } else {
+          console.warn('No orderId available to update status');
+        }
         return;
       }
 
@@ -161,12 +247,9 @@ export default function DeliveryMap() {
       else if (progress >= 0.3) newStatus = 'Out for Delivery';
       else if (progress >= 0.15) newStatus = 'Preparing';
       else newStatus = 'Order Placed';
-
       setStatus(newStatus);
 
-      const remainingSeconds = Math.ceil(
-        (DELIVERY_DURATION_MS - elapsed) / 1000,
-      );
+      const remainingSeconds = Math.ceil((totalDuration - elapsed) / 1000);
       setEta(Math.max(0, Math.ceil(remainingSeconds / 60)));
     }, STEP_INTERVAL_MS);
 
@@ -176,7 +259,7 @@ export default function DeliveryMap() {
         intervalRef.current = null;
       }
     };
-  }, [routeReady, isDelivered, deliveredAnim]);
+  }, [routeReady, isDelivered, deliveredAnim, params.estimatedTime, params.orderTime, currentOrder?.estimatedTime, currentOrder?.orderTime]);
 
   // ── Recenter (each map type handles it differently) ─────────────────────────
   const handleRecenter = useCallback(() => {
@@ -332,7 +415,7 @@ export default function DeliveryMap() {
       <SafeAreaView style={styles.topBar} edges={['top']}>
         <TouchableOpacity
           style={[styles.backBtn, { backgroundColor: theme.surface }]}
-          onPress={() => router.back()}
+          onPress={() => router.push('/(tabs)')}
           activeOpacity={0.8}
         >
           <Ionicons name="arrow-back" size={20} color={theme.textPrimary} />

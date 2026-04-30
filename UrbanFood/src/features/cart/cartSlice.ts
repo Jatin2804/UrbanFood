@@ -6,7 +6,7 @@ import {
     fetchCart,
     removeFromCart,
     removeOffer,
-    updateQuantity
+    updateQuantity,
 } from './cartThunks';
 import { CartState } from './cartTypes';
 
@@ -34,7 +34,12 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
-        state.cart = action.payload;
+        // Safety guard: don't overwrite a cart that already has items.
+        // Prevents a slow GitHub fetch from clobbering items added locally.
+        const hasLocalItems = (state.cart?.dishes?.length ?? 0) > 0;
+        if (!hasLocalItems) {
+          state.cart = action.payload;
+        }
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
@@ -79,6 +84,14 @@ const cartSlice = createSlice({
 
       .addCase(clearCart.pending, (state) => {
         state.updating = true;
+        // Optimistic clear
+        if (state.cart) {
+          state.cart.dishes = [];
+          state.cart.totalPrice = 0;
+          state.cart.finalPrice = 0;
+          state.cart.discount = 0;
+          state.cart.offerId = null;
+        }
       })
       .addCase(clearCart.fulfilled, (state, action) => {
         state.updating = false;

@@ -1,20 +1,23 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
-import { DELIVERY_FEE } from '@/src/constants/cart';
+import { DELIVERY_FEE, ESTIMATED_DELIVERY_MINUTES } from '@/src/constants/cart';
+import { useAuth } from '@/src/hooks/useAuth';
 import { useCart } from '@/src/hooks/useCart';
 import { useLocation } from '@/src/hooks/useLocation';
+import { useOrders } from '@/src/hooks/useOrders';
 import { RootState } from '@/src/store/rootReducer';
 import { checkoutStyles as styles } from '@/styles/screens/checkoutStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
-  ScrollView,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    ActivityIndicator,
+    Alert,
+    ScrollView,
+    TouchableOpacity,
+    useColorScheme,
+    View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
@@ -25,8 +28,10 @@ export default function Checkout() {
   const router = useRouter();
   const [isConfirming, setIsConfirming] = useState(false);
 
+  const { user } = useAuth();
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { handleClearCart } = useCart();
+  const { createNewOrder } = useOrders(user?.id, true);
   const {
     status: locationStatus,
     address: locationAddress,
@@ -37,6 +42,14 @@ export default function Checkout() {
     openSettings,
   } = useLocation();
 
+  // Guard: redirect to home if cart is empty
+  useEffect(() => {
+    const totalItems = cart?.dishes.reduce((sum, dish) => sum + dish.quantity, 0) ?? 0;
+    if (totalItems === 0) {
+      router.replace('/(tabs)');
+    }
+  }, [cart, router]);
+
   useEffect(() => {
     if (locationStatus === 'idle') {
       requestLocation();
@@ -44,24 +57,77 @@ export default function Checkout() {
   }, [locationStatus, requestLocation]);
 
   const handleConfirmOrder = async () => {
+    if (!user) {
+      Alert.alert('Error', 'Please login to place an order');
+      return;
+    }
+
+    if (!cart || cart.dishes.length === 0) {
+      Alert.alert('Error', 'Your cart is empty');
+      return;
+    }
+
     setIsConfirming(true);
 
-    // Fetch current location
-    await requestLocation();
+    try {
+      // Fetch current location
+      await requestLocation();
 
-    // Clear the cart after order confirmation
-    handleClearCart();
+      // Build delivery address
+      const deliveryAddress = [locationAddress, district, city]
+        .filter(Boolean)
+        .join(', ') || 'Address not available';
 
-    // Small delay to ensure location is fetched
-    setTimeout(() => {
-      const params: Record<string, string> = {};
+      // Calculate estimated delivery time (2 minutes from now)
+      const estimatedTime = new Date(
+        Date.now() + ESTIMATED_DELIVERY_MINUTES * 60000,
+      ).toISOString();
+
+      // Create order
+      const order = await createNewOrder({
+        userId: user.id,
+        dishes: cart.dishes.map((dish) => ({
+          dishId: dish.dishId,
+          name: dish.name,
+          price: dish.price,
+          quantity: dish.quantity,
+          nonVeg: dish.nonVeg,
+        })),
+        paymentType: 'cod',
+        status: 'pending',
+        userAddress: deliveryAddress,
+        estimatedTime,
+        totalPrice: cart.totalPrice,
+        discount: cart.discount,
+        finalPrice: cart.finalPrice + DELIVERY_FEE,
+        offerId: cart.offerId,
+      });
+
+      // Clear the cart after successful order creation
+      await handleClearCart();
+
+      // Prepare navigation params
+      const params: Record<string, string> = {
+        orderId: order.orderId,
+        orderTime: order.orderTime,
+        estimatedTime: order.estimatedTime,
+      };
       if (coords) {
         params.userLat = coords.latitude.toString();
         params.userLng = coords.longitude.toString();
       }
+
+      // Navigate to success screen
       setIsConfirming(false);
       router.push({ pathname: '/order-success', params });
-    }, 500);
+    } catch (error) {
+      console.error('Order confirmation failed:', error);
+      setIsConfirming(false);
+      Alert.alert(
+        'Order Failed',
+        'Failed to place your order. Please try again.',
+      );
+    }
   };
 
   const total = (cart?.finalPrice ?? 0) + DELIVERY_FEE;

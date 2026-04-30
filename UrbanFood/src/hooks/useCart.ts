@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../features/auth/authSlice';
 import {
@@ -22,6 +23,15 @@ export const useCart = () => {
 
   const dishes: CartDish[] = cart?.dishes ?? [];
   const itemCount = dishes.reduce((s, d) => s + d.quantity, 0);
+
+  // Auto-load cart ONLY when cart is null (not yet fetched).
+  // Do NOT re-fetch if cart is already loaded — fetchCart.fulfilled would
+  // overwrite any items the user just added while the API call was in-flight.
+  useEffect(() => {
+    if (user?.id && cart === null && !loading) {
+      dispatch(fetchCart(user.id));
+    }
+  }, [user?.id, cart, loading]);
 
   const loadCart = () => {
     if (user?.id) dispatch(fetchCart(user.id));
@@ -48,8 +58,8 @@ export const useCart = () => {
   };
 
   const handleClearCart = () => {
-    if (!user?.id) return;
-    dispatch(clearCart(user.id));
+    if (!user?.id) return Promise.resolve();
+    return dispatch(clearCart(user.id));
   };
 
   const handleApplyOffer = (offerId: string) => {

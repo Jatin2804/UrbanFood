@@ -9,6 +9,20 @@ export const orderSuccessStyles = StyleSheet.create({
     paddingHorizontal: Spacing.xl,
   },
 
+  // ── Back button ───────────────────────────
+  backBtn: {
+    position: 'absolute',
+    top: Spacing.md,
+    left: Spacing.md,
+    width: 40,
+    height: 40,
+    borderRadius: Radius.full,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+    ...Shadows.sm,
+  },
+
   // ── Success icon ──────────────────────────
   iconWrap: {
     width: 120,

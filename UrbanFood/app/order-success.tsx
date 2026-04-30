@@ -3,16 +3,26 @@ import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { orderSuccessStyles as styles } from '@/styles/screens/orderSuccessStyles';
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect, useRef } from 'react';
-import { Animated, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useRef } from 'react';
+import {
+  Animated,
+  BackHandler,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function OrderSuccess() {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const router = useRouter();
-  const params = useLocalSearchParams<{ userLat?: string; userLng?: string }>();
+  const params = useLocalSearchParams<{
+    orderId?: string;
+    userLat?: string;
+    userLng?: string;
+  }>();
 
   // Scale + fade animation for the tick icon
   const scaleAnim = useRef(new Animated.Value(0)).current;
@@ -21,7 +31,28 @@ export default function OrderSuccess() {
   // Pulse ring animation
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
-  const orderId = `UF${Date.now().toString().slice(-6)}`;
+  // Use the actual order ID from params or generate a display ID
+  const orderId = params.orderId
+    ? `UF${params.orderId.slice(-6)}`
+    : `UF${Date.now().toString().slice(-6)}`;
+
+  // ── Handle back navigation (gesture & hardware button) ──────────────────────
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        router.push('/(tabs)');
+        return true; // Prevent default back behavior
+      };
+
+      // For Android hardware back button
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }, [router]),
+  );
 
   useEffect(() => {
     // Pop-in animation
@@ -62,14 +93,27 @@ export default function OrderSuccess() {
 
   const navigateToTracking = () => {
     const query: Record<string, string> = {};
+    if (params.orderId) query.orderId = params.orderId;
     if (params.userLat) query.userLat = params.userLat;
     if (params.userLng) query.userLng = params.userLng;
     router.replace({ pathname: '/delivery-map', params: query });
   };
 
+  const handleBackToHome = () => {
+    router.push('/(tabs)');
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <ThemedView style={styles.container}>
+        {/* Back button */}
+        <TouchableOpacity
+          style={[styles.backBtn, { backgroundColor: theme.surface }]}
+          onPress={handleBackToHome}
+          activeOpacity={0.8}
+        >
+          <Ionicons name="arrow-back" size={20} color={theme.textPrimary} />
+        </TouchableOpacity>
         {/* Pulse ring behind icon */}
         <Animated.View
           style={[
@@ -84,10 +128,7 @@ export default function OrderSuccess() {
 
         {/* Tick icon */}
         <Animated.View
-          style={[
-            styles.iconWrap,
-            { transform: [{ scale: scaleAnim }] },
-          ]}
+          style={[styles.iconWrap, { transform: [{ scale: scaleAnim }] }]}
         >
           <Ionicons name="checkmark" size={64} color="#fff" />
         </Animated.View>
@@ -106,11 +147,20 @@ export default function OrderSuccess() {
           <View
             style={[
               styles.orderIdPill,
-              { borderColor: theme.border, backgroundColor: theme.surfaceSecondary },
+              {
+                borderColor: theme.border,
+                backgroundColor: theme.surfaceSecondary,
+              },
             ]}
           >
-            <Ionicons name="receipt-outline" size={14} color={theme.textSecondary} />
-            <ThemedText style={[styles.orderIdText, { color: theme.textSecondary }]}>
+            <Ionicons
+              name="receipt-outline"
+              size={14}
+              color={theme.textSecondary}
+            />
+            <ThemedText
+              style={[styles.orderIdText, { color: theme.textSecondary }]}
+            >
               Order #{orderId}
             </ThemedText>
           </View>

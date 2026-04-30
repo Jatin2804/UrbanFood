@@ -16,6 +16,12 @@ const Account = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
 
+  const handleMenuPress = (item: { label: string }) => {
+    if (item.label === 'My Orders') {
+      router.push('/orders');
+    }
+  };
+
   const handleLogout = () => {
     Alert.alert('Logout', 'Are you sure you want to logout?', [
       { text: 'Cancel', style: 'cancel' },
@@ -46,7 +52,7 @@ const Account = () => {
       >
         <ProfileHeader user={user} />
         <ContactInfoCard user={user} />
-        <MenuList />
+        <MenuList onItemPress={handleMenuPress} />
         <LogoutButton onPress={handleLogout} />
         <ThemedText type="small" style={styles.version}>
           Version {APP_VERSION}

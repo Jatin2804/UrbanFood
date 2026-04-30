@@ -7,15 +7,20 @@ import HomeSearchBar from '@/components/home/HomeSearchBar';
 import OfferCarousel from '@/components/home/OfferCarousel';
 import RestaurantCard from '@/components/home/RestaurantCard';
 import ScrollSection from '@/components/home/ScrollSection';
+import OrderStatusSection from '@/components/orders/FloatingOrderStatus';
 import { ThemedView } from '@/components/themed-view';
 import { Brand } from '@/constants/theme';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import { Dish } from '@/src/features/dishes/dishesType';
+
 import { RootState } from '@/src/store/rootReducer';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useFocusEffect } from 'expo-router';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useOrders } from '@/src/hooks/useOrders';
 
 const NEW_ARRIVAL_CUTOFF = new Date('2025-01-10');
 const TOP_RATED_MIN = 4.5;
@@ -33,6 +38,17 @@ const Home = () => {
   const user = useSelector(selectCurrentUser);
   const firstName = user?.name?.split(' ')[0] ?? 'there';
   const dishes = useSelector((state: RootState) => state.dishes.dishes);
+  const { user: authUser } = useAuth();
+  const { refreshDeliveryOrders } = useOrders(authUser?.id, true);
+
+  // On every home focus: expire any pending orders whose ETA has passed
+  useFocusEffect(
+    useCallback(() => {
+      refreshDeliveryOrders();
+    }, []),
+  );
+
+  // useCart auto-loads cart when user is available — no manual loadCart needed here.
 
   const newArrivals = useMemo<Dish[]>(
     () =>
@@ -64,6 +80,10 @@ const Home = () => {
         <BannerCarousel />
 
         <GreetingSection firstName={firstName} />
+
+        {/* Active order status — shown inline below greeting */}
+        <OrderStatusSection />
+
         <RestaurantCard />
 
         {/* Search bar — taps navigate to Explore */}

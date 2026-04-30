@@ -31,6 +31,7 @@ export default function RootLayout() {
           <Stack.Screen name="checkout" options={{ headerShown: false }} />
           <Stack.Screen name="order-success" options={{ headerShown: false }} />
           <Stack.Screen name="delivery-map" options={{ headerShown: false }} />
+          <Stack.Screen name="orders" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

@@ -104,3 +104,40 @@ export const createCartsFileAPI = async (carts: any[]) => {
   });
   return res.data;
 };
+
+export const fetchOrdersAPI = async (): Promise<any> => {
+  try {
+    const res = await rawApi.get('/orders.json');
+    return res.data;
+  } catch {
+    return [];
+  }
+};
+
+export const getOrdersMeta = async () => {
+  try {
+    const res = await githubApi.get('/orders.json');
+    return res.data;
+  } catch {
+    return null;
+  }
+};
+
+export const updateOrdersAPI = async (orders: any[], sha: string) => {
+  const content = encodeBase64({ orders });
+  const res = await githubApi.put('/orders.json', {
+    message: 'Update orders',
+    content,
+    sha,
+  });
+  return res.data;
+};
+
+export const createOrdersFileAPI = async (orders: any[]) => {
+  const content = encodeBase64({ orders });
+  const res = await githubApi.put('/orders.json', {
+    message: 'Create orders',
+    content,
+  });
+  return res.data;
+};
