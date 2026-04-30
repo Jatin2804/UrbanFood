@@ -74,7 +74,6 @@ export const orderSuccessStyles = StyleSheet.create({
     paddingHorizontal: Spacing.xl,
     paddingVertical: 16,
     borderRadius: Radius.full,
-    width: '100%',
     justifyContent: 'center',
     ...Shadows.lg,
   },

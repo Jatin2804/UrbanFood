@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Brand, Colors } from '@/constants/theme';
+import { Colors } from '@/constants/theme';
 import { orderSuccessStyles as styles } from '@/styles/screens/orderSuccessStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
@@ -114,17 +114,6 @@ export default function OrderSuccess() {
         >
           <Ionicons name="arrow-back" size={20} color={theme.textPrimary} />
         </TouchableOpacity>
-        {/* Pulse ring behind icon */}
-        <Animated.View
-          style={[
-            styles.iconWrap,
-            {
-              position: 'absolute',
-              backgroundColor: `${Brand.success}30`,
-              transform: [{ scale: pulseAnim }],
-            },
-          ]}
-        />
 
         {/* Tick icon */}
         <Animated.View
