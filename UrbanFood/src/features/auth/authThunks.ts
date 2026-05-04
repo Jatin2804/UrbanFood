@@ -41,7 +41,7 @@ export const loginUser = createAsyncThunk<
     const user = users.find((u) => u.email === email && u.pin === pin);
 
     if (!user) {
-      console.log('❌ Login failed: Invalid credentials');
+      console.log(' Login failed: Invalid credentials');
       return rejectWithValue('Invalid credentials');
     }
 
@@ -49,10 +49,10 @@ export const loginUser = createAsyncThunk<
     await AsyncStorage.setItem('authToken', token);
     await AsyncStorage.setItem('user', JSON.stringify(user));
 
-    console.log('✅ Login successful:', user.email);
+    console.log(' Login successful:', user.email);
     return { user, token };
   } catch (error: any) {
-    console.error('❌ Login error:', error);
+    console.error(' Login error:', error);
     return rejectWithValue(error?.message || 'Login failed');
   }
 });
@@ -70,7 +70,7 @@ export const signupUser = createAsyncThunk<
     }
 
     if (users.find((u) => u.email === newUser.email)) {
-      console.log('❌ Signup failed: User already exists');
+      console.log(' Signup failed: User already exists');
       return rejectWithValue('User already exists');
     }
 
@@ -92,18 +92,47 @@ export const signupUser = createAsyncThunk<
     await AsyncStorage.setItem('authToken', token);
     await AsyncStorage.setItem('user', JSON.stringify(createdUser));
 
-    console.log('✅ Signup successful:', createdUser.email);
+    console.log(' Signup successful:', createdUser.email);
     return { user: createdUser, token };
   } catch (error: any) {
-    console.error('❌ Signup error:', error);
+    console.error(' Signup error:', error);
     return rejectWithValue(error?.message || 'Signup failed');
+  }
+});
+
+export const updateBiometricSetting = createAsyncThunk<
+  User,
+  boolean,
+  { rejectValue: string; state: any }
+>('auth/updateBiometric', async (enabled, { rejectWithValue, getState }) => {
+  try {
+    const state = getState();
+    const currentUser = state.auth.user;
+
+    if (!currentUser) {
+      return rejectWithValue('No user logged in');
+    }
+
+    const updatedUser = {
+      ...currentUser,
+      biometricEnabled: enabled,
+    };
+
+    // Save to AsyncStorage
+    await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+
+    console.log(' Biometric setting updated:', enabled);
+    return updatedUser;
+  } catch (error: any) {
+    console.error(' Failed to update biometric setting:', error);
+    return rejectWithValue(error?.message || 'Failed to update setting');
   }
 });
 
 export const logoutUser = createAsyncThunk('auth/logout', async () => {
   await AsyncStorage.removeItem('authToken');
   await AsyncStorage.removeItem('user');
-  console.log('✅ Logout successful');
+  console.log(' Logout successful');
   return null;
 });
 

@@ -2,10 +2,10 @@ import { NOTIFICATION_TEMPLATES } from '@/src/constants/notifications';
 import { showNotification } from '@/src/utils/notifications';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  createOrdersFileAPI,
-  fetchOrdersAPI,
-  getOrdersMeta,
-  updateOrdersAPI,
+    createOrdersFileAPI,
+    fetchOrdersAPI,
+    getOrdersMeta,
+    updateOrdersAPI,
 } from '../../services/apiService';
 import { RootState } from '../../store/rootReducer';
 import { Order } from './ordersTypes';
@@ -89,7 +89,7 @@ export const createOrder = createAsyncThunk<
       );
     } catch (notifError) {
       console.error(
-        '❌ Failed to send order confirmation notification:',
+        ' Failed to send order confirmation notification:',
         notifError,
       );
     }
@@ -163,10 +163,7 @@ export const updateOrderStatus = createAsyncThunk<
           );
         }
       } catch (notifError) {
-        console.error(
-          '❌ Failed to send order status notification:',
-          notifError,
-        );
+        console.error(' Failed to send order status notification:', notifError);
       }
 
       return updatedOrder;

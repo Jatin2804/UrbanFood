@@ -21,6 +21,8 @@ const Account = () => {
       router.push('/orders');
     } else if (item.label === 'Dine In') {
       router.push('/dine-in');
+    } else if (item.label === 'Settings') {
+      router.push('/settings');
     }
   };
 

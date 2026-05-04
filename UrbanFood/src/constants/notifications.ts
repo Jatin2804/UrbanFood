@@ -69,7 +69,7 @@ export const NOTIFICATION_TEMPLATES = {
   }),
 
   delivered: (orderId: string) => ({
-    title: 'Delivered! ✅',
+    title: 'Delivered! ',
     body: 'Your order has been delivered. Enjoy your meal!',
     data: { orderId, type: NOTIFICATION_TYPES.DELIVERED },
   }),

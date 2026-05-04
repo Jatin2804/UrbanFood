@@ -15,7 +15,7 @@ export async function requestNotificationPermissions(): Promise<boolean> {
   }
 
   if (finalStatus !== 'granted') {
-    console.log('❌ Push notification permissions denied');
+    console.log(' Push notification permissions denied');
     return false;
   }
 
@@ -73,7 +73,7 @@ export async function showNotification(
 
     return notificationId;
   } catch (error) {
-    console.error('❌ Error showing notification:', error);
+    console.error(' Error showing notification:', error);
     throw error;
   }
 }

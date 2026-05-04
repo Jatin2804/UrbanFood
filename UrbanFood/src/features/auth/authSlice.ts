@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  checkAuthStatus,
-  loginUser,
-  logoutUser,
-  signupUser,
+    checkAuthStatus,
+    loginUser,
+    logoutUser,
+    signupUser,
+    updateBiometricSetting,
 } from './authThunks';
 import { AuthState } from './authTypes';
 
@@ -21,6 +22,11 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    toggleBiometric: (state, action) => {
+      if (state.user) {
+        state.user.biometricEnabled = action.payload;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -80,11 +86,15 @@ const authSlice = createSlice({
           state.token = action.payload.token;
           state.isLoggedIn = true;
         }
+      })
+
+      .addCase(updateBiometricSetting.fulfilled, (state, action) => {
+        state.user = action.payload;
       });
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, toggleBiometric } = authSlice.actions;
 
 export const selectIsLoggedIn = (state: { auth: AuthState }) =>
   state.auth.isLoggedIn;

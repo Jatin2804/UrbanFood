@@ -119,11 +119,11 @@ export default function Checkout() {
       }
 
       // Navigate to success screen
-      console.log('✅ Order confirmed successfully');
+      console.log(' Order confirmed successfully');
       setIsConfirming(false);
       router.push({ pathname: '/order-success', params });
     } catch (error) {
-      console.error('❌ Order confirmation failed:', error);
+      console.error(' Order confirmation failed:', error);
       setIsConfirming(false);
       Alert.alert(
         'Order Failed',

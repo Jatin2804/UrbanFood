@@ -224,9 +224,9 @@ export default function DeliveryMap() {
         const orderToUpdate = params.orderId || currentOrder?.orderId;
         if (orderToUpdate) {
           updateStatus(orderToUpdate, 'success')
-            .then(() => console.log('✅ Order status updated to success'))
+            .then(() => console.log(' Order status updated to success'))
             .catch((error) =>
-              console.error('❌ Failed to update order status:', error),
+              console.error(' Failed to update order status:', error),
             );
         }
         return;

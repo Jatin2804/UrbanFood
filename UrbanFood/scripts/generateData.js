@@ -936,7 +936,7 @@ fs.mkdirSync(outDir, { recursive: true });
 const outPath = path.join(outDir, 'dataset.json');
 fs.writeFileSync(outPath, JSON.stringify(dataset, null, 2), 'utf-8');
 
-console.log(`✅ Dataset generated successfully!`);
+console.log(` Dataset generated successfully!`);
 console.log(`   📍 Location: ${outPath}`);
 console.log(`   👤 Users: ${users.length}`);
 console.log(`   🍽️  Dishes: ${dishes.length}`);

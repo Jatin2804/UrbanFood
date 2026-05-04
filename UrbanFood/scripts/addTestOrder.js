@@ -71,7 +71,7 @@ async function addTestOrder() {
       const parsed = JSON.parse(content);
       existingOrders = parsed.orders || [];
       console.log(
-        `✅ Found existing orders.json with ${existingOrders.length} orders`,
+        ` Found existing orders.json with ${existingOrders.length} orders`,
       );
     } catch (error) {
       if (error.response?.status === 404) {
@@ -108,7 +108,7 @@ async function addTestOrder() {
       },
     });
 
-    console.log('✅ Test order added successfully!');
+    console.log(' Test order added successfully!');
     console.log('\n📦 Test Order Details:');
     console.log(`   Order ID: ${testOrder.orderId}`);
     console.log(`   User ID: ${testOrder.userId}`);
@@ -118,7 +118,7 @@ async function addTestOrder() {
     console.log(`   Total Orders: ${existingOrders.length}`);
     console.log('\n🔄 Reload your app to see the floating order status!');
   } catch (error) {
-    console.error('❌ Error adding test order:', error.message);
+    console.error(' Error adding test order:', error.message);
     if (error.response) {
       console.error('Response:', error.response.data);
     }

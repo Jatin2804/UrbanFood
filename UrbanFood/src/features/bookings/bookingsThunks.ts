@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NOTIFICATION_TEMPLATES } from '../../constants/notifications';
 import { TABLES } from '../../data/tables';
 import {
-  createBookingAPI,
-  fetchBookingsAPI,
-  getBookingsMeta,
-  updateBookingsAPI,
+    createBookingAPI,
+    fetchBookingsAPI,
+    getBookingsMeta,
+    updateBookingsAPI,
 } from '../../services/apiService';
 import { showNotification } from '../../utils/notifications';
 import { saveNotification } from '../../utils/notificationStorage';
@@ -80,13 +80,13 @@ export const createBooking = createAsyncThunk<
         const meta = await getBookingsMeta();
         if (meta && meta.sha) {
           await updateBookingsAPI(updatedBookings, meta.sha);
-          console.log('✅ Booking created successfully:', newBooking.bookingId);
+          console.log(' Booking created successfully:', newBooking.bookingId);
         } else {
           await createBookingAPI(updatedBookings);
-          console.log('✅ Booking created successfully:', newBooking.bookingId);
+          console.log(' Booking created successfully:', newBooking.bookingId);
         }
       } catch (apiError) {
-        console.error('❌ Booking API update failed:', apiError);
+        console.error(' Booking API update failed:', apiError);
         // Still return the booking even if API fails - it's in Redux state
       }
 
@@ -124,10 +124,10 @@ export const createBooking = createAsyncThunk<
           },
           userId,
         );
-        console.log('✅ Booking confirmation notification sent');
+        console.log(' Booking confirmation notification sent');
       } catch (notificationError) {
         console.error(
-          '❌ Failed to send booking notification:',
+          ' Failed to send booking notification:',
           notificationError,
         );
         // Don't fail the booking if notification fails
@@ -175,10 +175,10 @@ export const cancelBooking = createAsyncThunk<
         const meta = await getBookingsMeta();
         if (meta && meta.sha) {
           await updateBookingsAPI(updatedBookings, meta.sha);
-          console.log('✅ Booking cancelled successfully:', bookingId);
+          console.log(' Booking cancelled successfully:', bookingId);
         }
       } catch (apiError) {
-        console.error('❌ Booking cancellation API update failed:', apiError);
+        console.error(' Booking cancellation API update failed:', apiError);
         // Still return the updated booking even if API fails
       }
 
@@ -206,10 +206,10 @@ export const cancelBooking = createAsyncThunk<
           },
           originalBooking.userId,
         );
-        console.log('✅ Booking cancellation notification sent');
+        console.log(' Booking cancellation notification sent');
       } catch (notificationError) {
         console.error(
-          '❌ Failed to send cancellation notification:',
+          ' Failed to send cancellation notification:',
           notificationError,
         );
       }

@@ -4,6 +4,7 @@ export interface User {
   email: string;
   phone: string;
   pin: string;
+  biometricEnabled?: boolean;
 }
 
 export interface AuthState {
