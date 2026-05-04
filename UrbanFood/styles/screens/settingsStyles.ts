@@ -16,6 +16,8 @@ export const settingsStyles = StyleSheet.create({
   },
   section: {
     marginBottom: Spacing.xl,
+    padding: Spacing.sm,
+    borderRadius: Radius.md,
   },
   sectionTitle: {
     fontSize: 16,

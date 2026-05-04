@@ -17,15 +17,15 @@ const LogoutButton = ({ onPress }: LogoutButtonProps) => {
     <TouchableOpacity
       style={[
         styles.logoutButton,
-        { borderColor: Brand.error, backgroundColor: theme.surface },
+        { borderColor: Brand.error, backgroundColor: Brand.primary },
       ]}
       onPress={onPress}
       activeOpacity={0.8}
     >
-      <Ionicons name="log-out-outline" size={22} color={Brand.error} />
+      <Ionicons name="log-out-outline" size={22} color={'white'} />
       <ThemedText
-        lightColor={Brand.error}
-        darkColor={Brand.error}
+        lightColor={Brand.primaryLight}
+        darkColor={Brand.primaryFaded}
         style={styles.logoutText}
       >
         Logout

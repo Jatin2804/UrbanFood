@@ -72,27 +72,10 @@ export default function Settings() {
             <Switch
               value={user?.biometricEnabled ?? false}
               onValueChange={handleBiometricToggle}
-              disabled={!biometricSupport.isSupported || !biometricSupport.isEnrolled}
+              disabled={
+                !biometricSupport.isSupported || !biometricSupport.isEnrolled
+              }
             />
-          </ThemedView>
-        </ThemedView>
-
-        <ThemedView variant="surface" style={settingsStyles.section}>
-          <ThemedText style={settingsStyles.sectionTitle}>Account</ThemedText>
-          
-          <ThemedView variant="surface" style={settingsStyles.infoRow}>
-            <ThemedText style={settingsStyles.infoLabel}>Name</ThemedText>
-            <ThemedText style={settingsStyles.infoValue}>{user?.name}</ThemedText>
-          </ThemedView>
-
-          <ThemedView variant="surface" style={settingsStyles.infoRow}>
-            <ThemedText style={settingsStyles.infoLabel}>Email</ThemedText>
-            <ThemedText style={settingsStyles.infoValue}>{user?.email}</ThemedText>
-          </ThemedView>
-
-          <ThemedView variant="surface" style={settingsStyles.infoRow}>
-            <ThemedText style={settingsStyles.infoLabel}>Phone</ThemedText>
-            <ThemedText style={settingsStyles.infoValue}>{user?.phone}</ThemedText>
           </ThemedView>
         </ThemedView>
       </ScrollView>

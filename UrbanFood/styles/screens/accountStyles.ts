@@ -76,7 +76,7 @@ export const accountStyles = StyleSheet.create({
     marginBottom: Spacing.md,
     paddingVertical: Spacing.md,
     borderRadius: Radius.lg,
-    borderWidth: 1.5,
+    // borderWidth: 1.5,
     gap: Spacing.sm,
     ...Shadows.sm,
   },
