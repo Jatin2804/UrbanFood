@@ -19,6 +19,8 @@ const Account = () => {
   const handleMenuPress = (item: { label: string }) => {
     if (item.label === 'My Orders') {
       router.push('/orders');
+    } else if (item.label === 'Dine In') {
+      router.push('/dine-in');
     }
   };
 

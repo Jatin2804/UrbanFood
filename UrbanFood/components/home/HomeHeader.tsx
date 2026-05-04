@@ -4,12 +4,18 @@ import { Brand, Colors } from '@/constants/theme';
 import restaurantInfo from '@/src/data/restaurantInfo';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, useColorScheme, View } from 'react-native';
 
 const HomeHeader = () => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const router = useRouter();
+
+  const handleNotificationPress = () => {
+    router.push('/notifications');
+  };
 
   return (
     <ThemedView variant="surface" style={styles.header}>
@@ -31,6 +37,7 @@ const HomeHeader = () => {
       <TouchableOpacity
         style={[styles.notifBtn, { backgroundColor: theme.surfaceSecondary }]}
         activeOpacity={0.7}
+        onPress={handleNotificationPress}
       >
         <Ionicons
           name="notifications-outline"

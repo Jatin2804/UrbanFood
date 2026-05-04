@@ -141,3 +141,49 @@ export const createOrdersFileAPI = async (orders: any[]) => {
   });
   return res.data;
 };
+
+// ── Bookings API ──────────────────────────────────────────────────────────────
+export const fetchBookingsAPI = async (): Promise<any> => {
+  try {
+    const res = await rawApi.get('/bookings.json');
+    let data = res.data;
+    if (typeof data === 'string') {
+      data = JSON.parse(data);
+    }
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.bookings)) return data.bookings;
+    return [];
+  } catch (error) {
+    console.error('Failed to fetch bookings:', error);
+    return [];
+  }
+};
+
+export const getBookingsMeta = async () => {
+  try {
+    const res = await githubApi.get('/bookings.json');
+    return res.data;
+  } catch (error) {
+    console.error('Failed to get bookings metadata:', error);
+    return null;
+  }
+};
+
+export const updateBookingsAPI = async (bookings: any[], sha: string) => {
+  const content = encodeBase64({ bookings });
+  const res = await githubApi.put('/bookings.json', {
+    message: 'Update bookings',
+    content,
+    sha,
+  });
+  return res.data;
+};
+
+export const createBookingAPI = async (bookings: any[]) => {
+  const content = encodeBase64({ bookings });
+  const res = await githubApi.put('/bookings.json', {
+    message: 'Create bookings',
+    content,
+  });
+  return res.data;
+};

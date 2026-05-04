@@ -9,6 +9,12 @@ export const MENU_ITEMS: MenuItem[] = [
     iconColor: Brand.primary,
   },
   {
+    icon: 'restaurant-outline',
+    label: 'Dine In',
+    iconBg: '#FFE8DF',
+    iconColor: '#FF6B35',
+  },
+  {
     icon: 'heart-outline',
     label: 'Favourites',
     iconBg: '#FFF4E5',

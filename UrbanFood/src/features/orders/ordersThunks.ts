@@ -1,3 +1,5 @@
+import { NOTIFICATION_TEMPLATES } from '@/src/constants/notifications';
+import { showNotification } from '@/src/utils/notifications';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   createOrdersFileAPI,
@@ -75,6 +77,23 @@ export const createOrder = createAsyncThunk<
     const updatedOrders = [...allOrders, newOrder];
     await pushToGitHub(updatedOrders);
 
+    // Send order confirmed notification
+    try {
+      const notification = NOTIFICATION_TEMPLATES.orderConfirmed(
+        newOrder.orderId,
+      );
+      await showNotification(
+        notification.title,
+        notification.body,
+        notification.data,
+      );
+    } catch (notifError) {
+      console.error(
+        'Failed to send order confirmation notification:',
+        notifError,
+      );
+    }
+
     return newOrder;
   } catch (e: any) {
     return rejectWithValue(e?.message ?? 'Failed to create order');
@@ -118,6 +137,35 @@ export const updateOrderStatus = createAsyncThunk<
       }
 
       await pushToGitHub(ordersToSave);
+
+      // Send notification based on status
+      try {
+        let notification;
+        switch (status) {
+          case 'success':
+            notification = NOTIFICATION_TEMPLATES.delivered(orderId);
+            break;
+          case 'pending':
+            notification = NOTIFICATION_TEMPLATES.orderPreparing(orderId);
+            break;
+          case 'failed':
+            notification = NOTIFICATION_TEMPLATES.cancelled(orderId);
+            break;
+          default:
+            notification = null;
+        }
+
+        if (notification) {
+          await showNotification(
+            notification.title,
+            notification.body,
+            notification.data,
+          );
+        }
+      } catch (notifError) {
+        console.error('Failed to send order status notification:', notifError);
+      }
+
       return updatedOrder;
     } catch (e: any) {
       return rejectWithValue(e?.message ?? 'Failed to update order status');

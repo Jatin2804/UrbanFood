@@ -57,3 +57,34 @@ export interface DeliveryStatusCardProps {
 export interface CartFloatingBarProps {
   // No props needed - reads from Redux
 }
+
+// ── NotificationButton ────────────────────────────────────────────────────────
+import { TextStyle, ViewStyle } from 'react-native';
+
+export interface NotificationButtonProps {
+  title: string;
+  body: string;
+  data?: Record<string, any>;
+  buttonText?: string;
+  onPress?: () => void;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+}
+
+// ── TableCard ─────────────────────────────────────────────────────────────────
+import type { Table } from '../features/bookings/bookingsTypes';
+
+export interface TableCardProps {
+  table: Table;
+  isBooked: boolean;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+// ── BookingCard ───────────────────────────────────────────────────────────────
+import type { Booking } from '../features/bookings/bookingsTypes';
+
+export interface BookingCardProps {
+  booking: Booking;
+  onCancel: () => void;
+}

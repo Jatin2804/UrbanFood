@@ -17,7 +17,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Urban Food needs your location to deliver food to your address."
-      }
+      },
+      "bundleIdentifier": "com.jatinsuryawanshi.urbanfood"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,13 +29,15 @@
       },
       "permissions": [
         "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION"
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.POST_NOTIFICATIONS"
       ],
       "config": {
         "googleMaps": {
           "apiKey": ""
         }
-      }
+      },
+      "package": "com.jatinsuryawanshi.urbanfood"
     },
     "web": {
       "bundler": "metro",
