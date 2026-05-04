@@ -89,7 +89,7 @@ export const createOrder = createAsyncThunk<
       );
     } catch (notifError) {
       console.error(
-        'Failed to send order confirmation notification:',
+        '❌ Failed to send order confirmation notification:',
         notifError,
       );
     }
@@ -163,7 +163,10 @@ export const updateOrderStatus = createAsyncThunk<
           );
         }
       } catch (notifError) {
-        console.error('Failed to send order status notification:', notifError);
+        console.error(
+          '❌ Failed to send order status notification:',
+          notifError,
+        );
       }
 
       return updatedOrder;

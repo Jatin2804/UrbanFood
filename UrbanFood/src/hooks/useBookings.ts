@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    cancelBooking,
-    createBooking,
-    fetchBookings,
-    fetchTables,
+  cancelBooking,
+  createBooking,
+  fetchBookings,
+  fetchTables,
 } from '../features/bookings/bookingsThunks';
 import { TimeSlot } from '../features/bookings/bookingsTypes';
 import { AppDispatch } from '../store';

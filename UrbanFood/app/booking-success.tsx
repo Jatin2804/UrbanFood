@@ -7,11 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import {
-    Animated,
-    Text,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Animated,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
@@ -63,7 +63,9 @@ export default function BookingSuccess() {
         <ThemedView style={styles.container}>
           <View style={styles.errorContainer}>
             <Ionicons name="alert-circle" size={64} color={Brand.error} />
-            <ThemedText style={[styles.errorTitle, { color: theme.textPrimary }]}>
+            <ThemedText
+              style={[styles.errorTitle, { color: theme.textPrimary }]}
+            >
               Booking Not Found
             </ThemedText>
             <TouchableOpacity
@@ -103,10 +105,7 @@ export default function BookingSuccess() {
           ]}
         >
           <View
-            style={[
-              styles.iconCircle,
-              { backgroundColor: Brand.primaryFaded },
-            ]}
+            style={[styles.iconCircle, { backgroundColor: Brand.primaryFaded }]}
           >
             <Ionicons
               name="checkmark-circle"
@@ -143,7 +142,9 @@ export default function BookingSuccess() {
                   color={Brand.primary}
                   style={styles.detailIcon}
                 />
-                <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>
+                <Text
+                  style={[styles.detailLabel, { color: theme.textSecondary }]}
+                >
                   Table Number
                 </Text>
               </View>
@@ -162,7 +163,9 @@ export default function BookingSuccess() {
                   color={Brand.primary}
                   style={styles.detailIcon}
                 />
-                <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>
+                <Text
+                  style={[styles.detailLabel, { color: theme.textSecondary }]}
+                >
                   Duration
                 </Text>
               </View>
@@ -181,7 +184,9 @@ export default function BookingSuccess() {
                   color={Brand.primary}
                   style={styles.detailIcon}
                 />
-                <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>
+                <Text
+                  style={[styles.detailLabel, { color: theme.textSecondary }]}
+                >
                   Date
                 </Text>
               </View>
@@ -200,7 +205,9 @@ export default function BookingSuccess() {
                   color={Brand.primary}
                   style={styles.detailIcon}
                 />
-                <Text style={[styles.detailLabel, { color: theme.textSecondary }]}>
+                <Text
+                  style={[styles.detailLabel, { color: theme.textSecondary }]}
+                >
                   Time
                 </Text>
               </View>
@@ -249,7 +256,9 @@ export default function BookingSuccess() {
               onPress={handleGoHome}
               activeOpacity={0.8}
             >
-              <Text style={[styles.buttonOutlineText, { color: theme.textPrimary }]}>
+              <Text
+                style={[styles.buttonOutlineText, { color: theme.textPrimary }]}
+              >
                 Back to Home
               </Text>
             </TouchableOpacity>

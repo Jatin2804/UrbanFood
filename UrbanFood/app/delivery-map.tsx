@@ -223,11 +223,11 @@ export default function DeliveryMap() {
         // Update order status to success
         const orderToUpdate = params.orderId || currentOrder?.orderId;
         if (orderToUpdate) {
-          updateStatus(orderToUpdate, 'success').catch((error) => {
-            console.error('Failed to update order status:', error);
-          });
-        } else {
-          console.warn('No orderId available to update status');
+          updateStatus(orderToUpdate, 'success')
+            .then(() => console.log('✅ Order status updated to success'))
+            .catch((error) =>
+              console.error('❌ Failed to update order status:', error),
+            );
         }
         return;
       }

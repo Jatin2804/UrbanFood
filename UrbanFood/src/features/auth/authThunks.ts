@@ -23,7 +23,6 @@ let AsyncStorage: typeof storage;
 try {
   AsyncStorage = require('@react-native-async-storage/async-storage').default;
 } catch {
-  console.log('📦 Using in-memory storage');
   AsyncStorage = storage;
 }
 
@@ -33,7 +32,6 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >('auth/login', async ({ email, pin }, { rejectWithValue }) => {
   try {
-    console.log('🔐 Attempting login for:', email);
     const users = await fetchUsersAPI();
 
     if (!users || users.length === 0) {
@@ -43,7 +41,7 @@ export const loginUser = createAsyncThunk<
     const user = users.find((u) => u.email === email && u.pin === pin);
 
     if (!user) {
-      console.log('❌ Invalid credentials');
+      console.log('❌ Login failed: Invalid credentials');
       return rejectWithValue('Invalid credentials');
     }
 
@@ -51,7 +49,7 @@ export const loginUser = createAsyncThunk<
     await AsyncStorage.setItem('authToken', token);
     await AsyncStorage.setItem('user', JSON.stringify(user));
 
-    console.log('✅ Login successful:', user.name);
+    console.log('✅ Login successful:', user.email);
     return { user, token };
   } catch (error: any) {
     console.error('❌ Login error:', error);
@@ -65,7 +63,6 @@ export const signupUser = createAsyncThunk<
   { rejectValue: string }
 >('auth/signup', async (newUser, { rejectWithValue }) => {
   try {
-    console.log('📝 Attempting signup for:', newUser.email);
     const users = await fetchUsersAPI();
 
     if (!users) {
@@ -73,7 +70,7 @@ export const signupUser = createAsyncThunk<
     }
 
     if (users.find((u) => u.email === newUser.email)) {
-      console.log('❌ User already exists');
+      console.log('❌ Signup failed: User already exists');
       return rejectWithValue('User already exists');
     }
 
@@ -88,14 +85,14 @@ export const signupUser = createAsyncThunk<
       const meta = await getUsersMeta();
       await updateUsersAPI(updatedUsers, meta.sha);
     } catch (updateError) {
-      console.log('⚠️ Could not update GitHub');
+      // GitHub update failed
     }
 
     const token = `token_${createdUser.id}_${Date.now()}`;
     await AsyncStorage.setItem('authToken', token);
     await AsyncStorage.setItem('user', JSON.stringify(createdUser));
 
-    console.log('✅ Signup successful:', createdUser.name);
+    console.log('✅ Signup successful:', createdUser.email);
     return { user: createdUser, token };
   } catch (error: any) {
     console.error('❌ Signup error:', error);
@@ -106,7 +103,7 @@ export const signupUser = createAsyncThunk<
 export const logoutUser = createAsyncThunk('auth/logout', async () => {
   await AsyncStorage.removeItem('authToken');
   await AsyncStorage.removeItem('user');
-  console.log('👋 User logged out');
+  console.log('✅ Logout successful');
   return null;
 });
 
@@ -120,13 +117,10 @@ export const checkAuthStatus = createAsyncThunk<{
 
     if (token && userStr) {
       const user = JSON.parse(userStr);
-      console.log('✅ Auth restored:', user.name);
       return { user, token };
     }
-    console.log('ℹ️ No saved auth found');
     return null;
   } catch (error) {
-    console.error('❌ Check auth error:', error);
     return null;
   }
 });

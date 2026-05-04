@@ -21,7 +21,7 @@ export function NotificationButton({
       await showNotification(title, body, data);
       onPress?.();
     } catch (error) {
-      console.error('Failed to send notification:', error);
+      // Notification failed
     }
   };
 

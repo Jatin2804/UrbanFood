@@ -99,16 +99,6 @@ export default function DineIn() {
   // Recalculate booked table IDs whenever bookings change
   const bookedTableIds = getBookedTableIds();
 
-  // Debug logging
-  if (__DEV__) {
-    console.log('[DineIn] Total bookings:', bookings.length);
-    console.log(
-      '[DineIn] Active bookings:',
-      bookings.filter((b) => b.status === 'active').length,
-    );
-    console.log('[DineIn] Booked table IDs:', bookedTableIds);
-  }
-
   const handleBookTable = async () => {
     if (!selectedTable) {
       Alert.alert('Error', 'Please select a table');
@@ -139,7 +129,7 @@ export default function DineIn() {
       try {
         await dispatch(clearCart(user.id)).unwrap();
       } catch (cartError) {
-        console.warn('Failed to clear cart:', cartError);
+        // Cart clear failed
       }
 
       // Navigate to success screen with booking ID

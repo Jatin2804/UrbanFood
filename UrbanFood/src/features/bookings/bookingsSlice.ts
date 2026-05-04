@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TABLES } from '../../data/tables';
 import {
-    cancelBooking,
-    createBooking,
-    fetchBookings,
-    fetchTables
+  cancelBooking,
+  createBooking,
+  fetchBookings,
+  fetchTables,
 } from './bookingsThunks';
 import { BookingsState } from './bookingsTypes';
 
@@ -50,30 +50,24 @@ const bookingsSlice = createSlice({
         state.loading = false;
         // Merge fetched bookings with existing ones, preserving local bookings
         const fetchedBookings = action.payload;
-        const existingBookingIds = new Set(state.bookings.map(b => b.bookingId));
-        const fetchedBookingIds = new Set(fetchedBookings.map(b => b.bookingId));
-        
+        const existingBookingIds = new Set(
+          state.bookings.map((b) => b.bookingId),
+        );
+        const fetchedBookingIds = new Set(
+          fetchedBookings.map((b) => b.bookingId),
+        );
+
         // Keep local bookings that aren't in the fetched data (recently created)
         const localOnlyBookings = state.bookings.filter(
-          b => !fetchedBookingIds.has(b.bookingId)
+          (b) => !fetchedBookingIds.has(b.bookingId),
         );
-        
-        if (__DEV__) {
-          console.log('[bookingsSlice] Existing bookings:', state.bookings.length);
-          console.log('[bookingsSlice] Fetched bookings:', fetchedBookings.length);
-          console.log('[bookingsSlice] Local-only bookings:', localOnlyBookings.length);
-        }
-        
+
         // Update existing bookings with fetched data (server is source of truth for synced bookings)
         const mergedBookings = [
           ...localOnlyBookings, // Keep local bookings first
-          ...fetchedBookings,   // Add all fetched bookings
+          ...fetchedBookings, // Add all fetched bookings
         ];
-        
-        if (__DEV__) {
-          console.log('[bookingsSlice] Merged bookings:', mergedBookings.length);
-        }
-        
+
         state.bookings = mergedBookings;
       })
       .addCase(fetchBookings.rejected, (state, action) => {

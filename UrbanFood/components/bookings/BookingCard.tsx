@@ -5,10 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 
-export default function BookingCard({
-  booking,
-  onCancel,
-}: BookingCardProps) {
+export default function BookingCard({ booking, onCancel }: BookingCardProps) {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
@@ -112,13 +109,36 @@ export default function BookingCard({
       </View>
 
       {booking.dishes && booking.dishes.length > 0 && (
-        <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: theme.border }}>
-          <Text style={{ color: theme.textPrimary, fontSize: 14, fontWeight: '600', marginBottom: 8 }}>
+        <View
+          style={{
+            marginTop: 12,
+            paddingTop: 12,
+            borderTopWidth: 1,
+            borderTopColor: theme.border,
+          }}
+        >
+          <Text
+            style={{
+              color: theme.textPrimary,
+              fontSize: 14,
+              fontWeight: '600',
+              marginBottom: 8,
+            }}
+          >
             Order Items
           </Text>
           {booking.dishes.map((dish, idx) => (
-            <View key={idx} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-              <Text style={{ color: theme.textSecondary, fontSize: 13, flex: 1 }}>
+            <View
+              key={idx}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                style={{ color: theme.textSecondary, fontSize: 13, flex: 1 }}
+              >
                 {dish.quantity}x {dish.name}
               </Text>
               <Text style={{ color: theme.textSecondary, fontSize: 13 }}>

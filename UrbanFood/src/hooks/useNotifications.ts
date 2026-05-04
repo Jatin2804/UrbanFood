@@ -1,7 +1,7 @@
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import {
-    configureNotificationHandler,
-    requestNotificationPermissions,
+  configureNotificationHandler,
+  requestNotificationPermissions,
 } from '@/src/utils/notifications';
 import { saveNotification } from '@/src/utils/notificationStorage';
 import * as Notifications from 'expo-notifications';
@@ -45,14 +45,17 @@ export function useNotifications() {
         setLastNotification(notifData);
 
         // Save to storage with userId
-        saveNotification({
-          id: notification.request.identifier,
-          title: notification.request.content.title || 'Notification',
-          body: notification.request.content.body || '',
-          data: notification.request.content.data,
-          timestamp: Date.now(),
-          read: false,
-        }, user?.id);
+        saveNotification(
+          {
+            id: notification.request.identifier,
+            title: notification.request.content.title || 'Notification',
+            body: notification.request.content.body || '',
+            data: notification.request.content.data,
+            timestamp: Date.now(),
+            read: false,
+          },
+          user?.id,
+        );
       });
 
     // Listener for when user taps on a notification
@@ -66,17 +69,20 @@ export function useNotifications() {
         setLastNotification(notifData);
 
         // Save to storage with userId
-        saveNotification({
-          id: response.notification.request.identifier,
-          title: response.notification.request.content.title || 'Notification',
-          body: response.notification.request.content.body || '',
-          data: response.notification.request.content.data,
-          timestamp: Date.now(),
-          read: true, // Mark as read when tapped
-        }, user?.id);
+        saveNotification(
+          {
+            id: response.notification.request.identifier,
+            title:
+              response.notification.request.content.title || 'Notification',
+            body: response.notification.request.content.body || '',
+            data: response.notification.request.content.data,
+            timestamp: Date.now(),
+            read: true, // Mark as read when tapped
+          },
+          user?.id,
+        );
 
         // Handle notification tap here (e.g., navigate to specific screen)
-        console.log('Notification tapped:', data);
       });
 
     // Cleanup listeners on unmount

@@ -154,7 +154,6 @@ export const fetchBookingsAPI = async (): Promise<any> => {
     if (data && Array.isArray(data.bookings)) return data.bookings;
     return [];
   } catch (error) {
-    console.error('Failed to fetch bookings:', error);
     return [];
   }
 };
@@ -164,7 +163,6 @@ export const getBookingsMeta = async () => {
     const res = await githubApi.get('/bookings.json');
     return res.data;
   } catch (error) {
-    console.error('Failed to get bookings metadata:', error);
     return null;
   }
 };

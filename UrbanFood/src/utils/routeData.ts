@@ -33,25 +33,20 @@ export async function fetchRealRoute(
     });
 
     if (!res.ok) {
-      console.warn(`ORS API returned ${res.status}, using fallback route`);
       return generateRoute(start, end);
     }
 
     const json = await res.json();
 
     if (!json.features || !json.features[0] || !json.features[0].geometry) {
-      console.warn('Invalid ORS response format, using fallback route');
       return generateRoute(start, end);
     }
 
     // GeoJSON LineString coordinates are [lng, lat]
     const coords: [number, number][] = json.features[0].geometry.coordinates;
 
-    console.log('✅ ORS route fetched successfully:', coords.length, 'points');
-
     return coords.map(([lng, lat]) => ({ latitude: lat, longitude: lng }));
   } catch (e) {
-    console.warn('ORS route fetch failed, using fallback route:', e);
     return generateRoute(start, end);
   }
 }

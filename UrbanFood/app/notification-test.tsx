@@ -10,7 +10,7 @@ export default function NotificationTest() {
         'This is a test notification from UrbanFood!',
       );
     } catch (error) {
-      console.error('Failed to show notification:', error);
+      // Notification failed
     }
   };
 
@@ -22,7 +22,7 @@ export default function NotificationTest() {
         { orderId: '1234', type: 'order_confirmed' },
       );
     } catch (error) {
-      console.error('Failed to show notification:', error);
+      // Notification failed
     }
   };
 
@@ -34,7 +34,7 @@ export default function NotificationTest() {
         { orderId: '1234', type: 'out_for_delivery' },
       );
     } catch (error) {
-      console.error('Failed to show notification:', error);
+      // Notification failed
     }
   };
 
@@ -46,7 +46,7 @@ export default function NotificationTest() {
         { type: 'promotion', code: 'URBAN20' },
       );
     } catch (error) {
-      console.error('Failed to show notification:', error);
+      // Notification failed
     }
   };
 
@@ -55,13 +55,13 @@ export default function NotificationTest() {
       const notificationContent = NOTIFICATION_TEMPLATES.bookingConfirmed(
         'booking_test_123',
         5,
-        '2:30 PM'
+        '2:30 PM',
       );
 
       const notificationId = await showNotification(
         notificationContent.title,
         notificationContent.body,
-        notificationContent.data
+        notificationContent.data,
       );
 
       // Also save to history for testing
@@ -74,10 +74,10 @@ export default function NotificationTest() {
           timestamp: Date.now(),
           read: false,
         },
-        'test_user'
+        'test_user',
       );
     } catch (error) {
-      console.error('Failed to show notification:', error);
+      // Notification failed
     }
   };
 
@@ -85,13 +85,13 @@ export default function NotificationTest() {
     try {
       const notificationContent = NOTIFICATION_TEMPLATES.bookingCancelled(
         'booking_test_456',
-        7
+        7,
       );
 
       const notificationId = await showNotification(
         notificationContent.title,
         notificationContent.body,
-        notificationContent.data
+        notificationContent.data,
       );
 
       // Also save to history for testing
@@ -104,10 +104,10 @@ export default function NotificationTest() {
           timestamp: Date.now(),
           read: false,
         },
-        'test_user'
+        'test_user',
       );
     } catch (error) {
-      console.error('Failed to show notification:', error);
+      // Notification failed
     }
   };
 

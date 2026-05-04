@@ -26,7 +26,7 @@ function getStorageKey(userId?: string): string {
  */
 export async function saveNotification(
   notification: StoredNotification,
-  userId?: string
+  userId?: string,
 ): Promise<void> {
   try {
     const key = getStorageKey(userId);
@@ -34,20 +34,21 @@ export async function saveNotification(
     const updated = [notification, ...existing].slice(0, 50); // Keep last 50
     await AsyncStorage.setItem(key, JSON.stringify(updated));
   } catch (error) {
-    console.error('Error saving notification:', error);
+    // Save failed
   }
 }
 
 /**
  * Get all notifications from storage
  */
-export async function getNotifications(userId?: string): Promise<StoredNotification[]> {
+export async function getNotifications(
+  userId?: string,
+): Promise<StoredNotification[]> {
   try {
     const key = getStorageKey(userId);
     const data = await AsyncStorage.getItem(key);
     return data ? JSON.parse(data) : [];
   } catch (error) {
-    console.error('Error getting notifications:', error);
     return [];
   }
 }
@@ -55,16 +56,19 @@ export async function getNotifications(userId?: string): Promise<StoredNotificat
 /**
  * Mark a notification as read
  */
-export async function markNotificationAsRead(id: string, userId?: string): Promise<void> {
+export async function markNotificationAsRead(
+  id: string,
+  userId?: string,
+): Promise<void> {
   try {
     const key = getStorageKey(userId);
     const notifications = await getNotifications(userId);
     const updated = notifications.map((notif) =>
-      notif.id === id ? { ...notif, read: true } : notif
+      notif.id === id ? { ...notif, read: true } : notif,
     );
     await AsyncStorage.setItem(key, JSON.stringify(updated));
   } catch (error) {
-    console.error('Error marking notification as read:', error);
+    // Mark as read failed
   }
 }
 
@@ -76,7 +80,7 @@ export async function clearAllNotifications(userId?: string): Promise<void> {
     const key = getStorageKey(userId);
     await AsyncStorage.removeItem(key);
   } catch (error) {
-    console.error('Error clearing notifications:', error);
+    // Clear failed
   }
 }
 
@@ -88,7 +92,6 @@ export async function getUnreadCount(userId?: string): Promise<number> {
     const notifications = await getNotifications(userId);
     return notifications.filter((n) => !n.read).length;
   } catch (error) {
-    console.error('Error getting unread count:', error);
     return 0;
   }
 }
