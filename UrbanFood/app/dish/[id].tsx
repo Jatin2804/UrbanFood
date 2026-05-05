@@ -6,16 +6,18 @@ import ReviewList from '@/components/dish/ReviewList';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Spacing } from '@/constants/theme';
+import { getDishName, getDishType } from '@/src/features/dishes/dishesType';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { RootState } from '@/src/store/rootReducer';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
-  ScrollView,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    ScrollView,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -24,6 +26,8 @@ const DishDetail = () => {
   const router = useRouter();
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { currentLanguage } = useTranslation();
+  const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
 
   const dish = useSelector((state: RootState) =>
     state.dishes.dishes.find((d) => d.id === id),
@@ -66,8 +70,8 @@ const DishDetail = () => {
 
         <View style={styles.content}>
           <DishInfoSection
-            name={dish.name}
-            type={dish.type}
+            name={getDishName(dish, lang)}
+            type={getDishType(dish, lang)}
             price={dish.price}
           />
           <DishStatsRow
@@ -79,7 +83,7 @@ const DishDetail = () => {
         </View>
       </ScrollView>
 
-      <DishBottomBar dishId={dish.id} dishName={dish.name} price={dish.price} />
+      <DishBottomBar dishId={dish.id} dishName={getDishName(dish, lang)} price={dish.price} />
     </ThemedView>
   );
 };

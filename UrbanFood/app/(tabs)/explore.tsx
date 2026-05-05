@@ -8,13 +8,17 @@ import SortSheet from '@/components/explore/SortSheet';
 import { ThemedView } from '@/components/themed-view';
 import { Brand } from '@/constants/theme';
 import { SHEET_HEIGHT, SortOption, VegFilter } from '@/src/constants/explore';
+import { getDishName, getDishType } from '@/src/features/dishes/dishesType';
 import { useDishes } from '@/src/hooks/useDishes';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Animated, FlatList, View } from 'react-native';
 
 const Explore = () => {
   const { dishes, loading } = useDishes();
+  const { currentLanguage, t } = useTranslation();
+  const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
 
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
@@ -42,18 +46,20 @@ const Explore = () => {
   }, [slideAnim]);
 
   const categories = useMemo(() => {
-    const types = Array.from(new Set(dishes.map((d) => d.type)));
+    const types = Array.from(new Set(dishes.map((d) => getDishType(d, lang))));
     return ['All', ...types];
-  }, [dishes]);
+  }, [dishes, lang]);
 
   const activeFiltersCount =
     (sortBy !== 'none' ? 1 : 0) + (vegFilter !== 'all' ? 1 : 0);
 
   const filteredDishes = useMemo(() => {
     let result = dishes.filter((d) => {
-      const matchesQuery = d.name.toLowerCase().includes(query.toLowerCase());
+      const dishName = getDishName(d, lang);
+      const dishType = getDishType(d, lang);
+      const matchesQuery = dishName.toLowerCase().includes(query.toLowerCase());
       const matchesCategory =
-        activeCategory === 'All' || d.type === activeCategory;
+        activeCategory === 'All' || dishType === activeCategory;
       const matchesVeg =
         vegFilter === 'all' ? true : vegFilter === 'veg' ? !d.nonVeg : d.nonVeg;
       return matchesQuery && matchesCategory && matchesVeg;
@@ -67,7 +73,7 @@ const Explore = () => {
       result = [...result].sort((a, b) => b.ratings - a.ratings);
 
     return result;
-  }, [dishes, query, activeCategory, vegFilter, sortBy]);
+  }, [dishes, query, activeCategory, vegFilter, sortBy, lang]);
 
   return (
     <ThemedView style={styles.container}>
@@ -97,8 +103,8 @@ const Explore = () => {
       ) : filteredDishes.length === 0 ? (
         <EmptyState
           icon="search-outline"
-          title="No dishes found"
-          subtitle="Try a different search or category"
+          title={t('explore.noDishesFound')}
+          subtitle={t('explore.tryDifferentSearch')}
         />
       ) : (
         <FlatList

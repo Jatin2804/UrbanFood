@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { MENU_ITEMS } from '@/src/constants/account';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { MenuItem } from '@/src/types/components';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,11 +16,12 @@ interface MenuListProps {
 const MenuList = ({ onItemPress }: MenuListProps) => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { t } = useTranslation();
 
   return (
     <ThemedView variant="surface" style={styles.card}>
       {MENU_ITEMS.map((item, index) => (
-        <View key={item.label}>
+        <View key={item.labelKey}>
           <TouchableOpacity
             style={styles.menuItem}
             activeOpacity={0.7}
@@ -31,7 +33,7 @@ const MenuList = ({ onItemPress }: MenuListProps) => {
               >
                 <Ionicons name={item.icon} size={22} color={item.iconColor} />
               </View>
-              <ThemedText type="defaultSemiBold">{item.label}</ThemedText>
+              <ThemedText type="defaultSemiBold">{t(item.labelKey)}</ThemedText>
             </View>
             <Ionicons
               name="chevron-forward"

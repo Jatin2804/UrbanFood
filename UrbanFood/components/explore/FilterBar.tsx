@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import { VegFilter } from '@/src/constants/explore';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
@@ -13,12 +14,6 @@ interface FilterBarProps {
   onOpenSheet: () => void;
 }
 
-const VEG_OPTIONS: { key: VegFilter; label: string }[] = [
-  { key: 'all', label: 'All' },
-  { key: 'veg', label: 'Veg' },
-  { key: 'nonveg', label: 'Non-Veg' },
-];
-
 const FilterBar = ({
   activeFiltersCount,
   vegFilter,
@@ -27,6 +22,13 @@ const FilterBar = ({
 }: FilterBarProps) => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { t } = useTranslation();
+
+  const VEG_OPTIONS: { key: VegFilter; label: string }[] = [
+    { key: 'all', label: t('explore.all') },
+    { key: 'veg', label: t('explore.veg') },
+    { key: 'nonveg', label: t('explore.nonVeg') },
+  ];
 
   return (
     <View style={styles.filterRow}>
@@ -55,7 +57,7 @@ const FilterBar = ({
             { color: activeFiltersCount > 0 ? '#fff' : theme.textSecondary },
           ]}
         >
-          Filter
+          {t('explore.filter')}
         </ThemedText>
         {activeFiltersCount > 0 && (
           <View style={styles.filterBadge}>

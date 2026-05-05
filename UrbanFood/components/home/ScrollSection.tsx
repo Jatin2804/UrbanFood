@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { FlatList, TouchableOpacity, useColorScheme, View } from 'react-native';
 import HorizontalDishCard from './HorizontalDishCard';
+import { useTranslation } from '@/src/hooks/useTranslation';
 
 interface ScrollSectionProps {
   title: string;
@@ -30,6 +31,7 @@ const ScrollSection = ({
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const router = useRouter();
+  const { t } = useTranslation();
 
   if (dishes.length === 0) return null;
 
@@ -60,7 +62,7 @@ const ScrollSection = ({
           activeOpacity={0.7}
         >
           <ThemedText style={[styles.seeAll, { color: Brand.primary }]}>
-            See all
+            {t('home.seeAll')}
           </ThemedText>
         </TouchableOpacity>
       </View>

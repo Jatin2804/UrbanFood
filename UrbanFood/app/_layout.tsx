@@ -1,19 +1,20 @@
 import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
+    DarkTheme,
+    DefaultTheme,
+    ThemeProvider,
 } from '@react-navigation/native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
-  selectCurrentUser,
-  selectIsLoggedIn,
+    selectCurrentUser,
+    selectIsLoggedIn,
 } from '@/src/features/auth/authSlice';
+import { loadStoredLanguage } from '@/src/features/language/languageThunks';
 import { useNotifications } from '@/src/hooks/useNotifications';
 import { store } from '@/src/store';
 import { authenticateUser } from '@/src/utils/biometricAuth';
@@ -28,13 +29,25 @@ function AppContent() {
   const colorScheme = useColorScheme();
   const router = useRouter();
   const segments = useSegments();
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const user = useSelector(selectCurrentUser);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [biometricChecked, setBiometricChecked] = useState(false);
+  const [languageLoaded, setLanguageLoaded] = useState(false);
 
   // Initialize notifications (now inside Provider)
   useNotifications();
+
+  // Load stored language on app start
+  useEffect(() => {
+    const initLanguage = async () => {
+      await dispatch(loadStoredLanguage() as any);
+      setLanguageLoaded(true);
+    };
+
+    initLanguage();
+  }, [dispatch]);
 
   // Handle biometric authentication on app launch
   useEffect(() => {
@@ -57,8 +70,8 @@ function AppContent() {
     handleBiometricAuth();
   }, [isLoggedIn, user?.biometricEnabled, biometricChecked]);
 
-  // Show loading screen while authenticating
-  if (isAuthenticating) {
+  // Show loading screen while authenticating or loading language
+  if (isAuthenticating || !languageLoaded) {
     return (
       <ThemedView
         style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}

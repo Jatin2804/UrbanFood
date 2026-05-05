@@ -9,12 +9,14 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import { fetchCart } from '@/src/features/cart/cartThunks';
 import { fetchOrders } from '@/src/features/orders/ordersThunks';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { AppDispatch } from '@/src/store';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector(selectCurrentUser);
+  const { t } = useTranslation();
 
   // Fetch cart and orders when tabs mount (user enters main app)
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: t('tabs.home'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size ?? 24} color={color} />
           ),
@@ -45,7 +47,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Explore',
+          title: t('tabs.explore'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="search" size={size ?? 24} color={color} />
           ),
@@ -55,7 +57,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="cart"
         options={{
-          title: 'Cart',
+          title: t('tabs.cart'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart" size={size ?? 24} color={color} />
           ),
@@ -65,7 +67,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="account"
         options={{
-          title: 'Account',
+          title: t('tabs.account'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" size={size ?? 24} color={color} />
           ),

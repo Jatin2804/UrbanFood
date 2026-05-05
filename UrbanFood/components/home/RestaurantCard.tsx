@@ -1,11 +1,12 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
-import restaurantInfo from '@/src/data/restaurantInfo';
+import { getLocalizedRestaurantInfo } from '@/src/data/restaurantInfo';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { StatItemProps } from '@/src/types/components';
 import {
-  statItemStyles,
-  restaurantCardStyles as styles,
+    statItemStyles,
+    restaurantCardStyles as styles,
 } from '@/styles/components/restaurantCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
@@ -41,7 +42,8 @@ const StatItem = ({ icon, value, label }: StatItemProps) => {
 const RestaurantCard = () => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
-  const r = restaurantInfo;
+  const { currentLanguage, t } = useTranslation();
+  const r = getLocalizedRestaurantInfo(currentLanguage as 'en' | 'hi' | 'te' | 'kn');
 
   return (
     <ThemedView variant="surface" style={styles.card}>
@@ -72,7 +74,7 @@ const RestaurantCard = () => {
                 lightColor={r.isOpen ? Brand.success : Brand.error}
                 darkColor={r.isOpen ? Brand.success : Brand.error}
               >
-                {r.isOpen ? 'Open' : 'Closed'}
+                {r.isOpen ? t('restaurantCard.open') : t('restaurantCard.closed')}
               </ThemedText>
             </View>
           </View>
@@ -82,8 +84,11 @@ const RestaurantCard = () => {
           <View style={styles.ratingRow}>
             <Ionicons name="star" size={13} color="#FFB800" />
             <ThemedText style={styles.ratingText}>{r.rating}</ThemedText>
-            <ThemedText type="small" style={{ color: theme.textTertiary }}>
-              ({formatCount(r.totalRatings)} ratings)
+            <ThemedText
+              type="small"
+              style={{ color: theme.textTertiary, fontWeight: '500' }}
+            >
+              {formatCount(r.totalRatings)} {t('restaurantCard.ratings')}
             </ThemedText>
           </View>
         </View>
@@ -125,19 +130,19 @@ const RestaurantCard = () => {
         <StatItem
           icon="star-outline"
           value={`${r.rating} (${formatCount(r.totalRatings)})`}
-          label="Rating"
+          label={t('restaurantCard.rating')}
         />
         <View style={[styles.statDivider, { backgroundColor: theme.border }]} />
         <StatItem
           icon="people-outline"
           value={formatCount(r.totalUsers)}
-          label="Customers"
+          label={t('restaurantCard.customers')}
         />
         <View style={[styles.statDivider, { backgroundColor: theme.border }]} />
         <StatItem
           icon="bicycle-outline"
           value={r.deliveryTime}
-          label="Delivery"
+          label={t('restaurantCard.delivery')}
         />
       </View>
 
@@ -173,7 +178,7 @@ const RestaurantCard = () => {
             type="caption"
             style={[styles.infoText, { color: theme.textSecondary }]}
           >
-            Min. order ₹{r.minOrder}
+            {t('restaurantCard.minOrder', { amount: r.minOrder })}
           </ThemedText>
         </View>
       </View>

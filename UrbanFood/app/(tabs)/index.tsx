@@ -13,14 +13,15 @@ import { Brand } from '@/constants/theme';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import { Dish } from '@/src/features/dishes/dishesType';
 
+import { useAuth } from '@/src/hooks/useAuth';
+import { useOrders } from '@/src/hooks/useOrders';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { RootState } from '@/src/store/rootReducer';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
+import { useFocusEffect } from 'expo-router';
 import React, { useCallback, useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useFocusEffect } from 'expo-router';
-import { useAuth } from '@/src/hooks/useAuth';
-import { useOrders } from '@/src/hooks/useOrders';
 
 const NEW_ARRIVAL_CUTOFF = new Date('2025-01-10');
 const TOP_RATED_MIN = 4.5;
@@ -40,6 +41,7 @@ const Home = () => {
   const dishes = useSelector((state: RootState) => state.dishes.dishes);
   const { user: authUser } = useAuth();
   const { refreshDeliveryOrders } = useOrders(authUser?.id, true);
+  const { t } = useTranslation();
 
   // On every home focus: expire any pending orders whose ETA has passed
   useFocusEffect(
@@ -95,8 +97,8 @@ const Home = () => {
         {/* Dish scroll sections */}
         <View style={styles.sectionsWrapper}>
           <ScrollSection
-            title="New Arrivals"
-            subtitle="Added after Jan 10, 2025"
+            title={t('home.newArrivals')}
+            subtitle={t('home.newArrivalsSubtitle')}
             icon="sparkles-outline"
             iconColor={Brand.primary}
             iconBg={Brand.primaryFaded}
@@ -105,8 +107,8 @@ const Home = () => {
           />
 
           <ScrollSection
-            title="Top Rated"
-            subtitle="Rating above 4.5 ★"
+            title={t('home.topRated')}
+            subtitle={t('home.topRatedSubtitle')}
             icon="star"
             iconColor="#FFB800"
             iconBg="#FFF8E7"

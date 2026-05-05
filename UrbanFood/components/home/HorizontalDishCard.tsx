@@ -3,7 +3,8 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { FALLBACK_DISH_IMG } from '@/src/constants/explore';
-import { Dish } from '@/src/features/dishes/dishesType';
+import { Dish, getDishName, getDishType } from '@/src/features/dishes/dishesType';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { horizontalDishCardStyles as styles } from '@/styles/components/horizontalDishCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -23,6 +24,8 @@ const HorizontalDishCard = ({
   const theme = Colors[scheme];
   const [imgError, setImgError] = useState(false);
   const router = useRouter();
+  const { currentLanguage } = useTranslation();
+  const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
 
   return (
     <TouchableOpacity
@@ -68,10 +71,10 @@ const HorizontalDishCard = ({
         {/* Info */}
         <View style={styles.content}>
           <ThemedText style={styles.name} numberOfLines={1}>
-            {dish.name}
+            {getDishName(dish, lang)}
           </ThemedText>
           <ThemedText style={[styles.type, { color: theme.textTertiary }]}>
-            {dish.type}
+            {getDishType(dish, lang)}
           </ThemedText>
           <View style={styles.footer}>
             <View>
@@ -85,7 +88,7 @@ const HorizontalDishCard = ({
             </View>
             <AddToCartButton
               dishId={dish.id}
-              dishName={dish.name}
+              dishName={getDishName(dish, lang)}
               dishPrice={dish.price}
               size="sm"
             />

@@ -1,21 +1,22 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import {
-  SHEET_HEIGHT,
-  SORT_OPTIONS,
-  SortOption,
+    SHEET_HEIGHT,
+    SORT_OPTIONS,
+    SortOption,
 } from '@/src/constants/explore';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useRef } from 'react';
 import {
-  Animated,
-  Modal,
-  PanResponder,
-  Pressable,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    Animated,
+    Modal,
+    PanResponder,
+    Pressable,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 
 interface SortSheetProps {
@@ -37,6 +38,7 @@ const SortSheet = ({
 }: SortSheetProps) => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { t } = useTranslation();
 
   const panResponder = useRef(
     PanResponder.create({
@@ -79,7 +81,7 @@ const SortSheet = ({
         <View style={[styles.sheetHandle, { backgroundColor: theme.border }]} />
 
         <ThemedText type="subtitle" style={styles.sheetTitle}>
-          Sort & Filter
+          {t('explore.sortAndFilter')}
         </ThemedText>
 
         {SORT_OPTIONS.map((opt) => {
@@ -113,7 +115,7 @@ const SortSheet = ({
                   { color: isActive ? Brand.primary : theme.textPrimary },
                 ]}
               >
-                {opt.label}
+                {t(opt.labelKey)}
               </ThemedText>
               {isActive && (
                 <Ionicons
@@ -133,7 +135,7 @@ const SortSheet = ({
             activeOpacity={0.8}
           >
             <ThemedText style={[styles.clearBtnText, { color: Brand.error }]}>
-              Clear Sort
+              {t('explore.clearSort')}
             </ThemedText>
           </TouchableOpacity>
         )}

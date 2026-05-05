@@ -1,7 +1,8 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
-import restaurantInfo from '@/src/data/restaurantInfo';
+import { getLocalizedRestaurantInfo } from '@/src/data/restaurantInfo';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -12,6 +13,8 @@ const HomeHeader = () => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const router = useRouter();
+  const { currentLanguage } = useTranslation();
+  const restaurantInfo = getLocalizedRestaurantInfo(currentLanguage as 'en' | 'hi' | 'te' | 'kn');
 
   const handleNotificationPress = () => {
     router.push('/notifications');

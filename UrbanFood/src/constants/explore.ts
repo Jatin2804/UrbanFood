@@ -5,13 +5,13 @@ export type VegFilter = 'all' | 'veg' | 'nonveg';
 
 export const SORT_OPTIONS: {
   key: SortOption;
-  label: string;
+  labelKey: string;
   icon: keyof typeof Ionicons.glyphMap;
 }[] = [
-  { key: 'none', label: 'Default', icon: 'apps-outline' },
-  { key: 'low_high', label: 'Price: Low to High', icon: 'arrow-up-outline' },
-  { key: 'high_low', label: 'Price: High to Low', icon: 'arrow-down-outline' },
-  { key: 'top_rated', label: 'Top Rated', icon: 'star-outline' },
+  { key: 'none', labelKey: 'explore.default', icon: 'apps-outline' },
+  { key: 'low_high', labelKey: 'explore.lowToHigh', icon: 'arrow-up-outline' },
+  { key: 'high_low', labelKey: 'explore.highToLow', icon: 'arrow-down-outline' },
+  { key: 'top_rated', labelKey: 'explore.topRated', icon: 'star-outline' },
 ];
 
 export const CATEGORY_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {

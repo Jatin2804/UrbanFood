@@ -1,7 +1,9 @@
+import { LanguageSelector } from '@/components/settings/LanguageSelector';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import { updateBiometricSetting } from '@/src/features/auth/authThunks';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { checkBiometricSupport } from '@/src/utils/biometricAuth';
 import { settingsStyles } from '@/styles/screens/settingsStyles';
 import { useEffect, useState } from 'react';
@@ -10,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Settings() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const user = useSelector(selectCurrentUser);
   const [biometricSupport, setBiometricSupport] = useState({
     isSupported: false,
@@ -29,18 +32,18 @@ export default function Settings() {
   const handleBiometricToggle = async (value: boolean) => {
     if (value && !biometricSupport.isEnrolled) {
       Alert.alert(
-        'Biometric Not Set Up',
-        `Please set up ${biometricSupport.biometricType} in your device settings first.`,
-        [{ text: 'OK' }],
+        t('settings.biometricNotSetUp'),
+        t('settings.pleaseSetupBiometric', { type: biometricSupport.biometricType }),
+        [{ text: t('common.ok') }],
       );
       return;
     }
 
     if (value && !biometricSupport.isSupported) {
       Alert.alert(
-        'Not Supported',
-        'Your device does not support biometric authentication.',
-        [{ text: 'OK' }],
+        t('settings.notSupported'),
+        t('settings.deviceDoesNotSupportBiometric'),
+        [{ text: t('common.ok') }],
       );
       return;
     }
@@ -51,22 +54,33 @@ export default function Settings() {
   return (
     <ThemedView style={settingsStyles.container}>
       <ScrollView contentContainerStyle={settingsStyles.content}>
-        <ThemedText style={settingsStyles.title}>Settings</ThemedText>
+        <ThemedText style={settingsStyles.title}>{t('settings.title')}</ThemedText>
 
+        {/* Language Section */}
         <ThemedView variant="surface" style={settingsStyles.section}>
-          <ThemedText style={settingsStyles.sectionTitle}>Security</ThemedText>
+          <ThemedText style={settingsStyles.sectionTitle}>
+            {t('settings.language')}
+          </ThemedText>
+          <LanguageSelector />
+        </ThemedView>
+
+        {/* Security Section */}
+        <ThemedView variant="surface" style={settingsStyles.section}>
+          <ThemedText style={settingsStyles.sectionTitle}>
+            {t('settings.security')}
+          </ThemedText>
 
           <ThemedView variant="surface" style={settingsStyles.settingRow}>
             <View style={settingsStyles.settingInfo}>
               <ThemedText style={settingsStyles.settingLabel}>
-                {biometricSupport.biometricType} Authentication
+                {biometricSupport.biometricType} {t('settings.authentication')}
               </ThemedText>
               <ThemedText style={settingsStyles.settingDescription}>
                 {biometricSupport.isSupported
                   ? biometricSupport.isEnrolled
-                    ? `Use ${biometricSupport.biometricType} to unlock the app`
-                    : `${biometricSupport.biometricType} not enrolled on device`
-                  : 'Not supported on this device'}
+                    ? t('settings.useBiometricToUnlock', { type: biometricSupport.biometricType })
+                    : t('settings.biometricNotEnrolled', { type: biometricSupport.biometricType })
+                  : t('settings.notSupportedOnDevice')}
               </ThemedText>
             </View>
             <Switch

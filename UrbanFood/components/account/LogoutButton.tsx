@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
@@ -12,6 +13,7 @@ interface LogoutButtonProps {
 const LogoutButton = ({ onPress }: LogoutButtonProps) => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
@@ -28,7 +30,7 @@ const LogoutButton = ({ onPress }: LogoutButtonProps) => {
         darkColor={Brand.primaryFaded}
         style={styles.logoutText}
       >
-        Logout
+        {t('account.logout')}
       </ThemedText>
     </TouchableOpacity>
   );

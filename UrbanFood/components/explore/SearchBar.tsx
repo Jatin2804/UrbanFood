@@ -1,12 +1,13 @@
 import { Colors } from '@/constants/theme';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { exploreStyles as screenStyles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import {
-  TextInput,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    TextInput,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 
 interface SearchBarProps {
@@ -18,6 +19,7 @@ interface SearchBarProps {
 const SearchBar = ({ value, onChangeText, onClear }: SearchBarProps) => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { t } = useTranslation();
 
   return (
     <View
@@ -29,7 +31,7 @@ const SearchBar = ({ value, onChangeText, onClear }: SearchBarProps) => {
       <Ionicons name="search-outline" size={20} color={theme.textTertiary} />
       <TextInput
         style={[screenStyles.searchInput, { color: theme.inputText }]}
-        placeholder="Search dishes, cuisines..."
+        placeholder={t('explore.searchPlaceholder')}
         placeholderTextColor={theme.placeholder}
         value={value}
         onChangeText={onChangeText}

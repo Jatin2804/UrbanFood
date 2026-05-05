@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors, Spacing } from '@/constants/theme';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -9,6 +10,7 @@ import { TouchableOpacity, useColorScheme, View } from 'react-native';
 const HomeSearchBar = () => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
@@ -24,7 +26,7 @@ const HomeSearchBar = () => {
         type="caption"
         style={{ color: theme.placeholder, flex: 1, marginLeft: Spacing.sm }}
       >
-        Search dishes, cuisines...
+        {t('home.searchPlaceholder')}
       </ThemedText>
       <View style={[styles.filterBtn, { backgroundColor: Brand.primaryFaded }]}>
         <Ionicons name="options-outline" size={16} color={Brand.primary} />

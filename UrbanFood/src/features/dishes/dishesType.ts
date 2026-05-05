@@ -4,10 +4,18 @@ export interface Feedback {
   rating: number;
 }
 
+// Multilingual text fields
+interface LocalizedText {
+  en: string;
+  hi: string;
+  te: string;
+  kn: string;
+}
+
 export interface Dish {
   id: string;
-  name: string;
-  type: string;
+  name: LocalizedText;
+  type: LocalizedText;
   bannerImages: string[];
   ratings: number;
   feedback: Feedback[];
@@ -22,3 +30,17 @@ export interface DishesState {
   error: string | null;
   updateLoading: boolean;
 }
+
+/**
+ * Get localized dish name
+ */
+export const getDishName = (dish: Dish, lang: 'en' | 'hi' | 'te' | 'kn' = 'en'): string => {
+  return dish.name[lang];
+};
+
+/**
+ * Get localized dish type
+ */
+export const getDishType = (dish: Dish, lang: 'en' | 'hi' | 'te' | 'kn' = 'en'): string => {
+  return dish.type[lang];
+};

@@ -7,6 +7,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Brand } from '@/constants/theme';
 import { APP_VERSION } from '@/src/constants/account';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -15,22 +16,23 @@ import { ActivityIndicator, Alert, ScrollView } from 'react-native';
 const Account = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
 
-  const handleMenuPress = (item: { label: string }) => {
-    if (item.label === 'My Orders') {
+  const handleMenuPress = (item: { labelKey: string }) => {
+    if (item.labelKey === 'account.myOrders') {
       router.push('/orders');
-    } else if (item.label === 'Dine In') {
+    } else if (item.labelKey === 'account.dineIn') {
       router.push('/dine-in');
-    } else if (item.label === 'Settings') {
+    } else if (item.labelKey === 'account.settings') {
       router.push('/settings');
     }
   };
 
   const handleLogout = () => {
-    Alert.alert('Logout', 'Are you sure you want to logout?', [
-      { text: 'Cancel', style: 'cancel' },
+    Alert.alert(t('account.logout'), t('account.logoutConfirm'), [
+      { text: t('common.cancel'), style: 'cancel' },
       {
-        text: 'Logout',
+        text: t('account.logout'),
         style: 'destructive',
         onPress: async () => {
           await logout();
@@ -59,7 +61,7 @@ const Account = () => {
         <MenuList onItemPress={handleMenuPress} />
         <LogoutButton onPress={handleLogout} />
         <ThemedText type="small" style={styles.version}>
-          Version {APP_VERSION}
+          {t('account.version')} {APP_VERSION}
         </ThemedText>
       </ScrollView>
     </ThemedView>
