@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
-import { CATEGORY_ICONS } from '@/src/constants/explore';
+import { getCategoryIcon } from '@/src/constants/explore';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
@@ -31,7 +31,7 @@ const CategoryList = ({
       contentContainerStyle={styles.categoriesContainer}
       renderItem={({ item }) => {
         const isActive = item === activeCategory;
-        const icon = CATEGORY_ICONS[item] ?? 'ellipse-outline';
+        const icon = getCategoryIcon(item);
         return (
           <TouchableOpacity
             style={[
@@ -47,7 +47,7 @@ const CategoryList = ({
           >
             <Ionicons
               name={icon}
-              size={16}
+              size={18}
               color={isActive ? '#fff' : theme.textSecondary}
             />
             <ThemedText

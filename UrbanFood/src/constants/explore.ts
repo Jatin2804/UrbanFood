@@ -15,12 +15,27 @@ export const SORT_OPTIONS: {
 ];
 
 export const CATEGORY_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
-  All: 'grid-outline',
+  all: 'grid-outline',
   'main course': 'restaurant-outline',
   starter: 'leaf-outline',
   'fast food': 'fast-food-outline',
   beverage: 'cafe-outline',
   dessert: 'ice-cream-outline',
+  // Add common variations
+  appetizer: 'leaf-outline',
+  drink: 'cafe-outline',
+  drinks: 'cafe-outline',
+  desserts: 'ice-cream-outline',
+  'main courses': 'restaurant-outline',
+  starters: 'leaf-outline',
+};
+
+/**
+ * Get icon for a category with case-insensitive lookup
+ */
+export const getCategoryIcon = (category: string): keyof typeof Ionicons.glyphMap => {
+  const normalized = category.toLowerCase().trim();
+  return CATEGORY_ICONS[normalized] ?? 'restaurant-outline';
 };
 
 export const FALLBACK_DISH_IMG = require('../../assets/images/dish.png');
