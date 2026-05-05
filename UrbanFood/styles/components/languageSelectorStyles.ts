@@ -38,7 +38,8 @@ export const languageSelectorStyles = StyleSheet.create({
   modalContent: {
     borderTopLeftRadius: Radius.xl,
     borderTopRightRadius: Radius.xl,
-    maxHeight: '70%',
+    maxHeight: '100%',
+    paddingBottom: Spacing.xl,
     overflow: 'hidden',
   },
   modalHeader: {
