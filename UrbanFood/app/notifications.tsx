@@ -1,3 +1,4 @@
+import NotificationCardSkeleton from '@/components/notifications/NotificationCardSkeleton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';

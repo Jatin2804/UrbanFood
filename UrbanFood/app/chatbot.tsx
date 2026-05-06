@@ -4,15 +4,15 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import {
-  Alert,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Alert,
+    FlatList,
+    KeyboardAvoidingView,
+    Platform,
+    Pressable,
+    ScrollView,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSelector } from 'react-redux';
@@ -24,8 +24,8 @@ import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
-  CHATBOT_GREETING,
-  CHATBOT_QUICK_REPLIES,
+    CHATBOT_GREETING,
+    CHATBOT_QUICK_REPLIES,
 } from '@/src/constants/chatbot';
 import { Dish } from '@/src/features/dishes/dishesType';
 import { sendMessageToGrok } from '@/src/services/chatService';

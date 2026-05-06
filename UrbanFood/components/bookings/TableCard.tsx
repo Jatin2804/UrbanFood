@@ -16,72 +16,150 @@ export default function TableCard({
 
   const disabled = isBooked;
 
+  // Render seats around the table based on capacity
+  const renderSeats = () => {
+    const seats = [];
+    const capacity = table.capacity;
+
+    // Determine seat positions based on capacity
+    if (capacity === 2) {
+      // 2 seats: left and right
+      seats.push(
+        <View key="left" style={[styles.seat, styles.seatLeft]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="right" style={[styles.seat, styles.seatRight]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>
+      );
+    } else if (capacity === 4) {
+      // 4 seats: top, right, bottom, left
+      seats.push(
+        <View key="top" style={[styles.seat, styles.seatTop]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="right" style={[styles.seat, styles.seatRight]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="bottom" style={[styles.seat, styles.seatBottom]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="left" style={[styles.seat, styles.seatLeft]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>
+      );
+    } else if (capacity === 6) {
+      // 6 seats: 2 on top, 2 on bottom, 1 on left, 1 on right
+      seats.push(
+        <View key="top-left" style={[styles.seat, styles.seatTopLeft]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="top-right" style={[styles.seat, styles.seatTopRight]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="right" style={[styles.seat, styles.seatRight]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="bottom-right" style={[styles.seat, styles.seatBottomRight]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="bottom-left" style={[styles.seat, styles.seatBottomLeft]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="left" style={[styles.seat, styles.seatLeft]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>
+      );
+    } else {
+      // Default: 4 seats for any other capacity
+      seats.push(
+        <View key="top" style={[styles.seat, styles.seatTop]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="right" style={[styles.seat, styles.seatRight]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="bottom" style={[styles.seat, styles.seatBottom]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>,
+        <View key="left" style={[styles.seat, styles.seatLeft]}>
+          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+        </View>
+      );
+    }
+
+    return seats;
+  };
+
   return (
     <TouchableOpacity
-      style={[
-        styles.card,
-        {
-          backgroundColor: isBooked
-            ? theme.surfaceSecondary
-            : isSelected
-              ? Brand.primaryFaded
-              : theme.surface,
-          borderColor: isSelected ? Brand.primary : theme.border,
-          opacity: disabled ? 0.5 : 1,
-        },
-      ]}
+      style={styles.cardContainer}
       onPress={onSelect}
       disabled={disabled}
       activeOpacity={0.7}
     >
-      <View style={styles.iconContainer}>
-        <Ionicons
-          name={isBooked ? 'lock-closed' : 'restaurant'}
-          size={24}
-          color={isBooked ? theme.textTertiary : Brand.primary}
-        />
-      </View>
+      <View style={styles.tableWrapper}>
+        {/* Seats around the table */}
+        {renderSeats()}
 
-      <Text
-        style={[
-          styles.tableNumber,
-          { color: isBooked ? theme.textTertiary : theme.textPrimary },
-        ]}
-      >
-        Table {table.number}
-      </Text>
-
-      <View style={styles.capacityRow}>
-        <Ionicons
-          name="people"
-          size={14}
-          color={isBooked ? theme.textTertiary : theme.textSecondary}
-        />
-        <Text
+        {/* Table surface */}
+        <View
           style={[
-            styles.capacityText,
-            { color: isBooked ? theme.textTertiary : theme.textSecondary },
+            styles.tableSurface,
+            isBooked && styles.tableSurfaceBooked,
+            isSelected && styles.tableSurfaceSelected,
           ]}
         >
-          {table.capacity} seats
-        </Text>
+          {/* Table number */}
+          <Text
+            style={[
+              styles.tableNumber,
+              {
+                color: isSelected
+                  ? '#FFFFFF'
+                  : isBooked
+                    ? theme.textTertiary
+                    : theme.textPrimary,
+              },
+            ]}
+          >
+            {table.number}
+          </Text>
+
+          {/* Icon */}
+          <Ionicons
+            name={isBooked ? 'lock-closed' : 'checkmark-circle'}
+            size={16}
+            color={
+              isSelected
+                ? '#FFFFFF'
+                : isBooked
+                  ? theme.textTertiary
+                  : Brand.primary
+            }
+            style={{ opacity: isBooked || isSelected ? 1 : 0 }}
+          />
+        </View>
       </View>
 
-      {isBooked && (
-        <View style={[styles.bookedBadge, { backgroundColor: theme.border }]}>
-          <Text style={[styles.bookedText, { color: theme.textTertiary }]}>
-            Booked
-          </Text>
-        </View>
-      )}
-
-      {isSelected && !isBooked && (
-        <View
-          style={[styles.selectedBadge, { backgroundColor: Brand.primary }]}
+      {/* Status label below */}
+      <View style={styles.labelContainer}>
+        <Text
+          style={[
+            styles.labelText,
+            {
+              color: isSelected
+                ? Brand.primary
+                : isBooked
+                  ? theme.textTertiary
+                  : theme.textSecondary,
+              fontWeight: isSelected ? '700' : '500',
+            },
+          ]}
         >
-          <Ionicons name="checkmark-circle" size={20} color="#FFFFFF" />
-        </View>
-      )}
+          {isBooked ? 'Booked' : isSelected ? 'Selected' : `${table.capacity} Seats`}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 }
