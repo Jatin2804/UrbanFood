@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 
-export type SortOption = 'none' | 'low_high' | 'high_low' | 'top_rated';
+export type SortOption = 'none' | 'low_high' | 'high_low' | 'top_rated' | 'newest';
 export type VegFilter = 'all' | 'veg' | 'nonveg';
 
 export const SORT_OPTIONS: {

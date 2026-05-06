@@ -8,10 +8,13 @@ export const bannerCarouselStyles = StyleSheet.create({
     height: 220,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    overflow: 'hidden',
   },
   image: {
     width: SCREEN_WIDTH,
     height: 220,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   dots: {
     position: 'absolute',

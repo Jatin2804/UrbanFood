@@ -11,6 +11,7 @@ import { fetchCart } from '@/src/features/cart/cartThunks';
 import { fetchOrders } from '@/src/features/orders/ordersThunks';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { AppDispatch } from '@/src/store';
+import FloatingChatbotButton from '@/components/chatbot/FloatingChatbotButton';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -27,52 +28,55 @@ export default function TabLayout() {
   }, [user?.id, dispatch]);
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: t('tabs.home'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size ?? 24} color={color} />
-          ),
+    <>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+          headerShown: false,
+          tabBarButton: HapticTab,
         }}
-      />
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: t('tabs.home'),
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" size={size ?? 24} color={color} />
+            ),
+          }}
+        />
 
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: t('tabs.explore'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="compass" size={size ?? 24} color={color} />
-          ),
-        }}
-      />
+        <Tabs.Screen
+          name="explore"
+          options={{
+            title: t('tabs.explore'),
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="compass" size={size ?? 24} color={color} />
+            ),
+          }}
+        />
 
-      <Tabs.Screen
-        name="cart"
-        options={{
-          title: t('tabs.cart'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cart" size={size ?? 24} color={color} />
-          ),
-        }}
-      />
+        <Tabs.Screen
+          name="cart"
+          options={{
+            title: t('tabs.cart'),
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="cart" size={size ?? 24} color={color} />
+            ),
+          }}
+        />
 
-      <Tabs.Screen
-        name="account"
-        options={{
-          title: t('tabs.account'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size ?? 24} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+        <Tabs.Screen
+          name="account"
+          options={{
+            title: t('tabs.account'),
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" size={size ?? 24} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+      <FloatingChatbotButton />
+    </>
   );
 }

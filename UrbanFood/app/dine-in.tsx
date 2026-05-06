@@ -7,24 +7,23 @@ import { RootState } from '@/src/store/rootReducer';
 import { Table, TimeSlot } from '@/src/types';
 import { dineInStyles as styles } from '@/styles/screens/dineInStyles';
 import { Ionicons } from '@expo/vector-icons';
-import { useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useState } from 'react';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  RefreshControl,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    Alert,
+    RefreshControl,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  cancelBooking,
-  createBooking,
-  fetchBookings,
+    cancelBooking,
+    createBooking,
+    fetchBookings,
 } from '../src/features/bookings/bookingsThunks';
 import { clearCart } from '../src/features/cart/cartThunks';
 import { AppDispatch } from '../src/store';
@@ -34,6 +33,9 @@ export default function DineIn() {
   const theme = Colors[scheme];
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  
+  // Get deep link parameters
+  const params = useLocalSearchParams<{ tab?: string }>();
 
   const { bookings, tables, loading, updating } = useSelector(
     (state: RootState) => state.bookings,
@@ -47,6 +49,13 @@ export default function DineIn() {
   const [activeTab, setActiveTab] = useState<'book' | 'mybookings'>('book');
   const [justBooked, setJustBooked] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  
+  // Handle deep link tab parameter
+  useEffect(() => {
+    if (params.tab === 'mybookings' || params.tab === 'book') {
+      setActiveTab(params.tab);
+    }
+  }, [params.tab]);
 
   useFocusEffect(
     useCallback(() => {
@@ -251,9 +260,38 @@ export default function DineIn() {
         </View>
 
         {loading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={Brand.primary} />
-          </View>
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
+            {activeTab === 'book' ? (
+              <>
+                <View style={styles.section}>
+                  <Text
+                    style={[styles.sectionTitle, { color: theme.textPrimary }]}
+                  >
+                    Select Table
+                  </Text>
+                  <View style={styles.tablesGrid}>
+                    {Array(6)
+                      .fill(0)
+                      .map((_, index) => (
+                        <TableCardSkeleton key={`skeleton-${index}`} />
+                      ))}
+                  </View>
+                </View>
+              </>
+            ) : (
+              <>
+                {Array(3)
+                  .fill(0)
+                  .map((_, index) => (
+                    <BookingCardSkeleton key={`skeleton-${index}`} />
+                  ))}
+              </>
+            )}
+          </ScrollView>
         ) : activeTab === 'book' ? (
           <ScrollView
             style={styles.scrollView}

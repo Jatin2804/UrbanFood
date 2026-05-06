@@ -1,7 +1,7 @@
 import {
-    DarkTheme,
-    DefaultTheme,
-    ThemeProvider,
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
 } from '@react-navigation/native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -11,8 +11,8 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
-    selectCurrentUser,
-    selectIsLoggedIn,
+  selectCurrentUser,
+  selectIsLoggedIn,
 } from '@/src/features/auth/authSlice';
 import { loadStoredLanguage } from '@/src/features/language/languageThunks';
 import { useNotifications } from '@/src/hooks/useNotifications';
@@ -97,6 +97,10 @@ function AppContent() {
         <Stack.Screen name="notifications" options={{ headerShown: false }} />
         <Stack.Screen name="dine-in" options={{ headerShown: false }} />
         <Stack.Screen name="booking-success" options={{ headerShown: false }} />
+        <Stack.Screen name="chatbot-splash" options={{ headerShown: false }} />
+        <Stack.Screen name="chatbot" options={{ headerShown: false }} />
+        <Stack.Screen name="offers" options={{ headerShown: false }} />
+        <Stack.Screen name="chatbot-explore" options={{ headerShown: false }} />
         <Stack.Screen
           name="settings"
           options={{ headerShown: true, title: 'Settings' }}

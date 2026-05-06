@@ -26,8 +26,8 @@ const LogoutButton = ({ onPress }: LogoutButtonProps) => {
     >
       <Ionicons name="log-out-outline" size={22} color={'white'} />
       <ThemedText
-        lightColor={Colors.dark.textPrimary}
-        darkColor={Colors.light.textPrimary}
+        lightColor={'white'}
+        darkColor={'white'}
         style={styles.logoutText}
       >
         {t('account.logout')}

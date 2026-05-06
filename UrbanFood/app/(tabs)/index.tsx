@@ -39,6 +39,7 @@ const Home = () => {
   const user = useSelector(selectCurrentUser);
   const firstName = user?.name?.split(' ')[0] ?? 'there';
   const dishes = useSelector((state: RootState) => state.dishes.dishes);
+  const loading = useSelector((state: RootState) => state.dishes.loading);
   const { user: authUser } = useAuth();
   const { refreshDeliveryOrders } = useOrders(authUser?.id, true);
   const { t } = useTranslation();
@@ -96,24 +97,66 @@ const Home = () => {
 
         {/* Dish scroll sections */}
         <View style={styles.sectionsWrapper}>
-          <ScrollSection
-            title={t('home.newArrivals')}
-            subtitle={t('home.newArrivalsSubtitle')}
-            icon="sparkles-outline"
-            iconColor={Brand.primary}
-            iconBg={Brand.primaryFaded}
-            dishes={newArrivals}
-            showNewBadge
-          />
+          {loading ? (
+            <>
+              {/* Skeleton for New Arrivals */}
+              <View style={{ marginBottom: Spacing.lg }}>
+                <View style={{ paddingHorizontal: Spacing.md, marginBottom: Spacing.sm }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm }}>
+                    <View style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: Brand.primaryFaded }} />
+                    <View>
+                      <View style={{ width: 120, height: 16, borderRadius: 4, backgroundColor: Brand.primaryFaded }} />
+                      <View style={{ width: 180, height: 12, borderRadius: 4, backgroundColor: Brand.primaryFaded, marginTop: 4 }} />
+                    </View>
+                  </View>
+                </View>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: Spacing.md, gap: Spacing.sm }}>
+                  {Array(3).fill(0).map((_, index) => (
+                    <HorizontalDishCardSkeleton key={`new-skeleton-${index}`} />
+                  ))}
+                </ScrollView>
+              </View>
 
-          <ScrollSection
-            title={t('home.topRated')}
-            subtitle={t('home.topRatedSubtitle')}
-            icon="star"
-            iconColor="#FFB800"
-            iconBg="#FFF8E7"
-            dishes={topRated}
-          />
+              {/* Skeleton for Top Rated */}
+              <View style={{ marginBottom: Spacing.lg }}>
+                <View style={{ paddingHorizontal: Spacing.md, marginBottom: Spacing.sm }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm }}>
+                    <View style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: '#FFF8E7' }} />
+                    <View>
+                      <View style={{ width: 100, height: 16, borderRadius: 4, backgroundColor: '#FFF8E7' }} />
+                      <View style={{ width: 160, height: 12, borderRadius: 4, backgroundColor: '#FFF8E7', marginTop: 4 }} />
+                    </View>
+                  </View>
+                </View>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: Spacing.md, gap: Spacing.sm }}>
+                  {Array(3).fill(0).map((_, index) => (
+                    <HorizontalDishCardSkeleton key={`top-skeleton-${index}`} />
+                  ))}
+                </ScrollView>
+              </View>
+            </>
+          ) : (
+            <>
+              <ScrollSection
+                title={t('home.newArrivals')}
+                subtitle={t('home.newArrivalsSubtitle')}
+                icon="sparkles-outline"
+                iconColor={Brand.primary}
+                iconBg={Brand.primaryFaded}
+                dishes={newArrivals}
+                showNewBadge
+              />
+
+              <ScrollSection
+                title={t('home.topRated')}
+                subtitle={t('home.topRatedSubtitle')}
+                icon="star"
+                iconColor="#FFB800"
+                iconBg="#FFF8E7"
+                dishes={topRated}
+              />
+            </>
+          )}
         </View>
 
         {/* Bottom promotional banner — tap handler empty for now */}

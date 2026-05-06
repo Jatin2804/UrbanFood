@@ -1,20 +1,19 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Radius, Shadows, Spacing } from '@/constants/theme';
+import { Order } from '@/src/features/orders/ordersTypes';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useOrders } from '@/src/hooks/useOrders';
-import { Order } from '@/src/features/orders/ordersTypes';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useRef } from 'react';
 import {
-  ActivityIndicator,
-  FlatList,
-  RefreshControl,
-  StyleSheet,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    FlatList,
+    RefreshControl,
+    StyleSheet,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -200,13 +199,12 @@ export default function Orders() {
         </View>
 
         {loading && orders.length === 0 ? (
-          <View style={styles.center}>
-            <ActivityIndicator size="large" color={Brand.primary} />
-            <ThemedText
-              style={[styles.loadingText, { color: theme.textSecondary }]}
-            >
-              Loading orders...
-            </ThemedText>
+          <View style={styles.list}>
+            {Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <OrderCardSkeleton key={`skeleton-${index}`} />
+              ))}
           </View>
         ) : sorted.length === 0 ? (
           <View style={styles.center}>

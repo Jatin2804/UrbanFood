@@ -11,3 +11,14 @@ export interface MenuItem {
   iconBg: string;
   iconColor: string;
 }
+
+export interface FloatingChatbotButtonProps {
+  // No props needed currently
+}
+
+export interface ChatMessage {
+  id: string;
+  text: string;
+  isBot: boolean;
+  timestamp: Date;
+}

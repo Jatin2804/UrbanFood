@@ -3,21 +3,21 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import {
-  clearAllNotifications,
-  getNotifications,
-  markNotificationAsRead,
-  StoredNotification,
+    clearAllNotifications,
+    getNotifications,
+    markNotificationAsRead,
+    StoredNotification,
 } from '@/src/utils/notificationStorage';
 import { notificationsScreenStyles as styles } from '@/styles/screens/notificationsScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import {
-  RefreshControl,
-  ScrollView,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    RefreshControl,
+    ScrollView,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
@@ -29,10 +29,12 @@ export default function NotificationsScreen() {
   const user = useSelector(selectCurrentUser);
   const [notifications, setNotifications] = useState<StoredNotification[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const loadNotifications = async () => {
     const stored = await getNotifications(user?.id);
     setNotifications(stored);
+    setLoading(false);
   };
 
   useFocusEffect(
@@ -116,7 +118,13 @@ export default function NotificationsScreen() {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          {notifications.length === 0 ? (
+          {loading ? (
+            Array(5)
+              .fill(0)
+              .map((_, index) => (
+                <NotificationCardSkeleton key={`skeleton-${index}`} />
+              ))
+          ) : notifications.length === 0 ? (
             <View style={styles.emptyState}>
               <View
                 style={[

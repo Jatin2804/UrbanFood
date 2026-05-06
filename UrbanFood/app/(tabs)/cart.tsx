@@ -6,9 +6,8 @@ import CheckoutBar from '@/components/cart/CheckoutBar';
 import OfferSection from '@/components/cart/OfferSection';
 import OfferSheet from '@/components/cart/OfferSheet';
 import PlaceOrderSheet from '@/components/cart/PlaceOrderSheet';
-import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Brand, Colors, Spacing } from '@/constants/theme';
+import { Colors } from '@/constants/theme';
 import { useCart } from '@/src/hooks/useCart';
 import { getDishById } from '@/src/services/apiService';
 import { RootState } from '@/src/store/rootReducer';
@@ -16,11 +15,10 @@ import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  Animated,
-  ScrollView,
-  useColorScheme,
+    Alert,
+    Animated,
+    ScrollView,
+    useColorScheme,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -129,14 +127,18 @@ const Cart = () => {
 
   if (loading) {
     return (
-      <ThemedView style={styles.centered}>
-        <ActivityIndicator size="large" color={Brand.primary} />
-        <ThemedText
-          type="caption"
-          style={{ color: theme.textSecondary, marginTop: Spacing.md }}
+      <ThemedView style={styles.container}>
+        <CartHeader itemCount={0} hasItems={false} onClear={() => {}} />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
         >
-          Loading your cart...
-        </ThemedText>
+          {Array(3)
+            .fill(0)
+            .map((_, index) => (
+              <CartRowSkeleton key={`skeleton-${index}`} />
+            ))}
+        </ScrollView>
       </ThemedView>
     );
   }

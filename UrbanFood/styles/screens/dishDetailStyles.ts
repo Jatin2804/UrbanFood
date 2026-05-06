@@ -11,6 +11,9 @@ export const dishDetailStyles = StyleSheet.create({
   imageSection: {
     height: 300,
     position: 'relative',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    overflow: 'hidden',
   },
   bannerImage: {
     width: W,

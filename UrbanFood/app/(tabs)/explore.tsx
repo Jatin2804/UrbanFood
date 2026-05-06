@@ -1,4 +1,5 @@
 import CartFloatingBar from '@/components/cart/CartFloatingBar';
+import { DishCardSkeleton } from '@/components/common/DishCardSkeleton';
 import EmptyState from '@/components/common/EmptyState';
 import CategoryList from '@/components/explore/CategoryList';
 import DishCard from '@/components/explore/DishCard';
@@ -6,19 +7,22 @@ import FilterBar from '@/components/explore/FilterBar';
 import SearchBar from '@/components/explore/SearchBar';
 import SortSheet from '@/components/explore/SortSheet';
 import { ThemedView } from '@/components/themed-view';
-import { Brand } from '@/constants/theme';
 import { SHEET_HEIGHT, SortOption, VegFilter } from '@/src/constants/explore';
 import { getDishName, getDishType } from '@/src/features/dishes/dishesType';
 import { useDishes } from '@/src/hooks/useDishes';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, Animated, FlatList, View } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Animated, FlatList } from 'react-native';
 
 const Explore = () => {
   const { dishes, loading } = useDishes();
   const { currentLanguage, t } = useTranslation();
   const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
+  
+  // Get deep link parameters
+  const params = useLocalSearchParams<{ category?: string; filter?: string }>();
 
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
@@ -52,6 +56,57 @@ const Explore = () => {
 
   const activeFiltersCount =
     (sortBy !== 'none' ? 1 : 0) + (vegFilter !== 'all' ? 1 : 0);
+  
+  // Handle deep link parameters - needs to run after categories are loaded
+  useEffect(() => {
+    if (!dishes.length) return; // Wait for dishes to load
+    
+    if (params.category) {
+      // Map category to veg filter or category
+      const categoryMap: Record<string, { vegFilter?: VegFilter; category?: string }> = {
+        veg: { vegFilter: 'veg' },
+        nonveg: { vegFilter: 'nonveg' },
+        maincourse: { category: 'Main Course' },
+        starters: { category: 'Starter' }, // Singular form
+        fastfood: { category: 'Fast Food' },
+        beverage: { category: 'Beverage' },
+        dessert: { category: 'Dessert' },
+      };
+      
+      const mapping = categoryMap[params.category.toLowerCase()];
+      if (mapping) {
+        if (mapping.vegFilter) setVegFilter(mapping.vegFilter);
+        if (mapping.category) {
+          // Check if the category exists in the categories list
+          const categoryExists = categories.includes(mapping.category);
+          if (categoryExists) {
+            setActiveCategory(mapping.category);
+          } else {
+            // Try to find a similar category (case-insensitive)
+            const similarCategory = categories.find(
+              cat => cat.toLowerCase() === mapping.category?.toLowerCase()
+            );
+            if (similarCategory) {
+              setActiveCategory(similarCategory);
+            }
+          }
+        }
+      }
+    }
+    
+    if (params.filter) {
+      // Map filter to sort option
+      const filterMap: Record<string, SortOption> = {
+        toprated: 'top_rated',
+        newlyadded: 'newest',
+      };
+      
+      const sortOption = filterMap[params.filter.toLowerCase()];
+      if (sortOption) {
+        setSortBy(sortOption);
+      }
+    }
+  }, [params.category, params.filter, dishes.length, categories]);
 
   const filteredDishes = useMemo(() => {
     let result = dishes.filter((d) => {
@@ -71,6 +126,10 @@ const Explore = () => {
       result = [...result].sort((a, b) => b.price - a.price);
     else if (sortBy === 'top_rated')
       result = [...result].sort((a, b) => b.ratings - a.ratings);
+    else if (sortBy === 'newest')
+      result = [...result].sort((a, b) => 
+        new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
+      );
 
     return result;
   }, [dishes, query, activeCategory, vegFilter, sortBy, lang]);
@@ -90,16 +149,26 @@ const Explore = () => {
         onOpenSheet={openSheet}
       />
 
-      <CategoryList
-        categories={categories}
-        activeCategory={activeCategory}
-        onSelect={setActiveCategory}
-      />
+      {loading ? (
+        <CategoryListSkeleton />
+      ) : (
+        <CategoryList
+          categories={categories}
+          activeCategory={activeCategory}
+          onSelect={setActiveCategory}
+        />
+      )}
 
       {loading ? (
-        <View style={styles.centered}>
-          <ActivityIndicator size="large" color={Brand.primary} />
-        </View>
+        <FlatList
+          data={Array(6).fill(0)}
+          keyExtractor={(_, index) => `skeleton-${index}`}
+          numColumns={2}
+          contentContainerStyle={styles.listContent}
+          columnWrapperStyle={styles.columnWrapper}
+          showsVerticalScrollIndicator={false}
+          renderItem={() => <DishCardSkeleton />}
+        />
       ) : filteredDishes.length === 0 ? (
         <EmptyState
           icon="search-outline"

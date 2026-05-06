@@ -32,6 +32,15 @@ const DishDetail = () => {
   const dish = useSelector((state: RootState) =>
     state.dishes.dishes.find((d) => d.id === id),
   );
+  const loading = useSelector((state: RootState) => state.dishes.loading);
+
+  if (loading && !dish) {
+    return (
+      <ThemedView style={styles.container}>
+        <DishDetailSkeleton />
+      </ThemedView>
+    );
+  }
 
   if (!dish) {
     return (
