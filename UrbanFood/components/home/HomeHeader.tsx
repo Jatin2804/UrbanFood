@@ -14,7 +14,9 @@ const HomeHeader = () => {
   const theme = Colors[scheme];
   const router = useRouter();
   const { currentLanguage } = useTranslation();
-  const restaurantInfo = getLocalizedRestaurantInfo(currentLanguage as 'en' | 'hi' | 'te' | 'kn');
+  const restaurantInfo = getLocalizedRestaurantInfo(
+    currentLanguage as 'en' | 'hi' | 'te' | 'kn',
+  );
 
   const handleNotificationPress = () => {
     router.push('/notifications');
@@ -23,12 +25,6 @@ const HomeHeader = () => {
   return (
     <ThemedView variant="surface" style={styles.header}>
       <View style={styles.headerLeft}>
-        <ThemedText
-          type="small"
-          style={{ color: theme.textTertiary, marginBottom: 2 }}
-        >
-          DELIVERY TO
-        </ThemedText>
         <TouchableOpacity style={styles.locationRow} activeOpacity={0.7}>
           <Ionicons name="location" size={16} color={Brand.primary} />
           <ThemedText style={styles.locationText}>
