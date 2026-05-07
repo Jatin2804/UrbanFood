@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 
 import { Brand, Shadows } from '@/constants/theme';
 import {
-    FLOATING_BUTTON_MARGIN,
-    FLOATING_BUTTON_SIZE,
+  FLOATING_BUTTON_MARGIN,
+  FLOATING_BUTTON_SIZE,
 } from '@/src/constants/chatbot';
 
 const WRAPPER_SIZE = FLOATING_BUTTON_SIZE + 20;
@@ -11,7 +11,7 @@ const WRAPPER_SIZE = FLOATING_BUTTON_SIZE + 20;
 export const floatingChatbotButtonStyles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
-    bottom: 100,
+    bottom: 180,
     right: FLOATING_BUTTON_MARGIN,
     width: WRAPPER_SIZE,
     height: WRAPPER_SIZE,

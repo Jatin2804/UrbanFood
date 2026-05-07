@@ -22,26 +22,23 @@ export default function FloatingChatbotButton(
   const router = useRouter();
 
   // Animation values
-  const scale = useSharedValue(1);
   const glowOpacity = useSharedValue(0.12);
+  const rotation = useSharedValue(0);
 
   useEffect(() => {
-    // Gentle pulse animation
-    scale.value = withRepeat(
-      withSequence(
-        withTiming(1.08, { duration: 2000, easing: Easing.inOut(Easing.ease) }),
-        withTiming(1, { duration: 2000, easing: Easing.inOut(Easing.ease) }),
-      ),
-      -1,
-      false,
-    );
-
     // Subtle glow variation
     glowOpacity.value = withRepeat(
       withSequence(
         withTiming(0.18, { duration: 2000, easing: Easing.inOut(Easing.ease) }),
         withTiming(0.08, { duration: 2000, easing: Easing.inOut(Easing.ease) }),
       ),
+      -1,
+      false,
+    );
+
+    // Slow continuous circular rotation (8 seconds per rotation)
+    rotation.value = withRepeat(
+      withTiming(360, { duration: 8000, easing: Easing.linear }),
       -1,
       false,
     );
@@ -54,7 +51,7 @@ export default function FloatingChatbotButton(
   // Animated styles
   const animatedButtonStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
+      transform: [{ rotate: `${rotation.value}deg` }],
     };
   });
 
