@@ -16,8 +16,16 @@ export const DishDetailSkeleton: React.FC = () => {
           {/* Dish Info */}
           <View style={styles.section}>
             <SkeletonLoader width="70%" height={24} />
-            <SkeletonLoader width="40%" height={16} style={{ marginTop: Spacing.xs }} />
-            <SkeletonLoader width={80} height={28} style={{ marginTop: Spacing.sm }} />
+            <SkeletonLoader
+              width="40%"
+              height={16}
+              style={{ marginTop: Spacing.xs }}
+            />
+            <SkeletonLoader
+              width={80}
+              height={28}
+              style={{ marginTop: Spacing.sm }}
+            />
           </View>
 
           {/* Stats Row */}
@@ -33,13 +41,24 @@ export const DishDetailSkeleton: React.FC = () => {
             {Array(3)
               .fill(0)
               .map((_, index) => (
-                <View key={`review-skeleton-${index}`} style={styles.reviewItem}>
+                <View
+                  key={`review-skeleton-${index}`}
+                  style={styles.reviewItem}
+                >
                   <View style={styles.reviewHeader}>
                     <SkeletonLoader width={100} height={16} />
                     <SkeletonLoader width={60} height={16} />
                   </View>
-                  <SkeletonLoader width="100%" height={14} style={{ marginTop: Spacing.xs }} />
-                  <SkeletonLoader width="80%" height={14} style={{ marginTop: 4 }} />
+                  <SkeletonLoader
+                    width="100%"
+                    height={14}
+                    style={{ marginTop: Spacing.xs }}
+                  />
+                  <SkeletonLoader
+                    width="80%"
+                    height={14}
+                    style={{ marginTop: 4 }}
+                  />
                 </View>
               ))}
           </View>

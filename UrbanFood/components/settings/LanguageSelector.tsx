@@ -5,8 +5,8 @@ import { ThemedView } from '@/components/themed-view';
 import { SUPPORTED_LANGUAGES } from '@/src/constants/languages';
 import { ROUTES } from '@/src/constants/navigation';
 import {
-    selectCurrentLanguage,
-    selectLanguageLoading,
+  selectCurrentLanguage,
+  selectLanguageLoading,
 } from '@/src/features/language/languageSlice';
 import { changeLanguage } from '@/src/features/language/languageThunks';
 import { useTranslation } from '@/src/hooks/useTranslation';
@@ -14,13 +14,13 @@ import { languageSelectorStyles } from '@/styles/components/languageSelectorStyl
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    Modal,
-    Pressable,
-    ScrollView,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 

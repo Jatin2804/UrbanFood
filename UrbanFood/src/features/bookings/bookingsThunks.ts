@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NOTIFICATION_TEMPLATES } from '../../constants/notifications';
 import { TABLES } from '../../data/tables';
 import {
-    createBookingAPI,
-    fetchBookingsAPI,
-    getBookingsMeta,
-    updateBookingsAPI,
+  createBookingAPI,
+  fetchBookingsAPI,
+  getBookingsMeta,
+  updateBookingsAPI,
 } from '../../services/apiService';
 import { showNotification } from '../../utils/notifications';
 import { saveNotification } from '../../utils/notificationStorage';

@@ -87,9 +87,11 @@ export const SCREEN_NAMES = {
 /**
  * Type for all valid route paths
  */
-export type RoutePath = typeof ROUTES[keyof typeof ROUTES] | ReturnType<typeof ROUTES.DISH_DETAILS>;
+export type RoutePath =
+  | (typeof ROUTES)[keyof typeof ROUTES]
+  | ReturnType<typeof ROUTES.DISH_DETAILS>;
 
 /**
  * Type for all valid screen names
  */
-export type ScreenName = typeof SCREEN_NAMES[keyof typeof SCREEN_NAMES];
+export type ScreenName = (typeof SCREEN_NAMES)[keyof typeof SCREEN_NAMES];

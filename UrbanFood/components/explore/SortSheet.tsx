@@ -1,22 +1,22 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import {
-    SHEET_HEIGHT,
-    SORT_OPTIONS,
-    SortOption,
+  SHEET_HEIGHT,
+  SORT_OPTIONS,
+  SortOption,
 } from '@/src/constants/explore';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useRef } from 'react';
 import {
-    Animated,
-    Modal,
-    PanResponder,
-    Pressable,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Animated,
+  Modal,
+  PanResponder,
+  Pressable,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 
 interface SortSheetProps {

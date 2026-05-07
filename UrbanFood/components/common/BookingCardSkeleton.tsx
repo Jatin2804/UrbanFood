@@ -11,8 +11,16 @@ export const BookingCardSkeleton: React.FC = () => {
         <SkeletonLoader width={100} height={16} />
         <SkeletonLoader width={80} height={24} borderRadius={12} />
       </View>
-      <SkeletonLoader width="60%" height={14} style={{ marginTop: Spacing.sm }} />
-      <SkeletonLoader width="50%" height={14} style={{ marginTop: Spacing.xs }} />
+      <SkeletonLoader
+        width="60%"
+        height={14}
+        style={{ marginTop: Spacing.sm }}
+      />
+      <SkeletonLoader
+        width="50%"
+        height={14}
+        style={{ marginTop: Spacing.xs }}
+      />
       <View style={styles.footer}>
         <SkeletonLoader width={100} height={36} borderRadius={18} />
       </View>

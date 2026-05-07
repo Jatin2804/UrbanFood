@@ -16,12 +16,7 @@ import { RootState } from '@/src/store/rootReducer';
 import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-    Alert,
-    Animated,
-    ScrollView,
-    useColorScheme,
-} from 'react-native';
+import { Alert, Animated, ScrollView, useColorScheme } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const SHEET_HEIGHT = 500;

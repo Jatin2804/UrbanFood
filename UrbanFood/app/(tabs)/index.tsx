@@ -106,37 +106,125 @@ const Home = () => {
             <>
               {/* Skeleton for New Arrivals */}
               <View style={{ marginBottom: Spacing.lg }}>
-                <View style={{ paddingHorizontal: Spacing.md, marginBottom: Spacing.sm }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm }}>
-                    <View style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: Brand.primaryFaded }} />
+                <View
+                  style={{
+                    paddingHorizontal: Spacing.md,
+                    marginBottom: Spacing.sm,
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: Spacing.sm,
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 8,
+                        backgroundColor: Brand.primaryFaded,
+                      }}
+                    />
                     <View>
-                      <View style={{ width: 120, height: 16, borderRadius: 4, backgroundColor: Brand.primaryFaded }} />
-                      <View style={{ width: 180, height: 12, borderRadius: 4, backgroundColor: Brand.primaryFaded, marginTop: 4 }} />
+                      <View
+                        style={{
+                          width: 120,
+                          height: 16,
+                          borderRadius: 4,
+                          backgroundColor: Brand.primaryFaded,
+                        }}
+                      />
+                      <View
+                        style={{
+                          width: 180,
+                          height: 12,
+                          borderRadius: 4,
+                          backgroundColor: Brand.primaryFaded,
+                          marginTop: 4,
+                        }}
+                      />
                     </View>
                   </View>
                 </View>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: Spacing.md, gap: Spacing.sm }}>
-                  {Array(3).fill(0).map((_, index) => (
-                    <HorizontalDishCardSkeleton key={`new-skeleton-${index}`} />
-                  ))}
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{
+                    paddingHorizontal: Spacing.md,
+                    gap: Spacing.sm,
+                  }}
+                >
+                  {Array(3)
+                    .fill(0)
+                    .map((_, index) => (
+                      <HorizontalDishCardSkeleton
+                        key={`new-skeleton-${index}`}
+                      />
+                    ))}
                 </ScrollView>
               </View>
 
               {/* Skeleton for Top Rated */}
               <View style={{ marginBottom: Spacing.lg }}>
-                <View style={{ paddingHorizontal: Spacing.md, marginBottom: Spacing.sm }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm }}>
-                    <View style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: '#FFF8E7' }} />
+                <View
+                  style={{
+                    paddingHorizontal: Spacing.md,
+                    marginBottom: Spacing.sm,
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: Spacing.sm,
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 8,
+                        backgroundColor: '#FFF8E7',
+                      }}
+                    />
                     <View>
-                      <View style={{ width: 100, height: 16, borderRadius: 4, backgroundColor: '#FFF8E7' }} />
-                      <View style={{ width: 160, height: 12, borderRadius: 4, backgroundColor: '#FFF8E7', marginTop: 4 }} />
+                      <View
+                        style={{
+                          width: 100,
+                          height: 16,
+                          borderRadius: 4,
+                          backgroundColor: '#FFF8E7',
+                        }}
+                      />
+                      <View
+                        style={{
+                          width: 160,
+                          height: 12,
+                          borderRadius: 4,
+                          backgroundColor: '#FFF8E7',
+                          marginTop: 4,
+                        }}
+                      />
                     </View>
                   </View>
                 </View>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: Spacing.md, gap: Spacing.sm }}>
-                  {Array(3).fill(0).map((_, index) => (
-                    <HorizontalDishCardSkeleton key={`top-skeleton-${index}`} />
-                  ))}
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{
+                    paddingHorizontal: Spacing.md,
+                    gap: Spacing.sm,
+                  }}
+                >
+                  {Array(3)
+                    .fill(0)
+                    .map((_, index) => (
+                      <HorizontalDishCardSkeleton
+                        key={`top-skeleton-${index}`}
+                      />
+                    ))}
                 </ScrollView>
               </View>
             </>

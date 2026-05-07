@@ -51,11 +51,7 @@ export default function Offers() {
                   { backgroundColor: Brand.primaryFaded },
                 ]}
               >
-                <Ionicons
-                  name="pricetag"
-                  size={24}
-                  color={Brand.primary}
-                />
+                <Ionicons name="pricetag" size={24} color={Brand.primary} />
               </View>
               <View style={offersStyles.offerHeaderText}>
                 <ThemedText style={offersStyles.offerTitle}>
@@ -98,13 +94,10 @@ export default function Offers() {
 
         {/* Info Section */}
         <View style={offersStyles.infoSection}>
-          <Ionicons
-            name="information-circle"
-            size={20}
-            color={Brand.primary}
-          />
+          <Ionicons name="information-circle" size={20} color={Brand.primary} />
           <ThemedText style={offersStyles.infoText}>
-            Apply these offers at checkout to get amazing discounts on your orders!
+            Apply these offers at checkout to get amazing discounts on your
+            orders!
           </ThemedText>
         </View>
       </ScrollView>

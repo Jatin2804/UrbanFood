@@ -3,8 +3,8 @@
 import { useSelector } from 'react-redux';
 import { defaultTranslations } from '../data/translations';
 import {
-    selectCurrentLanguage,
-    selectTranslations,
+  selectCurrentLanguage,
+  selectTranslations,
 } from '../features/language/languageSlice';
 
 export function useTranslation() {

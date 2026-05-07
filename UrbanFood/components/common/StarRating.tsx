@@ -10,7 +10,8 @@ type StarRatingProps = {
   max?: number;
 };
 
-const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
+const clamp = (n: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, n));
 
 const StarRating = ({
   rating,
@@ -19,7 +20,10 @@ const StarRating = ({
   emptyColor = 'rgba(0,0,0,0.18)',
   max = 5,
 }: StarRatingProps) => {
-  const filled = useMemo(() => clamp(Math.round(rating), 0, max), [rating, max]);
+  const filled = useMemo(
+    () => clamp(Math.round(rating), 0, max),
+    [rating, max],
+  );
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
@@ -36,4 +40,3 @@ const StarRating = ({
 };
 
 export default memo(StarRating);
-

@@ -6,7 +6,12 @@ import {
   selectCurrentUser,
   selectIsLoggedIn,
 } from '../features/auth/authSlice';
-import { loginUser, logoutUser, signupUser, toggleFavoriteDish } from '../features/auth/authThunks';
+import {
+  loginUser,
+  logoutUser,
+  signupUser,
+  toggleFavoriteDish,
+} from '../features/auth/authThunks';
 import { AppDispatch } from '../store';
 
 // Auth state selector hook  no side effects.

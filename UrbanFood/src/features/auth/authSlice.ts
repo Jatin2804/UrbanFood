@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-    checkAuthStatus,
-    loginUser,
-    logoutUser,
-    signupUser,
-    toggleFavoriteDish,
-    updateBiometricSetting,
+  checkAuthStatus,
+  loginUser,
+  logoutUser,
+  signupUser,
+  toggleFavoriteDish,
+  updateBiometricSetting,
 } from './authThunks';
 import { AuthState } from './authTypes';
 

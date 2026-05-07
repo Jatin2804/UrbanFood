@@ -2,12 +2,12 @@ import DeliveryStatusCard from '@/components/delivery/DeliveryStatusCard';
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import {
-    DELIVERY_DURATION_MS,
-    DELIVERY_PARTNER,
-    DeliveryStatus,
-    INITIAL_ETA_MINUTES,
-    RESTAURANT_COORDS,
-    STEP_INTERVAL_MS,
+  DELIVERY_DURATION_MS,
+  DELIVERY_PARTNER,
+  DeliveryStatus,
+  INITIAL_ETA_MINUTES,
+  RESTAURANT_COORDS,
+  STEP_INTERVAL_MS,
 } from '@/src/constants/delivery';
 import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
@@ -18,11 +18,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, {
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 import { Animated, TouchableOpacity, useColorScheme, View } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';

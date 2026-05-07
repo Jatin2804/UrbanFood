@@ -2,26 +2,26 @@ import { Brand, Colors } from '@/constants/theme';
 import { ROUTES } from '@/src/constants/navigation';
 import { OFFER_ITEMS, OfferItem } from '@/src/data/homeContent';
 import {
-    OFFER_SNAP_INTERVAL,
-    offerCarouselStyles as styles,
+  OFFER_SNAP_INTERVAL,
+  offerCarouselStyles as styles,
 } from '@/styles/components/offerCarouselStyles';
 import { router } from 'expo-router';
 import React, {
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 import {
-    Dimensions,
-    FlatList,
-    Image,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Dimensions,
+  FlatList,
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');

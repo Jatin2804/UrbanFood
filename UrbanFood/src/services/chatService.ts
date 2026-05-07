@@ -6,7 +6,10 @@ const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY;
 
 // Compress context and return filtered dishes
-const buildCompressedContext = (message: string, menuData: Dish[]): { context: string; filteredDishes: Dish[] } => {
+const buildCompressedContext = (
+  message: string,
+  menuData: Dish[],
+): { context: string; filteredDishes: Dish[] } => {
   const msg = message.toLowerCase();
   let filtered: Dish[] = [];
 
@@ -167,8 +170,10 @@ const isRecommendationQuery = (message: string): boolean => {
     'latest',
     'special',
   ];
-  
-  const isRecommendation = recommendKeywords.some((keyword) => msg.includes(keyword));
+
+  const isRecommendation = recommendKeywords.some((keyword) =>
+    msg.includes(keyword),
+  );
   return isRecommendation;
 };
 
@@ -186,7 +191,10 @@ export const sendMessageToGrok = async ({
   recentBookings: Booking[];
 }): Promise<ChatResponse> => {
   try {
-    const { context, filteredDishes } = buildCompressedContext(message, menuData);
+    const { context, filteredDishes } = buildCompressedContext(
+      message,
+      menuData,
+    );
 
     const messages = [
       {
@@ -221,13 +229,14 @@ export const sendMessageToGrok = async ({
         dishIds: [],
       };
     }
-    
-    const rawMessage = data?.choices?.[0]?.message?.content || 'Something went wrong';
-    
+
+    const rawMessage =
+      data?.choices?.[0]?.message?.content || 'Something went wrong';
+
     // If this is a recommendation query, return the filtered dish IDs
     let dishIds: string[] = [];
     const isRecommendation = isRecommendationQuery(message);
-    
+
     if (isRecommendation) {
       // Return up to 5 dishes from the filtered list
       dishIds = filteredDishes.slice(0, 5).map((dish) => dish.id);
@@ -238,12 +247,12 @@ export const sendMessageToGrok = async ({
         const dishName = dish.name.en.toLowerCase();
         return rawMessage.toLowerCase().includes(dishName);
       });
-      
+
       if (mentionedDishes.length > 0) {
         dishIds = mentionedDishes.slice(0, 5).map((dish) => dish.id);
       }
     }
-    
+
     return {
       message: rawMessage,
       dishIds,

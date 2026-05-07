@@ -34,13 +34,19 @@ export interface DishesState {
 /**
  * Get localized dish name
  */
-export const getDishName = (dish: Dish, lang: 'en' | 'hi' | 'te' | 'kn' = 'en'): string => {
+export const getDishName = (
+  dish: Dish,
+  lang: 'en' | 'hi' | 'te' | 'kn' = 'en',
+): string => {
   return dish.name[lang];
 };
 
 /**
  * Get localized dish type
  */
-export const getDishType = (dish: Dish, lang: 'en' | 'hi' | 'te' | 'kn' = 'en'): string => {
+export const getDishType = (
+  dish: Dish,
+  lang: 'en' | 'hi' | 'te' | 'kn' = 'en',
+): string => {
   return dish.type[lang];
 };

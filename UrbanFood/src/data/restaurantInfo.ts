@@ -123,7 +123,9 @@ const restaurantInfo: RestaurantInfo = {
  * @param lang - Language code (en, hi, te, kn)
  * @returns Restaurant info with text in the specified language
  */
-export const getLocalizedRestaurantInfo = (lang: 'en' | 'hi' | 'te' | 'kn' = 'en') => {
+export const getLocalizedRestaurantInfo = (
+  lang: 'en' | 'hi' | 'te' | 'kn' = 'en',
+) => {
   return {
     ...restaurantInfo,
     name: restaurantInfo.name[lang],
@@ -132,7 +134,7 @@ export const getLocalizedRestaurantInfo = (lang: 'en' | 'hi' | 'te' | 'kn' = 'en
     location: restaurantInfo.location[lang],
     address: restaurantInfo.address[lang],
     deliveryTime: restaurantInfo.deliveryTime[lang],
-    tags: restaurantInfo.tags.map(tag => tag[lang]),
+    tags: restaurantInfo.tags.map((tag) => tag[lang]),
   };
 };
 

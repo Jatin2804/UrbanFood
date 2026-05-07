@@ -13,14 +13,20 @@ import { useDishes } from '@/src/hooks/useDishes';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import { useLocalSearchParams } from 'expo-router';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Animated, FlatList } from 'react-native';
 
 const Explore = () => {
   const { dishes, loading } = useDishes();
   const { currentLanguage, t } = useTranslation();
   const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
-  
+
   // Get deep link parameters
   const params = useLocalSearchParams<{ category?: string; filter?: string }>();
 
@@ -56,14 +62,17 @@ const Explore = () => {
 
   const activeFiltersCount =
     (sortBy !== 'none' ? 1 : 0) + (vegFilter !== 'all' ? 1 : 0);
-  
+
   // Handle deep link parameters - needs to run after categories are loaded
   useEffect(() => {
     if (!dishes.length) return; // Wait for dishes to load
-    
+
     if (params.category) {
       // Map category to veg filter or category
-      const categoryMap: Record<string, { vegFilter?: VegFilter; category?: string }> = {
+      const categoryMap: Record<
+        string,
+        { vegFilter?: VegFilter; category?: string }
+      > = {
         veg: { vegFilter: 'veg' },
         nonveg: { vegFilter: 'nonveg' },
         maincourse: { category: 'Main Course' },
@@ -72,7 +81,7 @@ const Explore = () => {
         beverage: { category: 'Beverage' },
         dessert: { category: 'Dessert' },
       };
-      
+
       const mapping = categoryMap[params.category.toLowerCase()];
       if (mapping) {
         if (mapping.vegFilter) setVegFilter(mapping.vegFilter);
@@ -84,7 +93,7 @@ const Explore = () => {
           } else {
             // Try to find a similar category (case-insensitive)
             const similarCategory = categories.find(
-              cat => cat.toLowerCase() === mapping.category?.toLowerCase()
+              (cat) => cat.toLowerCase() === mapping.category?.toLowerCase(),
             );
             if (similarCategory) {
               setActiveCategory(similarCategory);
@@ -93,14 +102,14 @@ const Explore = () => {
         }
       }
     }
-    
+
     if (params.filter) {
       // Map filter to sort option
       const filterMap: Record<string, SortOption> = {
         toprated: 'top_rated',
         newlyadded: 'newest',
       };
-      
+
       const sortOption = filterMap[params.filter.toLowerCase()];
       if (sortOption) {
         setSortBy(sortOption);
@@ -127,8 +136,9 @@ const Explore = () => {
     else if (sortBy === 'top_rated')
       result = [...result].sort((a, b) => b.ratings - a.ratings);
     else if (sortBy === 'newest')
-      result = [...result].sort((a, b) => 
-        new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime()
+      result = [...result].sort(
+        (a, b) =>
+          new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime(),
       );
 
     return result;

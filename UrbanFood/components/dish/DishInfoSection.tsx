@@ -16,7 +16,10 @@ const DishInfoSection = ({ name, type, price }: DishInfoSectionProps) => {
 
   return (
     <View style={styles.titleSection}>
-      <ThemedText type="title" style={[styles.dishName, { textAlign: 'center' }]}>
+      <ThemedText
+        type="title"
+        style={[styles.dishName, { textAlign: 'center' }]}
+      >
         {name}
       </ThemedText>
 

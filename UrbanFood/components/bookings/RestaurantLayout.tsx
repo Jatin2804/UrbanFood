@@ -3,7 +3,13 @@ import { Table } from '@/src/types';
 import { restaurantLayoutStyles as styles } from '@/styles/components/restaurantLayoutStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 interface RestaurantLayoutProps {
   tables: Table[];
@@ -49,7 +55,11 @@ export default function RestaurantLayout({
             style={[
               styles.tableNumber,
               {
-                color: isSelected ? '#FFFFFF' : isBooked ? '#999' : theme.textPrimary,
+                color: isSelected
+                  ? '#FFFFFF'
+                  : isBooked
+                    ? '#999'
+                    : theme.textPrimary,
               },
             ]}
           >
@@ -64,7 +74,11 @@ export default function RestaurantLayout({
   };
 
   // Render seats based on capacity
-  const renderSeats = (capacity: number, isBooked: boolean, isSelected: boolean) => {
+  const renderSeats = (
+    capacity: number,
+    isBooked: boolean,
+    isSelected: boolean,
+  ) => {
     const seatStyle = [
       styles.seat,
       isBooked && styles.seatBooked,
@@ -107,7 +121,7 @@ export default function RestaurantLayout({
   const balconyTables = tables.slice(15, 20); // Tables 16-20
 
   return (
-    <ScrollView 
+    <ScrollView
       style={styles.scrollContainer}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 20 }}
@@ -117,7 +131,12 @@ export default function RestaurantLayout({
         <View style={[styles.headerArea, { borderBottomColor: theme.border }]}>
           <View style={styles.entranceLabel}>
             <Ionicons name="enter-outline" size={22} color={Brand.primary} />
-            <Text style={[styles.areaText, { color: theme.textPrimary, fontWeight: '700', fontSize: 13 }]}>
+            <Text
+              style={[
+                styles.areaText,
+                { color: theme.textPrimary, fontWeight: '700', fontSize: 13 },
+              ]}
+            >
               Main Entrance
             </Text>
           </View>
@@ -127,13 +146,43 @@ export default function RestaurantLayout({
         <View style={styles.mainArea}>
           {/* Left Section - Kitchen & Staff */}
           <View style={styles.leftSection}>
-            <View style={[styles.kitchenArea, { backgroundColor: theme.surfaceSecondary, borderColor: theme.border }]}>
+            <View
+              style={[
+                styles.kitchenArea,
+                {
+                  backgroundColor: theme.surfaceSecondary,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
               <Ionicons name="restaurant" size={26} color={Brand.primary} />
-              <Text style={[styles.areaText, { color: theme.textPrimary, fontWeight: '700' }]}>Kitchen</Text>
+              <Text
+                style={[
+                  styles.areaText,
+                  { color: theme.textPrimary, fontWeight: '700' },
+                ]}
+              >
+                Kitchen
+              </Text>
             </View>
-            <View style={[styles.staffArea, { backgroundColor: theme.surfaceSecondary, borderColor: theme.border }]}>
+            <View
+              style={[
+                styles.staffArea,
+                {
+                  backgroundColor: theme.surfaceSecondary,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
               <Ionicons name="people" size={22} color={Brand.primary} />
-              <Text style={[styles.areaText, { color: theme.textPrimary, fontWeight: '600' }]}>Staff</Text>
+              <Text
+                style={[
+                  styles.areaText,
+                  { color: theme.textPrimary, fontWeight: '600' },
+                ]}
+              >
+                Staff
+              </Text>
             </View>
           </View>
 
@@ -141,80 +190,156 @@ export default function RestaurantLayout({
           <View style={styles.diningArea}>
             {/* Row 1 - Top tables (4 tables) */}
             <View style={styles.tableRow}>
-              {groundFloorTables.slice(0, 4).map((table) => 
-                renderTable(table, { marginHorizontal: 6 })
-              )}
+              {groundFloorTables
+                .slice(0, 4)
+                .map((table) => renderTable(table, { marginHorizontal: 6 }))}
             </View>
 
             {/* Row 2 - Second row (4 tables) */}
             <View style={styles.tableRow}>
-              {groundFloorTables.slice(4, 8).map((table) => 
-                renderTable(table, { marginHorizontal: 6 })
-              )}
+              {groundFloorTables
+                .slice(4, 8)
+                .map((table) => renderTable(table, { marginHorizontal: 6 }))}
             </View>
 
             {/* Stage/DJ Area */}
-            <View style={[styles.stageArea, { backgroundColor: theme.surfaceSecondary, borderColor: Brand.primary }]}>
+            <View
+              style={[
+                styles.stageArea,
+                {
+                  backgroundColor: theme.surfaceSecondary,
+                  borderColor: Brand.primary,
+                },
+              ]}
+            >
               <Ionicons name="musical-notes" size={28} color={Brand.primary} />
-              <Text style={[styles.stageText, { color: theme.textPrimary }]}>Stage / DJ Area</Text>
+              <Text style={[styles.stageText, { color: theme.textPrimary }]}>
+                Stage / DJ Area
+              </Text>
             </View>
 
             {/* Row 3 - Third row (4 tables) */}
             <View style={styles.tableRow}>
-              {groundFloorTables.slice(8, 12).map((table) => 
-                renderTable(table, { marginHorizontal: 6 })
-              )}
+              {groundFloorTables
+                .slice(8, 12)
+                .map((table) => renderTable(table, { marginHorizontal: 6 }))}
             </View>
 
             {/* Row 4 - Bottom row (3 tables) */}
             <View style={styles.tableRow}>
-              {groundFloorTables.slice(12, 15).map((table) => 
-                renderTable(table, { marginHorizontal: 6 })
-              )}
+              {groundFloorTables
+                .slice(12, 15)
+                .map((table) => renderTable(table, { marginHorizontal: 6 }))}
             </View>
           </View>
 
           {/* Right Section - Restrooms */}
           <View style={styles.rightSection}>
-            <View style={[styles.restroomArea, { backgroundColor: theme.surfaceSecondary, borderColor: theme.border }]}>
+            <View
+              style={[
+                styles.restroomArea,
+                {
+                  backgroundColor: theme.surfaceSecondary,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
               <Ionicons name="man" size={22} color={Brand.primary} />
-              <Text style={[styles.areaText, { color: theme.textPrimary, fontWeight: '600' }]}>Men</Text>
+              <Text
+                style={[
+                  styles.areaText,
+                  { color: theme.textPrimary, fontWeight: '600' },
+                ]}
+              >
+                Men
+              </Text>
             </View>
-            <View style={[styles.restroomArea, { backgroundColor: theme.surfaceSecondary, borderColor: theme.border }]}>
+            <View
+              style={[
+                styles.restroomArea,
+                {
+                  backgroundColor: theme.surfaceSecondary,
+                  borderColor: theme.border,
+                },
+              ]}
+            >
               <Ionicons name="woman" size={22} color={Brand.primary} />
-              <Text style={[styles.areaText, { color: theme.textPrimary, fontWeight: '600' }]}>Women</Text>
+              <Text
+                style={[
+                  styles.areaText,
+                  { color: theme.textPrimary, fontWeight: '600' },
+                ]}
+              >
+                Women
+              </Text>
             </View>
           </View>
         </View>
 
         {/* Balcony Section */}
-        <View style={[styles.balconySection, { borderTopColor: theme.border, backgroundColor: theme.surfaceSecondary }]}>
+        <View
+          style={[
+            styles.balconySection,
+            {
+              borderTopColor: theme.border,
+              backgroundColor: theme.surfaceSecondary,
+            },
+          ]}
+        >
           <View style={styles.balconyHeader}>
             <Ionicons name="home-outline" size={24} color={Brand.primary} />
-            <Text style={[styles.balconyTitle, { color: theme.textPrimary }]}>Balcony Area</Text>
-            <Ionicons name="partly-sunny-outline" size={20} color={Brand.primary} />
+            <Text style={[styles.balconyTitle, { color: theme.textPrimary }]}>
+              Balcony Area
+            </Text>
+            <Ionicons
+              name="partly-sunny-outline"
+              size={20}
+              color={Brand.primary}
+            />
           </View>
-          
+
           <View style={styles.balconyTables}>
-            {balconyTables.map((table) => 
-              renderTable(table, { marginHorizontal: 10 })
+            {balconyTables.map((table) =>
+              renderTable(table, { marginHorizontal: 10 }),
             )}
           </View>
         </View>
 
         {/* Legend */}
-        <View style={[styles.legend, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <View
+          style={[
+            styles.legend,
+            { backgroundColor: theme.surface, borderColor: theme.border },
+          ]}
+        >
           <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: '#FFFFFF', borderColor: Brand.primary, borderWidth: 2 }]} />
-            <Text style={[styles.legendText, { color: theme.textSecondary }]}>Available</Text>
+            <View
+              style={[
+                styles.legendDot,
+                {
+                  backgroundColor: '#FFFFFF',
+                  borderColor: Brand.primary,
+                  borderWidth: 2,
+                },
+              ]}
+            />
+            <Text style={[styles.legendText, { color: theme.textSecondary }]}>
+              Available
+            </Text>
           </View>
           <View style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: Brand.primary }]} />
-            <Text style={[styles.legendText, { color: theme.textSecondary }]}>Selected</Text>
+            <View
+              style={[styles.legendDot, { backgroundColor: Brand.primary }]}
+            />
+            <Text style={[styles.legendText, { color: theme.textSecondary }]}>
+              Selected
+            </Text>
           </View>
           <View style={styles.legendItem}>
             <View style={[styles.legendDot, { backgroundColor: '#BDBDBD' }]} />
-            <Text style={[styles.legendText, { color: theme.textSecondary }]}>Booked</Text>
+            <Text style={[styles.legendText, { color: theme.textSecondary }]}>
+              Booked
+            </Text>
           </View>
         </View>
       </View>

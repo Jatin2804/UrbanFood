@@ -5,14 +5,24 @@ import { Brand, Colors } from '@/constants/theme';
 import { DeepLinks } from '@/src/config/linking';
 import { FALLBACK_DISH_IMG } from '@/src/constants/explore';
 import { ROUTES } from '@/src/constants/navigation';
-import { Dish, getDishName, getDishType } from '@/src/features/dishes/dishesType';
+import {
+  Dish,
+  getDishName,
+  getDishType,
+} from '@/src/features/dishes/dishesType';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { dishCardStyles as styles } from '@/styles/components/dishCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Share, TouchableOpacity, useColorScheme, View } from 'react-native';
+import {
+  Image,
+  Share,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 interface DishCardProps {
   dish: Dish;

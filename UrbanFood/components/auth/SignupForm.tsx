@@ -8,12 +8,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    ScrollView,
-    TextInput,
-    TouchableOpacity,
-    useColorScheme,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
 } from 'react-native';
 
 const SignupForm = () => {

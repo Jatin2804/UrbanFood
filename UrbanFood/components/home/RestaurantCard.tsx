@@ -5,8 +5,8 @@ import { getLocalizedRestaurantInfo } from '@/src/data/restaurantInfo';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { StatItemProps } from '@/src/types/components';
 import {
-    statItemStyles,
-    restaurantCardStyles as styles,
+  statItemStyles,
+  restaurantCardStyles as styles,
 } from '@/styles/components/restaurantCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
@@ -43,7 +43,9 @@ const RestaurantCard = () => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const { currentLanguage, t } = useTranslation();
-  const r = getLocalizedRestaurantInfo(currentLanguage as 'en' | 'hi' | 'te' | 'kn');
+  const r = getLocalizedRestaurantInfo(
+    currentLanguage as 'en' | 'hi' | 'te' | 'kn',
+  );
 
   return (
     <ThemedView variant="surface" style={styles.card}>
@@ -74,7 +76,9 @@ const RestaurantCard = () => {
                 lightColor={r.isOpen ? Brand.success : Brand.error}
                 darkColor={r.isOpen ? Brand.success : Brand.error}
               >
-                {r.isOpen ? t('restaurantCard.open') : t('restaurantCard.closed')}
+                {r.isOpen
+                  ? t('restaurantCard.open')
+                  : t('restaurantCard.closed')}
               </ThemedText>
             </View>
           </View>

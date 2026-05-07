@@ -10,7 +10,11 @@ export const CartRowSkeleton: React.FC = () => {
       <SkeletonLoader width={80} height={80} borderRadius={12} />
       <View style={styles.content}>
         <SkeletonLoader width="70%" height={16} />
-        <SkeletonLoader width="40%" height={14} style={{ marginTop: Spacing.xs }} />
+        <SkeletonLoader
+          width="40%"
+          height={14}
+          style={{ marginTop: Spacing.xs }}
+        />
         <View style={styles.footer}>
           <SkeletonLoader width={60} height={18} />
           <SkeletonLoader width={80} height={32} borderRadius={8} />

@@ -2,12 +2,12 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import Animated, {
-    Easing,
-    FadeIn,
-    useAnimatedStyle,
-    useSharedValue,
-    withSequence,
-    withTiming
+  Easing,
+  FadeIn,
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withTiming,
 } from 'react-native-reanimated';
 
 import { ThemedText } from '@/components/themed-text';
@@ -23,7 +23,7 @@ export default function ChatbotSplash() {
     // Animate image entrance
     scale.value = withSequence(
       withTiming(1.1, { duration: 400, easing: Easing.out(Easing.cubic) }),
-      withTiming(1, { duration: 200, easing: Easing.inOut(Easing.ease) })
+      withTiming(1, { duration: 200, easing: Easing.inOut(Easing.ease) }),
     );
 
     // Navigate to chat screen after 2 seconds

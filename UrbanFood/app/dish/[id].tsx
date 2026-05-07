@@ -17,11 +17,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
-    ScrollView,
-    Share,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  ScrollView,
+  Share,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -139,7 +139,11 @@ const DishDetail = () => {
         </View>
       </ScrollView>
 
-      <DishBottomBar dishId={dish.id} dishName={getDishName(dish, lang)} price={dish.price} />
+      <DishBottomBar
+        dishId={dish.id}
+        dishName={getDishName(dish, lang)}
+        price={dish.price}
+      />
     </ThemedView>
   );
 };

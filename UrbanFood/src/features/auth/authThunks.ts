@@ -164,37 +164,44 @@ export const toggleFavoriteDish = createAsyncThunk<
   User,
   { dishId: string },
   { rejectValue: string; state: any }
->('auth/toggleFavoriteDish', async ({ dishId }, { rejectWithValue, getState }) => {
-  try {
-    const state = getState();
-    const currentUser: User | null = state.auth.user;
-
-    if (!currentUser) return rejectWithValue('No user logged in');
-
-    const favorites = new Set((currentUser.favoriteDishes ?? []).filter(Boolean));
-    if (favorites.has(dishId)) favorites.delete(dishId);
-    else favorites.add(dishId);
-
-    const updatedUser: User = {
-      ...currentUser,
-      favoriteDishes: Array.from(favorites),
-    };
-
-    await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
-
+>(
+  'auth/toggleFavoriteDish',
+  async ({ dishId }, { rejectWithValue, getState }) => {
     try {
-      const users = await fetchUsersAPI();
-      const updatedUsers = users.map((u) =>
-        u.id === updatedUser.id ? { ...u, favoriteDishes: updatedUser.favoriteDishes } : u,
-      );
-      const meta = await getUsersMeta();
-      await updateUsersAPI(updatedUsers, meta.sha);
-    } catch {
-      // Best-effort remote update
-    }
+      const state = getState();
+      const currentUser: User | null = state.auth.user;
 
-    return updatedUser;
-  } catch (error: any) {
-    return rejectWithValue(error?.message || 'Failed to update favourites');
-  }
-});
+      if (!currentUser) return rejectWithValue('No user logged in');
+
+      const favorites = new Set(
+        (currentUser.favoriteDishes ?? []).filter(Boolean),
+      );
+      if (favorites.has(dishId)) favorites.delete(dishId);
+      else favorites.add(dishId);
+
+      const updatedUser: User = {
+        ...currentUser,
+        favoriteDishes: Array.from(favorites),
+      };
+
+      await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+
+      try {
+        const users = await fetchUsersAPI();
+        const updatedUsers = users.map((u) =>
+          u.id === updatedUser.id
+            ? { ...u, favoriteDishes: updatedUser.favoriteDishes }
+            : u,
+        );
+        const meta = await getUsersMeta();
+        await updateUsersAPI(updatedUsers, meta.sha);
+      } catch {
+        // Best-effort remote update
+      }
+
+      return updatedUser;
+    } catch (error: any) {
+      return rejectWithValue(error?.message || 'Failed to update favourites');
+    }
+  },
+);

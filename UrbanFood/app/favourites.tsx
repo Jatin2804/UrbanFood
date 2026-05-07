@@ -13,7 +13,13 @@ import { favouritesStyles as styles } from '@/styles/screens/favouritesStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
-import { FlatList, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
+import {
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Favourites = () => {
@@ -35,7 +41,7 @@ const Favourites = () => {
 
     // Get dishes that are in user's favorites
     const favDishes = dishes.filter((dish) =>
-      user.favoriteDishes.includes(dish.id)
+      user.favoriteDishes.includes(dish.id),
     );
 
     // Apply search filter
@@ -61,14 +67,18 @@ const Favourites = () => {
           >
             <Ionicons name="arrow-back" size={22} color={theme.textPrimary} />
           </TouchableOpacity>
-          <ThemedText style={[styles.headerTitle, { color: theme.textPrimary }]}>
+          <ThemedText
+            style={[styles.headerTitle, { color: theme.textPrimary }]}
+          >
             {t('favourites.title')}
           </ThemedText>
           <View style={styles.backBtn} />
         </View>
 
         {/* Search Bar - wrapped to override default margins */}
-        <View style={{ paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8 }}>
+        <View
+          style={{ paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8 }}
+        >
           <View
             style={[
               {
@@ -84,7 +94,11 @@ const Favourites = () => {
               },
             ]}
           >
-            <Ionicons name="search-outline" size={20} color={theme.textTertiary} />
+            <Ionicons
+              name="search-outline"
+              size={20}
+              color={theme.textTertiary}
+            />
             <TextInput
               style={[
                 {
@@ -101,8 +115,15 @@ const Favourites = () => {
               returnKeyType="search"
             />
             {query.length > 0 && (
-              <TouchableOpacity onPress={() => setQuery('')} activeOpacity={0.7}>
-                <Ionicons name="close-circle" size={18} color={theme.textTertiary} />
+              <TouchableOpacity
+                onPress={() => setQuery('')}
+                activeOpacity={0.7}
+              >
+                <Ionicons
+                  name="close-circle"
+                  size={18}
+                  color={theme.textTertiary}
+                />
               </TouchableOpacity>
             )}
           </View>

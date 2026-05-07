@@ -5,14 +5,24 @@ import { Brand, Colors } from '@/constants/theme';
 import { DeepLinks } from '@/src/config/linking';
 import { FALLBACK_DISH_IMG } from '@/src/constants/explore';
 import { ROUTES } from '@/src/constants/navigation';
-import { Dish, getDishName, getDishType } from '@/src/features/dishes/dishesType';
+import {
+  Dish,
+  getDishName,
+  getDishType,
+} from '@/src/features/dishes/dishesType';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { horizontalDishCardStyles as styles } from '@/styles/components/horizontalDishCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Share, TouchableOpacity, useColorScheme, View } from 'react-native';
+import {
+  Image,
+  Share,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 interface HorizontalDishCardProps {
   dish: Dish;
@@ -118,16 +128,24 @@ const HorizontalDishCard = ({
             <ThemedText style={styles.name} numberOfLines={1}>
               {getDishName(dish, lang)}
             </ThemedText>
-            <ThemedText style={[styles.type, { color: theme.textTertiary }]} numberOfLines={1}>
+            <ThemedText
+              style={[styles.type, { color: theme.textTertiary }]}
+              numberOfLines={1}
+            >
               {getDishType(dish, lang)}
             </ThemedText>
           </View>
-          
+
           <View style={styles.footer}>
             <View style={styles.leftSection}>
               <ThemedText style={styles.price}>₹{dish.price}</ThemedText>
               <View style={styles.ratingRow}>
-                <Ionicons name="star" size={11} color="#FFB800" style={styles.starIcon} />
+                <Ionicons
+                  name="star"
+                  size={11}
+                  color="#FFB800"
+                  style={styles.starIcon}
+                />
                 <ThemedText style={styles.ratingText}>
                   {dish.ratings.toFixed(1)}
                 </ThemedText>

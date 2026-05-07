@@ -3,12 +3,12 @@ import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, {
-    Easing,
-    useAnimatedStyle,
-    useSharedValue,
-    withRepeat,
-    withSequence,
-    withTiming,
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming,
 } from 'react-native-reanimated';
 
 import { ROUTES } from '@/src/constants/navigation';

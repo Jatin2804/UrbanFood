@@ -2,9 +2,9 @@ import { LinkingOptions } from '@react-navigation/native';
 
 /**
  * Deep Linking Configuration for UrbanFood App
- * 
+ *
  * URL Scheme: myapp://
- * 
+ *
  * Examples:
  * - myapp://explore?category=veg
  * - myapp://explore?filter=toprated

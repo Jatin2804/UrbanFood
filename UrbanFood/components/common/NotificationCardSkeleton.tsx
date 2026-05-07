@@ -10,8 +10,16 @@ export const NotificationCardSkeleton: React.FC = () => {
       <SkeletonCircle size={48} />
       <View style={styles.content}>
         <SkeletonLoader width="60%" height={16} />
-        <SkeletonLoader width="90%" height={14} style={{ marginTop: Spacing.xs }} />
-        <SkeletonLoader width={60} height={12} style={{ marginTop: Spacing.xs }} />
+        <SkeletonLoader
+          width="90%"
+          height={14}
+          style={{ marginTop: Spacing.xs }}
+        />
+        <SkeletonLoader
+          width={60}
+          height={12}
+          style={{ marginTop: Spacing.xs }}
+        />
       </View>
     </View>
   );

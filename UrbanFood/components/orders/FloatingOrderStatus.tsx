@@ -10,10 +10,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { memo, useCallback } from 'react';
 import {
-    StyleSheet,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 
 // ── Single order card (inline, not floating) ───────────────────────────────────

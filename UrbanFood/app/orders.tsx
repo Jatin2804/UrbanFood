@@ -9,12 +9,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useRef } from 'react';
 import {
-    FlatList,
-    RefreshControl,
-    StyleSheet,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

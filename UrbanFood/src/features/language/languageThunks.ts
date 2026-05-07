@@ -30,9 +30,8 @@ export const fetchTranslations = createAsyncThunk<
 >('language/fetchTranslations', async (languageCode, { rejectWithValue }) => {
   try {
     // Try to fetch from GitHub
-    const translations = await TranslationService.fetchTranslations(
-      languageCode,
-    );
+    const translations =
+      await TranslationService.fetchTranslations(languageCode);
 
     if (translations) {
       // Cache the translations locally
@@ -102,12 +101,15 @@ export const changeLanguage = createAsyncThunk<
   void,
   string,
   { rejectValue: string }
->('language/changeLanguage', async (languageCode, { dispatch, rejectWithValue }) => {
-  try {
-    // Fetch and store the new language
-    await dispatch(fetchTranslations(languageCode)).unwrap();
-  } catch (error) {
-    console.error('Error changing language:', error);
-    return rejectWithValue('Failed to change language');
-  }
-});
+>(
+  'language/changeLanguage',
+  async (languageCode, { dispatch, rejectWithValue }) => {
+    try {
+      // Fetch and store the new language
+      await dispatch(fetchTranslations(languageCode)).unwrap();
+    } catch (error) {
+      console.error('Error changing language:', error);
+      return rejectWithValue('Failed to change language');
+    }
+  },
+);

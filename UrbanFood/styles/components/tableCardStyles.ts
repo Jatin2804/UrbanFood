@@ -14,7 +14,7 @@ export const tableCardStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   // Table surface (center)
   tableSurface: {
     width: 60,

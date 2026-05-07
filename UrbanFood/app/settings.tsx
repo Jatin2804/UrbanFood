@@ -11,12 +11,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
-    Alert,
-    ScrollView,
-    Switch,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Alert,
+  ScrollView,
+  Switch,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';

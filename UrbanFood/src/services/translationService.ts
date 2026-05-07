@@ -27,10 +27,7 @@ export class TranslationService {
       const translations = await response.json();
       return translations;
     } catch (error) {
-      console.error(
-        `Failed to fetch translations for ${languageCode}:`,
-        error,
-      );
+      console.error(`Failed to fetch translations for ${languageCode}:`, error);
       return null;
     }
   }

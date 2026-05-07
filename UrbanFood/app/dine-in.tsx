@@ -13,21 +13,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    RefreshControl,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  ActivityIndicator,
+  Alert,
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    cancelBooking,
-    createBooking,
-    fetchBookings,
+  cancelBooking,
+  createBooking,
+  fetchBookings,
 } from '../src/features/bookings/bookingsThunks';
 import { clearCart } from '../src/features/cart/cartThunks';
 import { AppDispatch } from '../src/store';
@@ -38,7 +38,7 @@ export default function DineIn() {
   const theme = Colors[scheme];
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  
+
   // Get deep link parameters
   const params = useLocalSearchParams<{ tab?: string }>();
 
@@ -55,7 +55,7 @@ export default function DineIn() {
   const [justBooked, setJustBooked] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'layout'>('layout');
-  
+
   // Handle deep link tab parameter
   useEffect(() => {
     if (params.tab === 'mybookings' || params.tab === 'book') {
@@ -315,10 +315,27 @@ export default function DineIn() {
             {/* Cart Items Summary */}
             {cartItems.length > 0 && (
               <View style={styles.section}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: Spacing.md }}>
-                  <Ionicons name="receipt-outline" size={24} color={Brand.primary} />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: Spacing.md,
+                  }}
+                >
+                  <Ionicons
+                    name="receipt-outline"
+                    size={24}
+                    color={Brand.primary}
+                  />
                   <Text
-                    style={[styles.sectionTitle, { color: theme.textPrimary, marginBottom: 0, marginLeft: Spacing.sm }]}
+                    style={[
+                      styles.sectionTitle,
+                      {
+                        color: theme.textPrimary,
+                        marginBottom: 0,
+                        marginLeft: Spacing.sm,
+                      },
+                    ]}
                   >
                     Your Order
                   </Text>
@@ -339,13 +356,21 @@ export default function DineIn() {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        marginBottom: index < cartItems.length - 1 ? Spacing.sm : 0,
-                        paddingBottom: index < cartItems.length - 1 ? Spacing.sm : 0,
+                        marginBottom:
+                          index < cartItems.length - 1 ? Spacing.sm : 0,
+                        paddingBottom:
+                          index < cartItems.length - 1 ? Spacing.sm : 0,
                         borderBottomWidth: index < cartItems.length - 1 ? 1 : 0,
                         borderBottomColor: theme.border,
                       }}
                     >
-                      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}
+                      >
                         <View
                           style={{
                             backgroundColor: Brand.primaryFaded,
@@ -355,15 +380,33 @@ export default function DineIn() {
                             marginRight: Spacing.sm,
                           }}
                         >
-                          <Text style={{ color: Brand.primary, fontWeight: '700', fontSize: 12 }}>
+                          <Text
+                            style={{
+                              color: Brand.primary,
+                              fontWeight: '700',
+                              fontSize: 12,
+                            }}
+                          >
                             {item.quantity}x
                           </Text>
                         </View>
-                        <Text style={{ color: theme.textPrimary, flex: 1, fontWeight: '500' }}>
+                        <Text
+                          style={{
+                            color: theme.textPrimary,
+                            flex: 1,
+                            fontWeight: '500',
+                          }}
+                        >
                           {item.name}
                         </Text>
                       </View>
-                      <Text style={{ color: theme.textPrimary, fontWeight: '700', fontSize: 15 }}>
+                      <Text
+                        style={{
+                          color: theme.textPrimary,
+                          fontWeight: '700',
+                          fontSize: 15,
+                        }}
+                      >
                         ₹{item.price * item.quantity}
                       </Text>
                     </View>
@@ -383,11 +426,21 @@ export default function DineIn() {
                     }}
                   >
                     <Text
-                      style={{ color: theme.textPrimary, fontWeight: '700', fontSize: 16 }}
+                      style={{
+                        color: theme.textPrimary,
+                        fontWeight: '700',
+                        fontSize: 16,
+                      }}
                     >
                       Total Amount
                     </Text>
-                    <Text style={{ color: Brand.primary, fontWeight: '700', fontSize: 20 }}>
+                    <Text
+                      style={{
+                        color: Brand.primary,
+                        fontWeight: '700',
+                        fontSize: 20,
+                      }}
+                    >
                       ₹{cart?.finalPrice}
                     </Text>
                   </View>
@@ -397,9 +450,24 @@ export default function DineIn() {
 
             {/* Time Slot Selection */}
             <View style={styles.section}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: Spacing.md }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: Spacing.md,
+                }}
+              >
                 <Ionicons name="time-outline" size={24} color={Brand.primary} />
-                <Text style={[styles.sectionTitle, { color: theme.textPrimary, marginBottom: 0, marginLeft: Spacing.sm }]}>
+                <Text
+                  style={[
+                    styles.sectionTitle,
+                    {
+                      color: theme.textPrimary,
+                      marginBottom: 0,
+                      marginLeft: Spacing.sm,
+                    },
+                  ]}
+                >
                   Select Time Slot
                 </Text>
               </View>
@@ -420,7 +488,9 @@ export default function DineIn() {
                   <Ionicons
                     name="timer-outline"
                     size={20}
-                    color={selectedSlot === '5min' ? '#FFFFFF' : theme.textSecondary}
+                    color={
+                      selectedSlot === '5min' ? '#FFFFFF' : theme.textSecondary
+                    }
                     style={{ marginBottom: 4 }}
                   />
                   <Text
@@ -455,7 +525,9 @@ export default function DineIn() {
                   <Ionicons
                     name="timer-outline"
                     size={20}
-                    color={selectedSlot === '10min' ? '#FFFFFF' : theme.textSecondary}
+                    color={
+                      selectedSlot === '10min' ? '#FFFFFF' : theme.textSecondary
+                    }
                     style={{ marginBottom: 4 }}
                   />
                   <Text
@@ -477,22 +549,44 @@ export default function DineIn() {
 
             {/* Table Selection */}
             <View style={styles.section}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: Spacing.md }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: Spacing.md,
+                }}
+              >
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Ionicons name="grid-outline" size={24} color={Brand.primary} />
-                  <Text style={[styles.sectionTitle, { color: theme.textPrimary, marginBottom: 0, marginLeft: Spacing.sm }]}>
+                  <Ionicons
+                    name="grid-outline"
+                    size={24}
+                    color={Brand.primary}
+                  />
+                  <Text
+                    style={[
+                      styles.sectionTitle,
+                      {
+                        color: theme.textPrimary,
+                        marginBottom: 0,
+                        marginLeft: Spacing.sm,
+                      },
+                    ]}
+                  >
                     Select Table
                   </Text>
                 </View>
-                
+
                 {/* View Toggle */}
                 <View style={{ flexDirection: 'row', gap: 8 }}>
                   <TouchableOpacity
                     style={[
                       styles.viewToggleBtn,
                       {
-                        backgroundColor: viewMode === 'layout' ? Brand.primary : theme.surface,
-                        borderColor: viewMode === 'layout' ? Brand.primary : theme.border,
+                        backgroundColor:
+                          viewMode === 'layout' ? Brand.primary : theme.surface,
+                        borderColor:
+                          viewMode === 'layout' ? Brand.primary : theme.border,
                       },
                     ]}
                     onPress={() => setViewMode('layout')}
@@ -501,15 +595,19 @@ export default function DineIn() {
                     <Ionicons
                       name="map-outline"
                       size={18}
-                      color={viewMode === 'layout' ? '#FFFFFF' : theme.textSecondary}
+                      color={
+                        viewMode === 'layout' ? '#FFFFFF' : theme.textSecondary
+                      }
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={[
                       styles.viewToggleBtn,
                       {
-                        backgroundColor: viewMode === 'grid' ? Brand.primary : theme.surface,
-                        borderColor: viewMode === 'grid' ? Brand.primary : theme.border,
+                        backgroundColor:
+                          viewMode === 'grid' ? Brand.primary : theme.surface,
+                        borderColor:
+                          viewMode === 'grid' ? Brand.primary : theme.border,
                       },
                     ]}
                     onPress={() => setViewMode('grid')}
@@ -518,7 +616,9 @@ export default function DineIn() {
                     <Ionicons
                       name="grid-outline"
                       size={18}
-                      color={viewMode === 'grid' ? '#FFFFFF' : theme.textSecondary}
+                      color={
+                        viewMode === 'grid' ? '#FFFFFF' : theme.textSecondary
+                      }
                     />
                   </TouchableOpacity>
                 </View>
@@ -530,7 +630,11 @@ export default function DineIn() {
                   tables={tables}
                   bookedTableIds={bookedTableIds}
                   selectedTable={selectedTable}
-                  onSelectTable={(table) => setSelectedTable(selectedTable?.id === table.id ? null : table)}
+                  onSelectTable={(table) =>
+                    setSelectedTable(
+                      selectedTable?.id === table.id ? null : table,
+                    )
+                  }
                 />
               ) : (
                 /* Grid View */
@@ -554,7 +658,15 @@ export default function DineIn() {
                   </View>
 
                   {/* Legend for grid view */}
-                  <View style={[styles.legend, { backgroundColor: theme.surfaceSecondary, marginTop: Spacing.md }]}>
+                  <View
+                    style={[
+                      styles.legend,
+                      {
+                        backgroundColor: theme.surfaceSecondary,
+                        marginTop: Spacing.md,
+                      },
+                    ]}
+                  >
                     <View style={styles.legendItem}>
                       <View
                         style={[
@@ -563,7 +675,10 @@ export default function DineIn() {
                         ]}
                       />
                       <Text
-                        style={[styles.legendText, { color: theme.textPrimary }]}
+                        style={[
+                          styles.legendText,
+                          { color: theme.textPrimary },
+                        ]}
                       >
                         Available
                       </Text>
@@ -576,7 +691,10 @@ export default function DineIn() {
                         ]}
                       />
                       <Text
-                        style={[styles.legendText, { color: theme.textPrimary }]}
+                        style={[
+                          styles.legendText,
+                          { color: theme.textPrimary },
+                        ]}
                       >
                         Booked
                       </Text>
@@ -660,10 +778,18 @@ export default function DineIn() {
               {updating ? (
                 <ActivityIndicator color="#FFFFFF" size="small" />
               ) : (
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.sm }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: Spacing.sm,
+                  }}
+                >
                   <Ionicons name="checkmark-circle" size={24} color="#FFFFFF" />
                   <Text style={styles.bookButtonText}>
-                    {selectedTable ? `Book Table ${selectedTable.number}` : 'Book Table'}
+                    {selectedTable
+                      ? `Book Table ${selectedTable.number}`
+                      : 'Book Table'}
                   </Text>
                 </View>
               )}

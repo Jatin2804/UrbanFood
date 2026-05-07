@@ -26,65 +26,161 @@ export default function TableCard({
       // 2 seats: left and right
       seats.push(
         <View key="left" style={[styles.seat, styles.seatLeft]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="right" style={[styles.seat, styles.seatRight]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
-        </View>
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
+        </View>,
       );
     } else if (capacity === 4) {
       // 4 seats: top, right, bottom, left
       seats.push(
         <View key="top" style={[styles.seat, styles.seatTop]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="right" style={[styles.seat, styles.seatRight]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="bottom" style={[styles.seat, styles.seatBottom]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="left" style={[styles.seat, styles.seatLeft]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
-        </View>
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
+        </View>,
       );
     } else if (capacity === 6) {
       // 6 seats: 2 on top, 2 on bottom, 1 on left, 1 on right
       seats.push(
         <View key="top-left" style={[styles.seat, styles.seatTopLeft]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="top-right" style={[styles.seat, styles.seatTopRight]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="right" style={[styles.seat, styles.seatRight]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="bottom-right" style={[styles.seat, styles.seatBottomRight]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="bottom-left" style={[styles.seat, styles.seatBottomLeft]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="left" style={[styles.seat, styles.seatLeft]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
-        </View>
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
+        </View>,
       );
     } else {
       // Default: 4 seats for any other capacity
       seats.push(
         <View key="top" style={[styles.seat, styles.seatTop]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="right" style={[styles.seat, styles.seatRight]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="bottom" style={[styles.seat, styles.seatBottom]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
         </View>,
         <View key="left" style={[styles.seat, styles.seatLeft]}>
-          <View style={[styles.seatInner, isBooked && styles.seatBooked, isSelected && styles.seatSelected]} />
-        </View>
+          <View
+            style={[
+              styles.seatInner,
+              isBooked && styles.seatBooked,
+              isSelected && styles.seatSelected,
+            ]}
+          />
+        </View>,
       );
     }
 
@@ -157,7 +253,11 @@ export default function TableCard({
             },
           ]}
         >
-          {isBooked ? 'Booked' : isSelected ? 'Selected' : `${table.capacity} Seats`}
+          {isBooked
+            ? 'Booked'
+            : isSelected
+              ? 'Selected'
+              : `${table.capacity} Seats`}
         </Text>
       </View>
     </TouchableOpacity>

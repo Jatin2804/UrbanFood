@@ -70,10 +70,7 @@ export default function ChatbotDishCard({
       </View>
 
       <View style={chatbotMenuStyles.dishInfo}>
-        <ThemedText
-          style={chatbotMenuStyles.dishName}
-          numberOfLines={2}
-        >
+        <ThemedText style={chatbotMenuStyles.dishName} numberOfLines={2}>
           {dish.name.en}
         </ThemedText>
         <ThemedText style={chatbotMenuStyles.dishPrice}>

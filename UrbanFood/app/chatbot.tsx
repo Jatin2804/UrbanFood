@@ -4,15 +4,15 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import {
-    Alert,
-    FlatList,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSelector } from 'react-redux';
@@ -24,8 +24,8 @@ import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
-    CHATBOT_GREETING,
-    CHATBOT_QUICK_REPLIES,
+  CHATBOT_GREETING,
+  CHATBOT_QUICK_REPLIES,
 } from '@/src/constants/chatbot';
 import { Dish } from '@/src/features/dishes/dishesType';
 import { sendMessageToGrok } from '@/src/services/chatService';
@@ -61,8 +61,12 @@ export default function Chatbot() {
   const flatListRef = useRef<FlatList>(null);
 
   const allDishes = useSelector((state: RootState) => state.dishes.dishes);
-  const recentOrders = useSelector((state: RootState) => state.orders.orders).slice(0, 3);
-  const recentBookings = useSelector((state: RootState) => state.bookings.bookings).slice(0, 3);
+  const recentOrders = useSelector(
+    (state: RootState) => state.orders.orders,
+  ).slice(0, 3);
+  const recentBookings = useSelector(
+    (state: RootState) => state.bookings.bookings,
+  ).slice(0, 3);
 
   const [messages, setMessages] = useState<ChatbotMessage[]>([
     {
@@ -181,17 +185,23 @@ export default function Chatbot() {
 
     // Only process local intents if the message is short (e.g., <= 7 words)
     if (wordCount <= 7) {
-      if (lowerText.includes('track my order') || lowerText.includes('where is my order')) {
-        localResponse = "Let me take you to your orders! 📦";
+      if (
+        lowerText.includes('track my order') ||
+        lowerText.includes('where is my order')
+      ) {
+        localResponse = 'Let me take you to your orders! 📦';
         openDeepLink('/orders');
-      } else if (lowerText.includes('track my booking') || lowerText.includes('my table')) {
-        localResponse = "Opening your bookings! 🍽️";
+      } else if (
+        lowerText.includes('track my booking') ||
+        lowerText.includes('my table')
+      ) {
+        localResponse = 'Opening your bookings! 🍽️';
         openDeepLink('/dine-in?tab=mybookings');
       } else if (lowerText.includes('cart')) {
         localResponse = "Let's check your cart! 🛒";
         openDeepLink('/(tabs)/cart');
       } else if (lowerText.includes('offer')) {
-        localResponse = "Here are our amazing offers! 🎉";
+        localResponse = 'Here are our amazing offers! 🎉';
         openDeepLink('/offers');
       } else if (lowerText.includes('show menu') || lowerText === 'menu') {
         const first10Dishes = allDishes.slice(0, 10);
@@ -294,7 +304,7 @@ export default function Chatbot() {
       } else if (reply.includes('Track my order')) {
         botMessage = {
           id: (Date.now() + 1).toString(),
-          text: "Let me take you to your orders! 📦",
+          text: 'Let me take you to your orders! 📦',
           isBot: true,
           timestamp: new Date(),
           type: 'text',
@@ -303,7 +313,7 @@ export default function Chatbot() {
       } else if (reply.includes('Track my bookings')) {
         botMessage = {
           id: (Date.now() + 1).toString(),
-          text: "Opening your bookings! 🍽️",
+          text: 'Opening your bookings! 🍽️',
           isBot: true,
           timestamp: new Date(),
           type: 'text',
@@ -321,7 +331,7 @@ export default function Chatbot() {
       } else if (reply.includes('User Details')) {
         botMessage = {
           id: (Date.now() + 1).toString(),
-          text: "Opening your profile! 👤",
+          text: 'Opening your profile! 👤',
           isBot: true,
           timestamp: new Date(),
           type: 'text',
@@ -330,7 +340,7 @@ export default function Chatbot() {
       } else if (reply.includes('Restraunt Details')) {
         botMessage = {
           id: (Date.now() + 1).toString(),
-          text: "Taking you to restaurant details! 🏪",
+          text: 'Taking you to restaurant details! 🏪',
           isBot: true,
           timestamp: new Date(),
           type: 'text',
@@ -339,7 +349,7 @@ export default function Chatbot() {
       } else if (reply.includes('Show Offers')) {
         botMessage = {
           id: (Date.now() + 1).toString(),
-          text: "Here are our amazing offers! 🎉",
+          text: 'Here are our amazing offers! 🎉',
           isBot: true,
           timestamp: new Date(),
           type: 'text',
@@ -366,7 +376,7 @@ export default function Chatbot() {
   const handleCategoryPress = (categoryId: string) => {
     // Determine if it's a filter or category
     const filterIds = ['toprated', 'newlyadded'];
-    
+
     if (filterIds.includes(categoryId)) {
       // It's a filter, use filter parameter
       router.push(`${ROUTES.TABS.EXPLORE}?filter=${categoryId}` as any);
@@ -388,7 +398,9 @@ export default function Chatbot() {
 
   const handleExploreDishes = (dishIds: string[]) => {
     // Navigate to chatbot response explore screen with dish IDs
-    router.push(`${ROUTES.CHATBOT_EXPLORE}?dishIds=${dishIds.join(',')}` as any);
+    router.push(
+      `${ROUTES.CHATBOT_EXPLORE}?dishIds=${dishIds.join(',')}` as any,
+    );
   };
 
   const renderMessage = ({
@@ -514,7 +526,7 @@ export default function Chatbot() {
               {item.text}
             </ThemedText>
           </View>
-          
+
           {/* Explore Button for dish recommendations */}
           {item.isBot && item.dishIds && item.dishIds.length > 0 && (
             <TouchableOpacity
@@ -592,9 +604,7 @@ export default function Chatbot() {
             contentFit="cover"
           />
           <View style={chatbotStyles.headerInfo}>
-            <ThemedText style={chatbotStyles.headerTitle}>
-              Samosa
-            </ThemedText>
+            <ThemedText style={chatbotStyles.headerTitle}>Samosa</ThemedText>
             <ThemedText style={chatbotStyles.headerStatus}>
               {isTyping ? 'Typing...' : 'Always here to help'}
             </ThemedText>
@@ -607,7 +617,11 @@ export default function Chatbot() {
               { opacity: pressed ? 0.5 : 1 },
             ]}
           >
-            <Ionicons name="trash-outline" size={20} color={colors.textSecondary} />
+            <Ionicons
+              name="trash-outline"
+              size={20}
+              color={colors.textSecondary}
+            />
           </Pressable>
         </View>
 
@@ -682,7 +696,10 @@ export default function Chatbot() {
               {
                 color: colors.inputText,
                 backgroundColor: colors.inputBackground,
-                borderColor: inputText.trim() !== '' ? Brand.primary + '40' : 'rgba(0, 0, 0, 0.08)',
+                borderColor:
+                  inputText.trim() !== ''
+                    ? Brand.primary + '40'
+                    : 'rgba(0, 0, 0, 0.08)',
               },
             ]}
             placeholder="Ask me anything..."

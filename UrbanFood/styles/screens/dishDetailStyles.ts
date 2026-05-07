@@ -70,7 +70,12 @@ export const dishDetailStyles = StyleSheet.create({
     borderRadius: Radius.full,
     backgroundColor: 'rgba(0,0,0,0.05)',
   },
-  price: { marginTop: 10, fontSize: 26, fontWeight: '800', color: Brand.primary },
+  price: {
+    marginTop: 10,
+    fontSize: 26,
+    fontWeight: '800',
+    color: Brand.primary,
+  },
 
   statsRow: {
     flexDirection: 'row',

@@ -7,11 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef } from 'react';
 import {
-    Animated,
-    BackHandler,
-    TouchableOpacity,
-    useColorScheme,
-    View,
+  Animated,
+  BackHandler,
+  TouchableOpacity,
+  useColorScheme,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

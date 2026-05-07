@@ -8,8 +8,16 @@ export const ProfileHeaderSkeleton: React.FC = () => {
   return (
     <View style={styles.container}>
       <SkeletonCircle size={80} />
-      <SkeletonLoader width={150} height={20} style={{ marginTop: Spacing.md }} />
-      <SkeletonLoader width={100} height={14} style={{ marginTop: Spacing.xs }} />
+      <SkeletonLoader
+        width={150}
+        height={20}
+        style={{ marginTop: Spacing.md }}
+      />
+      <SkeletonLoader
+        width={100}
+        height={14}
+        style={{ marginTop: Spacing.xs }}
+      />
     </View>
   );
 };
