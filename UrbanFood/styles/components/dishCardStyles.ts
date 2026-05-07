@@ -9,6 +9,21 @@ export const dishCardStyles = StyleSheet.create({
     ...Shadows.sm,
   },
   cardImage: { width: '100%', height: 130 },
+  topActions: {
+    position: 'absolute',
+    top: Spacing.sm,
+    left: Spacing.sm,
+    flexDirection: 'row',
+    gap: 8,
+  },
+  actionBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.35)',
+  },
   vegBadge: {
     position: 'absolute',
     top: Spacing.sm,

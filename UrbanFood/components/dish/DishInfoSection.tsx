@@ -15,22 +15,20 @@ const DishInfoSection = ({ name, type, price }: DishInfoSectionProps) => {
   const theme = Colors[scheme];
 
   return (
-    <View style={styles.titleRow}>
-      <View style={{ flex: 1 }}>
-        <ThemedText type="title" style={styles.dishName}>
-          {name}
-        </ThemedText>
+    <View style={styles.titleSection}>
+      <ThemedText type="title" style={[styles.dishName, { textAlign: 'center' }]}>
+        {name}
+      </ThemedText>
+
+      <View style={styles.categoryChip}>
         <ThemedText
           type="caption"
-          style={{
-            color: theme.textSecondary,
-            textTransform: 'capitalize',
-            marginTop: 2,
-          }}
+          style={{ color: theme.textSecondary, textTransform: 'capitalize' }}
         >
           {type}
         </ThemedText>
       </View>
+
       <ThemedText style={styles.price}>₹{price}</ThemedText>
     </View>
   );

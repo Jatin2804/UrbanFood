@@ -6,7 +6,8 @@ export const restaurantCardStyles = StyleSheet.create({
     borderRadius: Radius.xl,
     overflow: 'hidden',
     marginHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
+    marginTop: Spacing.md,
+    marginBottom: Spacing.lg,
     padding: Spacing.sm,
   },
 

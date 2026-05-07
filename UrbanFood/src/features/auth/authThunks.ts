@@ -26,6 +26,11 @@ try {
   AsyncStorage = storage;
 }
 
+const normalizeUser = (user: User): User => ({
+  ...user,
+  favoriteDishes: user.favoriteDishes ?? [],
+});
+
 export const loginUser = createAsyncThunk<
   { user: User; token: string },
   { email: string; pin: string },
@@ -45,12 +50,13 @@ export const loginUser = createAsyncThunk<
       return rejectWithValue('Invalid credentials');
     }
 
+    const normalizedUser = normalizeUser(user);
     const token = `token_${user.id}_${Date.now()}`;
     await AsyncStorage.setItem('authToken', token);
-    await AsyncStorage.setItem('user', JSON.stringify(user));
+    await AsyncStorage.setItem('user', JSON.stringify(normalizedUser));
 
-    console.log(' Login successful:', user.email);
-    return { user, token };
+    console.log(' Login successful:', normalizedUser.email);
+    return { user: normalizedUser, token };
   } catch (error: any) {
     console.error(' Login error:', error);
     return rejectWithValue(error?.message || 'Login failed');
@@ -59,7 +65,7 @@ export const loginUser = createAsyncThunk<
 
 export const signupUser = createAsyncThunk<
   { user: User; token: string },
-  Omit<User, 'id'>,
+  Omit<User, 'id' | 'favoriteDishes'> & { favoriteDishes?: string[] },
   { rejectValue: string }
 >('auth/signup', async (newUser, { rejectWithValue }) => {
   try {
@@ -74,10 +80,10 @@ export const signupUser = createAsyncThunk<
       return rejectWithValue('User already exists');
     }
 
-    const createdUser: User = {
+    const createdUser: User = normalizeUser({
       ...newUser,
       id: `user_${Date.now()}`,
-    };
+    });
 
     const updatedUsers: User[] = [...users, createdUser];
 
@@ -145,11 +151,50 @@ export const checkAuthStatus = createAsyncThunk<{
     const userStr = await AsyncStorage.getItem('user');
 
     if (token && userStr) {
-      const user = JSON.parse(userStr);
+      const user = normalizeUser(JSON.parse(userStr));
       return { user, token };
     }
     return null;
   } catch (error) {
     return null;
+  }
+});
+
+export const toggleFavoriteDish = createAsyncThunk<
+  User,
+  { dishId: string },
+  { rejectValue: string; state: any }
+>('auth/toggleFavoriteDish', async ({ dishId }, { rejectWithValue, getState }) => {
+  try {
+    const state = getState();
+    const currentUser: User | null = state.auth.user;
+
+    if (!currentUser) return rejectWithValue('No user logged in');
+
+    const favorites = new Set((currentUser.favoriteDishes ?? []).filter(Boolean));
+    if (favorites.has(dishId)) favorites.delete(dishId);
+    else favorites.add(dishId);
+
+    const updatedUser: User = {
+      ...currentUser,
+      favoriteDishes: Array.from(favorites),
+    };
+
+    await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+
+    try {
+      const users = await fetchUsersAPI();
+      const updatedUsers = users.map((u) =>
+        u.id === updatedUser.id ? { ...u, favoriteDishes: updatedUser.favoriteDishes } : u,
+      );
+      const meta = await getUsersMeta();
+      await updateUsersAPI(updatedUsers, meta.sha);
+    } catch {
+      // Best-effort remote update
+    }
+
+    return updatedUser;
+  } catch (error: any) {
+    return rejectWithValue(error?.message || 'Failed to update favourites');
   }
 });

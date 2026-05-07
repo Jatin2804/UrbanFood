@@ -58,15 +58,19 @@ export const dishDetailStyles = StyleSheet.create({
   vegText: { fontSize: 12, fontWeight: '700' },
 
   content: { padding: Spacing.md },
-  titleRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+  titleSection: {
+    alignItems: 'center',
     marginBottom: Spacing.md,
-    gap: Spacing.sm,
   },
   dishName: { lineHeight: 36 },
-  price: { fontSize: 24, fontWeight: '700', color: Brand.primary },
+  categoryChip: {
+    marginTop: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: Radius.full,
+    backgroundColor: 'rgba(0,0,0,0.05)',
+  },
+  price: { marginTop: 10, fontSize: 26, fontWeight: '800', color: Brand.primary },
 
   statsRow: {
     flexDirection: 'row',
@@ -90,6 +94,22 @@ export const dishDetailStyles = StyleSheet.create({
     padding: Spacing.md,
     ...Shadows.sm,
   },
+  headerActionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: Spacing.sm,
+    marginBottom: Spacing.sm,
+  },
+  headerActionBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.08)',
+  },
   reviewRow: {
     flexDirection: 'row',
     gap: Spacing.sm,
@@ -109,7 +129,7 @@ export const dishDetailStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  reviewRating: { flexDirection: 'row', alignItems: 'center', gap: 3 },
+  reviewRating: { flexDirection: 'row', alignItems: 'center' },
   reviewDivider: { height: 1, marginHorizontal: 44 },
 
   bottomBar: {

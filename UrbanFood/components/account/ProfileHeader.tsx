@@ -3,7 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { User } from '@/src/features/auth/authTypes';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import React from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 
 const getInitials = (name: string) =>
   name
@@ -20,14 +20,32 @@ interface ProfileHeaderProps {
 const ProfileHeader = ({ user }: ProfileHeaderProps) => (
   <ThemedView variant="surface" style={styles.header}>
     <View style={styles.avatar}>
-      <ThemedText lightColor="#fff" darkColor="#fff" style={styles.avatarText}>
-        {getInitials(user.name)}
-      </ThemedText>
+      {user.image ? (
+        <Image
+          source={{ uri: user.image }}
+          style={{ width: '100%', height: '100%', borderRadius: 44 }}
+        />
+      ) : (
+        <ThemedText
+          lightColor="#fff"
+          darkColor="#fff"
+          style={styles.avatarText}
+        >
+          {getInitials(user.name)}
+        </ThemedText>
+      )}
     </View>
-    <ThemedText type="subtitle" style={styles.userName}>
+    <ThemedText
+      type="subtitle"
+      lightColor="#fff"
+      darkColor="#fff"
+      style={styles.userName}
+    >
       {user.name}
     </ThemedText>
-    <ThemedText type="caption">{user.email}</ThemedText>
+    <ThemedText type="small" lightColor="#fff" darkColor="#fff">
+      {user.email}
+    </ThemedText>
   </ThemedView>
 );
 

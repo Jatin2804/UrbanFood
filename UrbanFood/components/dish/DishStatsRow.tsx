@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import StarRating from '@/components/common/StarRating';
 import { Colors } from '@/constants/theme';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -27,13 +28,13 @@ const DishStatsRow = ({
           { backgroundColor: '#FFF8E7', borderColor: '#FFE082' },
         ]}
       >
-        <Ionicons name="star" size={14} color="#FFB800" />
+        <StarRating rating={rating} size={14} />
         <ThemedText
           style={styles.statChipText}
           lightColor="#E65100"
           darkColor="#E65100"
         >
-          {rating}
+          {rating.toFixed(1)}
         </ThemedText>
       </View>
 

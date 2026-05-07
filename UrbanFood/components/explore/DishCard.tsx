@@ -2,15 +2,17 @@ import AddToCartButton from '@/components/cart/AddToCartButton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { DeepLinks } from '@/src/config/linking';
 import { FALLBACK_DISH_IMG } from '@/src/constants/explore';
 import { ROUTES } from '@/src/constants/navigation';
 import { Dish, getDishName, getDishType } from '@/src/features/dishes/dishesType';
+import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { dishCardStyles as styles } from '@/styles/components/dishCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Image, Share, TouchableOpacity, useColorScheme, View } from 'react-native';
 
 interface DishCardProps {
   dish: Dish;
@@ -21,8 +23,28 @@ const DishCard = ({ dish }: DishCardProps) => {
   const theme = Colors[scheme];
   const [imgError, setImgError] = useState(false);
   const router = useRouter();
+  const { user, toggleFavourite } = useAuth();
   const { currentLanguage } = useTranslation();
   const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
+
+  const isFav = !!user?.favoriteDishes?.includes(dish.id);
+
+  const onShare = async (e?: any) => {
+    e?.stopPropagation?.();
+    const url = DeepLinks.dish(dish.id);
+    const name = getDishName(dish, lang);
+    await Share.share({
+      message: `${name}\n${url}`,
+      url,
+      title: name,
+    });
+  };
+
+  const onToggleFav = async (e?: any) => {
+    e?.stopPropagation?.();
+    if (!user) return;
+    await toggleFavourite(dish.id);
+  };
 
   return (
     <TouchableOpacity
@@ -42,6 +64,28 @@ const DishCard = ({ dish }: DishCardProps) => {
           onError={() => setImgError(true)}
           defaultSource={FALLBACK_DISH_IMG}
         />
+
+        <View style={styles.topActions}>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={onToggleFav}
+            style={styles.actionBtn}
+          >
+            <Ionicons
+              name={isFav ? 'heart' : 'heart-outline'}
+              size={18}
+              color={isFav ? '#FF4D6D' : '#fff'}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={onShare}
+            style={styles.actionBtn}
+          >
+            <Ionicons name="share-social-outline" size={18} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
         <View
           style={[
             styles.vegBadge,

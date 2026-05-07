@@ -71,6 +71,21 @@ export const chatbotMenuStyles = StyleSheet.create({
     height: 100,
     backgroundColor: '#F5F5F5',
   },
+  topActions: {
+    position: 'absolute',
+    top: Spacing.xs,
+    left: Spacing.xs,
+    flexDirection: 'row',
+    gap: 6,
+  },
+  actionBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.35)',
+  },
   dishInfo: {
     padding: Spacing.sm,
   },

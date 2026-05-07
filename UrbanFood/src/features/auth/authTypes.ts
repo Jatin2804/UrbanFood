@@ -4,6 +4,8 @@ export interface User {
   email: string;
   phone: string;
   pin: string;
+  image?: string;
+  favoriteDishes?: string[];
   biometricEnabled?: boolean;
 }
 

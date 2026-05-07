@@ -19,6 +19,8 @@ const Splash = () => {
   const { requestLocation } = useLocation();
 
   useEffect(() => {
+    let isMounted = true;
+
     const init = async () => {
       // Request location permission early — runs in parallel with auth + dishes
       const [authResult] = await Promise.all([
@@ -32,11 +34,17 @@ const Splash = () => {
         authResult.payload !== null;
 
       setTimeout(() => {
-        router.replace(isLoggedIn ? ROUTES.TABS.HOME : ROUTES.LOGIN);
+        if (isMounted) {
+          router.replace(isLoggedIn ? ROUTES.TABS.HOME : ROUTES.LOGIN);
+        }
       }, 4000);
     };
 
     init();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

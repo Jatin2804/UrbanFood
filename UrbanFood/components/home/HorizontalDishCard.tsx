@@ -2,15 +2,17 @@ import AddToCartButton from '@/components/cart/AddToCartButton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { DeepLinks } from '@/src/config/linking';
 import { FALLBACK_DISH_IMG } from '@/src/constants/explore';
 import { ROUTES } from '@/src/constants/navigation';
 import { Dish, getDishName, getDishType } from '@/src/features/dishes/dishesType';
+import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { horizontalDishCardStyles as styles } from '@/styles/components/horizontalDishCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Image, Share, TouchableOpacity, useColorScheme, View } from 'react-native';
 
 interface HorizontalDishCardProps {
   dish: Dish;
@@ -25,8 +27,28 @@ const HorizontalDishCard = ({
   const theme = Colors[scheme];
   const [imgError, setImgError] = useState(false);
   const router = useRouter();
+  const { user, toggleFavourite } = useAuth();
   const { currentLanguage } = useTranslation();
   const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
+
+  const isFav = !!user?.favoriteDishes?.includes(dish.id);
+
+  const onShare = async (e?: any) => {
+    e?.stopPropagation?.();
+    const url = DeepLinks.dish(dish.id);
+    const name = getDishName(dish, lang);
+    await Share.share({
+      message: `${name}\n${url}`,
+      url,
+      title: name,
+    });
+  };
+
+  const onToggleFav = async (e?: any) => {
+    e?.stopPropagation?.();
+    if (!user) return;
+    await toggleFavourite(dish.id);
+  };
 
   return (
     <TouchableOpacity
@@ -47,6 +69,27 @@ const HorizontalDishCard = ({
           defaultSource={FALLBACK_DISH_IMG}
         />
 
+        <View style={styles.topActions}>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={onToggleFav}
+            style={styles.actionBtn}
+          >
+            <Ionicons
+              name={isFav ? 'heart' : 'heart-outline'}
+              size={18}
+              color={isFav ? '#FF4D6D' : '#fff'}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={onShare}
+            style={styles.actionBtn}
+          >
+            <Ionicons name="share-social-outline" size={18} color="#fff" />
+          </TouchableOpacity>
+        </View>
+
         {/* Veg badge */}
         <View
           style={[
@@ -64,26 +107,29 @@ const HorizontalDishCard = ({
 
         {/* NEW badge */}
         {showNewBadge && (
-          <View style={[styles.newBadge, { backgroundColor: Brand.primary }]}>
+          <View style={styles.newBadge}>
             <ThemedText style={styles.newBadgeText}>NEW</ThemedText>
           </View>
         )}
 
         {/* Info */}
         <View style={styles.content}>
-          <ThemedText style={styles.name} numberOfLines={1}>
-            {getDishName(dish, lang)}
-          </ThemedText>
-          <ThemedText style={[styles.type, { color: theme.textTertiary }]}>
-            {getDishType(dish, lang)}
-          </ThemedText>
+          <View style={styles.nameTypeRow}>
+            <ThemedText style={styles.name} numberOfLines={1}>
+              {getDishName(dish, lang)}
+            </ThemedText>
+            <ThemedText style={[styles.type, { color: theme.textTertiary }]} numberOfLines={1}>
+              {getDishType(dish, lang)}
+            </ThemedText>
+          </View>
+          
           <View style={styles.footer}>
-            <View>
+            <View style={styles.leftSection}>
               <ThemedText style={styles.price}>₹{dish.price}</ThemedText>
               <View style={styles.ratingRow}>
-                <Ionicons name="star" size={10} color="#FFB800" />
+                <Ionicons name="star" size={11} color="#FFB800" style={styles.starIcon} />
                 <ThemedText style={styles.ratingText}>
-                  {dish.ratings}
+                  {dish.ratings.toFixed(1)}
                 </ThemedText>
               </View>
             </View>

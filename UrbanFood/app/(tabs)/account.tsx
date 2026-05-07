@@ -25,6 +25,8 @@ const Account = () => {
       router.push(ROUTES.ORDERS);
     } else if (item.labelKey === 'account.dineIn') {
       router.push(ROUTES.DINE_IN);
+    } else if (item.labelKey === 'account.favourites') {
+      router.push(ROUTES.FAVOURITES);
     } else if (item.labelKey === 'account.settings') {
       router.push(ROUTES.SETTINGS);
     }
@@ -38,7 +40,10 @@ const Account = () => {
         style: 'destructive',
         onPress: async () => {
           await logout();
-          router.replace(ROUTES.LOGIN);
+          // Use setTimeout to ensure navigation happens after the current render cycle
+          setTimeout(() => {
+            router.replace(ROUTES.LOGIN);
+          }, 100);
         },
       },
     ]);
@@ -52,7 +57,7 @@ const Account = () => {
           contentContainerStyle={styles.scrollContent}
         >
           <ProfileHeaderSkeleton />
-          <View style={{ padding: Spacing.md, gap: Spacing.md }}>
+          <View style={styles.skeletonContainer}>
             <SkeletonLoader width="100%" height={100} borderRadius={12} />
             <SkeletonLoader width="100%" height={200} borderRadius={12} />
             <SkeletonLoader width="100%" height={50} borderRadius={25} />

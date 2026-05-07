@@ -62,11 +62,18 @@
   },
   "settings": {
     "title": "Settings",
+    "subtitle": "Manage your preferences",
     "navTitle": "Settings",
     "language": "Language",
     "selectLanguage": "Select Language",
     "security": "Security",
+    "appInfo": "App Information",
+    "version": "Version",
+    "buildNumber": "Build Number",
     "biometricAuth": "Biometric Authentication",
+    "fingerprintAuthentication": "Fingerprint Authentication",
+    "useFingerprintToUnlock": "Use fingerprint to unlock the app",
+    "fingerprintNotEnrolled": "Fingerprint not enrolled on device",
     "biometricNotSetUp": "Biometric Not Set Up",
     "pleaseSetupBiometric": "Please set up {type} in your device settings first.",
     "notSupported": "Not Supported",
@@ -100,7 +107,9 @@
     "deliveryTo": "DELIVERY TO",
     "activeOrders": "Active Orders",
     "arrivingNow": "🎉 Arriving now!",
-    "arrivingIn": "⏱ Arriving in {time}"
+    "arrivingIn": "⏱ Arriving in {time}",
+    "categories": "Categories",
+    "categoriesSubtitle": "Browse by food type"
   },
   "restaurantCard": {
     "open": "Open",
@@ -308,6 +317,11 @@
     "contactInfo": "Contact Information",
     "email": "Email",
     "phone": "Phone"
+  },
+  "favourites": {
+    "title": "Favourites",
+    "noFavourites": "No favourites yet",
+    "noFavouritesMessage": "Add dishes to your favourites and find them here"
   },
   "notifications": {
     "title": "Notifications",

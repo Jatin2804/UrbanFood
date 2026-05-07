@@ -4,6 +4,7 @@ import {
     loginUser,
     logoutUser,
     signupUser,
+    toggleFavoriteDish,
     updateBiometricSetting,
 } from './authThunks';
 import { AuthState } from './authTypes';
@@ -89,6 +90,9 @@ const authSlice = createSlice({
       })
 
       .addCase(updateBiometricSetting.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(toggleFavoriteDish.fulfilled, (state, action) => {
         state.user = action.payload;
       });
   },

@@ -23,11 +23,17 @@ export const DishCardSkeleton: React.FC = () => {
 export const HorizontalDishCardSkeleton: React.FC = () => {
   return (
     <View style={styles.horizontalContainer}>
-      <SkeletonLoader width={100} height={100} borderRadius={12} />
+      <SkeletonLoader width={160} height={140} borderRadius={16} />
       <View style={styles.horizontalContent}>
-        <SkeletonLoader width="70%" height={16} />
-        <SkeletonLoader width="40%" height={14} style={{ marginTop: Spacing.xs }} />
-        <SkeletonLoader width={50} height={18} style={{ marginTop: Spacing.xs }} />
+        <SkeletonLoader width="85%" height={16} />
+        <SkeletonLoader width="50%" height={12} style={{ marginTop: 2 }} />
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: Spacing.xs }}>
+          <View>
+            <SkeletonLoader width={60} height={20} />
+            <SkeletonLoader width={45} height={12} style={{ marginTop: 2 }} />
+          </View>
+          <SkeletonCircle size={32} />
+        </View>
       </View>
     </View>
   );

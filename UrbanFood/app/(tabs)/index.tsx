@@ -1,6 +1,8 @@
 import CartFloatingBar from '@/components/cart/CartFloatingBar';
+import { HorizontalDishCardSkeleton } from '@/components/common/DishCardSkeleton';
 import BannerCarousel from '@/components/home/BannerCarousel';
 import BottomBanner from '@/components/home/BottomBanner';
+import CategoryCarousel from '@/components/home/CategoryCarousel';
 import GreetingSection from '@/components/home/GreetingSection';
 import HomeHeader from '@/components/home/HomeHeader';
 import HomeSearchBar from '@/components/home/HomeSearchBar';
@@ -9,7 +11,7 @@ import RestaurantCard from '@/components/home/RestaurantCard';
 import ScrollSection from '@/components/home/ScrollSection';
 import OrderStatusSection from '@/components/orders/FloatingOrderStatus';
 import { ThemedView } from '@/components/themed-view';
-import { Brand } from '@/constants/theme';
+import { Brand, Spacing } from '@/constants/theme';
 import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import { Dish } from '@/src/features/dishes/dishesType';
 
@@ -94,6 +96,9 @@ const Home = () => {
 
         {/* Offer carousel — below search bar */}
         <OfferCarousel />
+
+        {/* Category carousel — below offer carousel */}
+        <CategoryCarousel />
 
         {/* Dish scroll sections */}
         <View style={styles.sectionsWrapper}>

@@ -5,6 +5,7 @@ export const accountStyles = StyleSheet.create({
   container: { flex: 1 },
   scrollContent: { paddingBottom: Spacing.xl },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  skeletonContainer: { padding: Spacing.md, gap: Spacing.md },
 
   header: {
     paddingTop: 56,
@@ -14,6 +15,7 @@ export const accountStyles = StyleSheet.create({
     borderBottomRightRadius: Radius.xl,
     marginBottom: Spacing.md,
     ...Shadows.md,
+    backgroundColor: Brand.primary,
   },
   avatar: {
     width: 88,
@@ -25,7 +27,7 @@ export const accountStyles = StyleSheet.create({
     marginBottom: Spacing.md,
     ...Shadows.primary,
   },
-  avatarText: { fontSize: 32, fontWeight: '700' },
+  avatarText: { fontSize: 32, fontWeight: '700', color: '#fff' },
   userName: { marginBottom: 4 },
 
   card: {

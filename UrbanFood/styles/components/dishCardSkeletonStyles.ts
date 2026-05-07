@@ -16,12 +16,11 @@ export const dishCardSkeletonStyles = StyleSheet.create({
     marginTop: Spacing.sm,
   },
   horizontalContainer: {
-    flexDirection: 'row',
-    padding: Spacing.md,
-    gap: Spacing.md,
+    width: 160,
+    marginRight: Spacing.md,
   },
   horizontalContent: {
-    flex: 1,
-    justifyContent: 'center',
+    paddingTop: Spacing.sm,
+    gap: Spacing.xs,
   },
 });

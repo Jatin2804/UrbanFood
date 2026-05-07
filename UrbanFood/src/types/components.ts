@@ -1,24 +1,19 @@
-// Component prop interfaces
-// Add your component prop types here
+import { FoodCategory } from '../data/categories';
 
-export interface LanguageSelectorProps {
-  // Add props if needed in the future
+// Category Carousel Props
+export interface CategoryCarouselProps {
+  categories?: FoodCategory[];
 }
 
+export interface CategoryCardProps {
+  category: FoodCategory;
+  onPress: () => void;
+}
+
+// Menu Item Props
 export interface MenuItem {
   icon: any;
   labelKey: string;
   iconBg: string;
   iconColor: string;
-}
-
-export interface FloatingChatbotButtonProps {
-  // No props needed currently
-}
-
-export interface ChatMessage {
-  id: string;
-  text: string;
-  isBot: boolean;
-  timestamp: Date;
 }

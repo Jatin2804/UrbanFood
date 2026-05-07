@@ -51,15 +51,16 @@ export const homeStyles = StyleSheet.create({
 
   greeting: {
     paddingHorizontal: Spacing.md,
-    paddingTop: Spacing.sm,
-    paddingBottom: Spacing.sm,
+    paddingTop: Spacing.lg,
+    paddingBottom: Spacing.md,
   },
 
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: Spacing.md,
-    marginBottom: Spacing.md,
+    marginTop: Spacing.md,
+    marginBottom: Spacing.lg,
     paddingHorizontal: Spacing.md,
     paddingVertical: 12,
     borderRadius: Radius.md,
@@ -80,7 +81,7 @@ export const homeStyles = StyleSheet.create({
   },
 
   sectionsWrapper: {
-    marginTop: Spacing.sm,
-    gap: Spacing.sm,
+    marginTop: Spacing.md,
+    gap: Spacing.lg,
   },
 });

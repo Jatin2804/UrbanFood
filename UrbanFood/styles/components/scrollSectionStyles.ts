@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export const scrollSectionStyles = StyleSheet.create({
   container: {
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.lg,
   },
   header: {
     flexDirection: 'row',

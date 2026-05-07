@@ -3,10 +3,13 @@ import DishImageCarousel from '@/components/dish/DishImageCarousel';
 import DishInfoSection from '@/components/dish/DishInfoSection';
 import DishStatsRow from '@/components/dish/DishStatsRow';
 import ReviewList from '@/components/dish/ReviewList';
+import { DishDetailSkeleton } from '@/components/common/DishDetailSkeleton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Spacing } from '@/constants/theme';
+import { DeepLinks } from '@/src/config/linking';
 import { getDishName, getDishType } from '@/src/features/dishes/dishesType';
+import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { RootState } from '@/src/store/rootReducer';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
@@ -15,6 +18,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import {
     ScrollView,
+    Share,
     TouchableOpacity,
     useColorScheme,
     View,
@@ -26,6 +30,7 @@ const DishDetail = () => {
   const router = useRouter();
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
+  const { user, toggleFavourite } = useAuth();
   const { currentLanguage } = useTranslation();
   const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
 
@@ -65,6 +70,23 @@ const DishDetail = () => {
     );
   }
 
+  const isFav = !!user?.favoriteDishes?.includes(dish.id);
+
+  const onShare = async () => {
+    const url = DeepLinks.dish(dish.id);
+    const name = getDishName(dish, lang);
+    await Share.share({
+      message: `${name}\n${url}`,
+      url,
+      title: name,
+    });
+  };
+
+  const onToggleFav = async () => {
+    if (!user) return;
+    await toggleFavourite(dish.id);
+  };
+
   return (
     <ThemedView style={styles.container}>
       <ScrollView
@@ -78,6 +100,31 @@ const DishDetail = () => {
         />
 
         <View style={styles.content}>
+          <View style={styles.headerActionsRow}>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              onPress={onToggleFav}
+              style={styles.headerActionBtn}
+            >
+              <Ionicons
+                name={isFav ? 'heart' : 'heart-outline'}
+                size={20}
+                color={isFav ? '#FF4D6D' : theme.textSecondary}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              onPress={onShare}
+              style={styles.headerActionBtn}
+            >
+              <Ionicons
+                name="share-social-outline"
+                size={20}
+                color={theme.textSecondary}
+              />
+            </TouchableOpacity>
+          </View>
+
           <DishInfoSection
             name={getDishName(dish, lang)}
             type={getDishType(dish, lang)}

@@ -39,6 +39,7 @@ export const ROUTES = {
   NOTIFICATIONS: '/notifications',
   NOTIFICATION_TEST: '/notification-test',
   SETTINGS: '/settings',
+  FAVOURITES: '/favourites',
 } as const;
 
 /**
@@ -80,6 +81,7 @@ export const SCREEN_NAMES = {
   NOTIFICATIONS: 'notifications',
   NOTIFICATION_TEST: 'notification-test',
   SETTINGS: 'settings',
+  FAVOURITES: 'favourites',
 } as const;
 
 /**
