@@ -3,6 +3,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { FALLBACK_DISH_IMG } from '@/src/constants/explore';
+import { ROUTES } from '@/src/constants/navigation';
 import { Dish, getDishName, getDishType } from '@/src/features/dishes/dishesType';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { dishCardStyles as styles } from '@/styles/components/dishCardStyles';
@@ -26,7 +27,7 @@ const DishCard = ({ dish }: DishCardProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.92}
-      onPress={() => router.push(`/dish/${dish.id}`)}
+      onPress={() => router.push(ROUTES.DISH_DETAILS(dish.id))}
       style={{ flex: 1 }}
     >
       <ThemedView variant="surface" style={styles.card}>

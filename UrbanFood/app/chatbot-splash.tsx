@@ -13,6 +13,7 @@ import Animated, {
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { chatbotSplashStyles } from '@/styles/screens/chatbotSplashStyles';
+import { ROUTES } from '@/src/constants/navigation';
 
 export default function ChatbotSplash() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function ChatbotSplash() {
 
     // Navigate to chat screen after 2 seconds
     const timer = setTimeout(() => {
-      router.replace('/chatbot');
+      router.replace(ROUTES.CHATBOT);
     }, 2000);
 
     return () => clearTimeout(timer);

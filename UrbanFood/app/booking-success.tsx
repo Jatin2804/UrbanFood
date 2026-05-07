@@ -1,17 +1,18 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { RootState } from '@/src/store/rootReducer';
 import { bookingSuccessStyles as styles } from '@/styles/screens/bookingSuccessStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import {
-  Animated,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    Animated,
+    Text,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
@@ -50,11 +51,11 @@ export default function BookingSuccess() {
   }, []);
 
   const handleViewBooking = () => {
-    router.replace('/dine-in');
+    router.replace(ROUTES.DINE_IN);
   };
 
   const handleGoHome = () => {
-    router.replace('/(tabs)');
+    router.replace(ROUTES.TABS.HOME);
   };
 
   if (!booking) {

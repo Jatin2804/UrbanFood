@@ -33,6 +33,7 @@ import { RootState } from '@/src/store/rootReducer';
 import { ChatMessage } from '@/src/types/components';
 import { chatbotMenuStyles } from '@/styles/components/chatbotMenuStyles';
 import { chatbotStyles } from '@/styles/screens/chatbotStyles';
+import { ROUTES } from '@/src/constants/navigation';
 
 const CHAT_STORAGE_KEY = '@chatbot_messages';
 
@@ -368,26 +369,26 @@ export default function Chatbot() {
     
     if (filterIds.includes(categoryId)) {
       // It's a filter, use filter parameter
-      router.push(`/(tabs)/explore?filter=${categoryId}` as any);
+      router.push(`${ROUTES.TABS.EXPLORE}?filter=${categoryId}` as any);
     } else {
       // It's a category, use category parameter
-      router.push(`/(tabs)/explore?category=${categoryId}` as any);
+      router.push(`${ROUTES.TABS.EXPLORE}?category=${categoryId}` as any);
     }
   };
 
   const handleDishPress = (dishId: string) => {
     // Navigate to dish detail
-    router.push(`/dish/${dishId}` as any);
+    router.push(ROUTES.DISH_DETAILS(dishId) as any);
   };
 
   const handleViewAll = () => {
     // Navigate to explore
-    router.push('/(tabs)/explore' as any);
+    router.push(ROUTES.TABS.EXPLORE as any);
   };
 
   const handleExploreDishes = (dishIds: string[]) => {
     // Navigate to chatbot response explore screen with dish IDs
-    router.push(`/chatbot-explore?dishIds=${dishIds.join(',')}` as any);
+    router.push(`${ROUTES.CHATBOT_EXPLORE}?dishIds=${dishIds.join(',')}` as any);
   };
 
   const renderMessage = ({

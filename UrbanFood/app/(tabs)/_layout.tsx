@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import FloatingChatbotButton from '@/components/chatbot/FloatingChatbotButton';
 import { HapticTab } from '@/components/haptic-tab';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -11,7 +12,7 @@ import { fetchCart } from '@/src/features/cart/cartThunks';
 import { fetchOrders } from '@/src/features/orders/ordersThunks';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { AppDispatch } from '@/src/store';
-import FloatingChatbotButton from '@/components/chatbot/FloatingChatbotButton';
+import { SCREEN_NAMES } from '@/src/constants/navigation';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -37,7 +38,7 @@ export default function TabLayout() {
         }}
       >
         <Tabs.Screen
-          name="index"
+          name={SCREEN_NAMES.TAB_INDEX}
           options={{
             title: t('tabs.home'),
             tabBarIcon: ({ color, size }) => (
@@ -47,7 +48,7 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          name="explore"
+          name={SCREEN_NAMES.TAB_EXPLORE}
           options={{
             title: t('tabs.explore'),
             tabBarIcon: ({ color, size }) => (
@@ -57,7 +58,7 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          name="cart"
+          name={SCREEN_NAMES.TAB_CART}
           options={{
             title: t('tabs.cart'),
             tabBarIcon: ({ color, size }) => (
@@ -67,7 +68,7 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          name="account"
+          name={SCREEN_NAMES.TAB_ACCOUNT}
           options={{
             title: t('tabs.account'),
             tabBarIcon: ({ color, size }) => (

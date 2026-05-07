@@ -1,18 +1,19 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { authFormStyles as styles } from '@/styles/components/authFormStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useColorScheme,
+    ActivityIndicator,
+    Alert,
+    TextInput,
+    TouchableOpacity,
+    View,
+    useColorScheme,
 } from 'react-native';
 
 const LoginForm = () => {
@@ -37,7 +38,7 @@ const LoginForm = () => {
 
     const result = await login(email, pin);
     if (result.meta.requestStatus === 'fulfilled') {
-      router.replace('/(tabs)');
+      router.replace(ROUTES.TABS.HOME);
     } else {
       Alert.alert('Login Failed', error || 'Invalid credentials');
     }

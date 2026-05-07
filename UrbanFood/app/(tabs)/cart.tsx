@@ -9,6 +9,7 @@ import OfferSheet from '@/components/cart/OfferSheet';
 import PlaceOrderSheet from '@/components/cart/PlaceOrderSheet';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { useCart } from '@/src/hooks/useCart';
 import { getDishById } from '@/src/services/apiService';
 import { RootState } from '@/src/store/rootReducer';
@@ -168,7 +169,7 @@ const Cart = () => {
                   dish={dish}
                   imageUrl={fullDish?.bannerImages?.[0]}
                   onRemove={() => onRemove(dish.dishId)}
-                  onPress={() => router.push(`/dish/${dish.dishId}`)}
+                  onPress={() => router.push(ROUTES.DISH_DETAILS(dish.dishId))}
                 />
               );
             })}
@@ -200,11 +201,11 @@ const Cart = () => {
         slideAnim={orderSlideAnim}
         onDineIn={() => {
           closeOrderSheet();
-          router.push('/book-table');
+          router.push(ROUTES.BOOK_TABLE);
         }}
         onCashOnDelivery={() => {
           closeOrderSheet();
-          router.push('/checkout');
+          router.push(ROUTES.CHECKOUT);
         }}
         onClose={closeOrderSheet}
       />

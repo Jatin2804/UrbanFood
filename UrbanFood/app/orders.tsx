@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Radius, Shadows, Spacing } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { Order } from '@/src/features/orders/ordersTypes';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useOrders } from '@/src/hooks/useOrders';
@@ -55,7 +56,7 @@ function OrderCard({ order, theme }: { order: Order; theme: any }) {
   const handleTrack = () => {
     if (order.status === 'pending') {
       router.push({
-        pathname: '/delivery-map',
+        pathname: ROUTES.DELIVERY_MAP,
         params: {
           orderId: order.orderId,
           orderTime: order.orderTime,
@@ -232,7 +233,7 @@ export default function Orders() {
             </ThemedText>
             <TouchableOpacity
               style={styles.shopBtn}
-              onPress={() => router.push('/(tabs)')}
+              onPress={() => router.push(ROUTES.TABS.HOME)}
               activeOpacity={0.85}
             >
               <ThemedText style={styles.shopBtnText}>Explore Menu</ThemedText>

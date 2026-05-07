@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { getLocalizedRestaurantInfo } from '@/src/data/restaurantInfo';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
@@ -19,7 +20,7 @@ const HomeHeader = () => {
   );
 
   const handleNotificationPress = () => {
-    router.push('/notifications');
+    router.push(ROUTES.NOTIFICATIONS);
   };
 
   return (

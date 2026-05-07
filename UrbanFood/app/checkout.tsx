@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { DELIVERY_FEE, ESTIMATED_DELIVERY_MINUTES } from '@/src/constants/cart';
+import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useCart } from '@/src/hooks/useCart';
 import { useLocation } from '@/src/hooks/useLocation';
@@ -12,12 +13,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    ActivityIndicator,
+    Alert,
+    ScrollView,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
@@ -47,7 +48,7 @@ export default function Checkout() {
     const totalItems =
       cart?.dishes.reduce((sum, dish) => sum + dish.quantity, 0) ?? 0;
     if (totalItems === 0) {
-      router.replace('/(tabs)');
+      router.replace(ROUTES.TABS.HOME);
     }
   }, [cart, router]);
 

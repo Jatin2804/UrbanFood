@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { RootState } from '@/src/store/rootReducer';
 import { CartFloatingBarProps } from '@/src/types/components';
 import { cartFloatingBarStyles as styles } from '@/styles/components/cartFloatingBarStyles';
@@ -26,7 +27,7 @@ const CartFloatingBar: React.FC<CartFloatingBarProps> = () => {
   }
 
   const handlePress = () => {
-    router.push('/(tabs)/cart');
+    router.push(ROUTES.TABS.CART);
   };
 
   return (

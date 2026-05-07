@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors, Spacing } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,7 +15,7 @@ const HomeSearchBar = () => {
 
   return (
     <TouchableOpacity
-      onPress={() => router.replace('/(tabs)/explore')}
+      onPress={() => router.replace(ROUTES.TABS.EXPLORE)}
       style={[
         styles.searchBar,
         { backgroundColor: theme.surfaceSecondary, borderColor: theme.border },

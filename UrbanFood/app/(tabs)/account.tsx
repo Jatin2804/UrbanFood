@@ -2,15 +2,18 @@ import ContactInfoCard from '@/components/account/ContactInfoCard';
 import LogoutButton from '@/components/account/LogoutButton';
 import MenuList from '@/components/account/MenuList';
 import ProfileHeader from '@/components/account/ProfileHeader';
+import { ProfileHeaderSkeleton } from '@/components/common/ProfileHeaderSkeleton';
+import { SkeletonLoader } from '@/components/common/SkeletonLoader';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { APP_VERSION } from '@/src/constants/account';
+import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 
 const Account = () => {
   const router = useRouter();
@@ -19,11 +22,11 @@ const Account = () => {
 
   const handleMenuPress = (item: { labelKey: string }) => {
     if (item.labelKey === 'account.myOrders') {
-      router.push('/orders');
+      router.push(ROUTES.ORDERS);
     } else if (item.labelKey === 'account.dineIn') {
-      router.push('/dine-in');
+      router.push(ROUTES.DINE_IN);
     } else if (item.labelKey === 'account.settings') {
-      router.push('/settings');
+      router.push(ROUTES.SETTINGS);
     }
   };
 
@@ -35,7 +38,7 @@ const Account = () => {
         style: 'destructive',
         onPress: async () => {
           await logout();
-          router.replace('/Login');
+          router.replace(ROUTES.LOGIN);
         },
       },
     ]);

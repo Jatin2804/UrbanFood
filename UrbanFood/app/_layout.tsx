@@ -1,7 +1,7 @@
 import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
+    DarkTheme,
+    DefaultTheme,
+    ThemeProvider,
 } from '@react-navigation/native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -10,9 +10,10 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { ROUTES, SCREEN_NAMES } from '@/src/constants/navigation';
 import {
-  selectCurrentUser,
-  selectIsLoggedIn,
+    selectCurrentUser,
+    selectIsLoggedIn,
 } from '@/src/features/auth/authSlice';
 import { loadStoredLanguage } from '@/src/features/language/languageThunks';
 import { useNotifications } from '@/src/hooks/useNotifications';
@@ -22,7 +23,7 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 export const unstable_settings = {
-  initialRouteName: 'index',
+  initialRouteName: SCREEN_NAMES.INDEX,
 };
 
 function AppContent() {
@@ -59,7 +60,7 @@ function AppContent() {
 
         if (!authenticated) {
           // If biometric auth fails, logout or redirect to login
-          router.replace('/Login');
+          router.replace(ROUTES.LOGIN);
         }
 
         setIsAuthenticating(false);
@@ -84,29 +85,29 @@ function AppContent() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="Splash" options={{ headerShown: false }} />
-        <Stack.Screen name="Login" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="dish/[id]" options={{ headerShown: false }} />
-        <Stack.Screen name="book-table" options={{ headerShown: false }} />
-        <Stack.Screen name="checkout" options={{ headerShown: false }} />
-        <Stack.Screen name="order-success" options={{ headerShown: false }} />
-        <Stack.Screen name="delivery-map" options={{ headerShown: false }} />
-        <Stack.Screen name="orders" options={{ headerShown: false }} />
-        <Stack.Screen name="notifications" options={{ headerShown: false }} />
-        <Stack.Screen name="dine-in" options={{ headerShown: false }} />
-        <Stack.Screen name="booking-success" options={{ headerShown: false }} />
-        <Stack.Screen name="chatbot-splash" options={{ headerShown: false }} />
-        <Stack.Screen name="chatbot" options={{ headerShown: false }} />
-        <Stack.Screen name="offers" options={{ headerShown: false }} />
-        <Stack.Screen name="chatbot-explore" options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.INDEX} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.SPLASH} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.LOGIN} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.TABS} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.DISH_DETAILS} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.BOOK_TABLE} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.CHECKOUT} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.ORDER_SUCCESS} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.DELIVERY_MAP} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.ORDERS} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.NOTIFICATIONS} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.DINE_IN} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.BOOKING_SUCCESS} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.CHATBOT_SPLASH} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.CHATBOT} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.OFFERS} options={{ headerShown: false }} />
+        <Stack.Screen name={SCREEN_NAMES.CHATBOT_EXPLORE} options={{ headerShown: false }} />
         <Stack.Screen
-          name="settings"
+          name={SCREEN_NAMES.SETTINGS}
           options={{ headerShown: true, title: 'Settings' }}
         />
         <Stack.Screen
-          name="notification-test"
+          name={SCREEN_NAMES.NOTIFICATION_TEST}
           options={{ headerShown: true, title: 'Test Notifications' }}
         />
       </Stack>

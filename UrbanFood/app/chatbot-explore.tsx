@@ -13,6 +13,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Dish } from '@/src/features/dishes/dishesType';
 import { RootState } from '@/src/store/rootReducer';
 import { chatbotExploreStyles } from '@/styles/screens/chatbotExploreStyles';
+import { ROUTES } from '@/src/constants/navigation';
 
 export default function ChatbotExplore() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function ChatbotExplore() {
   }, [dishIds, allDishes]);
 
   const handleDishPress = (dishId: string) => {
-    router.push(`/dish/${dishId}` as any);
+    router.push(ROUTES.DISH_DETAILS(dishId) as any);
   };
 
   const renderDish = ({ item, index }: { item: Dish; index: number }) => (

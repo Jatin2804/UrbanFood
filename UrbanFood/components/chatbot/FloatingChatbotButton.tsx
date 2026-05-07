@@ -11,6 +11,7 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated';
 
+import { ROUTES } from '@/src/constants/navigation';
 import { FloatingChatbotButtonProps } from '@/src/types/components';
 import { floatingChatbotButtonStyles } from '@/styles/components/floatingChatbotButtonStyles';
 
@@ -45,7 +46,7 @@ export default function FloatingChatbotButton(
   }, []);
 
   const handlePress = () => {
-    router.push('/chatbot-splash');
+    router.push(ROUTES.CHATBOT_SPLASH);
   };
 
   // Animated styles

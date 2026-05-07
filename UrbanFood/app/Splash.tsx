@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { checkAuthStatus } from '@/src/features/auth/authThunks';
 import { fetchDishes } from '@/src/features/dishes/dishesThunk';
 import { useLocation } from '@/src/hooks/useLocation';
@@ -31,7 +32,7 @@ const Splash = () => {
         authResult.payload !== null;
 
       setTimeout(() => {
-        router.replace(isLoggedIn ? '/(tabs)' : '/Login');
+        router.replace(isLoggedIn ? ROUTES.TABS.HOME : ROUTES.LOGIN);
       }, 4000);
     };
 

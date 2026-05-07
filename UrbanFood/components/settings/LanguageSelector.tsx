@@ -3,6 +3,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { SUPPORTED_LANGUAGES } from '@/src/constants/languages';
+import { ROUTES } from '@/src/constants/navigation';
 import {
     selectCurrentLanguage,
     selectLanguageLoading,
@@ -47,7 +48,7 @@ export function LanguageSelector() {
       // Save the new language to AsyncStorage via Redux
       await dispatch(changeLanguage(languageCode) as any).unwrap();
       // Navigate to Splash so the app re-initialises with the new language
-      router.replace('/Splash');
+      router.replace(ROUTES.SPLASH);
     } catch (error) {
       Alert.alert(t('alerts.error'), t('settings.failedToChangeLanguage'));
     }

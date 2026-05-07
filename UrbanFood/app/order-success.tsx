@@ -1,16 +1,17 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { orderSuccessStyles as styles } from '@/styles/screens/orderSuccessStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef } from 'react';
 import {
-  Animated,
-  BackHandler,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    Animated,
+    BackHandler,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -40,7 +41,7 @@ export default function OrderSuccess() {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        router.push('/(tabs)');
+        router.push(ROUTES.TABS.HOME);
         return true; // Prevent default back behavior
       };
 
@@ -96,11 +97,11 @@ export default function OrderSuccess() {
     if (params.orderId) query.orderId = params.orderId;
     if (params.userLat) query.userLat = params.userLat;
     if (params.userLng) query.userLng = params.userLng;
-    router.replace({ pathname: '/delivery-map', params: query });
+    router.replace({ pathname: ROUTES.DELIVERY_MAP, params: query });
   };
 
   const handleBackToHome = () => {
-    router.push('/(tabs)');
+    router.push(ROUTES.TABS.HOME);
   };
 
   return (

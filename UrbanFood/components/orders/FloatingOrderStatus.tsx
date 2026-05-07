@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors, Radius, Shadows } from '@/constants/theme';
+import { ROUTES } from '@/src/constants/navigation';
 import { Order } from '@/src/features/orders/ordersTypes';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useLocation } from '@/src/hooks/useLocation';
@@ -9,10 +10,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { memo, useCallback } from 'react';
 import {
-  StyleSheet,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    StyleSheet,
+    TouchableOpacity,
+    useColorScheme,
+    View,
 } from 'react-native';
 
 // ── Single order card (inline, not floating) ───────────────────────────────────
@@ -32,7 +33,7 @@ const OrderCard = memo(({ order, theme }: { order: Order; theme: any }) => {
       params.userLng = coords.longitude.toString();
     }
     requestAnimationFrame(() => {
-      router.push({ pathname: '/delivery-map', params });
+      router.push({ pathname: ROUTES.DELIVERY_MAP, params });
     });
   }, [order.orderId, order.orderTime, order.estimatedTime, coords, router]);
 

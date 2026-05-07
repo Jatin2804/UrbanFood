@@ -2,13 +2,14 @@ import DeliveryStatusCard from '@/components/delivery/DeliveryStatusCard';
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import {
-  DELIVERY_DURATION_MS,
-  DELIVERY_PARTNER,
-  DeliveryStatus,
-  INITIAL_ETA_MINUTES,
-  RESTAURANT_COORDS,
-  STEP_INTERVAL_MS,
+    DELIVERY_DURATION_MS,
+    DELIVERY_PARTNER,
+    DeliveryStatus,
+    INITIAL_ETA_MINUTES,
+    RESTAURANT_COORDS,
+    STEP_INTERVAL_MS,
 } from '@/src/constants/delivery';
+import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useOrders } from '@/src/hooks/useOrders';
 import { fetchRealRoute, getBearing, LatLng } from '@/src/utils/routeData';
@@ -17,11 +18,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
 } from 'react';
 import { Animated, TouchableOpacity, useColorScheme, View } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
@@ -78,7 +79,7 @@ export default function DeliveryMap() {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        router.push('/(tabs)');
+        router.push(ROUTES.TABS.HOME);
         return true; // Prevent default back behavior
       };
 
@@ -422,7 +423,7 @@ export default function DeliveryMap() {
       <SafeAreaView style={styles.topBar} edges={['top']}>
         <TouchableOpacity
           style={[styles.backBtn, { backgroundColor: theme.surface }]}
-          onPress={() => router.push('/(tabs)')}
+          onPress={() => router.push(ROUTES.TABS.HOME)}
           activeOpacity={0.8}
         >
           <Ionicons name="arrow-back" size={20} color={theme.textPrimary} />

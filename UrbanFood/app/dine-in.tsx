@@ -31,6 +31,7 @@ import {
 } from '../src/features/bookings/bookingsThunks';
 import { clearCart } from '../src/features/cart/cartThunks';
 import { AppDispatch } from '../src/store';
+import { ROUTES } from '@/src/constants/navigation';
 
 export default function DineIn() {
   const scheme = useColorScheme() ?? 'light';
@@ -148,7 +149,7 @@ export default function DineIn() {
 
       // Navigate to success screen with booking ID
       router.push({
-        pathname: '/booking-success',
+        pathname: ROUTES.BOOKING_SUCCESS,
         params: { bookingId: result.bookingId },
       });
     } catch (error: any) {
