@@ -1,15 +1,23 @@
 // Custom hook for accessing translations
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { defaultTranslations } from '../data/translations';
 import {
   selectCurrentLanguage,
+  selectLanguageLoading,
   selectTranslations,
 } from '../features/language/languageSlice';
+import {
+  changeLanguage,
+  loadStoredLanguage as loadStoredLanguageThunk,
+} from '../features/language/languageThunks';
+import { AppDispatch } from '../store';
 
 export function useTranslation() {
+  const dispatch = useDispatch<AppDispatch>();
   const currentLanguage = useSelector(selectCurrentLanguage);
   const translations = useSelector(selectTranslations);
+  const loading = useSelector(selectLanguageLoading);
 
   // Fallback to default translations if none are loaded
   const translationsData = translations || defaultTranslations;
@@ -47,9 +55,20 @@ export function useTranslation() {
     return value;
   };
 
+  const setLanguage = async (languageCode: string) => {
+    return dispatch(changeLanguage(languageCode)).unwrap();
+  };
+
+  const loadStoredLanguage = async () => {
+    return dispatch(loadStoredLanguageThunk());
+  };
+
   return {
     t,
     currentLanguage,
     translations: translationsData,
+    loading,
+    setLanguage,
+    loadStoredLanguage,
   };
 }

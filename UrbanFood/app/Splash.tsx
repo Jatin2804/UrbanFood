@@ -2,36 +2,28 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { ROUTES } from '@/src/constants/navigation';
-import { checkAuthStatus } from '@/src/features/auth/authThunks';
-import { fetchDishes } from '@/src/features/dishes/dishesThunk';
+import { useAuth } from '@/src/hooks/useAuth';
 import { useLocation } from '@/src/hooks/useLocation';
-import { AppDispatch } from '@/src/store';
 import { splashStyles as styles } from '@/styles/screens/splashStyles';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Image, useColorScheme, View } from 'react-native';
-import { useDispatch } from 'react-redux';
 
 const Splash = () => {
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
   const scheme = useColorScheme() ?? 'light';
+  const { checkAuth } = useAuth();
   const { requestLocation } = useLocation();
 
   useEffect(() => {
     let isMounted = true;
 
     const init = async () => {
-      // Request location permission early — runs in parallel with auth + dishes
-      const [authResult] = await Promise.all([
-        dispatch(checkAuthStatus()),
-        dispatch(fetchDishes()),
-        requestLocation(),
-      ]);
+      // Request location permission early — runs in parallel with auth check
+      // Dishes are loaded automatically by useDishes() in _layout.tsx
+      const [authResult] = await Promise.all([checkAuth(), requestLocation()]);
 
-      const isLoggedIn =
-        checkAuthStatus.fulfilled.match(authResult) &&
-        authResult.payload !== null;
+      const isLoggedIn = authResult.payload !== null;
 
       setTimeout(() => {
         if (isMounted) {

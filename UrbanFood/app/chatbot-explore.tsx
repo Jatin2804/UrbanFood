@@ -3,17 +3,16 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { FlatList, Pressable, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { useSelector } from 'react-redux';
 
 import DishCard from '@/components/explore/DishCard';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Dish } from '@/src/features/dishes/dishesType';
-import { RootState } from '@/src/store/rootReducer';
-import { chatbotExploreStyles } from '@/styles/screens/chatbotExploreStyles';
 import { ROUTES } from '@/src/constants/navigation';
+import { Dish } from '@/src/features/dishes/dishesType';
+import { useDishes } from '@/src/hooks/useDishes';
+import { chatbotExploreStyles } from '@/styles/screens/chatbotExploreStyles';
 
 export default function ChatbotExplore() {
   const router = useRouter();
@@ -21,7 +20,7 @@ export default function ChatbotExplore() {
   const colors = Colors[colorScheme ?? 'light'];
   const { dishIds } = useLocalSearchParams<{ dishIds: string }>();
 
-  const allDishes = useSelector((state: RootState) => state.dishes.dishes);
+  const { dishes: allDishes } = useDishes();
 
   // Parse dish IDs and get corresponding dishes
   const recommendedDishes = useMemo(() => {

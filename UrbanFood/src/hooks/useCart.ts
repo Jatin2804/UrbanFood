@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser } from '../features/auth/authSlice';
 import {
   addToCart,
   applyOffer,
@@ -13,10 +12,11 @@ import {
 import { CartDish } from '../features/cart/cartTypes';
 import { AppDispatch } from '../store';
 import { RootState } from '../store/rootReducer';
+import { useAuth } from './useAuth';
 
 export const useCart = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector(selectCurrentUser);
+  const { user } = useAuth();
   const { cart, loading, updating, error } = useSelector(
     (state: RootState) => state.cart,
   );
@@ -24,14 +24,13 @@ export const useCart = () => {
   const dishes: CartDish[] = cart?.dishes ?? [];
   const itemCount = dishes.reduce((s, d) => s + d.quantity, 0);
 
-  // Auto-load cart ONLY when cart is null (not yet fetched).
-  // Do NOT re-fetch if cart is already loaded — fetchCart.fulfilled would
-  // overwrite any items the user just added while the API call was in-flight.
+  // Auto-load cart when user logs in
+  // Cart will be loaded from AsyncStorage first (instant), then synced with GitHub
   useEffect(() => {
     if (user?.id && cart === null && !loading) {
       dispatch(fetchCart(user.id));
     }
-  }, [user?.id, cart, loading]);
+  }, [user?.id, cart, loading, dispatch]);
 
   const loadCart = () => {
     if (user?.id) dispatch(fetchCart(user.id));

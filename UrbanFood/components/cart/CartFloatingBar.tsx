@@ -1,28 +1,23 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import { ROUTES } from '@/src/constants/navigation';
-import { RootState } from '@/src/store/rootReducer';
+import { useCart } from '@/src/hooks/useCart';
 import { CartFloatingBarProps } from '@/src/types/components';
 import { cartFloatingBarStyles as styles } from '@/styles/components/cartFloatingBarStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, useColorScheme, View } from 'react-native';
-import { useSelector } from 'react-redux';
 
 const CartFloatingBar: React.FC<CartFloatingBarProps> = () => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const router = useRouter();
 
-  const cart = useSelector((state: RootState) => state.cart.cart);
-
-  // Calculate total items
-  const totalItems =
-    cart?.dishes.reduce((sum, dish) => sum + dish.quantity, 0) ?? 0;
+  const { cart, itemCount } = useCart();
 
   // Don't show if cart is empty
-  if (!cart || totalItems === 0) {
+  if (!cart || itemCount === 0) {
     return null;
   }
 
@@ -40,15 +35,15 @@ const CartFloatingBar: React.FC<CartFloatingBarProps> = () => {
         <View style={styles.leftSection}>
           <View style={styles.iconWrap}>
             <Ionicons name="cart" size={20} color="#fff" />
-            {totalItems > 0 && (
+            {itemCount > 0 && (
               <View style={styles.badge}>
-                <ThemedText style={styles.badgeText}>{totalItems}</ThemedText>
+                <ThemedText style={styles.badgeText}>{itemCount}</ThemedText>
               </View>
             )}
           </View>
           <View>
             <ThemedText style={styles.itemsText}>
-              {totalItems} {totalItems === 1 ? 'item' : 'items'}
+              {itemCount} {itemCount === 1 ? 'item' : 'items'}
             </ThemedText>
             <ThemedText style={styles.priceText}>₹{cart.finalPrice}</ThemedText>
           </View>

@@ -344,5 +344,41 @@
     "explore": "Explore",
     "cart": "Cart",
     "account": "Account"
+  },
+  "helpSupport": {
+    "title": "Help & Support",
+    "chatWithUs": "Chat with Us",
+    "chatDescription": "Get instant help from our AI assistant",
+    "talkToSamosa": "Talk to Samosa",
+    "faq": "Frequently Asked Questions",
+    "howToOrder": "How to place an order?",
+    "howToOrderAnswer": "Browse dishes in Explore, add them to cart, and proceed to checkout. You can pay cash on delivery.",
+    "trackOrder": "How to track my order?",
+    "trackOrderAnswer": "Go to My Orders from your account and tap Track on any active order to see real-time delivery status.",
+    "cancelOrder": "Can I cancel my order?",
+    "cancelOrderAnswer": "Orders can be cancelled within 2 minutes of placing. Contact support for assistance.",
+    "paymentMethods": "What payment methods are available?",
+    "paymentMethodsAnswer": "Currently we support Cash on Delivery. More payment options coming soon!",
+    "contactUs": "Contact Us",
+    "email": "Email",
+    "emailAddress": "support@urbanfood.com",
+    "phone": "Phone",
+    "phoneNumber": "+91 98765 43210",
+    "workingHours": "Working Hours",
+    "workingHoursTime": "Mon - Sun: 9:00 AM - 11:00 PM"
+  },
+  "addresses": {
+    "title": "My Addresses",
+    "currentLocation": "Current Location",
+    "detectingLocation": "Detecting your location...",
+    "locationAccessDenied": "Location access denied",
+    "enableLocation": "Please enable location access to see your address",
+    "openSettings": "Open Settings",
+    "refresh": "Refresh Location",
+    "savedAddresses": "Saved Addresses",
+    "noSavedAddresses": "No saved addresses yet",
+    "addNewAddress": "Add New Address",
+    "deliveryAddress": "Delivery Address",
+    "coordinates": "Coordinates"
   }
 }

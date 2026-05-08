@@ -2,7 +2,7 @@ import NotificationCardSkeleton from '@/components/notifications/NotificationCar
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
-import { selectCurrentUser } from '@/src/features/auth/authSlice';
+import { useAuth } from '@/src/hooks/useAuth';
 import {
   clearAllNotifications,
   getNotifications,
@@ -21,13 +21,12 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
 
 export default function NotificationsScreen() {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const router = useRouter();
-  const user = useSelector(selectCurrentUser);
+  const { user } = useAuth();
   const [notifications, setNotifications] = useState<StoredNotification[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);

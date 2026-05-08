@@ -1,17 +1,17 @@
+import { DishDetailSkeleton } from '@/components/common/DishDetailSkeleton';
 import DishBottomBar from '@/components/dish/DishBottomBar';
 import DishImageCarousel from '@/components/dish/DishImageCarousel';
 import DishInfoSection from '@/components/dish/DishInfoSection';
 import DishStatsRow from '@/components/dish/DishStatsRow';
 import ReviewList from '@/components/dish/ReviewList';
-import { DishDetailSkeleton } from '@/components/common/DishDetailSkeleton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Spacing } from '@/constants/theme';
 import { DeepLinks } from '@/src/config/linking';
 import { getDishName, getDishType } from '@/src/features/dishes/dishesType';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useDishes } from '@/src/hooks/useDishes';
 import { useTranslation } from '@/src/hooks/useTranslation';
-import { RootState } from '@/src/store/rootReducer';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -23,7 +23,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import { useSelector } from 'react-redux';
 
 const DishDetail = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -34,10 +33,8 @@ const DishDetail = () => {
   const { currentLanguage } = useTranslation();
   const lang = currentLanguage as 'en' | 'hi' | 'te' | 'kn';
 
-  const dish = useSelector((state: RootState) =>
-    state.dishes.dishes.find((d) => d.id === id),
-  );
-  const loading = useSelector((state: RootState) => state.dishes.loading);
+  const { dishes, loading } = useDishes();
+  const dish = dishes.find((d) => d.id === id);
 
   if (loading && !dish) {
     return (

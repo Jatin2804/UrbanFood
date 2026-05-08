@@ -11,13 +11,12 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { ROUTES } from '@/src/constants/navigation';
 import { useCart } from '@/src/hooks/useCart';
+import { useDishes } from '@/src/hooks/useDishes';
 import { getDishById } from '@/src/services/apiService';
-import { RootState } from '@/src/store/rootReducer';
 import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, Animated, ScrollView, useColorScheme } from 'react-native';
-import { useSelector } from 'react-redux';
 
 const SHEET_HEIGHT = 500;
 const ORDER_SHEET_HEIGHT = 280;
@@ -39,7 +38,7 @@ const Cart = () => {
     handleApplyOffer,
     handleRemoveOffer,
   } = useCart();
-  const allDishes = useSelector((state: RootState) => state.dishes.dishes);
+  const { dishes: allDishes } = useDishes();
 
   // Offer bottom sheet animation
   const [sheetVisible, setSheetVisible] = useState(false);

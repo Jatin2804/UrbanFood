@@ -1,4 +1,3 @@
-import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import {
   configureNotificationHandler,
   requestNotificationPermissions,
@@ -6,7 +5,7 @@ import {
 import { saveNotification } from '@/src/utils/notificationStorage';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useAuth } from './useAuth';
 
 export interface NotificationData {
   notification: Notifications.Notification;
@@ -24,7 +23,7 @@ export function useNotifications() {
 
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
-  const user = useSelector(selectCurrentUser);
+  const { user } = useAuth();
 
   useEffect(() => {
     // Configure notification handler

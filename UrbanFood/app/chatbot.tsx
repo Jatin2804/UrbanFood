@@ -15,7 +15,6 @@ import {
   View,
 } from 'react-native';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { useSelector } from 'react-redux';
 
 import ChatbotDishCard from '@/components/chatbot/ChatbotDishCard';
 import ChatbotMenuCategories from '@/components/chatbot/ChatbotMenuCategories';
@@ -27,13 +26,16 @@ import {
   CHATBOT_GREETING,
   CHATBOT_QUICK_REPLIES,
 } from '@/src/constants/chatbot';
+import { ROUTES } from '@/src/constants/navigation';
 import { Dish } from '@/src/features/dishes/dishesType';
 import { sendMessageToGrok } from '@/src/services/chatService';
-import { RootState } from '@/src/store/rootReducer';
 import { ChatMessage } from '@/src/types/components';
 import { chatbotMenuStyles } from '@/styles/components/chatbotMenuStyles';
 import { chatbotStyles } from '@/styles/screens/chatbotStyles';
-import { ROUTES } from '@/src/constants/navigation';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useDishes } from '@/src/hooks/useDishes';
+import { useOrders } from '@/src/hooks/useOrders';
+import { useBookings } from '@/src/hooks/useBookings';
 
 const CHAT_STORAGE_KEY = '@chatbot_messages';
 
@@ -60,13 +62,13 @@ export default function Chatbot() {
   const colors = Colors[colorScheme ?? 'light'];
   const flatListRef = useRef<FlatList>(null);
 
-  const allDishes = useSelector((state: RootState) => state.dishes.dishes);
-  const recentOrders = useSelector(
-    (state: RootState) => state.orders.orders,
-  ).slice(0, 3);
-  const recentBookings = useSelector(
-    (state: RootState) => state.bookings.bookings,
-  ).slice(0, 3);
+  const { user } = useAuth();
+  const { dishes: allDishes } = useDishes();
+  const { orders } = useOrders(user?.id, true);
+  const { bookings } = useBookings();
+
+  const recentOrders = orders.slice(0, 3);
+  const recentBookings = bookings.slice(0, 3);
 
   const [messages, setMessages] = useState<ChatbotMessage[]>([
     {

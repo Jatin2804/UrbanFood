@@ -2,7 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { ROUTES } from '@/src/constants/navigation';
-import { RootState } from '@/src/store/rootReducer';
+import { useBookings } from '@/src/hooks/useBookings';
 import { bookingSuccessStyles as styles } from '@/styles/screens/bookingSuccessStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -15,7 +15,6 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
 
 export default function BookingSuccess() {
   const scheme = useColorScheme() ?? 'light';
@@ -23,7 +22,7 @@ export default function BookingSuccess() {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  const { bookings } = useSelector((state: RootState) => state.bookings);
+  const { bookings } = useBookings();
 
   // Get booking details from params
   const bookingId = params.bookingId as string;

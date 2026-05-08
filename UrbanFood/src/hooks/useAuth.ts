@@ -7,15 +7,16 @@ import {
   selectIsLoggedIn,
 } from '../features/auth/authSlice';
 import {
+  checkAuthStatus,
   loginUser,
   logoutUser,
   signupUser,
   toggleFavoriteDish,
+  updateBiometricSetting,
 } from '../features/auth/authThunks';
 import { AppDispatch } from '../store';
 
 // Auth state selector hook  no side effects.
-// checkAuthStatus is called once at app startup in Splash.tsx.
 export const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -24,6 +25,10 @@ export const useAuth = () => {
   const token = useSelector(selectAuthToken);
   const loading = useSelector(selectAuthLoading);
   const error = useSelector(selectAuthError);
+
+  const checkAuth = () => {
+    return dispatch(checkAuthStatus());
+  };
 
   const login = (email: string, pin: string) => {
     return dispatch(loginUser({ email, pin }));
@@ -46,15 +51,21 @@ export const useAuth = () => {
     return dispatch(toggleFavoriteDish({ dishId }));
   };
 
+  const updateBiometric = (enabled: boolean) => {
+    return dispatch(updateBiometricSetting(enabled));
+  };
+
   return {
     isLoggedIn,
     user,
     token,
     loading,
     error,
+    checkAuth,
     login,
     signup,
     logout,
     toggleFavourite,
+    updateBiometric,
   };
 };

@@ -4,11 +4,6 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { SUPPORTED_LANGUAGES } from '@/src/constants/languages';
 import { ROUTES } from '@/src/constants/navigation';
-import {
-  selectCurrentLanguage,
-  selectLanguageLoading,
-} from '@/src/features/language/languageSlice';
-import { changeLanguage } from '@/src/features/language/languageThunks';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { languageSelectorStyles } from '@/styles/components/languageSelectorStyles';
 import { useRouter } from 'expo-router';
@@ -22,14 +17,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 
 export function LanguageSelector() {
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, currentLanguage, loading, setLanguage } = useTranslation();
   const router = useRouter();
-  const currentLanguage = useSelector(selectCurrentLanguage);
-  const loading = useSelector(selectLanguageLoading);
   const [modalVisible, setModalVisible] = useState(false);
 
   const currentLanguageName =
@@ -46,7 +37,7 @@ export function LanguageSelector() {
 
     try {
       // Save the new language to AsyncStorage via Redux
-      await dispatch(changeLanguage(languageCode) as any).unwrap();
+      await setLanguage(languageCode);
       // Navigate to Splash so the app re-initialises with the new language
       router.replace(ROUTES.SPLASH);
     } catch (error) {

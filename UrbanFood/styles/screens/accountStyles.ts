@@ -21,13 +21,13 @@ export const accountStyles = StyleSheet.create({
     width: 88,
     height: 88,
     borderRadius: 44,
-    backgroundColor: Brand.primary,
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: Spacing.md,
     ...Shadows.primary,
   },
-  avatarText: { fontSize: 32, fontWeight: '700', color: '#fff' },
+  avatarText: { fontSize: 32, fontWeight: '700', color: Brand.primary },
   userName: { marginBottom: 4 },
 
   card: {

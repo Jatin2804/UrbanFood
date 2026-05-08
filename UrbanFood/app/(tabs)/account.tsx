@@ -27,8 +27,12 @@ const Account = () => {
       router.push(ROUTES.DINE_IN);
     } else if (item.labelKey === 'account.favourites') {
       router.push(ROUTES.FAVOURITES);
+    } else if (item.labelKey === 'account.addresses') {
+      router.push(ROUTES.ADDRESSES);
     } else if (item.labelKey === 'account.settings') {
       router.push(ROUTES.SETTINGS);
+    } else if (item.labelKey === 'account.helpAndSupport') {
+      router.push(ROUTES.HELP_SUPPORT);
     }
   };
 

@@ -3,20 +3,18 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES, SCREEN_NAMES } from '@/src/constants/navigation';
-import {
-  selectCurrentUser,
-  selectIsLoggedIn,
-} from '@/src/features/auth/authSlice';
-import { loadStoredLanguage } from '@/src/features/language/languageThunks';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useDishes } from '@/src/hooks/useDishes';
 import { useNotifications } from '@/src/hooks/useNotifications';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { store } from '@/src/store';
 import { authenticateUser } from '@/src/utils/biometricAuth';
 import { useEffect, useState } from 'react';
@@ -29,10 +27,8 @@ export const unstable_settings = {
 function AppContent() {
   const colorScheme = useColorScheme();
   const router = useRouter();
-  const segments = useSegments();
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const user = useSelector(selectCurrentUser);
+  const { isLoggedIn, user } = useAuth();
+  const { loadStoredLanguage } = useTranslation();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [biometricChecked, setBiometricChecked] = useState(false);
   const [languageLoaded, setLanguageLoaded] = useState(false);
@@ -40,15 +36,18 @@ function AppContent() {
   // Initialize notifications (now inside Provider)
   useNotifications();
 
+  // Initialize dishes (auto-fetches on first mount)
+  useDishes();
+
   // Load stored language on app start
   useEffect(() => {
     const initLanguage = async () => {
-      await dispatch(loadStoredLanguage() as any);
+      await loadStoredLanguage();
       setLanguageLoaded(true);
     };
 
     initLanguage();
-  }, [dispatch]);
+  }, []);
 
   // Handle biometric authentication on app launch
   useEffect(() => {
@@ -159,6 +158,14 @@ function AppContent() {
         />
         <Stack.Screen
           name={SCREEN_NAMES.FAVOURITES}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={SCREEN_NAMES.HELP_SUPPORT}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={SCREEN_NAMES.ADDRESSES}
           options={{ headerShown: false }}
         />
         <Stack.Screen

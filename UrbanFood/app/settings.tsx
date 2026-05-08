@@ -2,8 +2,7 @@ import { LanguageSelector } from '@/components/settings/LanguageSelector';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
-import { selectCurrentUser } from '@/src/features/auth/authSlice';
-import { updateBiometricSetting } from '@/src/features/auth/authThunks';
+import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { checkBiometricSupport } from '@/src/utils/biometricAuth';
 import { settingsStyles as styles } from '@/styles/screens/settingsStyles';
@@ -19,7 +18,6 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
 
 function SettingsHeader() {
   const router = useRouter();
@@ -45,9 +43,8 @@ function SettingsHeader() {
 }
 
 export default function Settings() {
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const user = useSelector(selectCurrentUser);
+  const { user, updateBiometric } = useAuth();
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const [biometricSupport, setBiometricSupport] = useState({
@@ -86,7 +83,7 @@ export default function Settings() {
       return;
     }
 
-    dispatch(updateBiometricSetting(value) as any);
+    updateBiometric(value);
   };
 
   return (

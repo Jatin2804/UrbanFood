@@ -9,13 +9,14 @@ import {
 import { TimeSlot } from '../features/bookings/bookingsTypes';
 import { AppDispatch } from '../store';
 import { RootState } from '../store/rootReducer';
+import { useAuth } from './useAuth';
 
 export const useBookings = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { bookings, tables, loading, updating, error } = useSelector(
     (state: RootState) => state.bookings,
   );
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user } = useAuth();
 
   useEffect(() => {
     dispatch(fetchTables());
@@ -40,6 +41,7 @@ export const useBookings = () => {
     tableId: string,
     tableNumber: number,
     timeSlot: TimeSlot,
+    dishes?: any[],
   ) => {
     if (!user) {
       throw new Error('User not logged in');
@@ -51,6 +53,7 @@ export const useBookings = () => {
         tableId,
         tableNumber,
         timeSlot,
+        dishes,
       }),
     ).unwrap();
   };

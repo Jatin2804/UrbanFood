@@ -1,32 +1,31 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import FloatingChatbotButton from '@/components/chatbot/FloatingChatbotButton';
 import { HapticTab } from '@/components/haptic-tab';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { selectCurrentUser } from '@/src/features/auth/authSlice';
-import { fetchCart } from '@/src/features/cart/cartThunks';
-import { fetchOrders } from '@/src/features/orders/ordersThunks';
-import { useTranslation } from '@/src/hooks/useTranslation';
-import { AppDispatch } from '@/src/store';
 import { SCREEN_NAMES } from '@/src/constants/navigation';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useTranslation } from '@/src/hooks/useTranslation';
+import { useCart } from '@/src/hooks/useCart';
+import { useOrders } from '@/src/hooks/useOrders';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector(selectCurrentUser);
+  const { user } = useAuth();
   const { t } = useTranslation();
 
-  // Fetch cart and orders when tabs mount (user enters main app)
+  const { loadCart } = useCart();
+  const { refreshOrders } = useOrders(user?.id, true);
+
   useEffect(() => {
     if (user?.id) {
-      dispatch(fetchCart(user.id));
-      dispatch(fetchOrders(user.id));
+      loadCart();
+      refreshOrders();
     }
-  }, [user?.id, dispatch]);
+  }, [user?.id]);
 
   return (
     <>

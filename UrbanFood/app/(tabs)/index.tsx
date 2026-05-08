@@ -12,18 +12,16 @@ import ScrollSection from '@/components/home/ScrollSection';
 import OrderStatusSection from '@/components/orders/FloatingOrderStatus';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Spacing } from '@/constants/theme';
-import { selectCurrentUser } from '@/src/features/auth/authSlice';
 import { Dish } from '@/src/features/dishes/dishesType';
 
 import { useAuth } from '@/src/hooks/useAuth';
+import { useDishes } from '@/src/hooks/useDishes';
 import { useOrders } from '@/src/hooks/useOrders';
 import { useTranslation } from '@/src/hooks/useTranslation';
-import { RootState } from '@/src/store/rootReducer';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
 import { useFocusEffect } from 'expo-router';
 import React, { useCallback, useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
-import { useSelector } from 'react-redux';
 
 const NEW_ARRIVAL_CUTOFF = new Date('2025-01-10');
 const TOP_RATED_MIN = 4.5;
@@ -38,10 +36,9 @@ const parseDate = (dateStr: string): Date => {
 };
 
 const Home = () => {
-  const user = useSelector(selectCurrentUser);
+  const { user } = useAuth();
   const firstName = user?.name?.split(' ')[0] ?? 'there';
-  const dishes = useSelector((state: RootState) => state.dishes.dishes);
-  const loading = useSelector((state: RootState) => state.dishes.loading);
+  const { dishes, loading } = useDishes();
   const { user: authUser } = useAuth();
   const { refreshDeliveryOrders } = useOrders(authUser?.id, true);
   const { t } = useTranslation();

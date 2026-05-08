@@ -7,7 +7,6 @@ import { useAuth } from '@/src/hooks/useAuth';
 import { useCart } from '@/src/hooks/useCart';
 import { useLocation } from '@/src/hooks/useLocation';
 import { useOrders } from '@/src/hooks/useOrders';
-import { RootState } from '@/src/store/rootReducer';
 import { checkoutStyles as styles } from '@/styles/screens/checkoutStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -21,7 +20,6 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
 
 export default function Checkout() {
   const scheme = useColorScheme() ?? 'light';
@@ -30,8 +28,7 @@ export default function Checkout() {
   const [isConfirming, setIsConfirming] = useState(false);
 
   const { user } = useAuth();
-  const cart = useSelector((state: RootState) => state.cart.cart);
-  const { handleClearCart } = useCart();
+  const { cart, handleClearCart } = useCart();
   const { createNewOrder } = useOrders(user?.id, true);
   const {
     status: locationStatus,

@@ -1,3 +1,5 @@
+import { CART_OFFERS } from '@/src/data/cartOffers';
+import { loadCart, saveCart } from '@/src/utils/cartStorage';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   createCartsFileAPI,
@@ -7,7 +9,6 @@ import {
 } from '../../services/apiService';
 import { RootState } from '../../store/rootReducer';
 import { Cart, CartDish } from './cartTypes';
-import { CART_OFFERS } from '@/src/data/cartOffers';
 
 const parseData = (data: any): Cart[] => {
   if (!data) return [];
@@ -34,6 +35,10 @@ const computeTotals = (dishes: CartDish[], discount: number) => {
 
 async function pushToGitHub(cart: Cart) {
   try {
+    // Save to AsyncStorage first (fast and reliable)
+    await saveCart(cart.userId, cart);
+
+    // Then push to GitHub (slower, may fail)
     const raw = await fetchCartsAPI();
     const allCarts: Cart[] = parseData(raw);
     const idx = allCarts.findIndex((c) => c.userId === cart.userId);
@@ -49,7 +54,7 @@ async function pushToGitHub(cart: Cart) {
       await createCartsFileAPI(updated);
     }
   } catch {
-    // GitHub push failed silently — local state is still correct
+    // GitHub push failed silently — local AsyncStorage is still correct
   }
 }
 
@@ -59,11 +64,39 @@ export const fetchCart = createAsyncThunk<
   { rejectValue: string }
 >('cart/fetch', async (userId, { rejectWithValue }) => {
   try {
-    const raw = await fetchCartsAPI();
-    const carts: Cart[] = parseData(raw);
-    const found = carts.find((c) => c.userId === userId);
-    if (found) return found;
+    // First, try to load from AsyncStorage (fast)
+    const localCart = await loadCart(userId);
+    if (localCart) {
+      // Sync with GitHub in background (don't wait)
+      fetchCartsAPI()
+        .then((raw) => {
+          const carts: Cart[] = parseData(raw);
+          const githubCart = carts.find((c) => c.userId === userId);
+          // If GitHub has newer data, we could merge here
+          // For now, we trust local storage as source of truth
+        })
+        .catch(() => {
+          // GitHub fetch failed, but we have local data
+        });
+      return localCart;
+    }
 
+    // If no local cart, try to fetch from GitHub
+    try {
+      const raw = await fetchCartsAPI();
+      const carts: Cart[] = parseData(raw);
+      const found = carts.find((c) => c.userId === userId);
+      if (found) {
+        // Save to AsyncStorage for next time
+        await saveCart(userId, found);
+        return found;
+      }
+    } catch (githubError) {
+      // GitHub fetch failed, create new cart
+      console.log('GitHub fetch failed, creating new cart');
+    }
+
+    // Create new cart if none exists
     const newCart: Cart = {
       cartId: `cart_${Date.now()}`,
       userId,
@@ -74,10 +107,31 @@ export const fetchCart = createAsyncThunk<
       finalPrice: 0,
       createdAt: new Date().toISOString(),
     };
-    await pushToGitHub(newCart);
+
+    // Try to save to GitHub, but don't fail if it doesn't work
+    try {
+      await pushToGitHub(newCart);
+    } catch (pushError) {
+      console.log(
+        'Failed to push new cart to GitHub, but cart is saved locally',
+      );
+    }
+
     return newCart;
   } catch (e: any) {
-    return rejectWithValue(e?.message ?? 'Failed to fetch cart');
+    // Even if everything fails, return an empty cart instead of rejecting
+    console.error('Cart fetch error:', e);
+    const emptyCart: Cart = {
+      cartId: `cart_${Date.now()}`,
+      userId,
+      dishes: [],
+      offerId: null,
+      discount: 0,
+      totalPrice: 0,
+      finalPrice: 0,
+      createdAt: new Date().toISOString(),
+    };
+    return emptyCart;
   }
 });
 

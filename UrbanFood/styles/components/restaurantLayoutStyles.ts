@@ -9,8 +9,6 @@ export const restaurantLayoutStyles = StyleSheet.create({
     width: '100%',
     minHeight: 700,
     borderRadius: Radius.lg,
-    borderWidth: 2,
-    borderColor: '#E0E0E0',
     overflow: 'hidden',
     ...Shadows.md,
   },

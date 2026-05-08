@@ -34,12 +34,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
-        // Safety guard: don't overwrite a cart that already has items.
-        // Prevents a slow GitHub fetch from clobbering items added locally.
-        const hasLocalItems = (state.cart?.dishes?.length ?? 0) > 0;
-        if (!hasLocalItems) {
-          state.cart = action.payload;
-        }
+        state.cart = action.payload;
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;

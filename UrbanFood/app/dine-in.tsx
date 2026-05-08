@@ -6,7 +6,10 @@ import TableCardSkeleton from '@/components/bookings/TableCardSkeleton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Radius, Spacing } from '@/constants/theme';
-import { RootState } from '@/src/store/rootReducer';
+import { ROUTES } from '@/src/constants/navigation';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useBookings } from '@/src/hooks/useBookings';
+import { useCart } from '@/src/hooks/useCart';
 import { Table, TimeSlot } from '@/src/types';
 import { dineInStyles as styles } from '@/styles/screens/dineInStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,30 +26,27 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  cancelBooking,
-  createBooking,
-  fetchBookings,
-} from '../src/features/bookings/bookingsThunks';
-import { clearCart } from '../src/features/cart/cartThunks';
-import { AppDispatch } from '../src/store';
-import { ROUTES } from '@/src/constants/navigation';
 
 export default function DineIn() {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
 
   // Get deep link parameters
   const params = useLocalSearchParams<{ tab?: string }>();
 
-  const { bookings, tables, loading, updating } = useSelector(
-    (state: RootState) => state.bookings,
-  );
-  const { user } = useSelector((state: RootState) => state.auth);
-  const { cart } = useSelector((state: RootState) => state.cart);
+  const { user } = useAuth();
+  const {
+    bookings,
+    tables,
+    loading,
+    updating,
+    bookTable,
+    cancelTableBooking,
+    getUserBookings,
+    refreshBookings,
+  } = useBookings();
+  const { cart, handleClearCart } = useCart();
   const cartItems = cart?.dishes || [];
 
   const [selectedTable, setSelectedTable] = useState<Table | null>(null);
@@ -68,12 +68,12 @@ export default function DineIn() {
       // Only fetch if we didn't just create a booking
       // This prevents overwriting the local state with stale API data
       if (!justBooked) {
-        dispatch(fetchBookings());
+        refreshBookings();
       } else {
         // Reset the flag after skipping one fetch
         setJustBooked(false);
       }
-    }, [dispatch, justBooked]),
+    }, [justBooked]),
   );
 
   // Update current time every minute to refresh expired bookings
@@ -87,9 +87,9 @@ export default function DineIn() {
 
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
-    await dispatch(fetchBookings());
+    refreshBookings();
     setRefreshing(false);
-  }, [dispatch]);
+  }, []);
 
   const getBookedTableIds = () => {
     return bookings
@@ -126,15 +126,12 @@ export default function DineIn() {
     }
 
     try {
-      const result = await dispatch(
-        createBooking({
-          userId: user.id,
-          tableId: selectedTable.id,
-          tableNumber: selectedTable.number,
-          timeSlot: selectedSlot,
-          dishes: cartItems,
-        }),
-      ).unwrap();
+      const result = await bookTable(
+        selectedTable.id,
+        selectedTable.number,
+        selectedSlot,
+        cartItems,
+      );
 
       // The newly created booking is already added to Redux state by the thunk
       // Set flag to prevent immediate re-fetch on navigation
@@ -142,7 +139,7 @@ export default function DineIn() {
 
       // Clear the cart after successful booking
       try {
-        await dispatch(clearCart(user.id)).unwrap();
+        await handleClearCart();
       } catch (cartError) {
         // Cart clear failed
       }
@@ -168,7 +165,7 @@ export default function DineIn() {
           style: 'destructive',
           onPress: async () => {
             try {
-              await dispatch(cancelBooking(bookingId)).unwrap();
+              await cancelTableBooking(bookingId);
               Alert.alert('Success', 'Booking cancelled successfully');
             } catch (error: any) {
               Alert.alert('Error', error || 'Failed to cancel booking');

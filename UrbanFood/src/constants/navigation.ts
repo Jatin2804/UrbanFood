@@ -40,6 +40,8 @@ export const ROUTES = {
   NOTIFICATION_TEST: '/notification-test',
   SETTINGS: '/settings',
   FAVOURITES: '/favourites',
+  HELP_SUPPORT: '/help-support',
+  ADDRESSES: '/addresses',
 } as const;
 
 /**
@@ -82,6 +84,8 @@ export const SCREEN_NAMES = {
   NOTIFICATION_TEST: 'notification-test',
   SETTINGS: 'settings',
   FAVOURITES: 'favourites',
+  HELP_SUPPORT: 'help-support',
+  ADDRESSES: 'addresses',
 } as const;
 
 /**
