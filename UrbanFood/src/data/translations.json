@@ -137,7 +137,11 @@
     "topRated": "Top Rated",
     "default": "Default",
     "clearFilters": "Clear Filters",
-    "clearSort": "Clear Sort"
+    "clearSort": "Clear Sort",
+    "itemsAvailable": "{count} items available",
+    "itemAvailable": "{count} item available",
+    "gridView": "Grid View",
+    "listView": "List View"
   },
   "cart": {
     "title": "My Cart",

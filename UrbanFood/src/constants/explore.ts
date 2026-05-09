@@ -7,6 +7,7 @@ export type SortOption =
   | 'top_rated'
   | 'newest';
 export type VegFilter = 'all' | 'veg' | 'nonveg';
+export type ViewMode = 'grid' | 'list';
 
 export const SORT_OPTIONS: {
   key: SortOption;

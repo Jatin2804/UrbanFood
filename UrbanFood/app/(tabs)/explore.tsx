@@ -3,9 +3,11 @@ import { DishCardSkeleton } from '@/components/common/DishCardSkeleton';
 import EmptyState from '@/components/common/EmptyState';
 import CategoryList from '@/components/explore/CategoryList';
 import DishCard from '@/components/explore/DishCard';
+import DishCardList from '@/components/explore/DishCardList';
 import FilterBar from '@/components/explore/FilterBar';
 import SearchBar from '@/components/explore/SearchBar';
 import SortSheet from '@/components/explore/SortSheet';
+import ViewToggle from '@/components/explore/ViewToggle';
 import { ThemedView } from '@/components/themed-view';
 import { SHEET_HEIGHT, SortOption, VegFilter } from '@/src/constants/explore';
 import { getDishName, getDishType } from '@/src/features/dishes/dishesType';
@@ -35,6 +37,7 @@ const Explore = () => {
   const [vegFilter, setVegFilter] = useState<VegFilter>('all');
   const [sortBy, setSortBy] = useState<SortOption>('none');
   const [sheetVisible, setSheetVisible] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   const slideAnim = useRef(new Animated.Value(SHEET_HEIGHT)).current;
 
@@ -169,13 +172,22 @@ const Explore = () => {
         />
       )}
 
+      {!loading && (
+        <ViewToggle
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          itemCount={filteredDishes.length}
+        />
+      )}
+
       {loading ? (
         <FlatList
           data={Array(6).fill(0)}
           keyExtractor={(_, index) => `skeleton-${index}`}
-          numColumns={2}
+          numColumns={viewMode === 'grid' ? 2 : 1}
+          key={viewMode}
           contentContainerStyle={styles.listContent}
-          columnWrapperStyle={styles.columnWrapper}
+          columnWrapperStyle={viewMode === 'grid' ? styles.columnWrapper : null}
           showsVerticalScrollIndicator={false}
           renderItem={() => <DishCardSkeleton />}
         />
@@ -189,11 +201,18 @@ const Explore = () => {
         <FlatList
           data={filteredDishes}
           keyExtractor={(item) => item.id}
-          numColumns={2}
+          numColumns={viewMode === 'grid' ? 2 : 1}
+          key={viewMode}
           contentContainerStyle={styles.listContent}
-          columnWrapperStyle={styles.columnWrapper}
+          columnWrapperStyle={viewMode === 'grid' ? styles.columnWrapper : null}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <DishCard dish={item} />}
+          renderItem={({ item }) =>
+            viewMode === 'grid' ? (
+              <DishCard dish={item} />
+            ) : (
+              <DishCardList dish={item} />
+            )
+          }
         />
       )}
 

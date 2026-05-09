@@ -1,4 +1,6 @@
+import { ViewMode } from '../constants/explore';
 import { FoodCategory } from '../data/categories';
+import { Dish } from '../features/dishes/dishesType';
 
 // Category Carousel Props
 export interface CategoryCarouselProps {
@@ -16,4 +18,15 @@ export interface MenuItem {
   labelKey: string;
   iconBg: string;
   iconColor: string;
+}
+
+// Explore View Props
+export interface ViewToggleProps {
+  viewMode: ViewMode;
+  onViewModeChange: (mode: ViewMode) => void;
+  itemCount: number;
+}
+
+export interface DishCardListProps {
+  dish: Dish;
 }

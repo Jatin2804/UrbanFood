@@ -115,6 +115,7 @@ export const exploreStyles = StyleSheet.create({
   listContent: {
     paddingHorizontal: Spacing.md,
     paddingBottom: 100, // Extra padding for cart floating bar
+    paddingTop: Spacing.xs,
   },
   columnWrapper: {
     gap: Spacing.sm,
