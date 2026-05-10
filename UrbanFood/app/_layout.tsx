@@ -10,22 +10,17 @@ import { Provider, useDispatch } from 'react-redux';
 
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { useAppTheme } from '@/src/hooks/useAppTheme';
 import { ROUTES, SCREEN_NAMES } from '@/src/constants/navigation';
+import { useAppTheme } from '@/src/hooks/useAppTheme';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useDishes } from '@/src/hooks/useDishes';
 import { useNotifications } from '@/src/hooks/useNotifications';
 import { useTranslation } from '@/src/hooks/useTranslation';
-import { store } from '@/src/store';
+import { loadRemoteConfig } from '@/src/services/remoteConfigService';
+import { AppDispatch, store } from '@/src/store';
 import { authenticateUser } from '@/src/utils/biometricAuth';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { loadRemoteConfig } from '@/src/services/remoteConfigService';
-import { AppDispatch } from '@/src/store';
-
-export const unstable_settings = {
-  initialRouteName: SCREEN_NAMES.INDEX,
-};
 
 function AppContent() {
   const colorScheme = useColorScheme();
@@ -175,10 +170,6 @@ function AppContent() {
         <Stack.Screen
           name={SCREEN_NAMES.ADDRESSES}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={SCREEN_NAMES.NOTIFICATION_TEST}
-          options={{ headerShown: true, title: 'Test Notifications' }}
         />
       </Stack>
       <StatusBar style="auto" />

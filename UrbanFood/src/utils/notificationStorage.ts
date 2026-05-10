@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const NOTIFICATIONS_KEY_PREFIX = '@notifications_history_';
+import { getNotificationsStorageKey } from '../constants/storage';
 
 export interface StoredNotification {
   id: string;
@@ -15,10 +14,7 @@ export interface StoredNotification {
  * Get the storage key for a specific user
  */
 function getStorageKey(userId?: string): string {
-  if (!userId) {
-    return `${NOTIFICATIONS_KEY_PREFIX}guest`;
-  }
-  return `${NOTIFICATIONS_KEY_PREFIX}${userId}`;
+  return getNotificationsStorageKey(userId);
 }
 
 /**

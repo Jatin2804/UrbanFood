@@ -76,7 +76,6 @@ export const linking: LinkingOptions<any> = {
 
       // Settings
       settings: 'settings',
-      'notification-test': 'notification-test',
     },
   },
 };

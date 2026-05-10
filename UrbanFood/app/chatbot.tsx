@@ -28,16 +28,15 @@ import {
 } from '@/src/constants/chatbot';
 import { ROUTES } from '@/src/constants/navigation';
 import { Dish } from '@/src/features/dishes/dishesType';
+import { useAuth } from '@/src/hooks/useAuth';
+import { useBookings } from '@/src/hooks/useBookings';
+import { useDishes } from '@/src/hooks/useDishes';
+import { useOrders } from '@/src/hooks/useOrders';
 import { sendMessageToGrok } from '@/src/services/chatService';
 import { ChatMessage } from '@/src/types/components';
 import { chatbotMenuStyles } from '@/styles/components/chatbotMenuStyles';
 import { chatbotStyles } from '@/styles/screens/chatbotStyles';
-import { useAuth } from '@/src/hooks/useAuth';
-import { useDishes } from '@/src/hooks/useDishes';
-import { useOrders } from '@/src/hooks/useOrders';
-import { useBookings } from '@/src/hooks/useBookings';
-
-const CHAT_STORAGE_KEY = '@chatbot_messages';
+import { STORAGE_KEYS } from '@/src/constants/storage';
 
 interface ChatbotMessage extends ChatMessage {
   type?: 'text' | 'menu';
@@ -95,7 +94,9 @@ export default function Chatbot() {
 
   const loadChatHistory = async () => {
     try {
-      const savedMessages = await AsyncStorage.getItem(CHAT_STORAGE_KEY);
+      const savedMessages = await AsyncStorage.getItem(
+        STORAGE_KEYS.CHATBOT_MESSAGES,
+      );
       if (savedMessages) {
         const parsed = JSON.parse(savedMessages);
         // Convert timestamp strings back to Date objects
@@ -113,7 +114,10 @@ export default function Chatbot() {
 
   const saveChatHistory = async () => {
     try {
-      await AsyncStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages));
+      await AsyncStorage.setItem(
+        STORAGE_KEYS.CHATBOT_MESSAGES,
+        JSON.stringify(messages),
+      );
     } catch (error) {
       console.error('Failed to save chat history:', error);
     }
@@ -130,7 +134,7 @@ export default function Chatbot() {
           style: 'destructive',
           onPress: async () => {
             try {
-              await AsyncStorage.removeItem(CHAT_STORAGE_KEY);
+              await AsyncStorage.removeItem(STORAGE_KEYS.CHATBOT_MESSAGES);
               setMessages([
                 {
                   id: '1',

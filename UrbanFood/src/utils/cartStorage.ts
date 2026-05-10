@@ -1,14 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Cart } from '../features/cart/cartTypes';
-
-const CART_STORAGE_KEY = '@cart_';
+import { getCartStorageKey } from '../constants/storage';
 
 /**
  * Save cart to AsyncStorage
  */
 export const saveCart = async (userId: string, cart: Cart) => {
   try {
-    const key = `${CART_STORAGE_KEY}${userId}`;
+    const key = getCartStorageKey(userId);
     await AsyncStorage.setItem(key, JSON.stringify(cart));
   } catch (error) {
     console.error('Failed to save cart:', error);
@@ -20,7 +19,7 @@ export const saveCart = async (userId: string, cart: Cart) => {
  */
 export const loadCart = async (userId: string): Promise<Cart | null> => {
   try {
-    const key = `${CART_STORAGE_KEY}${userId}`;
+    const key = getCartStorageKey(userId);
     const data = await AsyncStorage.getItem(key);
     return data ? JSON.parse(data) : null;
   } catch (error) {
@@ -34,7 +33,7 @@ export const loadCart = async (userId: string): Promise<Cart | null> => {
  */
 export const clearCart = async (userId: string) => {
   try {
-    const key = `${CART_STORAGE_KEY}${userId}`;
+    const key = getCartStorageKey(userId);
     await AsyncStorage.removeItem(key);
   } catch (error) {
     console.error('Failed to clear cart:', error);

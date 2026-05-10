@@ -37,7 +37,6 @@ export const ROUTES = {
   // Other
   OFFERS: '/offers',
   NOTIFICATIONS: '/notifications',
-  NOTIFICATION_TEST: '/notification-test',
   SETTINGS: '/settings',
   FAVOURITES: '/favourites',
   HELP_SUPPORT: '/help-support',
@@ -81,7 +80,6 @@ export const SCREEN_NAMES = {
   // Other
   OFFERS: 'offers',
   NOTIFICATIONS: 'notifications',
-  NOTIFICATION_TEST: 'notification-test',
   SETTINGS: 'settings',
   FAVOURITES: 'favourites',
   HELP_SUPPORT: 'help-support',

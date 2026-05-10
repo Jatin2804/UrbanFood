@@ -1,13 +1,11 @@
 // Language async thunks
 
+import { STORAGE_KEYS } from '@/src/constants/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { defaultTranslations } from '../../data/translations';
 import { TranslationService } from '../../services/translationService';
 import { Translations } from '../../types/translations';
-
-const LANGUAGE_STORAGE_KEY = '@urbanfood_language';
-const TRANSLATIONS_STORAGE_KEY = '@urbanfood_translations';
 
 interface FetchTranslationsResult {
   languageCode: string;
@@ -42,7 +40,7 @@ export const fetchTranslations = createAsyncThunk<
       };
 
       await AsyncStorage.setItem(
-        LANGUAGE_STORAGE_KEY,
+        STORAGE_KEYS.LANGUAGE,
         JSON.stringify(dataToStore),
       );
 
@@ -60,7 +58,7 @@ export const fetchTranslations = createAsyncThunk<
       };
 
       await AsyncStorage.setItem(
-        LANGUAGE_STORAGE_KEY,
+        STORAGE_KEYS.LANGUAGE,
         JSON.stringify(dataToStore),
       );
 
@@ -80,7 +78,7 @@ export const loadStoredLanguage = createAsyncThunk<
   void
 >('language/loadStoredLanguage', async () => {
   try {
-    const storedData = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
+    const storedData = await AsyncStorage.getItem(STORAGE_KEYS.LANGUAGE);
 
     if (storedData) {
       const data: StoredLanguageData = JSON.parse(storedData);
