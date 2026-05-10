@@ -1,13 +1,14 @@
+import StarRating from '@/components/common/StarRating';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Spacing } from '@/constants/theme';
-import StarRating from '@/components/common/StarRating';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { User } from '@/src/features/auth/authTypes';
 import { Feedback } from '@/src/features/dishes/dishesType';
 import { fetchUsersAPI } from '@/src/services/apiService';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Image, useColorScheme, View } from 'react-native';
+import { Image, View } from 'react-native';
 
 interface ReviewListProps {
   feedback: Feedback[];

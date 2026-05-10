@@ -1,13 +1,14 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { MENU_ITEMS } from '@/src/constants/account';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { MenuItem } from '@/src/types/components';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { TouchableOpacity, useColorScheme, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 interface MenuListProps {
   onItemPress?: (item: MenuItem) => void;

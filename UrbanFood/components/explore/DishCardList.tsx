@@ -1,4 +1,5 @@
 import AddToCartButton from '@/components/cart/AddToCartButton';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
@@ -20,7 +21,6 @@ import {
     Image,
     Share,
     TouchableOpacity,
-    useColorScheme,
     View,
 } from 'react-native';
 

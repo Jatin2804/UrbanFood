@@ -1,11 +1,12 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DELIVERY_STATUSES, STATUS_THRESHOLDS } from '@/src/constants/delivery';
 import { DeliveryStatusCardProps } from '@/src/types/components';
 import { deliveryStatusCardStyles as styles } from '@/styles/components/deliveryStatusCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { TouchableOpacity, useColorScheme, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 const DeliveryStatusCard = ({
   status,

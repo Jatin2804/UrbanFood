@@ -1,9 +1,10 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { homeStyles as styles } from '@/styles/screens/homeStyles';
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import  {View } from 'react-native';
 
 interface GreetingSectionProps {
   firstName: string;

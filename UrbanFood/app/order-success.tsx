@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { ROUTES } from '@/src/constants/navigation';
@@ -10,7 +11,6 @@ import {
   Animated,
   BackHandler,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

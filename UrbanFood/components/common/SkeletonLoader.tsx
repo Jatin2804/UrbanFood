@@ -1,6 +1,7 @@
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import React, { useEffect, useRef } from 'react';
-import { Animated, useColorScheme, ViewStyle } from 'react-native';
+import { Animated, ViewStyle } from 'react-native';
 
 interface SkeletonLoaderProps {
   width?: number | string;

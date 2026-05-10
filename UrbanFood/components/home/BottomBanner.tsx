@@ -1,11 +1,24 @@
-import { BOTTOM_BANNER } from '@/src/data/homeContent';
 import { bottomBannerStyles as styles } from '@/styles/components/bottomBannerStyles';
+import { RootState } from '@/src/store';
+import { getLocalAsset } from '@/src/utils/assetMapper';
+import { useSelector } from 'react-redux';
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
+import { router } from 'expo-router';
+import { Linking } from 'react-native';
 
 const BottomBanner = () => {
+  const remoteConfig = useSelector((state: RootState) => state.remoteConfig.data);
+  const config = remoteConfig?.bottomBanner;
+
+  if (!config?.enabled) return null;
+
   const handlePress = () => {
-    // Intentionally empty — wire up later via homeContent.ts
+    if (config.actionType === 'navigate' && config.actionPayload) {
+      router.push(config.actionPayload as any);
+    } else if (config.actionType === 'url' && config.actionPayload) {
+      Linking.openURL(config.actionPayload);
+    }
   };
 
   return (
@@ -13,10 +26,9 @@ const BottomBanner = () => {
       activeOpacity={0.92}
       onPress={handlePress}
       style={styles.container}
-      activeOpacity={1}
     >
       <Image
-        source={BOTTOM_BANNER.image}
+        source={getLocalAsset(config.localAsset)}
         style={styles.image}
         resizeMode="cover"
       />

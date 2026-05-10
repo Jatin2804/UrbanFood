@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Brand, Colors } from '@/constants/theme';
 import { PlaceOrderSheetProps } from '@/src/types/components';
 import {
@@ -13,7 +14,6 @@ import {
   PanResponder,
   Pressable,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 

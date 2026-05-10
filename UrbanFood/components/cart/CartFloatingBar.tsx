@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
 import { useCart } from '@/src/hooks/useCart';
 import { CartFloatingBarProps } from '@/src/types/components';
@@ -7,7 +8,7 @@ import { cartFloatingBarStyles as styles } from '@/styles/components/cartFloatin
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, useColorScheme, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 const CartFloatingBar: React.FC<CartFloatingBarProps> = () => {
   const scheme = useColorScheme() ?? 'light';

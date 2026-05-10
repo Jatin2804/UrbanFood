@@ -6,10 +6,11 @@ import {
 import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 
 import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useAppTheme } from '@/src/hooks/useAppTheme';
 import { ROUTES, SCREEN_NAMES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useDishes } from '@/src/hooks/useDishes';
@@ -19,6 +20,8 @@ import { store } from '@/src/store';
 import { authenticateUser } from '@/src/utils/biometricAuth';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { loadRemoteConfig } from '@/src/services/remoteConfigService';
+import { AppDispatch } from '@/src/store';
 
 export const unstable_settings = {
   initialRouteName: SCREEN_NAMES.INDEX,
@@ -27,8 +30,10 @@ export const unstable_settings = {
 function AppContent() {
   const colorScheme = useColorScheme();
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const { isLoggedIn, user } = useAuth();
   const { loadStoredLanguage } = useTranslation();
+  const { loadStoredTheme } = useAppTheme();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [biometricChecked, setBiometricChecked] = useState(false);
   const [languageLoaded, setLanguageLoaded] = useState(false);
@@ -39,14 +44,17 @@ function AppContent() {
   // Initialize dishes (auto-fetches on first mount)
   useDishes();
 
-  // Load stored language on app start
+  // Load stored language, theme, and remote config on app start
   useEffect(() => {
-    const initLanguage = async () => {
-      await loadStoredLanguage();
+    const init = async () => {
+      // Dispatch remote config fetch (non-blocking for UI rendering)
+      dispatch(loadRemoteConfig());
+
+      await Promise.all([loadStoredLanguage(), loadStoredTheme()]);
       setLanguageLoaded(true);
     };
 
-    initLanguage();
+    init();
   }, []);
 
   // Handle biometric authentication on app launch

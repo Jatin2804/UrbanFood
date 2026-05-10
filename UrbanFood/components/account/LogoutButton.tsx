@@ -1,10 +1,11 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Brand, Colors } from '@/constants/theme';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { TouchableOpacity, useColorScheme } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 interface LogoutButtonProps {
   onPress: () => void;

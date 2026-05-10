@@ -2,12 +2,13 @@ import AddToCartButton from '@/components/cart/AddToCartButton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { FALLBACK_CART_IMG } from '@/src/constants/cart';
 import { CartDish } from '@/src/features/cart/cartTypes';
 import { cartRowStyles as styles } from '@/styles/components/cartRowStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Image, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 
 interface CartRowProps {
   dish: CartDish;

@@ -185,3 +185,38 @@ export const createBookingAPI = async (bookings: any[]) => {
   });
   return res.data;
 };
+
+// ── Feedbacks API ─────────────────────────────────────────────────────────────
+export const postFeedbackAPI = async (feedback: { id: string, userId: string, orderId: string, rating: number, comment?: string }) => {
+  try {
+    let feedbacks = [];
+    let sha = undefined;
+    try {
+      const metaRes = await githubApi.get('/feedbacks.json');
+      sha = metaRes.data.sha;
+      const res = await rawApi.get('/feedbacks.json');
+      let data = res.data;
+      if (typeof data === 'string') data = JSON.parse(data);
+      if (data && Array.isArray(data.feedbacks)) feedbacks = data.feedbacks;
+      else if (Array.isArray(data)) feedbacks = data;
+    } catch (e) {
+      // file might not exist yet
+    }
+    
+    feedbacks.push(feedback);
+    const content = encodeBase64({ feedbacks });
+    
+    const payload: any = {
+      message: sha ? 'Add new feedback' : 'Create feedbacks',
+      content
+    };
+    if (sha) payload.sha = sha;
+
+    const res = await githubApi.put('/feedbacks.json', payload);
+    return res.data;
+  } catch (error) {
+    console.error('Failed to post feedback:', error);
+    throw error;
+  }
+};
+

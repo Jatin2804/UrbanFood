@@ -1,14 +1,15 @@
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { ROUTES } from '@/src/constants/navigation';
 import { Dish } from '@/src/features/dishes/dishesType';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { scrollSectionStyles as styles } from '@/styles/components/scrollSectionStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { FlatList, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import HorizontalDishCard from './HorizontalDishCard';
-import { ROUTES } from '@/src/constants/navigation';
 
 interface ScrollSectionProps {
   title: string;

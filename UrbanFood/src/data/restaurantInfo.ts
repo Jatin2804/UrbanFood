@@ -13,7 +13,6 @@ export interface RestaurantInfo {
   description: LocalizedText;
   logo: any;
   bannerImage: any;
-  bannerImages: any[];
   rating: number;
   totalRatings: number;
   totalUsers: number;
@@ -51,12 +50,6 @@ const restaurantInfo: RestaurantInfo = {
   },
   logo: require('../../assets/images/logo.png'),
   bannerImage: require('../../assets/images/restraunt_1.png'),
-  bannerImages: [
-    require('../../assets/images/restraunt_1.png'),
-    require('../../assets/images/restraunt_2.png'),
-    require('../../assets/images/restraunt_3.png'),
-    require('../../assets/images/restraunt_4.png'),
-  ],
   rating: 4.5,
   totalRatings: 2840,
   totalUsers: 12500,

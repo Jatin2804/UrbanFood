@@ -1,10 +1,11 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Brand, Colors } from '@/constants/theme';
 import { getCategoryIcon } from '@/src/constants/explore';
 import { exploreStyles as styles } from '@/styles/screens/exploreStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { FlatList, TouchableOpacity, useColorScheme } from 'react-native';
+import { FlatList, TouchableOpacity,  } from 'react-native';
 
 interface CategoryListProps {
   categories: string[];

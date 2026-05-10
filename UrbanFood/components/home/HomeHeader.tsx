@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
 import { getLocalizedRestaurantInfo } from '@/src/data/restaurantInfo';
 import { useTranslation } from '@/src/hooks/useTranslation';
@@ -8,7 +9,7 @@ import { homeStyles as styles } from '@/styles/screens/homeStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, useColorScheme, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 const HomeHeader = () => {
   const scheme = useColorScheme() ?? 'light';

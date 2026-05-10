@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Brand, Colors } from '@/constants/theme';
 import {
   SHEET_HEIGHT,
@@ -15,7 +16,6 @@ import {
   PanResponder,
   Pressable,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 

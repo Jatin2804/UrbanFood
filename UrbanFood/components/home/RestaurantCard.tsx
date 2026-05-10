@@ -1,6 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { getLocalizedRestaurantInfo } from '@/src/data/restaurantInfo';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { StatItemProps } from '@/src/types/components';
@@ -10,7 +11,7 @@ import {
 } from '@/styles/components/restaurantCardStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Image, useColorScheme, View } from 'react-native';
+import { Image, View } from 'react-native';
 
 const formatCount = (n: number) =>
   n >= 1000 ? `${(n / 1000).toFixed(1)}k` : `${n}`;

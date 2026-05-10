@@ -254,6 +254,55 @@ export const deliveryMapStyles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1000,
   },
+
+  // ── Feedback Modal ────────────────────────
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '85%',
+    borderRadius: Radius.xl,
+    padding: Spacing.xl,
+    alignItems: 'center',
+    ...Shadows.lg,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
+  starsContainer: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    marginBottom: Spacing.lg,
+  },
+  commentInput: {
+    width: '100%',
+    minHeight: 100,
+    borderWidth: 1,
+    borderColor: '#555',
+    borderRadius: Radius.md,
+    padding: Spacing.md,
+    textAlignVertical: 'top',
+    marginBottom: Spacing.xl,
+  },
+  submitBtn: {
+    backgroundColor: Brand.primary,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.xl,
+    borderRadius: Radius.full,
+    width: '100%',
+    alignItems: 'center',
+  },
+  submitBtnText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 16,
+  },
 });
 
 export const MAP_WIDTH = width;

@@ -1,15 +1,10 @@
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Table } from '@/src/types';
 import { restaurantLayoutStyles as styles } from '@/styles/components/restaurantLayoutStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 interface RestaurantLayoutProps {
   tables: Table[];

@@ -1,9 +1,10 @@
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { bookingCardStyles as styles } from '@/styles/components/bookingCardStyles';
 import { BookingCardProps } from '@/types/components';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 export default function BookingCard({ booking, onCancel }: BookingCardProps) {
   const scheme = useColorScheme() ?? 'light';

@@ -1,4 +1,5 @@
 import { DishDetailSkeleton } from '@/components/common/DishDetailSkeleton';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import DishBottomBar from '@/components/dish/DishBottomBar';
 import DishImageCarousel from '@/components/dish/DishImageCarousel';
 import DishInfoSection from '@/components/dish/DishInfoSection';
@@ -20,7 +21,6 @@ import {
   ScrollView,
   Share,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 

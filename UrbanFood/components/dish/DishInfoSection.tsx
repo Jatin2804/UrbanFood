@@ -1,8 +1,9 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
 
 interface DishInfoSectionProps {
   name: string;

@@ -1,4 +1,5 @@
 import CartFloatingBar from '@/components/cart/CartFloatingBar';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DishCardSkeleton } from '@/components/common/DishCardSkeleton';
 import EmptyState from '@/components/common/EmptyState';
 import DishCard from '@/components/explore/DishCard';
@@ -17,7 +18,6 @@ import {
   FlatList,
   TextInput,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

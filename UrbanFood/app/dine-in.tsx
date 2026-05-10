@@ -1,4 +1,5 @@
 import BookingCard from '@/components/bookings/BookingCard';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import BookingCardSkeleton from '@/components/bookings/BookingCardSkeleton';
 import RestaurantLayout from '@/components/bookings/RestaurantLayout';
 import TableCard from '@/components/bookings/TableCard';
@@ -22,7 +23,6 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

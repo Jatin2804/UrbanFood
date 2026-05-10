@@ -1,10 +1,11 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import StarRating from '@/components/common/StarRating';
 import { Colors } from '@/constants/theme';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
 
 interface DishStatsRowProps {
   rating: number;

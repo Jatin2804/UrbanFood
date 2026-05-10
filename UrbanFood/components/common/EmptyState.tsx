@@ -1,8 +1,9 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors, Spacing } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, useColorScheme, View } from 'react-native';
+import { StyleSheet,View } from 'react-native';
 
 interface EmptyStateProps {
   icon: keyof typeof Ionicons.glyphMap;

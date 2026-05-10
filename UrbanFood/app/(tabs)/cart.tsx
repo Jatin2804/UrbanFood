@@ -1,4 +1,5 @@
 import BillSummary from '@/components/cart/BillSummary';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import CartEmptyState from '@/components/cart/CartEmptyState';
 import CartHeader from '@/components/cart/CartHeader';
 import CartRow from '@/components/cart/CartRow';
@@ -16,7 +17,7 @@ import { getDishById } from '@/src/services/apiService';
 import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Alert, Animated, ScrollView, useColorScheme } from 'react-native';
+import { Alert, Animated, ScrollView } from 'react-native';
 
 const SHEET_HEIGHT = 500;
 const ORDER_SHEET_HEIGHT = 280;

@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { DELIVERY_FEE, ESTIMATED_DELIVERY_MINUTES } from '@/src/constants/cart';
@@ -16,7 +17,6 @@ import {
   Alert,
   ScrollView,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

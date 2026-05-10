@@ -1,4 +1,5 @@
 import NotificationCardSkeleton from '@/components/notifications/NotificationCardSkeleton';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
@@ -17,7 +18,6 @@ import {
   RefreshControl,
   ScrollView,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

@@ -1,7 +1,8 @@
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { notificationCardSkeletonStyles as styles } from '@/styles/components/notificationCardSkeletonStyles';
 import React, { useEffect, useRef } from 'react';
-import { Animated, useColorScheme, View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 export default function NotificationCardSkeleton() {
   const scheme = useColorScheme() ?? 'light';

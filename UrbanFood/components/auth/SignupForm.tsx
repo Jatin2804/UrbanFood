@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { ROUTES } from '@/src/constants/navigation';
@@ -13,7 +14,6 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  useColorScheme,
 } from 'react-native';
 
 const SignupForm = () => {

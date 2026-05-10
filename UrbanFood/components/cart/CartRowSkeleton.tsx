@@ -1,8 +1,9 @@
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { cartRowSkeletonStyles as styles } from '@/styles/components/cartRowSkeletonStyles';
 import React, { useEffect, useRef } from 'react';
-import { Animated, useColorScheme, View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 const CartRowSkeleton = () => {
   const scheme = useColorScheme() ?? 'light';

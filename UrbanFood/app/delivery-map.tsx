@@ -1,6 +1,7 @@
 import DeliveryStatusCard from '@/components/delivery/DeliveryStatusCard';
 import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
   DELIVERY_DURATION_MS,
   DELIVERY_PARTNER,
@@ -24,10 +25,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Animated, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Animated, TouchableOpacity, View, Modal, TextInput, ActivityIndicator, Alert } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
+import { postFeedbackAPI } from '@/src/services/apiService';
 
 const isExpoGo = Constants.appOwnership === 'expo';
 
@@ -66,6 +68,12 @@ export default function DeliveryMap() {
   const [status, setStatus] = useState<DeliveryStatus>('Order Placed');
   const [eta, setEta] = useState(INITIAL_ETA_MINUTES);
   const [isDelivered, setIsDelivered] = useState(false);
+
+  // Feedback states
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
 
   const deliveredAnim = useRef(new Animated.Value(0)).current;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -230,6 +238,10 @@ export default function DeliveryMap() {
               console.error(' Failed to update order status:', error),
             );
         }
+
+        setTimeout(() => {
+          setShowFeedbackModal(true);
+        }, 1500);
         return;
       }
 
@@ -288,6 +300,35 @@ export default function DeliveryMap() {
       }
     }
   }, [route]);
+
+  const handleSubmitFeedback = async () => {
+    if (rating === 0) {
+      Alert.alert('Rating Required', 'Please select a rating out of 5.');
+      return;
+    }
+    const orderToUpdate = params.orderId || currentOrder?.orderId;
+    if (!orderToUpdate || !user?.id) {
+      setShowFeedbackModal(false);
+      return;
+    }
+
+    setIsSubmittingFeedback(true);
+    try {
+      await postFeedbackAPI({
+        id: Math.random().toString(36).substr(2, 9),
+        userId: user.id,
+        orderId: orderToUpdate,
+        rating,
+        comment: comment.trim(),
+      });
+      setShowFeedbackModal(false);
+      Alert.alert('Thank You', 'Your feedback has been submitted!');
+    } catch (error) {
+      Alert.alert('Error', 'Could not submit feedback. Please try again.');
+    } finally {
+      setIsSubmittingFeedback(false);
+    }
+  };
 
   // ── Leaflet HTML (standalone only) ──────────────────────────────────────────
   const mapHTML = useMemo(() => {
@@ -473,6 +514,55 @@ export default function DeliveryMap() {
         partnerVehicle={DELIVERY_PARTNER.vehicle}
         onRecenter={handleRecenter}
       />
+
+      {/* Feedback Modal */}
+      <Modal
+        visible={showFeedbackModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowFeedbackModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalContent, { backgroundColor: theme.surface }]}>
+            <ThemedText style={[styles.modalTitle, { color: theme.textPrimary }]}>
+              Rate your order!
+            </ThemedText>
+            
+            <View style={styles.starsContainer}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <TouchableOpacity key={star} onPress={() => setRating(star)}>
+                  <Ionicons
+                    name={star <= rating ? 'star' : 'star-outline'}
+                    size={36}
+                    color={Brand.primary}
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            <TextInput
+              style={[styles.commentInput, { color: theme.textPrimary, backgroundColor: theme.background }]}
+              placeholder="Leave a comment (optional)"
+              placeholderTextColor={theme.textSecondary}
+              value={comment}
+              onChangeText={setComment}
+              multiline
+            />
+
+            <TouchableOpacity
+              style={styles.submitBtn}
+              onPress={handleSubmitFeedback}
+              disabled={isSubmittingFeedback}
+            >
+              {isSubmittingFeedback ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <ThemedText style={styles.submitBtnText}>Submit Feedback</ThemedText>
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

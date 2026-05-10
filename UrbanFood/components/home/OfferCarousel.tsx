@@ -1,6 +1,9 @@
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
-import { OFFER_ITEMS, OfferItem } from '@/src/data/homeContent';
+import { RootState } from '@/src/store';
+import { getLocalAsset } from '@/src/utils/assetMapper';
+import { useSelector } from 'react-redux';
 import {
   OFFER_SNAP_INTERVAL,
   offerCarouselStyles as styles,
@@ -20,7 +23,6 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 
@@ -31,12 +33,16 @@ const OfferCarousel = () => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
+  const remoteConfig = useSelector((state: RootState) => state.remoteConfig.data);
+  const config = remoteConfig?.offerCarousel;
+
   // Only show items where show === true
   const visibleItems = useMemo(
-    () => OFFER_ITEMS.filter((item) => item.show),
-    [],
+    () => config?.items.filter((item) => item.show) || [],
+    [config],
   );
   const total = visibleItems.length;
+  const interval = config?.autoScrollInterval || AUTO_SCROLL_INTERVAL;
 
   const flatRef = useRef<FlatList>(null);
   const currentIndex = useRef(0);
@@ -56,10 +62,10 @@ const OfferCarousel = () => {
   const startTimer = useCallback(() => {
     if (timer.current) clearInterval(timer.current);
     timer.current = setInterval(() => {
-      if (isDragging.current) return;
+      if (isDragging.current || total === 0) return;
       scrollTo((currentIndex.current + 1) % total);
-    }, AUTO_SCROLL_INTERVAL);
-  }, [scrollTo, total]);
+    }, interval);
+  }, [scrollTo, total, interval]);
 
   useEffect(() => {
     startTimer();
@@ -82,19 +88,19 @@ const OfferCarousel = () => {
     index,
   });
 
-  const renderItem = ({ item }: { item: OfferItem }) => (
+  const renderItem = ({ item }: { item: any }) => (
     <View style={styles.slide}>
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() => router.push(ROUTES.TABS.EXPLORE)}
         style={styles.card}
       >
-        <Image source={item.image} style={styles.image} resizeMode="cover" />
+        <Image source={getLocalAsset(item.localAsset)} style={styles.image} resizeMode="cover" />
       </TouchableOpacity>
     </View>
   );
 
-  if (total === 0) return null;
+  if (!config?.enabled || total === 0) return null;
 
   return (
     <View style={styles.container}>

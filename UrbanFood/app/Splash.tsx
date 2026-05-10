@@ -1,13 +1,14 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useLocation } from '@/src/hooks/useLocation';
 import { splashStyles as styles } from '@/styles/screens/splashStyles';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
-import { Image, useColorScheme, View } from 'react-native';
+import { Image, View } from 'react-native';
 
 const Splash = () => {
   const router = useRouter();

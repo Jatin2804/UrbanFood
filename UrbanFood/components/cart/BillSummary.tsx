@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
 import { DELIVERY_FEE } from '@/src/constants/cart';
@@ -6,7 +7,7 @@ import { Cart } from '@/src/features/cart/cartTypes';
 import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
 
 interface BillSummaryProps {
   cart: Cart | null;

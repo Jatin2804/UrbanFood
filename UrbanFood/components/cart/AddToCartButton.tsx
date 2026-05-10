@@ -1,10 +1,11 @@
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useCart } from '@/src/hooks/useCart';
 import { AddToCartButtonProps } from '@/src/types/components';
 import { addToCartStyles as styles } from '@/styles/components/addToCartStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 const AddToCartButton = ({
   dishId,

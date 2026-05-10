@@ -1,11 +1,12 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { User } from '@/src/features/auth/authTypes';
 import { accountStyles as styles } from '@/styles/screens/accountStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
 
 interface ContactInfoCardProps {
   user: User;

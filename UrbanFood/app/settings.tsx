@@ -2,7 +2,9 @@ import { LanguageSelector } from '@/components/settings/LanguageSelector';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useAppTheme } from '@/src/hooks/useAppTheme';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { checkBiometricSupport } from '@/src/utils/biometricAuth';
 import { settingsStyles as styles } from '@/styles/screens/settingsStyles';
@@ -14,15 +16,15 @@ import {
   ScrollView,
   Switch,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import type { ThemeMode } from '@/src/features/theme/themeSlice';
 
 function SettingsHeader() {
   const router = useRouter();
   const { t } = useTranslation();
-  const scheme = useColorScheme() ?? 'light';
+  const scheme = useColorScheme();
   const theme = Colors[scheme];
 
   return (
@@ -42,11 +44,74 @@ function SettingsHeader() {
   );
 }
 
+type ThemeOptionProps = {
+  label: string;
+  iconName: React.ComponentProps<typeof Ionicons>['name'];
+  value: ThemeMode;
+  activeMode: ThemeMode;
+  onSelect: (mode: ThemeMode) => void;
+  theme: typeof Colors.light;
+};
+
+function ThemeOption({
+  label,
+  iconName,
+  value,
+  activeMode,
+  onSelect,
+  theme,
+}: ThemeOptionProps) {
+  const isActive = activeMode === value;
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() => onSelect(value)}
+      style={[
+        themeOptionStyles.pill,
+        {
+          backgroundColor: isActive ? Brand.primary : theme.surfaceSecondary,
+          borderColor: isActive ? Brand.primary : theme.border,
+        },
+      ]}
+    >
+      <Ionicons
+        name={iconName}
+        size={18}
+        color={isActive ? '#fff' : theme.textSecondary}
+        style={{ marginRight: 6 }}
+      />
+      <ThemedText
+        style={{
+          fontSize: 14,
+          fontWeight: '600',
+          color: isActive ? '#fff' : theme.textPrimary,
+        }}
+      >
+        {label}
+      </ThemedText>
+    </TouchableOpacity>
+  );
+}
+
+const themeOptionStyles = {
+  pill: {
+    flexDirection: 'row' as const,
+    alignItems: 'center' as const,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 999,
+    borderWidth: 1.5,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+};
+
 export default function Settings() {
   const { t } = useTranslation();
   const { user, updateBiometric } = useAuth();
-  const scheme = useColorScheme() ?? 'light';
+  const scheme = useColorScheme();
   const theme = Colors[scheme];
+  const { mode: themeMode, setThemeMode } = useAppTheme();
   const [biometricSupport, setBiometricSupport] = useState({
     isSupported: false,
     isEnrolled: false,
@@ -95,6 +160,59 @@ export default function Settings() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
+          {/* Appearance Section */}
+          <View style={styles.sectionContainer}>
+            <View style={styles.sectionHeader}>
+              <View
+                style={[
+                  styles.sectionIconContainer,
+                  { backgroundColor: '#EEF2FF' },
+                ]}
+              >
+                <Ionicons name="contrast" size={20} color="#6366F1" />
+              </View>
+              <ThemedText style={styles.sectionTitle}>{t('settings.appearance')}</ThemedText>
+            </View>
+            <ThemedView variant="surface" style={styles.section}>
+              <ThemedText
+                style={{
+                  fontSize: 13,
+                  opacity: 0.6,
+                  marginBottom: 12,
+                  lineHeight: 18,
+                }}
+              >
+                {t('settings.appearanceDescription')}
+              </ThemedText>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                <ThemeOption
+                  label={t('settings.system')}
+                  iconName="phone-portrait-outline"
+                  value="system"
+                  activeMode={themeMode}
+                  onSelect={setThemeMode}
+                  theme={theme}
+                />
+                <ThemeOption
+                  label={t('settings.light')}
+                  iconName="sunny-outline"
+                  value="light"
+                  activeMode={themeMode}
+                  onSelect={setThemeMode}
+                  theme={theme}
+                />
+                <ThemeOption
+                  label={t('settings.dark')}
+                  iconName="moon-outline"
+                  value="dark"
+                  activeMode={themeMode}
+                  onSelect={setThemeMode}
+                  theme={theme}
+                />
+              </View>
+            </ThemedView>
+          </View>
+
           {/* Language Section */}
           <View style={styles.sectionContainer}>
             <View style={styles.sectionHeader}>
@@ -171,3 +289,4 @@ export default function Settings() {
     </SafeAreaView>
   );
 }
+

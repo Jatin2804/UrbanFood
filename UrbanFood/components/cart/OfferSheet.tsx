@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Brand, Colors } from '@/constants/theme';
 import { CART_OFFERS, CartOffer } from '@/src/data/cartOffers';
 import { Cart } from '@/src/features/cart/cartTypes';
@@ -11,7 +12,6 @@ import {
   Pressable,
   ScrollView,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 

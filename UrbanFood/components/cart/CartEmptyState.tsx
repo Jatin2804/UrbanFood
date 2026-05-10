@@ -1,10 +1,11 @@
 import { ThemedText } from '@/components/themed-text';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Brand, Colors, Spacing } from '@/constants/theme';
 import { useTranslation } from '@/src/hooks/useTranslation';
 import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import  {View } from 'react-native';
 
 const CartEmptyState = () => {
   const scheme = useColorScheme() ?? 'light';

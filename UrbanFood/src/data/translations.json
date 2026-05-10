@@ -86,7 +86,12 @@
     "restartNow": "Restart Now",
     "restartLater": "Later",
     "authentication": "Authentication",
-    "failedToChangeLanguage": "Failed to change language. Please try again."
+    "failedToChangeLanguage": "Failed to change language. Please try again.",
+    "appearance": "Appearance",
+    "appearanceDescription": "Choose how UrbanFood looks to you. Select system to follow your device setting.",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
   },
   "splash": {
     "appName": "Urban Food",

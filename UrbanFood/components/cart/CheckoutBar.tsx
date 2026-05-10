@@ -1,12 +1,13 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DELIVERY_FEE } from '@/src/constants/cart';
 import { Cart } from '@/src/features/cart/cartTypes';
 import { cartStyles as styles } from '@/styles/screens/cartStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { TouchableOpacity, useColorScheme, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 interface CheckoutBarProps {
   cart: Cart | null;

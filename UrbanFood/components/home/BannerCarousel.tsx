@@ -1,4 +1,6 @@
-import restaurantInfo from '@/src/data/restaurantInfo';
+import { RootState } from '@/src/store';
+import { getLocalAsset } from '@/src/utils/assetMapper';
+import { useSelector } from 'react-redux';
 import { bannerCarouselStyles as styles } from '@/styles/components/bannerCarouselStyles';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -14,8 +16,12 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const INTERVAL = 3000;
 
 const BannerCarousel = () => {
-  const images = restaurantInfo.bannerImages;
+  const remoteConfig = useSelector((state: RootState) => state.remoteConfig.data);
+  const config = remoteConfig?.bannerCarousel;
+  
+  const images = config?.images.filter(img => img.show) || [];
   const total = images.length;
+  const interval = config?.autoScrollInterval || INTERVAL;
 
   const flatListRef = useRef<FlatList>(null);
   const currentIndex = useRef(0);
@@ -35,11 +41,11 @@ const BannerCarousel = () => {
   const startTimer = useCallback(() => {
     if (timer.current) clearInterval(timer.current);
     timer.current = setInterval(() => {
-      if (isDragging.current) return;
+      if (isDragging.current || total === 0) return;
       const next = (currentIndex.current + 1) % total;
       scrollTo(next);
-    }, INTERVAL);
-  }, [scrollTo, total]);
+    }, interval);
+  }, [scrollTo, total, interval]);
 
   useEffect(() => {
     startTimer();
@@ -57,8 +63,10 @@ const BannerCarousel = () => {
   };
 
   const renderItem = ({ item }: { item: any }) => (
-    <Image source={item} style={styles.image} resizeMode="cover" />
+    <Image source={getLocalAsset(item.localAsset)} style={styles.image} resizeMode="cover" />
   );
+
+  if (!config?.enabled || total === 0) return null;
 
   const getItemLayout = (_: any, index: number) => ({
     length: SCREEN_WIDTH,
@@ -72,7 +80,7 @@ const BannerCarousel = () => {
         ref={flatListRef}
         data={images}
         renderItem={renderItem}
-        keyExtractor={(_, i) => `b${i}`}
+        keyExtractor={(item) => item.id}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}

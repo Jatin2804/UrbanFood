@@ -1,10 +1,11 @@
 import AddToCartButton from '@/components/cart/AddToCartButton';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { dishDetailStyles as styles } from '@/styles/screens/dishDetailStyles';
 import React from 'react';
-import { useColorScheme, View } from 'react-native';
+import { View } from 'react-native';
 
 interface DishBottomBarProps {
   dishId: string;
