@@ -21,8 +21,10 @@ export function useNotifications() {
   const [lastNotification, setLastNotification] =
     useState<NotificationData | null>(null);
 
-  const notificationListener = useRef<Notifications.Subscription>();
-  const responseListener = useRef<Notifications.Subscription>();
+  const notificationListener = useRef<Notifications.EventSubscription | null>(
+    null,
+  );
+  const responseListener = useRef<Notifications.EventSubscription | null>(null);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export function useNotifications() {
       Notifications.addNotificationReceivedListener((notification) => {
         const notifData = {
           notification,
-          data: notification.request.content.data,
+          data: notification.request.content.data || {},
         };
         setLastNotification(notifData);
 
@@ -60,7 +62,7 @@ export function useNotifications() {
     // Listener for when user taps on a notification
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        const data = response.notification.request.content.data;
+        const data = response.notification.request.content.data || {};
         const notifData = {
           notification: response.notification,
           data,
