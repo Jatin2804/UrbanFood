@@ -1,15 +1,15 @@
 import AddToCartButton from '@/components/cart/AddToCartButton';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DeepLinks } from '@/src/config/linking';
 import { FALLBACK_DISH_IMG } from '@/src/constants/explore';
 import { ROUTES } from '@/src/constants/navigation';
 import {
-  Dish,
-  getDishName,
-  getDishType,
+    Dish,
+    getDishName,
+    getDishType,
 } from '@/src/features/dishes/dishesType';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useTranslation } from '@/src/hooks/useTranslation';
@@ -18,17 +18,18 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  Image,
-  Share,
-  TouchableOpacity,
-  View,
+    Image,
+    Share,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 
 interface DishCardProps {
   dish: Dish;
+  onPress?: () => void;
 }
 
-const DishCard = ({ dish }: DishCardProps) => {
+const DishCard = ({ dish, onPress }: DishCardProps) => {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
   const [imgError, setImgError] = useState(false);
@@ -59,7 +60,7 @@ const DishCard = ({ dish }: DishCardProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.92}
-      onPress={() => router.push(ROUTES.DISH_DETAILS(dish.id))}
+      onPress={onPress || (() => router.push(ROUTES.DISH_DETAILS(dish.id)))}
       style={{ flex: 1 }}
     >
       <ThemedView variant="surface" style={styles.card}>

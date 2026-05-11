@@ -270,6 +270,7 @@
     "myBookings": "My Bookings",
     "selectTimeSlot": "Select Time Slot",
     "selectTable": "Select Table",
+    "selectDate": "Select Date",
     "fiveMinutes": "5 Minutes",
     "tenMinutes": "10 Minutes",
     "fiveMinutesShort": "5 minutes",
@@ -296,7 +297,18 @@
     "seats": "{count} seats",
     "orderItems": "Order Items",
     "active": "Active",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "upcoming": "Upcoming",
+    "current": "Current",
+    "expired": "Expired",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "noUpcomingBookings": "No Upcoming Bookings",
+    "noCurrentBookings": "No Current Bookings",
+    "noExpiredBookings": "No Expired Bookings",
+    "upcomingBookingsMessage": "Bookings scheduled for future dates will appear here",
+    "currentBookingsMessage": "Active bookings for today will appear here",
+    "expiredBookingsMessage": "Past bookings will appear here"
   },
   "bookingSuccess": {
     "title": "Booking Confirmed!",

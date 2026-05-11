@@ -1,6 +1,6 @@
 import CartFloatingBar from '@/components/cart/CartFloatingBar';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { DishCardSkeleton } from '@/components/common/DishCardSkeleton';
+import { DishCardSkeleton } from '@/components/skeletons/DishCardSkeleton';
 import EmptyState from '@/components/common/EmptyState';
 import DishCard from '@/components/explore/DishCard';
 import { ThemedText } from '@/components/themed-text';

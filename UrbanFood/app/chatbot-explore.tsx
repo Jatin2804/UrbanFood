@@ -7,7 +7,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import DishCard from '@/components/explore/DishCard';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Colors } from '@/constants/theme';
+import { Brand, Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
 import { Dish } from '@/src/features/dishes/dishesType';
@@ -26,9 +26,12 @@ export default function ChatbotExplore() {
   const recommendedDishes = useMemo(() => {
     if (!dishIds) return [];
     const ids = dishIds.split(',');
-    return ids
+    console.log('Chatbot Explore - Received dish IDs:', ids);
+    const dishes = ids
       .map((id) => allDishes.find((dish) => dish.id === id))
       .filter((dish): dish is Dish => dish !== undefined);
+    console.log('Chatbot Explore - Found dishes:', dishes.length);
+    return dishes;
   }, [dishIds, allDishes]);
 
   const handleDishPress = (dishId: string) => {
@@ -38,6 +41,44 @@ export default function ChatbotExplore() {
   const renderDish = ({ item, index }: { item: Dish; index: number }) => (
     <Animated.View entering={FadeInDown.delay(index * 100).springify()}>
       <DishCard dish={item} onPress={() => handleDishPress(item.id)} />
+    </Animated.View>
+  );
+
+  const handleExploreMore = () => {
+    router.push(ROUTES.TABS.EXPLORE as any);
+  };
+
+  const renderFooter = () => (
+    <Animated.View entering={FadeInDown.delay(recommendedDishes.length * 100).springify()}>
+      <Pressable
+        onPress={handleExploreMore}
+        style={({ pressed }) => [
+          chatbotExploreStyles.exploreMoreCard,
+          { 
+            borderColor: Brand.primary,
+            opacity: pressed ? 0.7 : 1,
+          },
+        ]}
+      >
+        <View style={[
+          chatbotExploreStyles.exploreMoreIconContainer,
+          { borderColor: Brand.primary }
+        ]}>
+          <Ionicons name="restaurant" size={32} color={Brand.primary} />
+        </View>
+        <ThemedText style={chatbotExploreStyles.exploreMoreTitle}>
+          Explore More Dishes
+        </ThemedText>
+        <ThemedText style={chatbotExploreStyles.exploreMoreSubtitle}>
+          Browse our full menu
+        </ThemedText>
+        <View style={[
+          chatbotExploreStyles.exploreMoreArrow,
+          { borderColor: Brand.primary }
+        ]}>
+          <Ionicons name="arrow-forward" size={20} color={Brand.primary} />
+        </View>
+      </Pressable>
     </Animated.View>
   );
 
@@ -77,6 +118,7 @@ export default function ChatbotExplore() {
           renderItem={renderDish}
           keyExtractor={(item) => item.id}
           contentContainerStyle={chatbotExploreStyles.listContent}
+          ListFooterComponent={renderFooter}
           showsVerticalScrollIndicator={false}
         />
       ) : (

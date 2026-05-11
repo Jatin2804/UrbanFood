@@ -1,4 +1,4 @@
-import { DishDetailSkeleton } from '@/components/common/DishDetailSkeleton';
+import { DishDetailSkeleton } from '@/components/skeletons/DishDetailSkeleton';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import DishBottomBar from '@/components/dish/DishBottomBar';
 import DishImageCarousel from '@/components/dish/DishImageCarousel';

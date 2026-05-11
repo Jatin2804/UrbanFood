@@ -20,6 +20,13 @@ export interface MenuItem {
   iconColor: string;
 }
 
+// Booking Card Props
+export interface BookingCardProps {
+  booking: any;
+  onCancel: () => void;
+  isExpired?: boolean;
+}
+
 // Explore View Props
 export interface ViewToggleProps {
   viewMode: ViewMode;

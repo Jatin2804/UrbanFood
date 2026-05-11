@@ -21,8 +21,6 @@ const OrderCard = memo(({ order, theme }: { order: Order; theme: any }) => {
   const handlePress = useCallback(() => {
     const params: Record<string, string> = {
       orderId: order.orderId,
-      orderTime: order.orderTime,
-      estimatedTime: order.estimatedTime,
     };
     if (coords) {
       params.userLat = coords.latitude.toString();
@@ -31,7 +29,7 @@ const OrderCard = memo(({ order, theme }: { order: Order; theme: any }) => {
     requestAnimationFrame(() => {
       router.push({ pathname: ROUTES.DELIVERY_MAP, params });
     });
-  }, [order.orderId, order.orderTime, order.estimatedTime, coords, router]);
+  }, [order.orderId, coords, router]);
 
   const shortId = `UF${order.orderId.slice(-6).toUpperCase()}`;
   const isArriving = timeLeft.totalSeconds <= 0;

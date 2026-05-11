@@ -1,8 +1,8 @@
-import NotificationCardSkeleton from '@/components/notifications/NotificationCardSkeleton';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import NotificationCardSkeleton from '@/components/skeletons/NotificationCardSkeleton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuth } from '@/src/hooks/useAuth';
 import {
   clearAllNotifications,
@@ -15,8 +15,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import {
+  FlatList,
+  ListRenderItem,
   RefreshControl,
-  ScrollView,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -85,6 +86,74 @@ export default function NotificationsScreen() {
     return `${days}d ago`;
   };
 
+  const renderNotification: ListRenderItem<StoredNotification> = ({
+    item: notif,
+  }) => (
+    <TouchableOpacity
+      style={[
+        styles.notificationCard,
+        {
+          backgroundColor: notif.read ? theme.background : theme.surface,
+          borderColor: theme.border,
+        },
+      ]}
+      onPress={() => handleMarkAsRead(notif.id)}
+      activeOpacity={0.7}
+    >
+      <View
+        style={[
+          styles.iconContainer,
+          { backgroundColor: theme.surfaceSecondary },
+        ]}
+      >
+        <Ionicons
+          name={getNotificationIcon(notif.title) as any}
+          size={24}
+          color={theme.textPrimary}
+        />
+      </View>
+      <View style={styles.notificationContent}>
+        <View style={styles.notificationHeader}>
+          <ThemedText style={styles.notificationTitle}>
+            {notif.title}
+          </ThemedText>
+          {!notif.read && <View style={styles.unreadDot} />}
+        </View>
+        <ThemedText style={styles.notificationBody}>{notif.body}</ThemedText>
+        <ThemedText style={styles.notificationTime}>
+          {formatTime(notif.timestamp)}
+        </ThemedText>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const renderEmptyState = () => (
+    <View style={styles.emptyState}>
+      <View
+        style={[
+          styles.emptyIconContainer,
+          { backgroundColor: theme.surfaceSecondary },
+        ]}
+      >
+        <Ionicons
+          name="notifications-off-outline"
+          size={64}
+          color={theme.textTertiary}
+        />
+      </View>
+      <ThemedText style={styles.emptyTitle}>No Notifications Yet</ThemedText>
+      <ThemedText style={styles.emptySubtitle}>
+        When you receive notifications, they'll appear here
+      </ThemedText>
+    </View>
+  );
+
+  const renderSkeletonItem = ({ index }: { index: number }) => (
+    <NotificationCardSkeleton key={`skeleton-${index}`} />
+  );
+
+  const keyExtractor = (item: StoredNotification) => item.id;
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <ThemedView style={styles.container}>
@@ -110,87 +179,27 @@ export default function NotificationsScreen() {
         </View>
 
         {/* Notifications List */}
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        >
-          {loading ? (
-            Array(5)
-              .fill(0)
-              .map((_, index) => (
-                <NotificationCardSkeleton key={`skeleton-${index}`} />
-              ))
-          ) : notifications.length === 0 ? (
-            <View style={styles.emptyState}>
-              <View
-                style={[
-                  styles.emptyIconContainer,
-                  { backgroundColor: theme.surfaceSecondary },
-                ]}
-              >
-                <Ionicons
-                  name="notifications-off-outline"
-                  size={64}
-                  color={theme.textTertiary}
-                />
-              </View>
-              <ThemedText style={styles.emptyTitle}>
-                No Notifications Yet
-              </ThemedText>
-              <ThemedText style={styles.emptySubtitle}>
-                When you receive notifications, they'll appear here
-              </ThemedText>
-            </View>
-          ) : (
-            notifications.map((notif) => (
-              <TouchableOpacity
-                key={notif.id}
-                style={[
-                  styles.notificationCard,
-                  {
-                    backgroundColor: notif.read
-                      ? theme.background
-                      : theme.surface,
-                    borderColor: theme.border,
-                  },
-                ]}
-                onPress={() => handleMarkAsRead(notif.id)}
-                activeOpacity={0.7}
-              >
-                <View
-                  style={[
-                    styles.iconContainer,
-                    { backgroundColor: theme.surfaceSecondary },
-                  ]}
-                >
-                  <Ionicons
-                    name={getNotificationIcon(notif.title) as any}
-                    size={24}
-                    color={theme.textPrimary}
-                  />
-                </View>
-                <View style={styles.notificationContent}>
-                  <View style={styles.notificationHeader}>
-                    <ThemedText style={styles.notificationTitle}>
-                      {notif.title}
-                    </ThemedText>
-                    {!notif.read && <View style={styles.unreadDot} />}
-                  </View>
-                  <ThemedText style={styles.notificationBody}>
-                    {notif.body}
-                  </ThemedText>
-                  <ThemedText style={styles.notificationTime}>
-                    {formatTime(notif.timestamp)}
-                  </ThemedText>
-                </View>
-              </TouchableOpacity>
-            ))
-          )}
-        </ScrollView>
+        {loading ? (
+          <FlatList
+            data={Array(5).fill(0)}
+            renderItem={renderSkeletonItem}
+            keyExtractor={(_, index) => `skeleton-${index}`}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          />
+        ) : (
+          <FlatList
+            data={notifications}
+            renderItem={renderNotification}
+            keyExtractor={keyExtractor}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={renderEmptyState}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        )}
       </ThemedView>
     </SafeAreaView>
   );

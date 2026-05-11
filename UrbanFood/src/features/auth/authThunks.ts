@@ -5,26 +5,8 @@ import {
   updateUsersAPI,
 } from '../../services/apiService';
 import { User } from './authTypes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const storage = {
-  data: {} as Record<string, string>,
-  async getItem(key: string): Promise<string | null> {
-    return this.data[key] || null;
-  },
-  async setItem(key: string, value: string): Promise<void> {
-    this.data[key] = value;
-  },
-  async removeItem(key: string): Promise<void> {
-    delete this.data[key];
-  },
-};
-
-let AsyncStorage: typeof storage;
-try {
-  AsyncStorage = require('@react-native-async-storage/async-storage').default;
-} catch {
-  AsyncStorage = storage;
-}
 
 const normalizeUser = (user: User): User => ({
   ...user,

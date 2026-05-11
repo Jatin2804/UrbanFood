@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
 import { useBookings } from '@/src/hooks/useBookings';
 import { bookingSuccessStyles as styles } from '@/styles/screens/bookingSuccessStyles';
@@ -9,10 +9,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import {
-  Animated,
-  Text,
-  TouchableOpacity,
-  View,
+    Animated,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -50,7 +50,7 @@ export default function BookingSuccess() {
   }, []);
 
   const handleViewBooking = () => {
-    router.replace(ROUTES.DINE_IN);
+    router.replace(`${ROUTES.DINE_IN}?tab=mybookings`);
   };
 
   const handleGoHome = () => {
@@ -81,13 +81,14 @@ export default function BookingSuccess() {
     );
   }
 
-  const bookingDate = new Date(booking.bookingTime);
+  const bookingDate = new Date(booking.bookingDate || booking.bookingTime);
+  const bookingTime = new Date(booking.bookingTime);
   const formattedDate = bookingDate.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   });
-  const formattedTime = bookingDate.toLocaleTimeString('en-US', {
+  const formattedTime = bookingTime.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
   });

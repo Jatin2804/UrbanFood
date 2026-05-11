@@ -11,6 +11,8 @@ export const CHATBOT_QUICK_REPLIES = [
   'User Details',
   'Restraunt Details',
   'Show Offers',
+  'Toggle Theme',
+  'Settings',
 ];
 
 export const FLOATING_BUTTON_SIZE = 60;

@@ -240,6 +240,7 @@ export const sendMessageToGrok = async ({
     if (isRecommendation) {
       // Return up to 5 dishes from the filtered list
       dishIds = filteredDishes.slice(0, 5).map((dish) => dish.id);
+      console.log('Recommendation detected. Returning dish IDs:', dishIds);
     } else {
       // Fallback: Check if the response mentions any dish names
       // If it does, it's likely a recommendation even if we didn't detect it
@@ -250,6 +251,7 @@ export const sendMessageToGrok = async ({
 
       if (mentionedDishes.length > 0) {
         dishIds = mentionedDishes.slice(0, 5).map((dish) => dish.id);
+        console.log('Dishes mentioned in response. Returning dish IDs:', dishIds);
       }
     }
 

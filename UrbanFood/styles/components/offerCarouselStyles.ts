@@ -11,7 +11,7 @@ export const OFFER_SNAP_INTERVAL = SCREEN_WIDTH;
 export const offerCarouselStyles = StyleSheet.create({
   container: {
     marginTop: Spacing.sm,
-    marginBottom: Spacing.lg,
+    marginBottom: Spacing.xl,
   },
   header: {
     flexDirection: 'row',

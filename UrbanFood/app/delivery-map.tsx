@@ -3,33 +3,41 @@ import { ThemedText } from '@/components/themed-text';
 import { Brand, Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
-  DELIVERY_DURATION_MS,
-  DELIVERY_PARTNER,
-  DeliveryStatus,
-  INITIAL_ETA_MINUTES,
-  RESTAURANT_COORDS,
-  STEP_INTERVAL_MS,
+    DELIVERY_DURATION_MS,
+    DELIVERY_PARTNER,
+    DeliveryStatus,
+    INITIAL_ETA_MINUTES,
+    RESTAURANT_COORDS,
+    STEP_INTERVAL_MS,
 } from '@/src/constants/delivery';
 import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useOrders } from '@/src/hooks/useOrders';
+import { postFeedbackAPI } from '@/src/services/apiService';
 import { fetchRealRoute, getBearing, LatLng } from '@/src/utils/routeData';
 import { deliveryMapStyles as styles } from '@/styles/screens/deliveryMapStyles';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
 } from 'react';
-import { Animated, TouchableOpacity, View, Modal, TextInput, ActivityIndicator, Alert } from 'react-native';
+import {
+    ActivityIndicator,
+    Alert,
+    Animated,
+    Modal,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
-import { postFeedbackAPI } from '@/src/services/apiService';
 
 const isExpoGo = Constants.appOwnership === 'expo';
 
@@ -41,12 +49,13 @@ export default function DeliveryMap() {
     orderId?: string;
     userLat?: string;
     userLng?: string;
-    orderTime?: string; // ISO timestamp — when the order was placed
-    estimatedTime?: string; // ISO timestamp — when it should arrive
   }>();
 
   const { user } = useAuth();
-  const { currentOrder, updateStatus } = useOrders(user?.id, true);
+  const { orders, updateStatus } = useOrders(user?.id, true);
+
+  // Find the specific order by orderId from params
+  const currentOrder = orders.find((o) => o.orderId === params.orderId);
 
   // Parse user coordinates
   const userCoords: LatLng = useMemo(
@@ -74,6 +83,7 @@ export default function DeliveryMap() {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
+  const [feedbackSuccess, setFeedbackSuccess] = useState(false);
 
   const deliveredAnim = useRef(new Animated.Value(0)).current;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -127,7 +137,7 @@ export default function DeliveryMap() {
     };
   }, [userCoords.latitude, userCoords.longitude]);
 
-  // ── Fit MapView to route (Expo Go only) ─────────────────────────────────────
+  // ── Fit MapView to route for zoomed only (Expo Go only) ─────────────────────────────────────
   useEffect(() => {
     if (isExpoGo && routeReady && route.length > 0 && mapRef.current) {
       mapRef.current.fitToCoordinates(route, {
@@ -155,21 +165,16 @@ export default function DeliveryMap() {
     if (!routeReady || isDelivered || routeRef.current.length === 0) return;
 
     // ── Determine the total delivery window from order timestamps ──────────────
-    // Priority: URL params (always set by callers) → currentOrder from Redux.
-    // This makes the map self-contained; it doesn't need Redux orders loaded.
+    // Get timestamps directly from the order object in Redux
     let totalDuration = DELIVERY_DURATION_MS; // 2 min default
     let elapsedAtMount = 0;
 
-    const estimatedTimeStr =
-      params.estimatedTime || currentOrder?.estimatedTime;
-    const orderTimeStr = params.orderTime || currentOrder?.orderTime;
-
-    if (estimatedTimeStr) {
-      const estimatedTs = new Date(estimatedTimeStr).getTime();
+    if (currentOrder?.estimatedTime) {
+      const estimatedTs = new Date(currentOrder.estimatedTime).getTime();
       const now = Date.now();
 
-      if (orderTimeStr) {
-        const orderTs = new Date(orderTimeStr).getTime();
+      if (currentOrder.orderTime) {
+        const orderTs = new Date(currentOrder.orderTime).getTime();
         totalDuration = Math.max(10000, estimatedTs - orderTs);
         elapsedAtMount = Math.max(0, now - orderTs);
       } else {
@@ -271,15 +276,7 @@ export default function DeliveryMap() {
         intervalRef.current = null;
       }
     };
-  }, [
-    routeReady,
-    isDelivered,
-    deliveredAnim,
-    params.estimatedTime,
-    params.orderTime,
-    currentOrder?.estimatedTime,
-    currentOrder?.orderTime,
-  ]);
+  }, [routeReady, isDelivered, deliveredAnim, currentOrder]);
 
   // ── Recenter (each map type handles it differently) ─────────────────────────
   const handleRecenter = useCallback(() => {
@@ -309,6 +306,7 @@ export default function DeliveryMap() {
     const orderToUpdate = params.orderId || currentOrder?.orderId;
     if (!orderToUpdate || !user?.id) {
       setShowFeedbackModal(false);
+      router.replace(ROUTES.TABS.HOME);
       return;
     }
 
@@ -321,13 +319,29 @@ export default function DeliveryMap() {
         rating,
         comment: comment.trim(),
       });
-      setShowFeedbackModal(false);
-      Alert.alert('Thank You', 'Your feedback has been submitted!');
+      setFeedbackSuccess(true);
+      // Auto-close after 2 seconds and navigate to home
+      setTimeout(() => {
+        setShowFeedbackModal(false);
+        setFeedbackSuccess(false);
+        setRating(0);
+        setComment('');
+        router.replace(ROUTES.TABS.HOME);
+      }, 2000);
     } catch (error) {
       Alert.alert('Error', 'Could not submit feedback. Please try again.');
     } finally {
       setIsSubmittingFeedback(false);
     }
+  };
+
+  const handleCloseFeedback = () => {
+    setShowFeedbackModal(false);
+    setFeedbackSuccess(false);
+    setRating(0);
+    setComment('');
+    // Navigate to home when user skips feedback
+    router.replace(ROUTES.TABS.HOME);
   };
 
   // ── Leaflet HTML (standalone only) ──────────────────────────────────────────
@@ -392,7 +406,6 @@ export default function DeliveryMap() {
 </html>`;
   }, [route, userCoords]);
 
-  // ── Render ───────────────────────────────────────────────────────────────────
   return (
     <View style={styles.container}>
       {/* MAP — react-native-maps on Expo Go, Leaflet/WebView on standalone */}
@@ -518,48 +531,192 @@ export default function DeliveryMap() {
       {/* Feedback Modal */}
       <Modal
         visible={showFeedbackModal}
-        animationType="slide"
+        animationType="fade"
         transparent={true}
-        onRequestClose={() => setShowFeedbackModal(false)}
+        onRequestClose={handleCloseFeedback}
       >
         <View style={styles.modalOverlay}>
-          <View style={[styles.modalContent, { backgroundColor: theme.surface }]}>
-            <ThemedText style={[styles.modalTitle, { color: theme.textPrimary }]}>
-              Rate your order!
-            </ThemedText>
-            
-            <View style={styles.starsContainer}>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <TouchableOpacity key={star} onPress={() => setRating(star)}>
+          <View
+            style={[styles.modalContent, { backgroundColor: theme.surface }]}
+          >
+            {!feedbackSuccess ? (
+              <>
+                {/* Close button */}
+                <TouchableOpacity
+                  style={styles.modalCloseBtn}
+                  onPress={handleCloseFeedback}
+                  activeOpacity={0.7}
+                >
                   <Ionicons
-                    name={star <= rating ? 'star' : 'star-outline'}
-                    size={36}
-                    color={Brand.primary}
+                    name="close"
+                    size={24}
+                    color={theme.textSecondary}
                   />
                 </TouchableOpacity>
-              ))}
-            </View>
 
-            <TextInput
-              style={[styles.commentInput, { color: theme.textPrimary, backgroundColor: theme.background }]}
-              placeholder="Leave a comment (optional)"
-              placeholderTextColor={theme.textSecondary}
-              value={comment}
-              onChangeText={setComment}
-              multiline
-            />
+                {/* Icon */}
+                <View
+                  style={[
+                    styles.modalIconCircle,
+                    { backgroundColor: `${Brand.primary}15` },
+                  ]}
+                >
+                  <Ionicons name="star" size={32} color={Brand.primary} />
+                </View>
 
-            <TouchableOpacity
-              style={styles.submitBtn}
-              onPress={handleSubmitFeedback}
-              disabled={isSubmittingFeedback}
-            >
-              {isSubmittingFeedback ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
-                <ThemedText style={styles.submitBtnText}>Submit Feedback</ThemedText>
-              )}
-            </TouchableOpacity>
+                {/* Title & Subtitle */}
+                <ThemedText
+                  style={[styles.modalTitle, { color: theme.textPrimary }]}
+                >
+                  How was your experience?
+                </ThemedText>
+                <ThemedText
+                  style={[styles.modalSubtitle, { color: theme.textSecondary }]}
+                >
+                  Your feedback helps us improve
+                </ThemedText>
+
+                {/* Stars */}
+                <View style={styles.starsContainer}>
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <TouchableOpacity
+                      key={star}
+                      onPress={() => setRating(star)}
+                      activeOpacity={0.7}
+                      style={styles.starButton}
+                    >
+                      <Ionicons
+                        name={star <= rating ? 'star' : 'star-outline'}
+                        size={40}
+                        color={
+                          star <= rating ? Brand.primary : theme.textTertiary
+                        }
+                      />
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                {/* Rating label */}
+                {rating > 0 && (
+                  <ThemedText
+                    style={[styles.ratingLabel, { color: Brand.primary }]}
+                  >
+                    {rating === 5
+                      ? '🎉 Excellent!'
+                      : rating === 4
+                        ? '😊 Great!'
+                        : rating === 3
+                          ? '👍 Good'
+                          : rating === 2
+                            ? '😐 Okay'
+                            : '😞 Poor'}
+                  </ThemedText>
+                )}
+
+                {/* Comment input */}
+                <TextInput
+                  style={[
+                    styles.commentInput,
+                    {
+                      color: theme.textPrimary,
+                      backgroundColor: theme.background,
+                      borderColor: theme.border,
+                    },
+                  ]}
+                  placeholder="Share your thoughts (optional)"
+                  placeholderTextColor={theme.textTertiary}
+                  value={comment}
+                  onChangeText={setComment}
+                  multiline
+                  maxLength={200}
+                />
+
+                {/* Character count */}
+                <ThemedText
+                  style={[styles.charCount, { color: theme.textTertiary }]}
+                >
+                  {comment.length}/200
+                </ThemedText>
+
+                {/* Buttons */}
+                <View style={styles.modalButtons}>
+                  <TouchableOpacity
+                    style={[styles.skipBtn, { borderColor: theme.border }]}
+                    onPress={handleCloseFeedback}
+                    activeOpacity={0.7}
+                  >
+                    <ThemedText
+                      style={[
+                        styles.skipBtnText,
+                        { color: theme.textSecondary },
+                      ]}
+                    >
+                      Skip
+                    </ThemedText>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[
+                      styles.submitBtn,
+                      {
+                        opacity: rating === 0 || isSubmittingFeedback ? 0.5 : 1,
+                      },
+                    ]}
+                    onPress={handleSubmitFeedback}
+                    disabled={rating === 0 || isSubmittingFeedback}
+                    activeOpacity={0.8}
+                  >
+                    {isSubmittingFeedback ? (
+                      <ActivityIndicator color="#fff" size="small" />
+                    ) : (
+                      <>
+                        <ThemedText style={styles.submitBtnText}>
+                          Submit
+                        </ThemedText>
+                        <Ionicons name="checkmark" size={20} color="#fff" />
+                      </>
+                    )}
+                  </TouchableOpacity>
+                </View>
+              </>
+            ) : (
+              <>
+                {/* Success state */}
+                <Animated.View style={styles.successContent}>
+                  <View
+                    style={[
+                      styles.successIconCircle,
+                      { backgroundColor: Brand.success },
+                    ]}
+                  >
+                    <Ionicons name="checkmark" size={48} color="#fff" />
+                  </View>
+                  <ThemedText
+                    style={[styles.successTitle, { color: theme.textPrimary }]}
+                  >
+                    Thank You!
+                  </ThemedText>
+                  <ThemedText
+                    style={[
+                      styles.successSubtitle,
+                      { color: theme.textSecondary },
+                    ]}
+                  >
+                    Your feedback has been submitted successfully
+                  </ThemedText>
+                  <View style={styles.successStars}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Ionicons
+                        key={star}
+                        name="star"
+                        size={24}
+                        color={star <= rating ? Brand.primary : theme.border}
+                      />
+                    ))}
+                  </View>
+                </Animated.View>
+              </>
+            )}
           </View>
         </View>
       </Modal>

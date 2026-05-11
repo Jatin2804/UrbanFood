@@ -1,5 +1,6 @@
 import CartFloatingBar from '@/components/cart/CartFloatingBar';
-import { DishCardSkeleton } from '@/components/common/DishCardSkeleton';
+import { DishCardSkeleton } from '@/components/skeletons/DishCardSkeleton';
+import { CategoryListSkeleton } from '@/components/skeletons/CategoryListSkeleton';
 import EmptyState from '@/components/common/EmptyState';
 import CategoryList from '@/components/explore/CategoryList';
 import DishCard from '@/components/explore/DishCard';

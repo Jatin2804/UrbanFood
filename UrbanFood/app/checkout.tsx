@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DELIVERY_FEE, ESTIMATED_DELIVERY_MINUTES } from '@/src/constants/cart';
 import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
@@ -108,8 +108,6 @@ export default function Checkout() {
       // Prepare navigation params
       const params: Record<string, string> = {
         orderId: order.orderId,
-        orderTime: order.orderTime,
-        estimatedTime: order.estimatedTime,
       };
       if (coords) {
         params.userLat = coords.latitude.toString();

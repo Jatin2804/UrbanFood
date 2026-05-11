@@ -1,5 +1,5 @@
 import CartFloatingBar from '@/components/cart/CartFloatingBar';
-import { HorizontalDishCardSkeleton } from '@/components/common/DishCardSkeleton';
+import { HorizontalDishCardSkeleton } from '@/components/skeletons/DishCardSkeleton';
 import BannerCarousel from '@/components/home/BannerCarousel';
 import BottomBanner from '@/components/home/BottomBanner';
 import CategoryCarousel from '@/components/home/CategoryCarousel';

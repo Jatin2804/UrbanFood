@@ -16,6 +16,7 @@ export interface Booking {
   tableNumber: number;
   timeSlot: TimeSlot;
   bookingTime: string; // ISO string
+  bookingDate: string; // ISO string - date for the booking
   status: 'active' | 'completed' | 'cancelled';
   createdAt: string; // ISO string
   dishes?: CartDish[];

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  cancelBooking,
-  createBooking,
-  fetchBookings,
-  fetchTables,
+    cancelBooking,
+    createBooking,
+    fetchBookings,
+    fetchTables,
 } from '../features/bookings/bookingsThunks';
 import { TimeSlot } from '../features/bookings/bookingsTypes';
 import { AppDispatch } from '../store';
@@ -42,6 +42,7 @@ export const useBookings = () => {
     tableNumber: number,
     timeSlot: TimeSlot,
     dishes?: any[],
+    bookingDate?: string,
   ) => {
     if (!user) {
       throw new Error('User not logged in');
@@ -53,6 +54,7 @@ export const useBookings = () => {
         tableId,
         tableNumber,
         timeSlot,
+        bookingDate: bookingDate || new Date().toISOString(),
         dishes,
       }),
     ).unwrap();

@@ -3,7 +3,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import CartEmptyState from '@/components/cart/CartEmptyState';
 import CartHeader from '@/components/cart/CartHeader';
 import CartRow from '@/components/cart/CartRow';
-import CartRowSkeleton from '@/components/cart/CartRowSkeleton';
+import CartRowSkeleton from '@/components/skeletons/CartRowSkeleton';
 import CheckoutBar from '@/components/cart/CheckoutBar';
 import OfferSection from '@/components/cart/OfferSection';
 import OfferSheet from '@/components/cart/OfferSheet';

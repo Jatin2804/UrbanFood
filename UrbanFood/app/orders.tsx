@@ -1,7 +1,8 @@
+import { OrderCardSkeleton } from '@/components/skeletons/OrderCardSkeleton';
 import { ThemedText } from '@/components/themed-text';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Radius, Shadows, Spacing } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
 import { Order } from '@/src/features/orders/ordersTypes';
 import { useAuth } from '@/src/hooks/useAuth';
@@ -59,8 +60,6 @@ function OrderCard({ order, theme }: { order: Order; theme: any }) {
         pathname: ROUTES.DELIVERY_MAP,
         params: {
           orderId: order.orderId,
-          orderTime: order.orderTime,
-          estimatedTime: order.estimatedTime,
         },
       });
     }

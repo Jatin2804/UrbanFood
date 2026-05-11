@@ -6,23 +6,34 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-export default function BookingCard({ booking, onCancel }: BookingCardProps) {
+export default function BookingCard({
+  booking,
+  onCancel,
+  isExpired = false,
+}: BookingCardProps) {
   const scheme = useColorScheme() ?? 'light';
   const theme = Colors[scheme];
 
-  const bookingDate = new Date(booking.bookingTime);
+  const bookingDate = new Date(booking.bookingDate || booking.bookingTime);
+  const bookingTime = new Date(booking.bookingTime);
   const formattedDate = bookingDate.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   });
-  const formattedTime = bookingDate.toLocaleTimeString('en-US', {
+  const formattedTime = bookingTime.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
   });
 
-  const isActive = booking.status === 'active';
   const isCancelled = booking.status === 'cancelled';
+  const showActions = !isExpired && !isCancelled && booking.status === 'active';
+
+  // Calculate total price if dishes exist
+  const totalPrice = booking.dishes?.reduce(
+    (sum: number, dish: any) => sum + dish.price * dish.quantity,
+    0,
+  );
 
   return (
     <View
@@ -30,132 +41,179 @@ export default function BookingCard({ booking, onCancel }: BookingCardProps) {
         styles.card,
         {
           backgroundColor: theme.surface,
-          borderColor: theme.border,
-          opacity: isCancelled ? 0.6 : 1,
+          borderColor: isExpired || isCancelled ? theme.border : Brand.primary,
+          borderWidth: isExpired || isCancelled ? 1 : 1.5,
         },
       ]}
     >
+      {/* Header with Table Info */}
       <View style={styles.header}>
         <View style={styles.tableInfo}>
           <View
             style={[
               styles.iconBox,
               {
-                backgroundColor: isCancelled
-                  ? theme.surfaceSecondary
-                  : Brand.primaryFaded,
+                backgroundColor:
+                  isExpired || isCancelled
+                    ? theme.surfaceSecondary
+                    : Brand.primaryFaded,
               },
             ]}
           >
             <Ionicons
               name="restaurant"
-              size={20}
-              color={isCancelled ? theme.textTertiary : Brand.primary}
+              size={24}
+              color={
+                isExpired || isCancelled ? theme.textTertiary : Brand.primary
+              }
             />
           </View>
-          <View>
+          <View style={styles.tableInfoText}>
             <Text style={[styles.tableNumber, { color: theme.textPrimary }]}>
               Table {booking.tableNumber}
             </Text>
-            <Text style={[styles.slotText, { color: theme.textSecondary }]}>
-              {booking.timeSlot === '5min' ? '5 minutes' : '10 minutes'}
-            </Text>
+            <View style={styles.slotBadge}>
+              <Ionicons
+                name="time-outline"
+                size={12}
+                color={theme.textSecondary}
+              />
+              <Text style={[styles.slotText, { color: theme.textSecondary }]}>
+                {booking.timeSlot === '5min' ? '5 min' : '10 min'}
+              </Text>
+            </View>
           </View>
         </View>
 
-        <View
-          style={[
-            styles.statusBadge,
-            {
-              backgroundColor: isCancelled
-                ? theme.surfaceSecondary
-                : isActive
-                  ? Brand.primaryFaded
-                  : theme.surfaceSecondary,
-            },
-          ]}
-        >
-          <Text
+        {/* Status Badge - Only show for non-expired bookings */}
+        {!isExpired && (
+          <View
             style={[
-              styles.statusText,
+              styles.statusBadge,
               {
-                color: isCancelled
-                  ? theme.textTertiary
-                  : isActive
-                    ? Brand.primary
-                    : theme.textSecondary,
+                backgroundColor: isCancelled
+                  ? '#FEE2E2'
+                  : Brand.primaryFaded,
               },
             ]}
           >
-            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.divider} />
-
-      <View style={styles.details}>
-        <View style={styles.detailRow}>
-          <Ionicons name="calendar" size={16} color={theme.textSecondary} />
-          <Text style={[styles.detailText, { color: theme.textSecondary }]}>
-            {formattedDate}
-          </Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Ionicons name="time" size={16} color={theme.textSecondary} />
-          <Text style={[styles.detailText, { color: theme.textSecondary }]}>
-            {formattedTime}
-          </Text>
-        </View>
-      </View>
-
-      {booking.dishes && booking.dishes.length > 0 && (
-        <View
-          style={{
-            marginTop: 12,
-            paddingTop: 12,
-            borderTopWidth: 1,
-            borderTopColor: theme.border,
-          }}
-        >
-          <Text
-            style={{
-              color: theme.textPrimary,
-              fontSize: 14,
-              fontWeight: '600',
-              marginBottom: 8,
-            }}
-          >
-            Order Items
-          </Text>
-          {booking.dishes.map((dish, idx) => (
-            <View
-              key={idx}
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginBottom: 4,
-              }}
+            <Text
+              style={[
+                styles.statusText,
+                {
+                  color: isCancelled ? '#DC2626' : Brand.primary,
+                },
+              ]}
             >
-              <Text
-                style={{ color: theme.textSecondary, fontSize: 13, flex: 1 }}
-              >
-                {dish.quantity}x {dish.name}
+              {isCancelled ? 'Cancelled' : 'Active'}
+            </Text>
+          </View>
+        )}
+      </View>
+
+      {/* Date and Time Info */}
+      <View style={styles.infoSection}>
+        <View style={styles.infoRow}>
+          <View style={styles.infoItem}>
+            <Ionicons
+              name="calendar-outline"
+              size={18}
+              color={Brand.primary}
+            />
+            <View style={styles.infoTextContainer}>
+              <Text style={[styles.infoLabel, { color: theme.textSecondary }]}>
+                Date
               </Text>
-              <Text style={{ color: theme.textSecondary, fontSize: 13 }}>
-                ₹{dish.price * dish.quantity}
+              <Text style={[styles.infoValue, { color: theme.textPrimary }]}>
+                {formattedDate}
               </Text>
             </View>
-          ))}
+          </View>
+
+          <View style={styles.infoItem}>
+            <Ionicons name="time-outline" size={18} color={Brand.primary} />
+            <View style={styles.infoTextContainer}>
+              <Text style={[styles.infoLabel, { color: theme.textSecondary }]}>
+                Time
+              </Text>
+              <Text style={[styles.infoValue, { color: theme.textPrimary }]}>
+                {formattedTime}
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      {/* Order Items */}
+      {booking.dishes && booking.dishes.length > 0 && (
+        <View
+          style={[
+            styles.orderSection,
+            { borderTopColor: theme.border, backgroundColor: theme.background },
+          ]}
+        >
+          <View style={styles.orderHeader}>
+            <Ionicons name="receipt-outline" size={16} color={Brand.primary} />
+            <Text style={[styles.orderTitle, { color: theme.textPrimary }]}>
+              Order Items
+            </Text>
+          </View>
+          <View style={styles.orderItems}>
+            {booking.dishes.map((dish: any, idx: number) => (
+              <View key={idx} style={styles.orderItem}>
+                <View style={styles.orderItemLeft}>
+                  <View
+                    style={[
+                      styles.quantityBadge,
+                      { backgroundColor: Brand.primaryFaded },
+                    ]}
+                  >
+                    <Text style={[styles.quantityText, { color: Brand.primary }]}>
+                      {dish.quantity}×
+                    </Text>
+                  </View>
+                  <Text
+                    style={[styles.dishName, { color: theme.textPrimary }]}
+                    numberOfLines={1}
+                  >
+                    {dish.name}
+                  </Text>
+                </View>
+                <Text style={[styles.dishPrice, { color: theme.textPrimary }]}>
+                  ₹{dish.price * dish.quantity}
+                </Text>
+              </View>
+            ))}
+          </View>
+          {totalPrice && (
+            <View
+              style={[
+                styles.totalRow,
+                { borderTopColor: theme.border, backgroundColor: theme.surface },
+              ]}
+            >
+              <Text style={[styles.totalLabel, { color: theme.textPrimary }]}>
+                Total Amount
+              </Text>
+              <Text style={[styles.totalValue, { color: Brand.primary }]}>
+                ₹{totalPrice}
+              </Text>
+            </View>
+          )}
         </View>
       )}
 
-      {isActive && (
+      {/* Cancel Button - Only show for active, non-expired bookings */}
+      {showActions && (
         <TouchableOpacity
-          style={[styles.cancelButton, { borderColor: Brand.error }]}
+          style={[
+            styles.cancelButton,
+            { borderColor: Brand.error, backgroundColor: '#FEE2E2' },
+          ]}
           onPress={onCancel}
           activeOpacity={0.7}
         >
+          <Ionicons name="close-circle-outline" size={18} color={Brand.error} />
           <Text style={[styles.cancelText, { color: Brand.error }]}>
             Cancel Booking
           </Text>

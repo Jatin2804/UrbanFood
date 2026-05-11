@@ -1,12 +1,12 @@
 import BookingCard from '@/components/bookings/BookingCard';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-import BookingCardSkeleton from '@/components/bookings/BookingCardSkeleton';
 import RestaurantLayout from '@/components/bookings/RestaurantLayout';
 import TableCard from '@/components/bookings/TableCard';
-import TableCardSkeleton from '@/components/bookings/TableCardSkeleton';
+import BookingCardSkeleton from '@/components/skeletons/BookingCardSkeleton';
+import TableCardSkeleton from '@/components/skeletons/TableCardSkeleton';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Brand, Colors, Radius, Spacing } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ROUTES } from '@/src/constants/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useBookings } from '@/src/hooks/useBookings';
@@ -14,16 +14,18 @@ import { useCart } from '@/src/hooks/useCart';
 import { Table, TimeSlot } from '@/src/types';
 import { dineInStyles as styles } from '@/styles/screens/dineInStyles';
 import { Ionicons } from '@expo/vector-icons';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  RefreshControl,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Alert,
+    Platform,
+    RefreshControl,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -52,9 +54,14 @@ export default function DineIn() {
   const [selectedTable, setSelectedTable] = useState<Table | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot>('5min');
   const [activeTab, setActiveTab] = useState<'book' | 'mybookings'>('book');
+  const [bookingSubTab, setBookingSubTab] = useState<
+    'upcoming' | 'current' | 'expired'
+  >('current');
   const [justBooked, setJustBooked] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'layout'>('layout');
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   // Handle deep link tab parameter
   useEffect(() => {
@@ -131,6 +138,7 @@ export default function DineIn() {
         selectedTable.number,
         selectedSlot,
         cartItems,
+        selectedDate.toISOString(),
       );
 
       // The newly created booking is already added to Redux state by the thunk
@@ -176,19 +184,59 @@ export default function DineIn() {
     );
   };
 
-  const myBookings = user
-    ? bookings.filter((b) => {
-        if (b.userId !== user.id) return false;
-        if (b.status !== 'active') return false;
-
-        const bookingTime = new Date(b.bookingTime);
-        const slotDuration =
-          b.timeSlot === '5min' ? 5 * 60 * 1000 : 10 * 60 * 1000;
-        const expiryTime = new Date(bookingTime.getTime() + slotDuration);
-
-        return currentTime < expiryTime;
-      })
+  // Filter bookings by user
+  const userBookings = user
+    ? bookings.filter((b) => b.userId === user.id && b.status === 'active')
     : [];
+
+  // Get today's date at midnight for comparison
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+
+  // Categorize bookings
+  const upcomingBookings = userBookings.filter((b) => {
+    const bookingDate = new Date(b.bookingDate || b.bookingTime);
+    return bookingDate > todayEnd;
+  });
+
+  const currentBookings = userBookings.filter((b) => {
+    const bookingDate = new Date(b.bookingDate || b.bookingTime);
+    const bookingTime = new Date(b.bookingTime);
+    const slotDuration = b.timeSlot === '5min' ? 5 * 60 * 1000 : 10 * 60 * 1000;
+    const expiryTime = new Date(bookingTime.getTime() + slotDuration);
+
+    // Must be today and not expired
+    return (
+      bookingDate >= todayStart &&
+      bookingDate <= todayEnd &&
+      currentTime < expiryTime
+    );
+  });
+
+  const expiredBookings = userBookings.filter((b) => {
+    const bookingDate = new Date(b.bookingDate || b.bookingTime);
+    const bookingTime = new Date(b.bookingTime);
+    const slotDuration = b.timeSlot === '5min' ? 5 * 60 * 1000 : 10 * 60 * 1000;
+    const expiryTime = new Date(bookingTime.getTime() + slotDuration);
+
+    // Either past date or today but expired
+    return (
+      bookingDate < todayStart ||
+      (bookingDate >= todayStart &&
+        bookingDate <= todayEnd &&
+        currentTime >= expiryTime)
+    );
+  });
+
+  // Get bookings to display based on active sub-tab
+  const displayBookings =
+    bookingSubTab === 'upcoming'
+      ? upcomingBookings
+      : bookingSubTab === 'current'
+        ? currentBookings
+        : expiredBookings;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
@@ -444,6 +492,83 @@ export default function DineIn() {
                 </View>
               </View>
             )}
+
+            {/* Date Selection */}
+            <View style={styles.section}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: Spacing.md,
+                }}
+              >
+                <Ionicons
+                  name="calendar-outline"
+                  size={24}
+                  color={Brand.primary}
+                />
+                <Text
+                  style={[
+                    styles.sectionTitle,
+                    {
+                      color: theme.textPrimary,
+                      marginBottom: 0,
+                      marginLeft: Spacing.sm,
+                    },
+                  ]}
+                >
+                  Select Date
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={[
+                  styles.slotButton,
+                  {
+                    backgroundColor: theme.surface,
+                    borderColor: Brand.primary,
+                    borderWidth: 1,
+                    width: '100%',
+                  },
+                ]}
+                onPress={() => setShowDatePicker(true)}
+                activeOpacity={0.7}
+              >
+                <Ionicons
+                  name="calendar"
+                  size={20}
+                  color={Brand.primary}
+                  style={{ marginBottom: 4 }}
+                />
+                <Text
+                  style={[
+                    styles.slotButtonText,
+                    {
+                      color: theme.textPrimary,
+                    },
+                  ]}
+                >
+                  {selectedDate.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </Text>
+              </TouchableOpacity>
+              {showDatePicker && (
+                <DateTimePicker
+                  value={selectedDate}
+                  mode="date"
+                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                  minimumDate={new Date()}
+                  onChange={(event, date) => {
+                    setShowDatePicker(Platform.OS === 'ios');
+                    if (date) {
+                      setSelectedDate(date);
+                    }
+                  }}
+                />
+              )}
+            </View>
 
             {/* Time Slot Selection */}
             <View style={styles.section}>
@@ -715,7 +840,86 @@ export default function DineIn() {
               />
             }
           >
-            {myBookings.length === 0 ? (
+            {/* Sub-tabs for My Bookings */}
+            <View style={styles.subTabsContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.subTab,
+                  bookingSubTab === 'upcoming' && {
+                    backgroundColor: Brand.primaryFaded,
+                    borderColor: Brand.primary,
+                  },
+                ]}
+                onPress={() => setBookingSubTab('upcoming')}
+                activeOpacity={0.7}
+              >
+                <Text
+                  style={[
+                    styles.subTabText,
+                    {
+                      color:
+                        bookingSubTab === 'upcoming'
+                          ? Brand.primary
+                          : theme.textSecondary,
+                    },
+                  ]}
+                >
+                  Upcoming
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.subTab,
+                  bookingSubTab === 'current' && {
+                    backgroundColor: Brand.primaryFaded,
+                    borderColor: Brand.primary,
+                  },
+                ]}
+                onPress={() => setBookingSubTab('current')}
+                activeOpacity={0.7}
+              >
+                <Text
+                  style={[
+                    styles.subTabText,
+                    {
+                      color:
+                        bookingSubTab === 'current'
+                          ? Brand.primary
+                          : theme.textSecondary,
+                    },
+                  ]}
+                >
+                  Current
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.subTab,
+                  bookingSubTab === 'expired' && {
+                    backgroundColor: Brand.primaryFaded,
+                    borderColor: Brand.primary,
+                  },
+                ]}
+                onPress={() => setBookingSubTab('expired')}
+                activeOpacity={0.7}
+              >
+                <Text
+                  style={[
+                    styles.subTabText,
+                    {
+                      color:
+                        bookingSubTab === 'expired'
+                          ? Brand.primary
+                          : theme.textSecondary,
+                    },
+                  ]}
+                >
+                  Expired
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {displayBookings.length === 0 ? (
               <View style={styles.emptyContainer}>
                 <View
                   style={[
@@ -730,20 +934,29 @@ export default function DineIn() {
                   />
                 </View>
                 <Text style={[styles.emptyTitle, { color: theme.textPrimary }]}>
-                  No Bookings Yet
+                  {bookingSubTab === 'upcoming'
+                    ? 'No Upcoming Bookings'
+                    : bookingSubTab === 'current'
+                      ? 'No Current Bookings'
+                      : 'No Expired Bookings'}
                 </Text>
                 <Text
                   style={[styles.emptyDesc, { color: theme.textSecondary }]}
                 >
-                  Book a table to see your reservations here
+                  {bookingSubTab === 'upcoming'
+                    ? 'Bookings scheduled for future dates will appear here'
+                    : bookingSubTab === 'current'
+                      ? 'Active bookings for today will appear here'
+                      : 'Past bookings will appear here'}
                 </Text>
               </View>
             ) : (
-              myBookings.map((booking) => (
+              displayBookings.map((booking) => (
                 <BookingCard
                   key={booking.bookingId}
                   booking={booking}
                   onCancel={() => handleCancelBooking(booking.bookingId)}
+                  isExpired={bookingSubTab === 'expired'}
                 />
               ))
             )}

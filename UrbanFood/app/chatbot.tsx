@@ -1,58 +1,42 @@
-import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import {
-  Alert,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Alert,
+    FlatList,
+    KeyboardAvoidingView,
+    Platform,
 } from 'react-native';
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
-import ChatbotDishCard from '@/components/chatbot/ChatbotDishCard';
-import ChatbotMenuCategories from '@/components/chatbot/ChatbotMenuCategories';
-import { ThemedText } from '@/components/themed-text';
+import ChatbotHeader from '@/components/chatbot/ChatbotHeader';
+import ChatbotInput from '@/components/chatbot/ChatbotInput';
+import ChatbotMessageItem from '@/components/chatbot/ChatbotMessageItem';
+import ChatbotQuickReplies from '@/components/chatbot/ChatbotQuickReplies';
+import ChatbotTypingIndicator from '@/components/chatbot/ChatbotTypingIndicator';
 import { ThemedView } from '@/components/themed-view';
-import { Brand, Colors } from '@/constants/theme';
+import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import {
-  CHATBOT_GREETING,
-  CHATBOT_QUICK_REPLIES,
+    CHATBOT_GREETING,
 } from '@/src/constants/chatbot';
 import { ROUTES } from '@/src/constants/navigation';
-import { Dish } from '@/src/features/dishes/dishesType';
+import { STORAGE_KEYS } from '@/src/constants/storage';
+import { useAppTheme } from '@/src/hooks/useAppTheme';
 import { useAuth } from '@/src/hooks/useAuth';
 import { useBookings } from '@/src/hooks/useBookings';
 import { useDishes } from '@/src/hooks/useDishes';
 import { useOrders } from '@/src/hooks/useOrders';
+import { useTranslation } from '@/src/hooks/useTranslation';
 import { sendMessageToGrok } from '@/src/services/chatService';
-import { ChatMessage } from '@/src/types/components';
-import { chatbotMenuStyles } from '@/styles/components/chatbotMenuStyles';
+import { ChatbotMessage } from '@/src/types/chatbot';
 import { chatbotStyles } from '@/styles/screens/chatbotStyles';
-import { STORAGE_KEYS } from '@/src/constants/storage';
-
-interface ChatbotMessage extends ChatMessage {
-  type?: 'text' | 'menu';
-  dishes?: Dish[];
-  dishIds?: string[]; // IDs of recommended dishes
-}
 
 export default function Chatbot() {
   const router = useRouter();
   const colorScheme = useColorScheme();
+  const { mode, setThemeMode } = useAppTheme();
+  const { currentLanguage } = useTranslation();
 
-  /**
-   * Common deeplink navigation helper.
-   * Uses router.push() for in-app navigation (reliable within Expo Router).
-   * Accepts any valid Expo Router href path.
-   */
   const openDeepLink = (path: string, delayMs = 500) => {
     setTimeout(() => {
       router.push(path as any);
@@ -82,12 +66,10 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const [showInitialChips, setShowInitialChips] = useState(true);
 
-  // Load chat history on mount
   useEffect(() => {
     loadChatHistory();
   }, []);
 
-  // Save chat history whenever messages change
   useEffect(() => {
     saveChatHistory();
   }, [messages]);
@@ -99,7 +81,6 @@ export default function Chatbot() {
       );
       if (savedMessages) {
         const parsed = JSON.parse(savedMessages);
-        // Convert timestamp strings back to Date objects
         const messagesWithDates = parsed.map((msg: any) => ({
           ...msg,
           timestamp: new Date(msg.timestamp),
@@ -175,21 +156,17 @@ export default function Chatbot() {
       flatListRef.current?.scrollToEnd({ animated: true });
     }, 100);
 
-    // Prepare chat history for AI - get last 3 message pairs (6 messages)
-    // Filter out menu type messages and only include text messages
     const textMessages = messages.filter((msg) => msg.type === 'text');
-    const recentMessages = textMessages.slice(-6); // Last 6 messages (3 pairs)
+    const recentMessages = textMessages.slice(-6);
     const chatHistory = recentMessages.map((msg) => ({
       role: msg.isBot ? 'assistant' : 'user',
       content: msg.text,
     }));
 
-    // Local intent fallback
     const lowerText = text.toLowerCase();
     const wordCount = text.trim().split(/\s+/).length;
     let localResponse = null;
 
-    // Only process local intents if the message is short (e.g., <= 7 words)
     if (wordCount <= 7) {
       if (
         lowerText.includes('track my order') ||
@@ -244,7 +221,6 @@ export default function Chatbot() {
       return;
     }
 
-    // Call Grok AI
     const response = await sendMessageToGrok({
       message: text,
       menuData: allDishes,
@@ -270,7 +246,6 @@ export default function Chatbot() {
   };
 
   const handleQuickReply = (reply: string) => {
-    // Handle "Go Back" chip
     if (reply === 'Go Back') {
       setShowInitialChips(true);
       return;
@@ -297,7 +272,6 @@ export default function Chatbot() {
       let botMessage: ChatbotMessage;
 
       if (reply.includes('Show menu')) {
-        // Show menu with categories and dishes
         const first10Dishes = allDishes.slice(0, 10);
         botMessage = {
           id: (Date.now() + 1).toString(),
@@ -361,6 +335,25 @@ export default function Chatbot() {
           type: 'text',
         };
         openDeepLink('/offers');
+      } else if (reply.includes('Toggle Theme')) {
+        const newMode = colorScheme === 'dark' ? 'light' : 'dark';
+        setThemeMode(newMode);
+        botMessage = {
+          id: (Date.now() + 1).toString(),
+          text: `Switched to ${newMode} mode! ${newMode === 'dark' ? '🌙' : '☀️'}`,
+          isBot: true,
+          timestamp: new Date(),
+          type: 'text',
+        };
+      } else if (reply.includes('Settings')) {
+        botMessage = {
+          id: (Date.now() + 1).toString(),
+          text: 'Opening settings! ⚙️',
+          isBot: true,
+          timestamp: new Date(),
+          type: 'text',
+        };
+        openDeepLink('/settings');
       } else {
         botMessage = {
           id: (Date.now() + 1).toString(),
@@ -380,207 +373,25 @@ export default function Chatbot() {
   };
 
   const handleCategoryPress = (categoryId: string) => {
-    // Determine if it's a filter or category
     const filterIds = ['toprated', 'newlyadded'];
-
     if (filterIds.includes(categoryId)) {
-      // It's a filter, use filter parameter
       router.push(`${ROUTES.TABS.EXPLORE}?filter=${categoryId}` as any);
     } else {
-      // It's a category, use category parameter
       router.push(`${ROUTES.TABS.EXPLORE}?category=${categoryId}` as any);
     }
   };
 
   const handleDishPress = (dishId: string) => {
-    // Navigate to dish detail
     router.push(ROUTES.DISH_DETAILS(dishId) as any);
   };
 
   const handleViewAll = () => {
-    // Navigate to explore
     router.push(ROUTES.TABS.EXPLORE as any);
   };
 
   const handleExploreDishes = (dishIds: string[]) => {
-    // Navigate to chatbot response explore screen with dish IDs
     router.push(
       `${ROUTES.CHATBOT_EXPLORE}?dishIds=${dishIds.join(',')}` as any,
-    );
-  };
-
-  const renderMessage = ({
-    item,
-    index,
-  }: {
-    item: ChatbotMessage;
-    index: number;
-  }) => {
-    if (item.type === 'menu' && item.dishes) {
-      return (
-        <Animated.View
-          entering={FadeInUp.delay(index * 50).springify()}
-          style={chatbotStyles.messageContainer}
-        >
-          <Image
-            source={require('@/assets/images/samosa-bot.png')}
-            style={chatbotStyles.botAvatar}
-            contentFit="cover"
-          />
-          <View style={{ flex: 1 }}>
-            <View
-              style={[
-                chatbotStyles.messageBubble,
-                chatbotStyles.botBubble,
-                { backgroundColor: colors.surfaceSecondary },
-              ]}
-            >
-              <ThemedText style={chatbotStyles.messageText}>
-                {item.text}
-              </ThemedText>
-            </View>
-
-            {/* Categories */}
-            <ChatbotMenuCategories onCategoryPress={handleCategoryPress} />
-
-            {/* Dishes Section */}
-            <View style={chatbotMenuStyles.dishesSection}>
-              <View style={chatbotMenuStyles.dishesSectionHeader}>
-                <ThemedText style={chatbotMenuStyles.dishesSectionTitle}>
-                  Popular Dishes
-                </ThemedText>
-                <TouchableOpacity
-                  style={chatbotMenuStyles.viewAllButton}
-                  onPress={handleViewAll}
-                  activeOpacity={0.7}
-                >
-                  <ThemedText style={chatbotMenuStyles.viewAllText}>
-                    View All →
-                  </ThemedText>
-                </TouchableOpacity>
-              </View>
-
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={chatbotMenuStyles.dishesScroll}
-              >
-                {item.dishes.map((dish) => (
-                  <ChatbotDishCard
-                    key={dish.id}
-                    dish={dish}
-                    onPress={() => handleDishPress(dish.id)}
-                  />
-                ))}
-                {/* View All Card */}
-                <TouchableOpacity
-                  style={chatbotMenuStyles.viewAllCard}
-                  onPress={handleViewAll}
-                  activeOpacity={0.7}
-                >
-                  <Ionicons
-                    name="arrow-forward-circle"
-                    size={32}
-                    color={Brand.primary}
-                  />
-                  <ThemedText style={chatbotMenuStyles.viewAllCardText}>
-                    View All
-                  </ThemedText>
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
-          </View>
-        </Animated.View>
-      );
-    }
-
-    return (
-      <Animated.View
-        entering={FadeInUp.delay(index * 50).springify()}
-        style={[
-          chatbotStyles.messageContainer,
-          item.isBot
-            ? chatbotStyles.botMessageContainer
-            : chatbotStyles.userMessageContainer,
-        ]}
-      >
-        {item.isBot && (
-          <Image
-            source={require('@/assets/images/samosa-bot.png')}
-            style={chatbotStyles.botAvatar}
-            contentFit="cover"
-          />
-        )}
-        <View style={{ flex: 1 }}>
-          <View
-            style={[
-              chatbotStyles.messageBubble,
-              item.isBot ? chatbotStyles.botBubble : chatbotStyles.userBubble,
-              {
-                backgroundColor: item.isBot
-                  ? colors.surfaceSecondary
-                  : Brand.primary,
-              },
-            ]}
-          >
-            <ThemedText
-              style={[
-                chatbotStyles.messageText,
-                !item.isBot && chatbotStyles.userMessageText,
-              ]}
-            >
-              {item.text}
-            </ThemedText>
-          </View>
-
-          {/* Explore Button for dish recommendations */}
-          {item.isBot && item.dishIds && item.dishIds.length > 0 && (
-            <TouchableOpacity
-              style={chatbotStyles.exploreButton}
-              onPress={() => handleExploreDishes(item.dishIds!)}
-              activeOpacity={0.8}
-            >
-              <ThemedText style={chatbotStyles.exploreButtonText}>
-                Explore Recommendations
-              </ThemedText>
-              <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
-            </TouchableOpacity>
-          )}
-        </View>
-      </Animated.View>
-    );
-  };
-
-  const renderTypingIndicator = () => {
-    if (!isTyping) return null;
-
-    return (
-      <Animated.View
-        entering={FadeInUp.springify()}
-        style={[
-          chatbotStyles.messageContainer,
-          chatbotStyles.botMessageContainer,
-        ]}
-      >
-        <Image
-          source={require('@/assets/images/samosa-bot.png')}
-          style={chatbotStyles.botAvatar}
-          contentFit="cover"
-        />
-        <View
-          style={[
-            chatbotStyles.messageBubble,
-            chatbotStyles.botBubble,
-            { backgroundColor: colors.surfaceSecondary },
-          ]}
-        >
-          <ThemedText style={chatbotStyles.messageText}>
-            <ThemedText style={{ opacity: 0.4 }}>●</ThemedText>
-            <ThemedText style={{ opacity: 0.6 }}> ●</ThemedText>
-            <ThemedText style={{ opacity: 0.8 }}> ●</ThemedText>
-          </ThemedText>
-        </View>
-      </Animated.View>
     );
   };
 
@@ -591,151 +402,47 @@ export default function Chatbot() {
       keyboardVerticalOffset={0}
     >
       <ThemedView style={chatbotStyles.container}>
-        {/* Header */}
-        <View
-          style={[chatbotStyles.header, { backgroundColor: colors.surface }]}
-        >
-          <Pressable
-            onPress={() => router.back()}
-            style={({ pressed }) => [
-              chatbotStyles.backButton,
-              { opacity: pressed ? 0.5 : 1 },
-            ]}
-          >
-            <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
-          </Pressable>
-          <Image
-            source={require('@/assets/images/samosa-bot.png')}
-            style={chatbotStyles.headerAvatar}
-            contentFit="cover"
-          />
-          <View style={chatbotStyles.headerInfo}>
-            <ThemedText style={chatbotStyles.headerTitle}>Samosa</ThemedText>
-            <ThemedText style={chatbotStyles.headerStatus}>
-              {isTyping ? 'Typing...' : 'Always here to help'}
-            </ThemedText>
-          </View>
-          {/* Clear Chat Button */}
-          <Pressable
-            onPress={clearChatHistory}
-            style={({ pressed }) => [
-              chatbotStyles.clearButton,
-              { opacity: pressed ? 0.5 : 1 },
-            ]}
-          >
-            <Ionicons
-              name="trash-outline"
-              size={20}
-              color={colors.textSecondary}
-            />
-          </Pressable>
-        </View>
+        <ChatbotHeader
+          isTyping={isTyping}
+          colors={colors}
+          onBackPress={() => router.back()}
+          onClearChat={clearChatHistory}
+        />
 
-        {/* Messages */}
         <FlatList
           ref={flatListRef}
           data={messages}
-          renderItem={renderMessage}
+          renderItem={({ item, index }) => (
+            <ChatbotMessageItem
+              item={item}
+              index={index}
+              colors={colors}
+              onCategoryPress={handleCategoryPress}
+              onDishPress={handleDishPress}
+              onViewAll={handleViewAll}
+              onExploreDishes={handleExploreDishes}
+            />
+          )}
           keyExtractor={(item) => item.id}
           contentContainerStyle={chatbotStyles.messagesList}
-          ListFooterComponent={renderTypingIndicator}
+          ListFooterComponent={
+            <ChatbotTypingIndicator isTyping={isTyping} colors={colors} />
+          }
           showsVerticalScrollIndicator={false}
         />
 
-        {/* Quick Replies */}
-        {!isTyping && (
-          <Animated.View
-            entering={FadeInDown.delay(300).springify()}
-            style={chatbotStyles.quickRepliesContainer}
-          >
-            {showInitialChips ? (
-              // Show initial quick replies
-              CHATBOT_QUICK_REPLIES.map((reply, index) => (
-                <Pressable
-                  key={index}
-                  style={({ pressed }) => [
-                    chatbotStyles.quickReplyButton,
-                    {
-                      opacity: pressed ? 0.6 : 1,
-                      transform: [{ scale: pressed ? 0.95 : 1 }],
-                    },
-                  ]}
-                  onPress={() => handleQuickReply(reply)}
-                >
-                  <ThemedText style={chatbotStyles.quickReplyText}>
-                    {reply}
-                  </ThemedText>
-                </Pressable>
-              ))
-            ) : (
-              // Show "Go Back" chip
-              <Pressable
-                style={({ pressed }) => [
-                  chatbotStyles.quickReplyButton,
-                  chatbotStyles.goBackButton,
-                  {
-                    opacity: pressed ? 0.6 : 1,
-                    transform: [{ scale: pressed ? 0.95 : 1 }],
-                  },
-                ]}
-                onPress={() => handleQuickReply('Go Back')}
-              >
-                <Ionicons name="arrow-back" size={14} color={Brand.primary} />
-                <ThemedText style={chatbotStyles.quickReplyText}>
-                  Go Back
-                </ThemedText>
-              </Pressable>
-            )}
-          </Animated.View>
-        )}
+        <ChatbotQuickReplies
+          showInitialChips={showInitialChips}
+          onQuickReply={handleQuickReply}
+          isTyping={isTyping}
+        />
 
-        {/* Input */}
-        <View
-          style={[
-            chatbotStyles.inputContainer,
-            { backgroundColor: colors.surface },
-          ]}
-        >
-          <TextInput
-            style={[
-              chatbotStyles.input,
-              {
-                color: colors.inputText,
-                backgroundColor: colors.inputBackground,
-                borderColor:
-                  inputText.trim() !== ''
-                    ? Brand.primary + '40'
-                    : 'rgba(0, 0, 0, 0.08)',
-              },
-            ]}
-            placeholder="Ask me anything..."
-            placeholderTextColor={colors.placeholder}
-            value={inputText}
-            onChangeText={setInputText}
-            onSubmitEditing={handleSend}
-            returnKeyType="send"
-            multiline
-            maxLength={500}
-          />
-          <Pressable
-            style={({ pressed }) => [
-              chatbotStyles.sendButton,
-              inputText.trim() === '' && chatbotStyles.sendButtonDisabled,
-              {
-                opacity: pressed ? 0.85 : 1,
-                transform: [{ scale: pressed ? 0.92 : 1 }],
-              },
-            ]}
-            onPress={handleSend}
-            disabled={inputText.trim() === ''}
-          >
-            <Ionicons
-              name="send"
-              size={20}
-              color={inputText.trim() === '' ? colors.textTertiary : '#FFFFFF'}
-            />
-          </Pressable>
-        </View>
+        <ChatbotInput
+          inputText={inputText}
+          onChangeText={setInputText}
+          onSend={handleSend}
+          colors={colors}
+        />
       </ThemedView>
     </KeyboardAvoidingView>
   );

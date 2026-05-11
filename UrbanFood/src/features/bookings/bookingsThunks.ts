@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NOTIFICATION_TEMPLATES } from '../../constants/notifications';
 import { TABLES } from '../../data/tables';
 import {
-  createBookingAPI,
-  fetchBookingsAPI,
-  getBookingsMeta,
-  updateBookingsAPI,
+    createBookingAPI,
+    fetchBookingsAPI,
+    getBookingsMeta,
+    updateBookingsAPI,
 } from '../../services/apiService';
 import { showNotification } from '../../utils/notifications';
 import { saveNotification } from '../../utils/notificationStorage';
@@ -48,13 +48,14 @@ export const createBooking = createAsyncThunk<
     tableId: string;
     tableNumber: number;
     timeSlot: TimeSlot;
+    bookingDate: string;
     dishes?: CartDish[];
   },
   { rejectValue: string; state: any }
 >(
   'bookings/createBooking',
   async (
-    { userId, tableId, tableNumber, timeSlot, dishes },
+    { userId, tableId, tableNumber, timeSlot, bookingDate, dishes },
     { rejectWithValue, getState },
   ) => {
     try {
@@ -68,6 +69,7 @@ export const createBooking = createAsyncThunk<
         tableNumber,
         timeSlot,
         bookingTime: new Date().toISOString(),
+        bookingDate: bookingDate,
         status: 'active',
         createdAt: new Date().toISOString(),
         dishes: dishes || [],

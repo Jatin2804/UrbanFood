@@ -157,4 +157,24 @@ export const dineInStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  subTabsContainer: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    marginBottom: Spacing.lg,
+  },
+  subTab: {
+    flex: 1,
+    paddingVertical: Spacing.sm + 2,
+    paddingHorizontal: Spacing.md,
+    borderRadius: Radius.lg,
+    borderWidth: 1.5,
+    borderColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  subTabText: {
+    ...Typography.bodySmall,
+    fontWeight: '700',
+    letterSpacing: 0.3,
+  },
 });
